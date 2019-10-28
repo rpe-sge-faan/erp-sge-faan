@@ -5,9 +5,29 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
-    Width="800"
-    Height="450"
-    mc:Ignorable="d">
-    <Grid />
+    Title="SGE-ERP-FAAN" Width="1000" Height="720" mc:Ignorable="d" WindowStartupLocation="CenterScreen">
+    <Grid >
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <TabItem Header="Compras">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Ventas">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Proveedores">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Clientes">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Stock">
+                <Grid Background="#FFE5E5E5">
+                    <Button Content="Boton" Height="100" Width="100"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Empleados">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>
