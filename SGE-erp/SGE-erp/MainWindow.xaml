@@ -14,18 +14,26 @@
             <TabItem Header="Ventas">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
-            <TabItem Header="Proveedores">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Clientes">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Stock">
+            <TabItem Header="Articulos">
                 <Grid Background="#FFE5E5E5">
-                    <Button Content="Boton" Height="100" Width="100"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="185*"/>
+                        <ColumnDefinition Width="801*"/>
+                    </Grid.ColumnDefinitions>
                 </Grid>
             </TabItem>
-            <TabItem Header="Empleados">
+            <TabItem Header="Administracion">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Gestion">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="140*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ayuda">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

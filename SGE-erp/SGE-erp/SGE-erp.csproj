@@ -130,5 +130,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Administracion\" />
+    <Folder Include="Articulos\" />
+    <Folder Include="Compras\" />
+    <Folder Include="Gestion\" />
+    <Folder Include="Ventas\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
