@@ -142,6 +142,7 @@
     <Folder Include="Articulos\" />
     <Folder Include="Compras\" />
     <Folder Include="Gestion\" />
+    <Folder Include="PruebasXD\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
