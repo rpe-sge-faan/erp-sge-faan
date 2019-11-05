@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="SGE_erp.Ventas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SGE_erp"
+        mc:Ignorable="d"
+        Background="CornflowerBlue">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <TabControl TabStripPlacement="Bottom" Margin="5,5,5,5" >
+                <TabItem Header="_Presupuestos" VerticalAlignment="Center">
+
+                </TabItem>
+                <TabItem Header="_Pedidos">
+
+                </TabItem>
+
+                <TabItem Header="_Albaranes" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+                <TabItem Header="_Facturas" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>
