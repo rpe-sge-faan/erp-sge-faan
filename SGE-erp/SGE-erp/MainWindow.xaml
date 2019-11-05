@@ -1,41 +1,38 @@
-﻿<Window
-    x:Class="SGE_erp.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:SGE_erp"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="SGE-ERP-FAAN" Width="1000" Height="720" mc:Ignorable="d" WindowStartupLocation="CenterScreen">
-    <Grid >
-        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-            <TabItem Header="Compras">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Ventas">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Articulos">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="185*"/>
-                        <ColumnDefinition Width="801*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Administracion">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Gestion">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="140*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Ayuda">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
+﻿<Window x:Class="SGE_erp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SGE_erp"
+        mc:Ignorable="d"
+        Title="Compras" Height="450" Width="800" WindowStartupLocation="Manual" MinWidth="600" MinHeight="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <TabControl TabStripPlacement="Top"  Margin="5,5,5,5" BorderThickness="0" >
+                <TabItem Header="_Compras" Background="#FFFFC733" Margin="0,5,5,5" Padding="20,10,20,10" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+                <TabItem Header="_Ventas" Background="CornflowerBlue" Padding="20,10,20,10" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <local:Ventas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </TabItem>
+                <TabItem Header="_Artículos" Padding="20,10,20,10" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+                <TabItem Header="_Gestión"  Background="IndianRed" Padding="20,10,20,10" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+                <TabItem Header="A_dministración" Background="LightYellow" Padding="20,10,20,10"  Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+                <TabItem Header="A_yuda" Padding="20,10,20,10" Background="LightPink" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                </TabItem>
+            </TabControl>
+        </Grid>
+
     </Grid>
 </Window>
