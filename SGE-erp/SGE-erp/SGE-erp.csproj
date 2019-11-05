@@ -74,6 +74,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Gestion\Clientes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gestion\Empleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gestion\GestionMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gestion\Proveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +100,18 @@
     </Compile>
     <Compile Include="Compras.xaml.cs">
       <DependentUpon>Compras.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion\Clientes.xaml.cs">
+      <DependentUpon>Clientes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion\Empleados.xaml.cs">
+      <DependentUpon>Empleados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion\GestionMain.xaml.cs">
+      <DependentUpon>GestionMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion\Proveedores.xaml.cs">
+      <DependentUpon>Proveedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -141,8 +169,6 @@
     <Folder Include="Administracion\" />
     <Folder Include="Articulos\" />
     <Folder Include="Compras\" />
-    <Folder Include="Gestion\" />
-    <Folder Include="PruebasXD\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
