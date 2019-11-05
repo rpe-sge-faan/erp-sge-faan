@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace SGE_erp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Ventas.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Ventas : UserControl
     {
-        public MainWindow()
+        public Ventas()
         {
             InitializeComponent();
         }
-
     }
 }
