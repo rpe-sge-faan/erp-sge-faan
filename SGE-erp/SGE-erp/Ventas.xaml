@@ -12,17 +12,17 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">
             <TabControl TabStripPlacement="Bottom" Margin="5,5,5,5" >
-                <TabItem Header="_Presupuestos" VerticalAlignment="Center">
+                <TabItem Header="_Presupuestos" Margin="0,5,5,5" HorizontalAlignment="Center" Padding="10" VerticalAlignment="Center">
 
                 </TabItem>
-                <TabItem Header="_Pedidos">
+                <TabItem Header="_Pedidos" Margin="0,5,5,5" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 </TabItem>
 
-                <TabItem Header="_Albaranes" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TabItem Header="_Albaranes"  Margin="0,5,5,5" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 </TabItem>
-                <TabItem Header="_Facturas" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TabItem Header="_Facturas" VerticalAlignment="Center"  Margin="0,5,5,5" HorizontalAlignment="Center" Padding="10">
 
                 </TabItem>
             </TabControl>
