@@ -7,29 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Background="IndianRed"
     mc:Ignorable="d">
     <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
-        </Grid.Background>
         <Grid.RowDefinitions>
-
-
             <RowDefinition />
         </Grid.RowDefinitions>
         <TabControl
             x:Name="tabControl"
             Grid.Row="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+            Margin="5,5,5,5"
+            BorderThickness="0"
             TabStripPlacement="Bottom">
-            <TabItem Header="Proveedores">
+            <TabItem
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="Proveedores">
                 <Grid Background="#FFE5E5E5" />
             </TabItem>
-            <TabItem Header="Clientes">
+            <TabItem
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="Clientes">
                 <Grid Background="#FFE5E5E5" />
             </TabItem>
-            <TabItem Header="Empleados">
+            <TabItem
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="Empleados">
                 <Grid Background="#FFE5E5E5" />
             </TabItem>
         </TabControl>
