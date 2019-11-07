@@ -16,7 +16,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition />
+
         </Grid.RowDefinitions>
         <TabControl
             Grid.Row="0"
@@ -49,7 +50,6 @@
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
                                             <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabGestion, Path=Background}" />
-
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                     <MultiTrigger>
@@ -151,9 +151,7 @@
                 VerticalAlignment="Center"
                 Background="LightYellow"
                 Header="A_dministración"
-                Style="{DynamicResource TabItemStyle1}">
-                <local:UserControl1 />
-            </TabItem>
+                Style="{DynamicResource TabItemStyle1}" />
             <TabItem
                 x:Name="tabAyuda"
                 Margin="5,5,5,5"
@@ -164,5 +162,58 @@
                 Header="A_yuda"
                 Style="{DynamicResource TabItemStyle1}" />
         </TabControl>
+
+        <Grid Grid.Row="1">
+            <TabControl
+                Margin="5,5,5,5"
+                BorderThickness="0"
+                TabStripPlacement="Top">
+                <TabItem
+                    Margin="0,5,5,5"
+                    Padding="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#FFFFC733"
+                    Header="_Compras" />
+                <TabItem
+                    Margin="5,5,5,5"
+                    Padding="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="CornflowerBlue"
+                    Header="_Ventas">
+                    <local:Ventas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </TabItem>
+                <TabItem
+                    Margin="5,5,5,5"
+                    Padding="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Header="_Artículos" />
+                <TabItem
+                    Margin="5,5,5,5"
+                    Padding="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="IndianRed"
+                    Header="_Gestión" />
+                <TabItem
+                    Margin="5,5,5,5"
+                    Padding="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="LightYellow"
+                    Header="A_dministración" />
+                <TabItem
+                    Margin="5,5,5,5"
+                    Padding="20,10,20,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="LightPink"
+                    Header="A_yuda" />
+            </TabControl>
+        </Grid>
+
+
     </Grid>
 </Window>
