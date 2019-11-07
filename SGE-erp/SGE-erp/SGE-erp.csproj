@@ -70,9 +70,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ventas.xaml.cs">
-      <DependentUpon>Ventas.xaml</DependentUpon>
+    <Compile Include="Administracion\Empleados.xaml.cs">
+      <DependentUpon>Empleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administracion\EmpleadosEditar.xaml.cs">
+      <DependentUpon>EmpleadosEditar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentasMain.xaml.cs">
+      <DependentUpon>VentasMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentasVista.xaml.cs">
+      <DependentUpon>VentasVista.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Administracion\Empleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\EmpleadosEditar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Compras.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,7 +109,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Ventas.xaml">
+    <Page Include="Venta\VentasMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Venta\VentasVista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,12 +166,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Administracion\" />
     <Folder Include="Articulos\" />
     <Folder Include="Compras\" />
     <Folder Include="Gestion\" />
     <Folder Include="PruebasXD\" />
-    <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
