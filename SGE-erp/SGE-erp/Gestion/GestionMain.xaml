@@ -15,28 +15,29 @@
         </Grid.RowDefinitions>
         <TabControl
             x:Name="tabControl"
-            Grid.Row="1"
             Margin="5,5,5,5"
-            BorderThickness="0"
             TabStripPlacement="Bottom">
             <TabItem
+                Width="100"
+                Margin="0,5,5,5"
+                Padding="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="Proveedores">
-                <Grid Background="#FFE5E5E5" />
-            </TabItem>
+                Header="Proveedores" />
             <TabItem
+                Width="100"
+                Margin="0,5,5,5"
+                Padding="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="Clientes">
-                <Grid Background="#FFE5E5E5" />
-            </TabItem>
+                Header="Clientes" />
             <TabItem
+                Width="100"
+                Margin="0,5,5,5"
+                Padding="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="Empleados">
-                <Grid Background="#FFE5E5E5" />
-            </TabItem>
+                Header="Empleados" />
         </TabControl>
     </Grid>
 </UserControl>
