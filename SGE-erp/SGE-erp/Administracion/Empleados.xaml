@@ -10,5 +10,22 @@
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
         </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <DataGrid HorizontalAlignment="Left" Height="367" Grid.Row="1" VerticalAlignment="Top" Width="792" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header ="Código" Width="100" />
+                <DataGridTextColumn Header ="Nombre del empleado" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Menu HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="792">
+            <MenuItem x:Name="anadir" Header="_Añadir" Height="46" Width="80" FontSize="18"/>
+            <MenuItem x:Name="editar" Header="_Editar" Height="46" Width="80" FontSize="18"/>
+            <MenuItem x:Name="borrar" Header="_Borrar" Height="46" Width="80" FontSize="18"/>
+            <MenuItem x:Name="buscar" Header="B_uscar" Height="46" Width="80" FontSize="18"/>
+            <MenuItem x:Name="listado" Header="_Listado" Height="46" Width="80" FontSize="18"/>
+        </Menu>
     </Grid>
 </UserControl>

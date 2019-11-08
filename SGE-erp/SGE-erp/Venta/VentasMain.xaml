@@ -17,7 +17,7 @@
                     
                 </TabItem>
                 <TabItem Header="_Ver Ventas" VerticalAlignment="Center">
-                    <local:VentasVista/>
+                    <local:VentasVista  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                 </TabItem>
                 
 

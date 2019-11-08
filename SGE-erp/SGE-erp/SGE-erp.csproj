@@ -152,6 +152,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DeBaseDatos.mdf</DependentUpon>
     </Content>
+    <Resource Include="Venta\imagenes\anterior.png" />
+    <Resource Include="Venta\imagenes\atras.png" />
+    <Resource Include="Venta\imagenes\avance-rapido.png" />
+    <Resource Include="Venta\imagenes\delante.png" />
+    <Resource Include="Venta\imagenes\imagen.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
