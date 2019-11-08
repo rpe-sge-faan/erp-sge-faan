@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Compras\Compras.xaml.cs">
+      <DependentUpon>Compras.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\ProveedoresEdicion.xaml.cs">
       <DependentUpon>ProveedoresEdicion.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <DependentUpon>Ventas.xaml</DependentUpon>
     </Compile>
     <Page Include="Colores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\Compras.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,7 +182,6 @@
   <ItemGroup>
     <Folder Include="Administracion\" />
     <Folder Include="Articulos\" />
-    <Folder Include="Compras\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
