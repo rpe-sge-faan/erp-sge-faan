@@ -79,6 +79,10 @@
     <Compile Include="Ventas.xaml.cs">
       <DependentUpon>Ventas.xaml</DependentUpon>
     </Compile>
+    <Page Include="Articulos\UCArticulos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Colores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Administracion\" />
+    <Folder Include="Compras\" />
     <Folder Include="Articulos\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
