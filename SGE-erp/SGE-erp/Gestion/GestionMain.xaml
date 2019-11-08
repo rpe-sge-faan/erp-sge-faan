@@ -23,7 +23,9 @@
                 Padding="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="Proveedores" />
+                Header="Proveedores">
+                <local:ProveedoresMain/>
+            </TabItem>
             <TabItem
                 Width="100"
                 Margin="0,5,5,5"

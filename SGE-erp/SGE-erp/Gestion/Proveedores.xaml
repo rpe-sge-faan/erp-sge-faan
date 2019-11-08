@@ -9,6 +9,9 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="14*" />
@@ -65,7 +68,7 @@
                     <Image
                         Width="15"
                         Height="15"
-                        Source="/images/logout.png" />
+                        Source="/imagenes/logout.png" />
                 </MenuItem.Header>
             </MenuItem>
 
@@ -106,7 +109,7 @@
             Margin="61,3,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
-            <Image Source="images/back.png" />
+            <Image Source="/imagenes/back.png" />
         </Button>
         <Button
             x:Name="bAnterior"
@@ -116,7 +119,7 @@
             Margin="91,3,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
-            <Image Source="images/left-arrow.png" />
+            <Image Source="/imagenes/left-arrow.png" />
         </Button>
         <Button
             x:Name="bNext"
@@ -126,7 +129,7 @@
             Margin="198,3,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
-            <Image RenderTransformOrigin="0.5,0.5" Source="images/left-arrow.png">
+            <Image RenderTransformOrigin="0.5,0.5" Source="/imagenes/left-arrow.png">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1" ScaleY="1" />
@@ -145,7 +148,7 @@
             Margin="228,3,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
-            <Image RenderTransformOrigin="0.5,0.5" Source="images/back.png">
+            <Image RenderTransformOrigin="0.5,0.5" Source="/imagenes/back.png">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1" ScaleY="1" />
