@@ -5,12 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp"
+    xmlns:localArticulos="clr-namespace:SGE_erp.Articulos"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Compras"
     Width="800"
     Height="450"
-    MinWidth="600"
+    MinWidth="750"
     MinHeight="300"
     WindowStartupLocation="Manual"
     mc:Ignorable="d">
@@ -144,7 +145,9 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Header="_Artículos"
-                Style="{DynamicResource TabItemStyle1}" />
+                Style="{DynamicResource TabItemStyle1}" >
+                <localArticulos:UCArticulos></localArticulos:UCArticulos>
+            </TabItem>
             <TabItem
                 x:Name="tabGestion"
                 Width="120"

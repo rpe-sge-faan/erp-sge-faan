@@ -70,12 +70,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Articulos\UCArticulos.xaml.cs">
+      <DependentUpon>UCArticulos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\ProveedoresEdicion.xaml.cs">
       <DependentUpon>ProveedoresEdicion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventas.xaml.cs">
       <DependentUpon>Ventas.xaml</DependentUpon>
     </Compile>
+    <Page Include="Articulos\UCArticulos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Colores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,7 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Administracion\" />
-    <Folder Include="Articulos\" />
     <Folder Include="Compras\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
