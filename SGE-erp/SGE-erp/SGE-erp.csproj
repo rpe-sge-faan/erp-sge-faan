@@ -76,6 +76,11 @@
     <Compile Include="Gestion\ProveedoresEdicion.xaml.cs">
       <DependentUpon>ProveedoresEdicion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SetaData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetaData.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.xaml.cs">
       <DependentUpon>Ventas.xaml</DependentUpon>
     </Compile>
@@ -150,6 +155,17 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SetaData.xsc">
+      <DependentUpon>SetaData.xsd</DependentUpon>
+    </None>
+    <None Include="SetaData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SetaData.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SetaData.xss">
+      <DependentUpon>SetaData.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
+    xmlns:localCompras="clr-namespace:SGE_erp.Compras"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Compras"
     Width="800"
@@ -123,8 +124,10 @@
                 VerticalAlignment="Center"
                 Background="#FFFFC733"
                 Header="_Compras"
-                Style="{DynamicResource TabItemStyle1}" />
-            <TabItem
+                Style="{DynamicResource TabItemStyle1}">
+                <localCompras:Compras/>
+            </TabItem>
+                <TabItem
                 x:Name="tabVentas"
                 Width="120"
                 Margin="5,5,5,5"
