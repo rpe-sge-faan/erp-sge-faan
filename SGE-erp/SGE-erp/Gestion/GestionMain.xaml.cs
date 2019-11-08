@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SGE_erp
+namespace SGE_erp.Gestion
 {
     /// <summary>
-    /// Lógica de interacción para Compras.xaml
+    /// Interaction logic for GestionMain.xaml
     /// </summary>
-    public partial class Compras : UserControl
+    public partial class GestionMain : UserControl
     {
-        public Compras()
+        public GestionMain()
         {
             InitializeComponent();
         }
