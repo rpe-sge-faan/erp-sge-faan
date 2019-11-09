@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\aaron\Source\Repos\rpe-sge-faan\erp-sge-faan\SGE-erp\SGE-erp\obj\Release\
+C:\Users\34610\Desktop\DAM\2ºAÑO\SGE\SGE-Proyect\erp-sge-faan\SGE-erp\SGE-erp\obj\Release\
 SGE_erp
 none
 false
 TRACE
-C:\Users\aaron\Source\Repos\rpe-sge-faan\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
-3-722280681
+C:\Users\34610\Desktop\DAM\2ºAÑO\SGE\SGE-Proyect\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
+91213267105
 2-1310626350
-7369575412
+12-461574206
 13-1505183044
-Compras.xaml;MainWindow.xaml;Ventas.xaml;
+Articulos\UCArticulos.xaml;Colores.xaml;Compras\Compras.xaml;Gestion\Clientes.xaml;Gestion\ProveedoresEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;MainWindow.xaml;Ventas.xaml;
 
 True
 
