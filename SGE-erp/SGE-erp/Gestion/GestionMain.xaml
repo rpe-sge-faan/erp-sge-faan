@@ -24,7 +24,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Header="Proveedores">
-                <local:ProveedoresMain/>
+                <local:ProveedoresMain />
             </TabItem>
             <TabItem
                 Width="100"
