@@ -149,7 +149,7 @@
                 VerticalAlignment="Center"
                 Header="_Artículos"
                 Style="{DynamicResource TabItemStyle1}" >
-                <localArticulos:UCArticulos></localArticulos:UCArticulos>
+                <localArticulos:UCArticulos/>
             </TabItem>
             <TabItem
                 x:Name="tabGestion"
