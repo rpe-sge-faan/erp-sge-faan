@@ -12,7 +12,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">
-            <TabControl Margin="5,5,5,5" TabStripPlacement="Bottom">
+            <TabControl Margin="5,5,5,0" TabStripPlacement="Bottom">
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"

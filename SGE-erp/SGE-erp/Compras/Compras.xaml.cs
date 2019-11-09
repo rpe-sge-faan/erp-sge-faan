@@ -24,5 +24,10 @@ namespace SGE_erp.Compras
         {
             InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
