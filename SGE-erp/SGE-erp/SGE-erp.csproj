@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Articulos\UCArticulos.xaml.cs">
+      <DependentUpon>UCArticulos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Compras\Compras.xaml.cs">
       <DependentUpon>Compras.xaml</DependentUpon>
     </Compile>
@@ -201,8 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Administracion\" />
-    <Folder Include="Compras\" />
-    <Folder Include="Articulos\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
