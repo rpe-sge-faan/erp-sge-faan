@@ -23,6 +23,37 @@ namespace SGE_erp.Gestion
         public ClientesMain()
         {
             InitializeComponent();
+            
         }
+
+        ClientesEdicion c = null;
+        
+
+
+        private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
+            // No cargue datos en tiempo de diseño.
+            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            // {
+            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
+            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
+            // 	myCollectionViewSource.Source = your data
+            // }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (!MetodosGestion.IsOpen(c))
+            {
+                c = new ClientesEdicion();
+                c.Owner = System.Windows.Application.Current.MainWindow;
+                c.Show();
+            }                  
+                    
+        }
+
+
     }
 }

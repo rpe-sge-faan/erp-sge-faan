@@ -10,19 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SGE_erp.Gestion
 {
     /// <summary>
-    /// Interaction logic for EdicionProveedores.xaml
+    /// Lógica de interacción para ProveedoresEdicion.xaml
     /// </summary>
-    public partial class EdicionProveedores : UserControl
+    public partial class ProveedoresEdicion : Window
     {
-        public EdicionProveedores()
+        public ProveedoresEdicion()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            SGE_erp.SetaData setaData = ((SGE_erp.SetaData)(this.FindResource("setaData")));
+            // Cargar datos en la tabla Clientes. Puede modificar este código según sea necesario.
+            SGE_erp.SetaDataTableAdapters.ProveedoresTableAdapter setaDataClientesTableAdapter = new SGE_erp.SetaDataTableAdapters.ProveedoresTableAdapter();
+            setaDataClientesTableAdapter.Fill(setaData.Proveedores);
+            System.Windows.Data.CollectionViewSource proveedoresViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("proveedoresViewSource")));
+            proveedoresViewSource.View.MoveCurrentToFirst();
         }
     }
 }

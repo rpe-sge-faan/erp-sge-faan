@@ -1,4 +1,4 @@
-﻿E:\repos\erp-sge-faan\SGE-erp\SGE-erp\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
 FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Colores.xaml;;
 FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Gestion\Clientes.xaml;;
@@ -7,4 +7,7 @@ FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Gestion\GestionMain.xaml;;
 FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Gestion\Proveedores.xaml;;
 FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\MainWindow.xaml;;
 FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Ventas.xaml;;
+FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Articulos\UCArticulos.xaml;;
+FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Compras\Compras.xaml;;
+FE:\repos\erp-sge-faan\SGE-erp\SGE-erp\Gestion\ClientesEdicion.xaml;;
 

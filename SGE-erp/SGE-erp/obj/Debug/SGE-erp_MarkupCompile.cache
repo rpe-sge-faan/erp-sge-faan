@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\repos\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
-7-1282257045
+101461871900
 2-1310626350
-11218334798
+15116008954
 13-1505183044
-Colores.xaml;Gestion\Clientes.xaml;Gestion\ProveedoresEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;MainWindow.xaml;Ventas.xaml;
+Articulos\UCArticulos.xaml;Colores.xaml;Compras\Compras.xaml;Gestion\Clientes.xaml;Gestion\ClientesEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;Gestion\ProveedoresEdicion.xaml;MainWindow.xaml;Ventas.xaml;
 
-True
+False
 
