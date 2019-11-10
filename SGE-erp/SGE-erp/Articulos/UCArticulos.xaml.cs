@@ -35,7 +35,14 @@ namespace SGE_erp.Articulos
             // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
             // 	myCollectionViewSource.Source = your data
             // }
+
         }
 
+
+        private void TabItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EditaArticulos ea = new EditaArticulos();
+            ea.ShowDialog();
+        }
     }
 }
