@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SGE_erp
+namespace SGE_erp.Venta
 {
     /// <summary>
-    /// Interaction logic for Ventas.xaml
+    /// Lógica de interacción para VentasVista.xaml
     /// </summary>
-    public partial class Ventas : UserControl
+    public partial class VentasVista : UserControl
     {
-        public Ventas()
+        public VentasVista()
         {
             InitializeComponent();
         }

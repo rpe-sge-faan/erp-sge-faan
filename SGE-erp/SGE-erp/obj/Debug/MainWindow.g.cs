@@ -13,6 +13,7 @@ using SGE_erp;
 using SGE_erp.Articulos;
 using SGE_erp.Compras;
 using SGE_erp.Gestion;
+using SGE_erp.Venta;
 using System;
 using System.Diagnostics;
 using System.Windows;
