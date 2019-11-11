@@ -8,6 +8,7 @@
     xmlns:localArticulos="clr-namespace:SGE_erp.Articulos"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
     xmlns:localCompras="clr-namespace:SGE_erp.Compras"
+    xmlns:localVentas="clr-namespace:SGE_erp.Venta"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Compras"
     Width="800"
@@ -138,7 +139,7 @@
                 Background="CornflowerBlue"
                 Header="_Ventas"
                 Style="{DynamicResource TabItemStyle1}">
-                <local:Ventas />
+                <localVentas:VentasMain/>
             </TabItem>
             <TabItem
                 x:Name="tabArticulos"

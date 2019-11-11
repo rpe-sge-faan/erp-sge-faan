@@ -87,8 +87,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SetaData.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Ventas.xaml.cs">
-      <DependentUpon>Ventas.xaml</DependentUpon>
+    <Compile Include="Venta\VentanaAñadir.xaml.cs">
+      <DependentUpon>VentanaAñadir.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentasMain.xaml.cs">
+      <DependentUpon>VentasMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentasVista.xaml.cs">
+      <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
     <Page Include="Articulos\EditaArticulos.xaml">
       <SubType>Designer</SubType>
@@ -143,7 +149,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Ventas.xaml">
+    <Page Include="Venta\VentanaAñadir.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Venta\VentasMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Venta\VentasVista.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -193,6 +207,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DeBaseDatos.mdf</DependentUpon>
     </Content>
+    <Resource Include="imagenes\anterior.png" />
+    <Resource Include="imagenes\atras.png" />
+    <Resource Include="imagenes\avance-rapido.png" />
+    <Resource Include="imagenes\delante.png" />
+    <Resource Include="imagenes\imagen.png" />
     <Resource Include="imagenes\back.png" />
     <Resource Include="imagenes\left-arrow.png" />
     <Resource Include="imagenes\logout.png" />
@@ -211,6 +230,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Administracion\" />
+    <Folder Include="Compras\" />
+    <Folder Include="Articulos\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
