@@ -76,9 +76,6 @@
     <Compile Include="Administracion\Empleados.xaml.cs">
       <DependentUpon>Empleados.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administracion\EmpleadosAñadir.xaml.cs">
-      <DependentUpon>EmpleadosAñadir.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Administracion\EmpleadosEditar.xaml.cs">
       <DependentUpon>EmpleadosEditar.xaml</DependentUpon>
     </Compile>
@@ -107,10 +104,6 @@
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
     <Page Include="Administracion\Empleados.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Administracion\EmpleadosAñadir.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -251,7 +244,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Administracion\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
