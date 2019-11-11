@@ -6,45 +6,36 @@
         xmlns:local="clr-namespace:SGE_erp.Articulos"
         xmlns:SGE_erp="clr-namespace:SGE_erp" x:Class="SGE_erp.Articulos.EditaArticulos"
         mc:Ignorable="d"
-        Title="EditaArticulos" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="EditaArticulos" Height="300" Width="750" Loaded="Window_Loaded">
     <Window.Resources>
         <SGE_erp:SetaData x:Key="setaData"/>
         <CollectionViewSource x:Key="articulosViewSource" Source="{Binding Articulos, Source={StaticResource setaData}}"/>
     </Window.Resources>
-    <Grid>
+    <Grid x:Name="grid2" DataContext="{StaticResource articulosViewSource}" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.7*"/>
-            <ColumnDefinition Width="0.7*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="grid1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="40,20,20,20" HorizontalAlignment="Left" DataContext="{StaticResource articulosViewSource}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Id Articulo:"/>
-            <TextBox x:Name="id_ArticuloTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Id_Articulo, Mode=OneWay}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Id Iva:"/>
-            <TextBox x:Name="id_IvaTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Nombre:"/>
-            <TextBox x:Name="nombreTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Descripcion:"/>
-            <TextBox x:Name="descripcionTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Tipo Articulo:"/>
-            <TextBox x:Name="tipoArticuloTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="4" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-        </Grid>
-        <Button x:Name="btnAceptar" Content="Aceptar" Grid.Column="0" Grid.Row="5" Height="40" Margin="40,5,5,5" VerticalAlignment="Top"/>
-        <Button x:Name="btnCancelar" Content="Cancelar" Grid.Column="1" Grid.Row="5" Height="40" Margin="20,5,20,5" VerticalAlignment="Top" />
+        <Label Content="Id Articulo:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="id_ArticuloTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="0" Text="{Binding Id_Articulo, Mode=OneWay}" VerticalAlignment="Center" Width="77" IsEnabled="False"/>
+        <Label Content="Iva:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+        <ComboBox x:Name="id_IvaTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77"/>
+        <Label Content="Nombre:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="nombreTextBox1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="2" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="257"/>
+        <Label Content="Descripcion:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBox x:Name="descripcionTextBox1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="3,4,-333,4" Grid.Row="3" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="600"/>
+        <Label Content="Tipo Articulo:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+        <TextBox x:Name="tipoArticuloTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="4" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77"/>
+        <Button Grid.Row="5" Height="30" Margin="5,10,5,10" Content="Aceptar"/>
+        <Button Grid.Row="5" Grid.Column="1" Height="30" Margin="5,10,5,10" Content="Cancelar"/>
     </Grid>
 </Window>
