@@ -27,17 +27,17 @@
             <MenuItem x:Name="listado" Header=" _Listado" Height="46" Width="80" FontSize="18"/>
         </Menu>
         <Button HorizontalAlignment="Left" Height="22" Margin="60,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="20">
-            <Image Source="imagenes\anterior.png"/>
+            <Image Source="..\imagenes\anterior.png"/>
         </Button>
         <Button HorizontalAlignment="Left" Height="22" Margin="85,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="20">
-            <Image Source="imagenes\atras.png"/>
+            <Image Source="..\imagenes\atras.png"/>
         </Button>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="110,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
         <Button HorizontalAlignment="Left" Height="22" Margin="179,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="20">
-            <Image Source="imagenes\avance-rapido.png"/>
+            <Image Source="..\imagenes\avance-rapido.png"/>
         </Button>
         <Button HorizontalAlignment="Left" Height="22" Margin="204,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="20" >
-            <Image Source="imagenes\delante.png"/>
+            <Image Source="..\imagenes\delante.png"/>
         </Button>
         <Label Content="de" HorizontalAlignment="Left" Height="33" Margin="229,6,0,11" Grid.Row="2" VerticalAlignment="Center" Width="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Label Content="pgs" HorizontalAlignment="Left" Height="33" Margin="254,6,0,11" Grid.Row="2" VerticalAlignment="Center" Width="38" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
