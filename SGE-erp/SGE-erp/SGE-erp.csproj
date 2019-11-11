@@ -73,8 +73,14 @@
     <Compile Include="Administracion\Empleados.xaml.cs">
       <DependentUpon>Empleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administracion\EmpleadosAñadir.xaml.cs">
+      <DependentUpon>EmpleadosAñadir.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administracion\EmpleadosEditar.xaml.cs">
       <DependentUpon>EmpleadosEditar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentanaAñadir.xaml.cs">
+      <DependentUpon>VentanaAñadir.xaml</DependentUpon>
     </Compile>
     <Compile Include="Venta\VentasMain.xaml.cs">
       <DependentUpon>VentasMain.xaml</DependentUpon>
@@ -83,6 +89,10 @@
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
     <Page Include="Administracion\Empleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\EmpleadosAñadir.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,6 +119,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Venta\VentanaAñadir.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Venta\VentasMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

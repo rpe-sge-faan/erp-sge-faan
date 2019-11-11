@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\noepf\Desktop\SGE\NUEVO\SGE-erp\SGE-erp\App.xaml
-6-518912154
+8-1532394415
 2-1310626350
-11-325681235
+12777195227
 13-1505183044
-Administracion\Empleados.xaml;Administracion\EmpleadosEditar.xaml;Compras.xaml;MainWindow.xaml;Venta\VentasMain.xaml;Venta\VentasVista.xaml;
+Administracion\Empleados.xaml;Administracion\EmpleadosAñadir.xaml;Administracion\EmpleadosEditar.xaml;Compras.xaml;MainWindow.xaml;Venta\VentanaAñadir.xaml;Venta\VentasMain.xaml;Venta\VentasVista.xaml;
 
-True
+False
 

@@ -14,7 +14,7 @@
         <Grid Grid.Row="1">
             <TabControl TabStripPlacement="Bottom" Margin="5,5,5,5" >
                 <TabItem Header="_Añadir Ventas" VerticalAlignment="Center">
-                    
+                    <local:VentanaAñadir HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                 </TabItem>
                 <TabItem Header="_Ver Ventas" VerticalAlignment="Center">
                     <local:VentasVista  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>

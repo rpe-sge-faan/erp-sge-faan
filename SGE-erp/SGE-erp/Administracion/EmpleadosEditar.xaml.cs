@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SGE_erp.Administracion
@@ -18,7 +17,7 @@ namespace SGE_erp.Administracion
     /// <summary>
     /// Lógica de interacción para EmpleadosEditar.xaml
     /// </summary>
-    public partial class EmpleadosEditar : UserControl
+    public partial class EmpleadosEditar : Window
     {
         public EmpleadosEditar()
         {

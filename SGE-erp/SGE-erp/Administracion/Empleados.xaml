@@ -21,9 +21,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <Menu HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="792">
-            <MenuItem x:Name="anadir" Header="_Añadir" Height="46" Width="80" FontSize="18"/>
-            <MenuItem x:Name="editar" Header="_Editar" Height="46" Width="80" FontSize="18"/>
-            <MenuItem x:Name="borrar" Header="_Borrar" Height="46" Width="80" FontSize="18"/>
+            <MenuItem x:Name="anadir" Header="_Añadir" Height="46" Width="80" FontSize="18" Click="anadir_Click"/>
+            <MenuItem x:Name="editar" Header="_Editar" Height="46" Width="80" FontSize="18" Click="editar_Click"/>
+            <MenuItem x:Name="borrar" Header="_Borrar" Height="46" Width="80" FontSize="18" Click="borrar_Click"/>
             <MenuItem x:Name="buscar" Header="B_uscar" Height="46" Width="80" FontSize="18"/>
             <MenuItem x:Name="listado" Header="_Listado" Height="46" Width="80" FontSize="18"/>
         </Menu>

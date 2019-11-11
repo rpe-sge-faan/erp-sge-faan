@@ -24,5 +24,22 @@ namespace SGE_erp.Administracion
         {
             InitializeComponent();
         }
+
+        private void anadir_Click(object sender, RoutedEventArgs e)
+        {
+            EmpleadosAñadir añadir = new EmpleadosAñadir();
+            añadir.Show();
+        }
+
+        private void editar_Click(object sender, RoutedEventArgs e)
+        {
+            EmpleadosEditar editar = new EmpleadosEditar();
+            editar.Show();
+        }
+
+        private void borrar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("¿Desea eliminar a este empleado?");
+        }
     }
 }
