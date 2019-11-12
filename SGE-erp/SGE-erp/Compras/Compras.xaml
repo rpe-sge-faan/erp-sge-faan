@@ -1,12 +1,18 @@
-﻿<UserControl x:Class="SGE_erp.Compras.Compras"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SGE_erp.Compras"
+             xmlns:SGE_erp="clr-namespace:SGE_erp" x:Class="SGE_erp.Compras.Compras"
              Background="#FFFFC733"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded_1">
+    <UserControl.Resources>
+        <SGE_erp:SetaData x:Key="setaData"/>
+        <CollectionViewSource x:Key="compraViewSource" Source="{Binding Compra, Source={StaticResource setaData}}"/>
+        <CollectionViewSource x:Key="compraCompraArticulosViewSource" Source="{Binding FK_IdCompra_Compras, Source={StaticResource compraViewSource}}"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -19,7 +25,76 @@
                     Padding="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Header="_Presupuestos" />
+                    Header="_Presupuestos">
+                    <Grid DataContext="{StaticResource compraViewSource}">
+                        <ListView x:Name="compraListView" ItemsSource="{Binding}" Margin="10,10,374,191" SelectionMode="Single">
+                            <ListView.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="id_CompraColumn" Header="Id Compra" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Id_Compra}" Margin="6,-1,-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="id_EmpleadoColumn" Header="Id Empleado" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Id_Empleado}" Margin="-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="fechaCompraColumn" Header="Fecha Compra" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding FechaCompra}" Margin="-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="precioTotalColumn" Header="Precio Total" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding PrecioTotal}" Margin="-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <ListView x:Name="compraArticulosListView" ItemsSource="{Binding Source={StaticResource compraCompraArticulosViewSource}}" Margin="415,10,10,191" SelectionMode="Single">
+                            <ListView.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="id_ElementoColumn" Header="Id Elemento" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="6,-1,-6,-1" Text="{Binding Id_Elemento, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="cantidadColumn" Header="Cantidad" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Cantidad, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"

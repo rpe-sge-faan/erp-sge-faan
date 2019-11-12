@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\aaron.perez\Source\Repos\rpe-sge-faan\erp-sge-faan\SGE-erp\SGE-erp\obj\Release\
+C:\Users\34610\Desktop\DAM\2ºAÑO\SGE\SGE-Proyect\erp-sge-faan\SGE-erp\SGE-erp\obj\Release\
 SGE_erp
 none
 false
 TRACE
-C:\Users\aaron.perez\Source\Repos\rpe-sge-faan\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
-10928983674
+C:\Users\34610\Desktop\DAM\2ºAÑO\SGE\SGE-Proyect\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
+15949767168
 2-1310626350
-14-1453353950
+20759655681
 13-1505183044
-Articulos\EditaArticulos.xaml;Articulos\UCArticulos.xaml;Colores.xaml;Compras\Compras.xaml;Gestion\Clientes.xaml;Gestion\ProveedoresEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;MainWindow.xaml;Ventas.xaml;
+Administracion\Empleados.xaml;Administracion\EmpleadosEditar.xaml;Articulos\EditaArticulos.xaml;Articulos\UCArticulos.xaml;Colores.xaml;Compras\Compras.xaml;Gestion\Clientes.xaml;Gestion\ClientesEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;Gestion\ProveedoresEdicion.xaml;MainWindow.xaml;Venta\VentanaAñadir.xaml;Venta\VentasMain.xaml;Venta\VentasVista.xaml;
 
 True
 
