@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="SGE_erp.Administracion.Empleados"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SGE_erp.Administracion"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <DataGrid HorizontalAlignment="Left" Height="367" Grid.Row="1" VerticalAlignment="Top" Width="792" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header ="Código" Width="100" />
+                <DataGridTextColumn Header ="Nombre del empleado" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Menu HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="792">
+            <MenuItem x:Name="anadir" Header="_Añadir" Height="46" Width="80" FontSize="18" Click="anadir_Click"/>
+            <MenuItem x:Name="editar" Header="_Editar" Height="46" Width="80" FontSize="18" Click="editar_Click"/>
+            <MenuItem x:Name="borrar" Header="_Borrar" Height="46" Width="80" FontSize="18" Click="borrar_Click"/>
+            <MenuItem x:Name="buscar" Header="B_uscar" Height="46" Width="80" FontSize="18"/>
+            <MenuItem x:Name="listado" Header="_Listado" Height="46" Width="80" FontSize="18"/>
+        </Menu>
+    </Grid>
+</UserControl>
