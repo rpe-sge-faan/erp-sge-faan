@@ -13,7 +13,7 @@
     Width="800"
     Height="450"
     MinWidth="750"
-    MinHeight="300"
+    MinHeight="500"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
