@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SGE_erp.Gestion;
 
 namespace SGE_erp.Administracion
 {
@@ -25,16 +26,28 @@ namespace SGE_erp.Administracion
             InitializeComponent();
         }
 
+        EmpleadosEditar ed = null;
+
         private void anadir_Click(object sender, RoutedEventArgs e)
         {
-            EmpleadosAñadir añadir = new EmpleadosAñadir();
-            añadir.Show();
+            if (!MetodosGestion.IsOpen(ed))
+            {
+                ed = new EmpleadosEditar();
+                ed.Owner = System.Windows.Application.Current.MainWindow;
+                ed.Show();
+            }
         }
 
+        
         private void editar_Click(object sender, RoutedEventArgs e)
         {
-            EmpleadosEditar editar = new EmpleadosEditar();
-            editar.Show();
+            if (!MetodosGestion.IsOpen(ed))
+            {
+                ed = new EmpleadosEditar();
+                ed.Owner = System.Windows.Application.Current.MainWindow;
+                ed.Show();
+            }
+            
         }
 
         private void borrar_Click(object sender, RoutedEventArgs e)
