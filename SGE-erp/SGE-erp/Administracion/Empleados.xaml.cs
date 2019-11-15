@@ -54,5 +54,38 @@ namespace SGE_erp.Administracion
         {
             MessageBox.Show("¿Desea eliminar a este empleado?");
         }
+
+        EmpleadosEditar eE = null;
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            // No cargue datos en tiempo de diseño.
+            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            // {
+            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
+            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
+            // 	myCollectionViewSource.Source = your data
+            // }
+        }
+
+        private void anadirEmpl_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(eE))
+            {
+                eE = new EmpleadosEditar();
+                eE.Owner = System.Windows.Application.Current.MainWindow;
+                eE.Show();
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(eE))
+            {
+                eE = new EmpleadosEditar();
+                eE.Owner = System.Windows.Application.Current.MainWindow;
+                eE.Show();
+            }
+        }
     }
 }

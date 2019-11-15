@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SGE_erp.Gestion;
 
 namespace SGE_erp.Venta
 {
@@ -23,6 +24,17 @@ namespace SGE_erp.Venta
         public VentasVista()
         {
             InitializeComponent();
+        }
+
+
+        private void buscar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -23,5 +23,10 @@ namespace SGE_erp.Administracion
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
