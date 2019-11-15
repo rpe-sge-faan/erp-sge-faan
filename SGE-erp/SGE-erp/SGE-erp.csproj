@@ -90,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administracion\EmpleadosGeneral.xaml.cs">
+      <DependentUpon>EmpleadosGeneral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Articulos\EditaArticulos.xaml.cs">
       <DependentUpon>EditaArticulos.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
     <Page Include="Administracion\EmpleadosEditar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administracion\EmpleadosGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Articulos\EditaArticulos.xaml">
       <SubType>Designer</SubType>
