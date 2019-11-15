@@ -12,6 +12,10 @@
         <SGE_erp:SetaData x:Key="setaData"/>
         <CollectionViewSource x:Key="compraViewSource" Source="{Binding Compra, Source={StaticResource setaData}}"/>
         <CollectionViewSource x:Key="compraCompraArticulosViewSource" Source="{Binding FK_IdCompra_Compras, Source={StaticResource compraViewSource}}"/>
+        <CollectionViewSource x:Key="proveedoresViewSource" Source="{Binding Proveedores, Source={StaticResource setaData}}"/>
+        <CollectionViewSource x:Key="proveedoresProveedorArticuloViewSource" Source="{Binding FK_IdProveedorPA_Proveedores, Source={StaticResource proveedoresViewSource}}"/>
+        <CollectionViewSource x:Key="articulosViewSource" Source="{Binding Articulos, Source={StaticResource setaData}}"/>
+        <CollectionViewSource x:Key="proveedorArticuloViewSource" Source="{Binding ProveedorArticulo, Source={StaticResource setaData}}"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -25,9 +29,140 @@
                     Padding="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Header="_Presupuestos">
+                    Header="_Añadir Compra">
                     <Grid DataContext="{StaticResource compraViewSource}">
-                        <ListView x:Name="compraListView" ItemsSource="{Binding}" Margin="10,10,374,191" SelectionMode="Single">
+                        <DataGrid x:Name="proveedoresDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource proveedoresViewSource}}" Margin="10,10,390.8,190.8" RowDetailsVisibilityMode="VisibleWhenSelected">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn x:Name="id_ProveedorColumn" Binding="{Binding Id_Proveedor}" Header="Id Proveedor" IsReadOnly="True" Width="SizeToHeader">
+                                </DataGridTextColumn>
+                                <DataGridTextColumn x:Name="tipoColumn" Binding="{Binding Tipo}" Header="Tipo" Width="SizeToHeader"/>
+                                <DataGridTextColumn x:Name="nombreColumn" Binding="{Binding Nombre}" Header="Nombre" Width="SizeToHeader"/>
+                                <DataGridTextColumn x:Name="telefonoColumn" Binding="{Binding Telefono}" Header="Telefono" Width="SizeToHeader"/>
+                                <DataGridTextColumn x:Name="emailColumn" Binding="{Binding Email}" Header="Email" Width="SizeToHeader"/>
+                                <DataGridTextColumn x:Name="persona_ContactoColumn" Binding="{Binding Persona_Contacto}" Header="Persona Contacto" Width="SizeToHeader"/>
+                                <DataGridTextColumn x:Name="direccionColumn" Binding="{Binding Direccion}" Header="Direccion" Width="SizeToHeader"/>
+                                <DataGridTextColumn x:Name="nIFColumn" Binding="{Binding NIF}" Header="NIF" Width="SizeToHeader"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ListView x:Name="proveedorArticuloListView" ItemsSource="{Binding Source={StaticResource proveedoresProveedorArticuloViewSource}}" Margin="399,10,9.8,190.8" SelectionMode="Single">
+                            <ListView.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="id_ArticuloColumn" Header="Id Articulo" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Id_Articulo}" Margin="6,-1,-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="precioCompraColumn" Header="Precio Compra" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding PrecioCompra}" Margin="-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="pVPColumn" Header="PVP" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding PVP}" Margin="-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="stockColumn" Header="Stock" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Stock}" Margin="-6,-1"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <ListView x:Name="articulosListView" ItemsSource="{Binding Source={StaticResource articulosViewSource}}" Margin="399,215,9.8,9.8" SelectionMode="Single">
+                            <ListView.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="id_ArticuloColumn1" Header="Id Articulo" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="6,-1,-6,-1" Text="{Binding Id_Articulo, Mode=OneWay}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="id_IvaColumn" Header="Id Iva" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="nombreColumn1" Header="Nombre" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="descripcionColumn" Header="Descripcion" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="tipoArticuloColumn" Header="Tipo Articulo" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="384">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Empleado:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="id_EmpleadoComboBox" Grid.Column="1" DisplayMemberPath="Id_Empleado" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3.2,5,-184,5" Grid.Row="0" VerticalAlignment="Center" Width="308">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                        </Grid>
+                        <Button Content="LIMPIAR SELECCION" HorizontalAlignment="Left" Margin="44,266,0,0" VerticalAlignment="Top" Width="135" Height="39" FontWeight="Bold"/>
+                        <Button Content="AÑADIR CARRITO" HorizontalAlignment="Left" Margin="213,266,0,0" VerticalAlignment="Top" Width="135" Height="39" FontWeight="Bold"/>
+                        <Button Content="LIMPIAR CARRITO" HorizontalAlignment="Left" Margin="44,328,0,0" VerticalAlignment="Top" Width="135" Height="39" FontWeight="Bold"/>
+                        <Button Content="FINALIZAR COMPRA" HorizontalAlignment="Left" Margin="213,328,0,0" VerticalAlignment="Top" Width="135" Height="39" FontWeight="Bold"/>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                    Width="100"
+                    Margin="0,5,5,5"
+                    Padding="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Header="_Ver Compra">
+                    <Grid DataContext="{StaticResource compraViewSource}">
+                        <ListView x:Name="compraArticulosListView" ItemsSource="{Binding Source={StaticResource compraCompraArticulosViewSource}}" Margin="259,10,281,10" SelectionMode="Single">
                             <ListView.ItemContainerStyle>
                                 <Style>
                                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -39,47 +174,14 @@
                                     <GridViewColumn x:Name="id_CompraColumn" Header="Id Compra" Width="80">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label Content="{Binding Id_Compra}" Margin="6,-1,-6,-1"/>
+                                                <TextBox Margin="6,-1,-6,-1" Text="{Binding Id_Compra, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn x:Name="id_EmpleadoColumn" Header="Id Empleado" Width="80">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Label Content="{Binding Id_Empleado}" Margin="-6,-1"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="fechaCompraColumn" Header="Fecha Compra" Width="80">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Label Content="{Binding FechaCompra}" Margin="-6,-1"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="precioTotalColumn" Header="Precio Total" Width="80">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Label Content="{Binding PrecioTotal}" Margin="-6,-1"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <ListView x:Name="compraArticulosListView" ItemsSource="{Binding Source={StaticResource compraCompraArticulosViewSource}}" Margin="415,10,10,191" SelectionMode="Single">
-                            <ListView.ItemContainerStyle>
-                                <Style>
-                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.View>
-                                <GridView>
                                     <GridViewColumn x:Name="id_ElementoColumn" Header="Id Elemento" Width="80">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBox Margin="6,-1,-6,-1" Text="{Binding Id_Elemento, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                                <TextBox Margin="-6,-1" Text="{Binding Id_Elemento, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -93,16 +195,100 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        <Grid x:Name="grid2" DataContext="{StaticResource proveedorArticuloViewSource}" HorizontalAlignment="Left" Margin="522,10,0,0" VerticalAlignment="Top" Width="253">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Id Proveedor:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                            <Label x:Name="id_ProveedorLabel" Content="{Binding Id_Proveedor}" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        </Grid>
+                        <DataGrid x:Name="compraDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,10,531,10" RowDetailsVisibilityMode="VisibleWhenSelected">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn x:Name="id_CompraColumn1" Header="Id Compra" Width="SizeToHeader">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Id_Compra}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn x:Name="id_EmpleadoColumn" Header="Id Empleado" Width="SizeToHeader">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Id_Empleado}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn x:Name="fechaCompraColumn" Header="Fecha Compra" Width="SizeToHeader">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding FechaCompra}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn x:Name="precioTotalColumn" Header="Precio Total" Width="SizeToHeader">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding PrecioTotal}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ListView x:Name="articulosListView1" ItemsSource="{Binding Source={StaticResource articulosViewSource}}" Margin="508,42,9,10" SelectionMode="Single">
+                            <ListView.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="id_ArticuloColumn2" Header="Id Articulo" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="6,-1,-6,-1" Text="{Binding Id_Articulo, Mode=OneWay}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="id_IvaColumn1" Header="Id Iva" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="nombreColumn2" Header="Nombre" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="descripcionColumn1" Header="Descripcion" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn x:Name="tipoArticuloColumn1" Header="Tipo Articulo" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Margin="-6,-1" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
                     </Grid>
                 </TabItem>
-                <TabItem
-                    Width="100"
-                    Margin="0,5,5,5"
-                    Padding="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Header="_Pedidos" />
-                <TabItem
+                <!--<TabItem
                     Width="100"
                     Margin="0,5,5,5"
                     Padding="10"
@@ -115,7 +301,7 @@
                     Padding="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Header="_Facturas" />
+                    Header="_Facturas" />-->
             </TabControl>
         </Grid>
     </Grid>
