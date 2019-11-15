@@ -56,43 +56,11 @@
             <ColumnDefinition
                 Width="1*" />
         </Grid.ColumnDefinitions>
-        <Label
-            Content="Nombre cliente"
-            Grid.Column="2"
-            HorizontalAlignment="Left"
-            Margin="10,0,0,0"
-            VerticalAlignment="Center"
-            Width="170"
-            Height="37"
-            VerticalContentAlignment="Center"
-            HorizontalContentAlignment="Right"
-            FontSize="16" />
-        <Label
-            Content="Cantidad"
-            Grid.Column="2"
-            HorizontalAlignment="Left"
-            Margin="10,0,0,0"
-            Grid.Row="1"
-            VerticalAlignment="Center"
-            Height="37"
-            Width="170"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            FontSize="16" />
-        <Button
-            Content="Añadir"
-            Grid.Column="3"
-            HorizontalAlignment="Left"
-            Margin="10,10,0,10"
-            Grid.Row="3"
-            VerticalAlignment="Stretch"
-            Width="170" />
+        <Label Content="Nombre cliente" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="170" Height="37" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="16"/>
+        <Label Content="Cantidad" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="37" Width="170" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="16"/>
+        <Button Content="Añadir" Grid.Column="3" HorizontalAlignment="Left" Margin="12,10,0,10" Grid.Row="3" VerticalAlignment="Stretch" Width="170"/>
 
-        <DataGrid
-            Margin="10,10,20,16"
-            Grid.RowSpan="3"
-            Grid.ColumnSpan="3"
-            Grid.Row="5">
+        <DataGrid Margin="10,10,20,16" Grid.RowSpan="3" Grid.ColumnSpan="3" Grid.Row="5">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Código Artículo"
@@ -120,11 +88,9 @@
             Content="Confirmar compra"
             Grid.Column="3"
             HorizontalAlignment="Left"
-            Margin="10,16,0,0"
+            Margin="12,10,0,10"
             Grid.Row="6"
-            VerticalAlignment="Top"
-            Width="170"
-            Height="30" />
+            Width="170" />
         <ListView
             x:Name="proveedorArticuloListView"
             Grid.ColumnSpan="2"
@@ -205,13 +171,11 @@
                 x:Name="nombreComboBox"
                 Grid.Column="1"
                 DisplayMemberPath="Nombre"
-                HorizontalAlignment="Left"
-                Height="Auto"
+                Height="20"
                 ItemsSource="{Binding}"
-                Margin="3"
+                Margin="3,0,0,0"
                 Grid.Row="0"
-                VerticalAlignment="Center"
-                Width="170">
+                VerticalAlignment="Top" Width="170" HorizontalAlignment="Left">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -224,7 +188,7 @@
         <xctk:UIntegerUpDown
             Grid.Column="3"
             HorizontalAlignment="Left"
-            Margin="10,19,0,0"
+            Margin="15,20,0,0"
             Grid.Row="1"
             VerticalAlignment="Top"
             Width="170" />

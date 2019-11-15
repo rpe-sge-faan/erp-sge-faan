@@ -10,65 +10,14 @@
         <TabControl HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="770" Margin="10,0,0,0">
             <TabItem Header="General">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Código" HorizontalAlignment="Left" VerticalAlignment="Top" Height="39" Width="128" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,10,0,0"/>
-                    <TextBox x:Name="tbCodigo" Grid.Column="1" HorizontalAlignment="Left" Height="31" Margin="4,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
-
-                    <Label Content="Nombre" HorizontalAlignment="Left" VerticalAlignment="Top" Height="39" Width="128" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="-1,7,0,0" Grid.Row="1"/>
-                    <TextBox x:Name="TBNombre" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="4,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" VerticalContentAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"/>
-
-                    <TextBox x:Name="tbApellidos" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" Grid.Column="4" Margin="5,11,0,0" Grid.Row="1" Grid.ColumnSpan="2"/>
-                    <Label Content="Apellidos" Grid.Column="3" HorizontalAlignment="Left" Margin="10,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="107" Height="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
-                    <Label Content="Dirección" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,6,0,0"/>
-                    <TextBox x:Name="tbDireccion" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="502" VerticalContentAlignment="Center" Grid.Row="2" Grid.ColumnSpan="4"/>
-
-                    <Label Content="Población" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" Margin="0,9,0,0"/>
-                    <TextBox x:Name="tbPoblacion" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="4,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="502" VerticalContentAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4"/>
-
-                    <Label Content="C. Postal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="4" Margin="-1,5,0,0"/>
-                    <TextBox x:Name="tbPostal" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="5,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center" Grid.Row="4"/>
-
-                    <Label Content="Provincia" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="4" Margin="0,5,0,0"/>
-                    <TextBox x:Name="tbProvincia" Grid.Column="3" HorizontalAlignment="Left" Height="30" Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center" Grid.Row="4"/>
-                    <ComboBox x:Name="cbProvincia" VerticalAlignment="Top" Grid.Column="4" Margin="5,10,2,0" Grid.Row="4" Height="30" Grid.ColumnSpan="2"/>
-
-                    <Label Content="Teléfono" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="5" Margin="-1,9,0,0"/>
-                    <TextBox x:Name="tbTelefono" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" VerticalContentAlignment="Center" Grid.Row="5" Grid.ColumnSpan="2"/>
-
-                    <Label Content="N.I.F." HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,10,0,0" Grid.Row="5" Grid.Column="3"/>
-                    <TextBox x:Name="tbContacto" Grid.Column="4" HorizontalAlignment="Left" Height="30" Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Grid.Row="5"/>
-
-                    <Label Content="Número de ventas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="41" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="7" Margin="0,2,0,0"/>
-                    <TextBox x:Name="tbComision" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="5,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" VerticalContentAlignment="Center" Grid.Row="6" Grid.ColumnSpan="2"/>
-
-                    <Label Content="Salario" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="3" Height="36" Width="127" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,2,0,0" Grid.Row="7"/>
-                    <TextBox x:Name="tbIRPF" Grid.Column="4" HorizontalAlignment="Left" Height="30" Margin="5,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" Grid.Row="6" Grid.ColumnSpan="2"/>
-
+                    <local:EmpleadosGeneral HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Observaciones">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,-2"/>
             </TabItem>
         </TabControl>
-        <Button Content="_Editar" HorizontalAlignment="Left" Margin="538,385,0,0" VerticalAlignment="Top" Width="90"/>
+        <Button Content="_Aceptar" HorizontalAlignment="Left" Margin="538,385,0,0" VerticalAlignment="Top" Width="90"/>
         <Button Content="_Cancelar" HorizontalAlignment="Left" Height="20" Margin="673,385,0,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.488,-0.727"/>
 
     </Grid>

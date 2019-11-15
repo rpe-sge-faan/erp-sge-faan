@@ -81,12 +81,18 @@
     <Reference Include="Xceed.Wpf.Toolkit, Version=3.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.6.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="WPFToolkit">
+      <HintPath>..\..\..\..\..\Downloads\WPFToolkit\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administracion\EmpleadosGeneral.xaml.cs">
+      <DependentUpon>EmpleadosGeneral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Articulos\EditaArticulos.xaml.cs">
       <DependentUpon>EditaArticulos.xaml</DependentUpon>
     </Compile>
@@ -130,6 +136,10 @@
     <Page Include="Administracion\EmpleadosEditar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administracion\EmpleadosGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Articulos\EditaArticulos.xaml">
       <SubType>Designer</SubType>

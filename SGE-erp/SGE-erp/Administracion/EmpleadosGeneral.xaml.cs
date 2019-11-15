@@ -10,21 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SGE_erp.Administracion
 {
     /// <summary>
-    /// Lógica de interacción para EmpleadosEditar.xaml
+    /// Lógica de interacción para EmpleadosGeneral.xaml
     /// </summary>
-    public partial class EmpleadosEditar : Window
+    public partial class EmpleadosGeneral : UserControl
     {
-        public EmpleadosEditar()
+        public EmpleadosGeneral()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
