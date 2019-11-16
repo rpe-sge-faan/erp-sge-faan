@@ -10,6 +10,8 @@
 
 #pragma warning disable 1591
 
+using System;
+
 namespace SGE_erp {
     
     
@@ -10723,6 +10725,7 @@ SELECT Id_Proveedor, Tipo, Nombre, Telefono, Email, Persona_Contacto, Direccion,
         public virtual int Update(int Tipo, string Nombre, string Telefono, string Email, string Persona_Contacto, string Direccion, string NIF, int Original_Id_Proveedor, int Original_Tipo, string Original_Nombre, string Original_Telefono, string Original_Email, string Original_Persona_Contacto, string Original_Direccion, string Original_NIF) {
             return this.Update(Tipo, Nombre, Telefono, Email, Persona_Contacto, Direccion, NIF, Original_Id_Proveedor, Original_Tipo, Original_Nombre, Original_Telefono, Original_Email, Original_Persona_Contacto, Original_Direccion, Original_NIF, Original_Id_Proveedor);
         }
+
     }
     
     /// <summary>

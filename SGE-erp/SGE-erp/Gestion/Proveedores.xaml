@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:SGE_erp="clr-namespace:SGE_erp"
     x:Class="SGE_erp.Gestion.ProveedoresMain"
+    x:Name="ucProveedores"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -71,14 +72,14 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Listado" />
-
-
+                Header="_Listado"
+                Click="MenuItem_Click" />
         </Menu>
 
 
         <ListView
             x:Name="proveedoresListView"
+            x:FieldModifier="public"
             ItemsSource="{Binding}"
             Margin="0"
             Grid.Row="1"
@@ -194,7 +195,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
-
     </Grid>
 </UserControl>
