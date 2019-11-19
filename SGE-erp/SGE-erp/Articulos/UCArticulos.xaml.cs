@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SGE_erp;
+using SGE_erp.SetaDataTableAdapters;
 
 namespace SGE_erp.Articulos
 {
@@ -23,6 +25,11 @@ namespace SGE_erp.Articulos
         public UCArticulos()
         {
             InitializeComponent();
+
+            //SetaData sd = new SetaData();
+            //ArticulosTableAdapter adapter = new ArticulosTableAdapter();
+            //adapter.Fill(sd.Articulos);
+            //articulosListView.ItemsSource = sd.Articulos.DefaultView;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -35,6 +42,13 @@ namespace SGE_erp.Articulos
             // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
             // 	myCollectionViewSource.Source = your data
             // }
+
+
+            //DataTable employeeData = CreateDataTable();
+
+
+            //articulosListView.ItemsSource = query.ToList();
+
 
         }
 

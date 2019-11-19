@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SGE_erp;
+using SGE_erp.SetaDataTableAdapters;
+using System.IO;
 
 namespace SGE_erp.Gestion
 {
@@ -23,19 +28,44 @@ namespace SGE_erp.Gestion
         public ProveedoresMain()
         {
             InitializeComponent();
+            Actualizar();
+        }
+
+        public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
+        private void RefreshListView()
+        {
+            Actualizar();
+        }
+
+
+        private void Actualizar()
+        {
+            try
+            {
+                //string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con); 
+                DataTable dt = new DataTable(); ;
+
+                ds.Clear();
+                da.Fill(dt);
+                this.proveedoresListView.ItemsSource = dt.DefaultView;
+
+                con.Open();
+                con.Close();
+            }
+            catch
+            {
+                return;
+            }
         }
 
         ProveedoresEdicion p = null;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
-            // No cargue datos en tiempo de diseño.
-            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            // {
-            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
-            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
-            // 	myCollectionViewSource.Source = your data
-            // }
+            //Actualizar();
         }
 
         private void anadirPro_Click(object sender, RoutedEventArgs e)
@@ -43,9 +73,17 @@ namespace SGE_erp.Gestion
             if (!MetodosGestion.IsOpen(p))
             {
                 p = new ProveedoresEdicion();
-                p.Owner = System.Windows.Application.Current.MainWindow;
+                RefreshListEvent += new RefreshList(RefreshListView); // event initialization
+                p.Title = "Añadir Proveedor";
+                p.Owner = System.Windows.Application.Current.MainWindow;             
+                p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
                 p.Show();
             }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Actualizar();
         }
     }
 }

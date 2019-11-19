@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +29,6 @@ namespace SGE_erp.Gestion
         }
 
         ClientesEdicion c = null;
-        
-
 
         private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
         {

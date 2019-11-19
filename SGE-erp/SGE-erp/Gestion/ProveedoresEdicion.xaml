@@ -43,7 +43,8 @@
             Grid.Column="3"
             Width="100"
             Height="25"
-            Content="Aceptar" />
+            Content="Aceptar"
+            Click="bAceptar_Click" />
         <Button
             x:Name="bCancelar"
             HorizontalAlignment="Center"
@@ -51,7 +52,8 @@
             Grid.Column="4"
             Width="100"
             Height="25"
-            Content="Cancelar" />
+            Content="Cancelar"
+            Click="bCancelar_Click" />
         <Grid
             x:Name="grid1"
             Grid.Row="0"
@@ -92,12 +94,13 @@
             <TextBox
                 x:Name="id_ClienteTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding Id_Proveedor, Mode=OneWay}"
+                
                 Grid.Row="0"
                 Margin="3"
                 Height="23"
                 HorizontalAlignment="Stretch"
-                Grid.Column="1" />
+                Grid.Column="1"
+                IsEnabled="False" />
             <Label
                 VerticalAlignment="Center"
                 Grid.Row="1"
@@ -108,19 +111,24 @@
             <ComboBox
                 x:Name="tipoComboBox"
                 Grid.Column="1"
-                DisplayMemberPath="Tipo"
                 HorizontalAlignment="Stretch"
                 Height="Auto"
-                ItemsSource="{Binding}"
                 Margin="3"
                 Grid.Row="1"
-                VerticalAlignment="Center"
-                >
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
+                VerticalAlignment="Center"        
+                SelectedIndex="0">
+                
+                <ComboBoxItem
+                    Name="part">
+                    <TextBlock
+                        Text="Particular" />
+                </ComboBoxItem>
+                <ComboBoxItem
+                    Name="empr">
+                    <TextBlock
+                        Text="Empresa" />
+                </ComboBoxItem>
+
             </ComboBox>
             <Label
                 VerticalAlignment="Center"
@@ -132,7 +140,6 @@
             <TextBox
                 x:Name="nombreTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 Grid.Row="2"
                 Margin="3"
                 Height="23"
@@ -148,7 +155,6 @@
             <TextBox
                 x:Name="telefonoTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding Telefono, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 Grid.Row="3"
                 Margin="3"
                 Height="23"
@@ -164,7 +170,6 @@
             <TextBox
                 x:Name="emailTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 Grid.Row="1"
                 Margin="3"
                 Height="23"
@@ -180,7 +185,6 @@
             <TextBox
                 x:Name="direccionTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding Direccion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 Grid.Row="2"
                 Margin="3"
                 Height="23"
@@ -196,7 +200,6 @@
             <TextBox
                 x:Name="personaContactoTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding PersonaContacto, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 Grid.Row="3"
                 Margin="3"
                 Height="23"
@@ -212,7 +215,6 @@
             <TextBox
                 x:Name="nIFTextBox"
                 VerticalAlignment="Center"
-                Text="{Binding NIF, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 Grid.Row="0"
                 Margin="3"
                 Height="23"
