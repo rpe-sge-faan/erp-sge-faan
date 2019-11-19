@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp;
 using SGE_erp.SetaDataTableAdapters;
+using System.IO;
 
 namespace SGE_erp.Gestion
 {
@@ -42,16 +43,12 @@ namespace SGE_erp.Gestion
         {
             try
             {
-                string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\repos\erp-sge-faan\SGE-erp\SGE-erp\DeBaseDatos.mdf;Integrated Security=True";
-                SqlConnection con = new SqlConnection(bd);
-                DataSet ds;
-                SqlDataAdapter da;
-                SqlCommandBuilder scb;
-                DataTable dt;
+                //string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con); 
+                DataTable dt = new DataTable(); ;
 
-                da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-                ds = new DataSet();
-                dt = new DataTable();
                 ds.Clear();
                 da.Fill(dt);
                 this.proveedoresListView.ItemsSource = dt.DefaultView;

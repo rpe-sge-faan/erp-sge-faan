@@ -26,10 +26,10 @@ namespace SGE_erp.Articulos
         {
             InitializeComponent();
 
-            SetaData sd = new SetaData();
-            ArticulosTableAdapter adapter = new ArticulosTableAdapter();
-            adapter.Fill(sd.Articulos);
-            articulosListView.ItemsSource = sd.Articulos.DefaultView;
+            //SetaData sd = new SetaData();
+            //ArticulosTableAdapter adapter = new ArticulosTableAdapter();
+            //adapter.Fill(sd.Articulos);
+            //articulosListView.ItemsSource = sd.Articulos.DefaultView;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
