@@ -108,6 +108,9 @@
     <Compile Include="Compras\Compras.xaml.cs">
       <DependentUpon>Compras.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Compras\ComprasGuay.xaml.cs">
+      <DependentUpon>ComprasGuay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\ClientesEdicion.xaml.cs">
       <DependentUpon>ClientesEdicion.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Compras\Compras.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\ComprasGuay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

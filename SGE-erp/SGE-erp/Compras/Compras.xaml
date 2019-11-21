@@ -31,7 +31,15 @@
                     VerticalAlignment="Center"
                     Header="_Añadir Compra">
                     <Grid DataContext="{StaticResource compraViewSource}">
-                        <DataGrid x:Name="proveedoresDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource proveedoresViewSource}}" Margin="10,10,390.8,190.8" RowDetailsVisibilityMode="VisibleWhenSelected">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="proveedoresDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource proveedoresViewSource}}" Margin="10,10,390.8,190.8" RowDetailsVisibilityMode="VisibleWhenSelected">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="id_ProveedorColumn" Binding="{Binding Id_Proveedor}" Header="Id Proveedor" IsReadOnly="True" Width="SizeToHeader">
                                 </DataGridTextColumn>
