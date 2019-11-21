@@ -43,10 +43,9 @@ namespace SGE_erp.Gestion
         {
             try
             {
-                //string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con); 
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
                 DataTable dt = new DataTable(); ;
 
                 ds.Clear();
@@ -72,10 +71,10 @@ namespace SGE_erp.Gestion
         {
             if (!MetodosGestion.IsOpen(p))
             {
-                p = new ProveedoresEdicion();
+                p = new ProveedoresEdicion(0);
                 RefreshListEvent += new RefreshList(RefreshListView); // event initialization
                 p.Title = "Añadir Proveedor";
-                p.Owner = System.Windows.Application.Current.MainWindow;             
+                p.Owner = System.Windows.Application.Current.MainWindow;
                 p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
                 p.Show();
             }
@@ -84,6 +83,41 @@ namespace SGE_erp.Gestion
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(p))
+            {
+                if (proveedoresListView.SelectedItem != null)
+                {
+
+                    string hola = proveedoresListView.SelectedItem.ToString();
+                    MessageBox.Show(hola);
+
+                    foreach (var item in this.proveedoresListView.SelectedItems)
+                    {
+                        // Have a look at it's type. It is our class!
+                        Console.WriteLine("Type: " + item.GetType());
+                        // We cast to the desired type
+                        string ri = item as string;
+                        // And we got our instance in our type and are able to work with it.
+                        Console.WriteLine("RineItem: " + ri.Name + ", " + ri.Id);
+
+                        // Let's modify it a little
+                        ri.Name += ri.Name;
+                        // Don't forget to Refresh the items, to see the new values on screen
+                        this.ListBox1.Items.Refresh();
+                    }
+
+                    //p = new ProveedoresEdicion(1);
+                    //RefreshListEvent += new RefreshList(RefreshListView); // event initialization
+                    //p.Title = "Editar Proveedor";
+                    //p.Owner = System.Windows.Application.Current.MainWindow;
+                    //p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
+                    //p.Show();
+                }
+            }
         }
     }
 }

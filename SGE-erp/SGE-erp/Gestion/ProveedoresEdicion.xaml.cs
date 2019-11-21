@@ -21,14 +21,48 @@ namespace SGE_erp.Gestion
     /// </summary>
     public partial class ProveedoresEdicion : Window
     {
-        public ProveedoresEdicion()
+        private int id;
+        public ProveedoresEdicion(int num)
         {
             InitializeComponent();
+
+            this.id = num;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (id != 0)
+            {
+                string variable;
+                string bd = MetodosGestion.db;
+                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Proveedores] where Id_Proveedor = @id";
 
+                    command.Parameters.AddWithValue("@id", id);
+
+
+                    con.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        //Check the reader has data:
+                        if (reader.Read())
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Nombre"));
+                            nombreTextBox.Text = variable;
+                            //MessageBox.Show(variable);
+                        }
+                        // If you need to use all rows returned use a loop:
+                        while (reader.Read())
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Column"));
+                            MessageBox.Show(variable);
+                        }
+                    }
+                }
+            }
         }
 
         public Delegate ActualizarLista;
@@ -42,7 +76,7 @@ namespace SGE_erp.Gestion
 
             try
             {
-                string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\repos\erp-sge-faan\SGE-erp\SGE-erp\DeBaseDatos.mdf;Integrated Security=True";
+                string bd = MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
