@@ -251,10 +251,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\Datos.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\Datos_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Datos.mdf</DependentUpon>
     </Content>
     <Content Include="DeBaseDatos.mdf">
@@ -264,6 +264,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>DeBaseDatos.mdf</DependentUpon>
     </Content>
+    <Resource Include="imagenes\refresh.png" />
     <Resource Include="imagenes\anterior.png" />
     <Resource Include="imagenes\atras.png" />
     <Resource Include="imagenes\avance-rapido.png" />

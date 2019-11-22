@@ -51,6 +51,7 @@
                 Click="MenuItem_Click_1"
                 Header="_Editar" />
             <MenuItem
+                x:Name="bBorrar"
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
@@ -63,112 +64,28 @@
                 VerticalAlignment="Center"
                 Header="B_uscar" />
             <MenuItem
-                Width="50"
+                Width="30"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="MenuItem_Click"
-                Header="_Listado" />
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+                <MenuItem.Header>
+                    <Image
+                        Source="/imagenes/refresh.png"
+                        Width="15px"/>
+                </MenuItem.Header>
+                    
+            </MenuItem>
         </Menu>
-
-
-        <ListView
-            x:Name="proveedoresListView"
-            Grid.Row="1"
+        <DataGrid
+            x:Name="dataGridProveedores"
+            SelectionMode="Single"
+            IsReadOnly="True"
+            HorizontalAlignment="Stretch"
             Margin="0"
-            x:FieldModifier="public"
-            ItemsSource="{Binding}"
-            SelectionMode="Single">
-            <ListView.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
-                        x:Name="id_ProveedorColumn"
-                        Width="80"
-                        Header="Idr">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="6,-1,-6,-1" Content="{Binding Id_Proveedor, Mode=OneWay}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="tipoColumn"
-                        Width="80"
-                        Header="Tipo">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding Tipo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="nombreColumn"
-                        Width="80"
-                        Header="Nombre">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="telefonoColumn"
-                        Width="80"
-                        Header="Telefono">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding Telefono, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="emailColumn"
-                        Width="80"
-                        Header="Email">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="persona_ContactoColumn"
-                        Width="80"
-                        Header="Persona Contacto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding Persona_Contacto, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="direccionColumn"
-                        Width="80"
-                        Header="Direccion">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding Direccion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn
-                        x:Name="nIFColumn"
-                        Width="80"
-                        Header="NIF">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Margin="-6,-1" Content="{Binding NIF, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+            Grid.Row="1"
+            VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>

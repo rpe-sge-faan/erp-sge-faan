@@ -50,7 +50,7 @@ namespace SGE_erp.Gestion
 
                 ds.Clear();
                 da.Fill(dt);
-                this.proveedoresListView.ItemsSource = dt.DefaultView;
+                this.dataGridProveedores.ItemsSource = dt.DefaultView;
 
                 con.Open();
                 con.Close();
@@ -72,10 +72,10 @@ namespace SGE_erp.Gestion
             if (!MetodosGestion.IsOpen(p))
             {
                 p = new ProveedoresEdicion(0);
-                RefreshListEvent += new RefreshList(RefreshListView); // event initialization
+                RefreshListEvent += new RefreshList(RefreshListView);
                 p.Title = "Añadir Proveedor";
                 p.Owner = System.Windows.Application.Current.MainWindow;
-                p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
+                p.ActualizarLista = RefreshListEvent;
                 p.Show();
             }
         }
@@ -89,33 +89,17 @@ namespace SGE_erp.Gestion
         {
             if (!MetodosGestion.IsOpen(p))
             {
-                if (proveedoresListView.SelectedItem != null)
+                if (dataGridProveedores.SelectedItem != null)
                 {
+                    DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
+                    int id = dd.Row.Field<int>("Id_Proveedor");
 
-                    string hola = proveedoresListView.SelectedItem.ToString();
-                    MessageBox.Show(hola);
-
-                    foreach (var item in this.proveedoresListView.SelectedItems)
-                    {
-                        // Have a look at it's type. It is our class!
-                        Console.WriteLine("Type: " + item.GetType());
-                        // We cast to the desired type
-                        string ri = item as string;
-                        // And we got our instance in our type and are able to work with it.
-                        Console.WriteLine("RineItem: " + ri.Name + ", " + ri.Id);
-
-                        // Let's modify it a little
-                        ri.Name += ri.Name;
-                        // Don't forget to Refresh the items, to see the new values on screen
-                        this.ListBox1.Items.Refresh();
-                    }
-
-                    //p = new ProveedoresEdicion(1);
-                    //RefreshListEvent += new RefreshList(RefreshListView); // event initialization
-                    //p.Title = "Editar Proveedor";
-                    //p.Owner = System.Windows.Application.Current.MainWindow;
-                    //p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
-                    //p.Show();
+                    p = new ProveedoresEdicion(id);
+                    RefreshListEvent += new RefreshList(RefreshListView); // event initialization
+                    p.Title = "Editar Proveedor";
+                    p.Owner = System.Windows.Application.Current.MainWindow;
+                    p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
+                    p.Show();
                 }
             }
         }

@@ -94,7 +94,6 @@
             <TextBox
                 x:Name="id_ClienteTextBox"
                 VerticalAlignment="Center"
-                
                 Grid.Row="0"
                 Margin="3"
                 Height="23"

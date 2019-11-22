@@ -68,59 +68,10 @@
                 Header="_Listado" />
         </Menu>
         <DataGrid
-            x:Name="clientesDataGrid"
-            Grid.Row="1"
+            x:Name="dataGridClientes"
+            HorizontalAlignment="Stretch"
             Margin="0"
-            AutoGenerateColumns="False"
-            EnableRowVirtualization="True"
-            ItemsSource="{Binding}"
-            RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.Columns>
-                <DataGridTextColumn
-                    x:Name="id_ClienteColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding Id_Cliente}"
-                    Header="Id Cliente"
-                    IsReadOnly="True" />
-                <DataGridTextColumn
-                    x:Name="tipoColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding Tipo}"
-                    Header="Tipo" />
-                <DataGridTextColumn
-                    x:Name="nombreColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding Nombre}"
-                    Header="Nombre" />
-                <DataGridTextColumn
-                    x:Name="telefonoColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding Telefono}"
-                    Header="Telefono" />
-                <DataGridTextColumn
-                    x:Name="emailColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding Email}"
-                    Header="Email" />
-                <DataGridTextColumn
-                    x:Name="direccionColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding Direccion}"
-                    Header="Direccion" />
-                <DataGridTextColumn
-                    x:Name="personaContactoColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding PersonaContacto}"
-                    Header="Persona Contacto" />
-                <DataGridTextColumn
-                    x:Name="nIFColumn"
-                    Width="SizeToHeader"
-                    Binding="{Binding NIF}"
-                    Header="NIF" />
-            </DataGrid.Columns>
-        </DataGrid>
-
-
-
+            Grid.Row="1"
+            VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>
