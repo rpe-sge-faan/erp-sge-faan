@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -125,16 +126,16 @@ namespace SGE_erp.Gestion
 
 
 
-                    DataSet ds;
-                    SqlDataAdapter da;
-                    SqlCommandBuilder scb;
-                    DataTable dt;
+                    //DataSet ds;
+                    //SqlDataAdapter da;
+                    //SqlCommandBuilder scb;
+                    //DataTable dt;
 
-                    da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-                    ds = new DataSet();
-                    dt = new DataTable();
-                    ds.Clear();
-                    da.Fill(dt);
+                    //da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
+                    //ds = new DataSet();
+                    //dt = new DataTable();
+                    //ds.Clear();
+                    //da.Fill(dt);
 
 
                     if (a != 0)
@@ -217,6 +218,12 @@ namespace SGE_erp.Gestion
             ActualizarLista.DynamicInvoke();
 
             this.Close();
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("(+34|0034|34)?[ -]?(6|7)([0-9]*){8}");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

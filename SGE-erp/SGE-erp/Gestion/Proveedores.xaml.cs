@@ -17,11 +17,12 @@ using System.Windows.Shapes;
 using SGE_erp;
 using SGE_erp.SetaDataTableAdapters;
 using System.IO;
+using System.Diagnostics;
 
 namespace SGE_erp.Gestion
 {
     /// <summary>
-    /// Interaction logic for ProveedoresMain.xaml
+    /// Interaction logic for Proveedores.xaml
     /// </summary>
     public partial class ProveedoresMain : UserControl
     {
@@ -33,11 +34,7 @@ namespace SGE_erp.Gestion
 
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
-        private void RefreshListView()
-        {
-            Actualizar();
-        }
-
+        ProveedoresEdicion p = null;
 
         private void Actualizar()
         {
@@ -48,23 +45,55 @@ namespace SGE_erp.Gestion
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
                 DataTable dt = new DataTable(); ;
 
-                ds.Clear();
+                // ds.Clear();
                 da.Fill(dt);
+
+                DataColumn tipoPro = new DataColumn("TipoP", typeof(string));
+                dt.Columns.Add(tipoPro);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i]["Tipo"].Equals(1))
+                    {
+                        dt.Rows[i]["TipoP"] = "Particular";
+                    }
+                    else
+                    {
+                        dt.Rows[i]["TipoP"] = "Empresa";
+                    }
+                }
+
+                dt.Columns["TipoP"].SetOrdinal(3);
+
                 this.dataGridProveedores.ItemsSource = dt.DefaultView;
 
                 con.Open();
                 con.Close();
+
+                dataGridProveedores.Columns[0].Visibility = Visibility.Collapsed;
+                dataGridProveedores.Columns[1].Visibility = Visibility.Collapsed;
             }
             catch
             {
                 return;
             }
+
         }
 
-        ProveedoresEdicion p = null;
+        private void SetColumnsOrder(DataTable table, params String[] columnNames)
+        {
+            int columnIndex = 0;
+            foreach (var columnName in columnNames)
+            {
+                table.Columns[columnName].SetOrdinal(columnIndex);
+                columnIndex++;
+            }
+        }
+
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //Actualizar();
+            Actualizar();
         }
 
         private void anadirPro_Click(object sender, RoutedEventArgs e)
@@ -72,7 +101,7 @@ namespace SGE_erp.Gestion
             if (!MetodosGestion.IsOpen(p))
             {
                 p = new ProveedoresEdicion(0);
-                RefreshListEvent += new RefreshList(RefreshListView);
+                RefreshListEvent += new RefreshList(Actualizar);
                 p.Title = "Añadir Proveedor";
                 p.Owner = System.Windows.Application.Current.MainWindow;
                 p.ActualizarLista = RefreshListEvent;
@@ -94,12 +123,54 @@ namespace SGE_erp.Gestion
                     DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
                     int id = dd.Row.Field<int>("Id_Proveedor");
 
+
                     p = new ProveedoresEdicion(id);
-                    RefreshListEvent += new RefreshList(RefreshListView); // event initialization
+                    RefreshListEvent += new RefreshList(Actualizar);
                     p.Title = "Editar Proveedor";
                     p.Owner = System.Windows.Application.Current.MainWindow;
-                    p.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
+                    p.ActualizarLista = RefreshListEvent;
                     p.Show();
+                }
+            }
+        }
+
+        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridProveedores.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
+                int id = dd.Row.Field<int>("Id_Proveedor");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string bd = MetodosGestion.db;
+                        using (SqlConnection con = new SqlConnection(bd))
+                        using (SqlCommand command = con.CreateCommand())
+                        {
+                            command.CommandText = "DELETE FROM Proveedores WHERE Id_Proveedor = @id";
+
+                            command.Parameters.AddWithValue("@id", id);
+
+                            con.Open();
+                            int a = command.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Proveedor ERROR al borrar");
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    Actualizar();
                 }
             }
         }

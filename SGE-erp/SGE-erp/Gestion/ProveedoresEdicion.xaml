@@ -153,6 +153,8 @@
                 Content="Telefono:" />
             <TextBox
                 x:Name="telefonoTextBox"
+                PreviewTextInput="NumberValidationTextBox"
+                MaxLength="11"
                 VerticalAlignment="Center"
                 Grid.Row="3"
                 Margin="3"

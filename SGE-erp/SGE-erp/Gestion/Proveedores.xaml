@@ -56,7 +56,8 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Borrar" />
+                Header="_Borrar"
+                Click="bBorrar_Click" />
             <MenuItem
                 Width="50"
                 Height="30"
@@ -84,8 +85,10 @@
             SelectionMode="Single"
             IsReadOnly="True"
             HorizontalAlignment="Stretch"
+            ColumnWidth="1*"
             Margin="0"
             Grid.Row="1"
+            CanUserAddRows="True"
             VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>
