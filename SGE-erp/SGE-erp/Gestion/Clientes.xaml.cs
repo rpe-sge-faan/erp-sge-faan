@@ -40,6 +40,25 @@ namespace SGE_erp.Gestion
             // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
             // 	myCollectionViewSource.Source = your data
             // }
+            try
+            {
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
+                DataTable dt = new DataTable(); ;
+
+                ds.Clear();
+                da.Fill(dt);
+                this.dataGridClientes.ItemsSource = dt.DefaultView;
+
+                con.Open();
+                con.Close();
+            }
+            catch
+            {
+                return;
+            }
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
