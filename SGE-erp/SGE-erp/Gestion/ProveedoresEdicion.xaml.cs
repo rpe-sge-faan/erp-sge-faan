@@ -42,7 +42,7 @@ namespace SGE_erp.Gestion
 
             try
             {
-                string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\repos\erp-sge-faan\SGE-erp\SGE-erp\DeBaseDatos.mdf;Integrated Security=True";
+                string bd =MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
@@ -59,20 +59,6 @@ namespace SGE_erp.Gestion
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
-
-
-
-                    DataSet ds;
-                    SqlDataAdapter da;
-                    SqlCommandBuilder scb;
-                    DataTable dt;
-
-                    da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-                    ds = new DataSet();
-                    dt = new DataTable();
-                    ds.Clear();
-                    da.Fill(dt);
-
 
                     if (a != 0)
                     {

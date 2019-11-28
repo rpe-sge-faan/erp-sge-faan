@@ -28,78 +28,69 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Header="_Articulos">
-                    <Grid
-                        x:Name="tablaArticulos"
-                        Margin="0"
-                        DataContext="{StaticResource articulosViewSource}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        <Menu
+            x:Name="menu"
+            Grid.Row="0"
+            Margin="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center">
 
-                        <ListView
-                            x:Name="articulosListView"
-                            Margin="0"
-                            ItemsSource="{Binding}"
-                            SelectionMode="Single">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        x:Name="id_ArticuloColumn"
-                                        Width="65"
-                                        Header="Id Articulo">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBox Margin="6,-1,-6,-1" Text="{Binding Id_Articulo, Mode=OneWay}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        x:Name="id_IvaColumn"
-                                        Width="50"
-                                        Header="Id Iva">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBox Margin="-6,-1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        x:Name="nombreColumn"
-                                        Width="150"
-                                        Header="Nombre">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBox Margin="-6,-1" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        x:Name="descripcionColumn"
-                                        Width="300"
-                                        Header="Descripcion">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBox Margin="-6,-1" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        x:Name="tipoArticuloColumn"
-                                        Width="100"
-                                        Header="Tipo Articulo">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBox Margin="-6,-1" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                            <ListView.ItemContainerStyle>
-                                <Style>
-                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch" />
-                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch" />
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
+            <MenuItem
+                x:Name="anadirPro"
+                Width="50"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="_Añadir"
+                Click="anadirArticulo_Click" />
+            <MenuItem
+                Width="50"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="_Editar" />
+            <MenuItem
+                Width="50"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="_Borrar" />
+            <MenuItem
+                Width="50"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="B_uscar" />
+            <MenuItem
+                Width="50"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="_Listado"
+                Click="MenuItem_Click" />
+        </Menu>
+                        <Grid
+                            x:Name="tablaArticulos"
+                            Margin="0" DataContext="{StaticResource articulosViewSource}"
+                            Grid.Row="1">
+                            <DataGrid x:Name="articulosDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="id_ArticuloColumn" Binding="{Binding Id_Articulo}" Header="Id Articulo" IsReadOnly="True" Width="SizeToHeader"/>
+                                    <DataGridTextColumn x:Name="id_IvaColumn" Binding="{Binding Id_Iva}" Header="Id Iva" Width="SizeToHeader"/>
+                                    <DataGridTextColumn x:Name="nombreColumn" Binding="{Binding Nombre}" Header="Nombre" Width="SizeToHeader"/>
+                                    <DataGridTextColumn x:Name="descripcionColumn" Binding="{Binding Descripcion}" Header="Descripcion" Width="SizeToHeader"/>
+                                    <DataGridTextColumn x:Name="tipoArticuloColumn" Binding="{Binding TipoArticulo}" Header="Tipo Articulo" Width="SizeToHeader"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
+                        </Grid>
                     </Grid>
                 </TabItem>
                 <TabItem
@@ -109,7 +100,8 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Header="_Añadir"
-                    MouseDoubleClick="TabItem_MouseDoubleClick">
+                    MouseDoubleClick="TabItem_MouseDoubleClick"
+                    >
                     <Grid>
                         <Grid
                             x:Name="grid"
