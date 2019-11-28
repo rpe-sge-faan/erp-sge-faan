@@ -108,6 +108,15 @@
     <Compile Include="Compras\Compras.xaml.cs">
       <DependentUpon>Compras.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Compras\ComprasAnadir.xaml.cs">
+      <DependentUpon>ComprasAnadir.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\ComprasAnadir_ArticulosDetalles.xaml.cs">
+      <DependentUpon>ComprasAnadir_ArticulosDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\ComprasVisualizar.xaml.cs">
+      <DependentUpon>ComprasVisualizar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\ClientesEdicion.xaml.cs">
       <DependentUpon>ClientesEdicion.xaml</DependentUpon>
     </Compile>
@@ -154,6 +163,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Compras\Compras.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\ComprasAnadir.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\ComprasAnadir_ArticulosDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\ComprasVisualizar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
