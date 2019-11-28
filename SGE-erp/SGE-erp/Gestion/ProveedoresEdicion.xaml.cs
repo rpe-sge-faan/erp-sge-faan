@@ -78,6 +78,10 @@ namespace SGE_erp.Gestion
                     }
                 }
             }
+            else
+            {
+                bAceptar.IsEnabled = false;
+            }
         }
 
         public Delegate ActualizarLista;
@@ -222,8 +226,76 @@ namespace SGE_erp.Gestion
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("(+34|0034|34)?[ -]?(6|7)([0-9]*){8}");
+            Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void emailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bool valido = IsValidEmail(emailTextBox.Text);
+
+            if (valido)
+            {
+                emailTextBox.ClearValue(TextBox.BackgroundProperty);
+            }
+            else
+            {
+                emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+            }
+            //CheckAceptar();
+        }
+
+        private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //(sender as TextBox).SelectAll();
+            //System.Diagnostics.Debug.WriteLine(txt.Name);
+            if ((sender as TextBox).Name.Equals("emailTextBox"))
+            {
+                emailTextBox_TextChanged(sender, e);
+            }
+            CheckAceptar();
+        }
+
+        private void CheckAceptar()
+        {
+            bool enable = true;
+            var textBoxes = gridGeneral.Children.OfType<TextBox>();
+
+            foreach (TextBox txt in textBoxes)
+            {
+                if (txt.Name != "id_ClienteTextBox")
+                {
+                    var color = txt.Background.ToString();
+                    if (!color.Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    {
+                        enable = false;
+                    }
+                }
+                //else { enable = false; }
+            }
+
+            if (enable)
+            {
+                bAceptar.IsEnabled = true;
+            }
+            else
+            {
+                bAceptar.IsEnabled = false;
+            }
+        }
+
     }
 }

@@ -55,7 +55,7 @@
             Content="Cancelar"
             Click="bCancelar_Click" />
         <Grid
-            x:Name="grid1"
+            x:Name="gridGeneral"
             Grid.Row="0"
             Grid.ColumnSpan="5"
             VerticalAlignment="Stretch"
@@ -138,6 +138,7 @@
                 Content="Nombre:" />
             <TextBox
                 x:Name="nombreTextBox"
+                TextChanged="GenericTextBox_TextChanged"
                 VerticalAlignment="Center"
                 Grid.Row="2"
                 Margin="3"
@@ -153,6 +154,7 @@
                 Content="Telefono:" />
             <TextBox
                 x:Name="telefonoTextBox"
+                TextChanged="GenericTextBox_TextChanged"
                 PreviewTextInput="NumberValidationTextBox"
                 MaxLength="11"
                 VerticalAlignment="Center"
@@ -169,13 +171,14 @@
                 Grid.Column="2"
                 Content="Email:" />
             <TextBox
-                x:Name="emailTextBox"
+                x:Name="emailTextBox"          
                 VerticalAlignment="Center"
                 Grid.Row="1"
                 Margin="3"
                 Height="23"
                 HorizontalAlignment="Stretch"
-                Grid.Column="3" />
+                Grid.Column="3"
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 VerticalAlignment="Center"
                 Grid.Row="2"
@@ -185,6 +188,7 @@
                 Content="Direccion:" />
             <TextBox
                 x:Name="direccionTextBox"
+                TextChanged="GenericTextBox_TextChanged"
                 VerticalAlignment="Center"
                 Grid.Row="2"
                 Margin="3"
@@ -200,6 +204,7 @@
                 Content="Persona Contacto:" />
             <TextBox
                 x:Name="personaContactoTextBox"
+                TextChanged="GenericTextBox_TextChanged"
                 VerticalAlignment="Center"
                 Grid.Row="3"
                 Margin="3"
@@ -215,6 +220,7 @@
                 Content="NIF:" />
             <TextBox
                 x:Name="nIFTextBox"
+                TextChanged="GenericTextBox_TextChanged"
                 VerticalAlignment="Center"
                 Grid.Row="0"
                 Margin="3"
