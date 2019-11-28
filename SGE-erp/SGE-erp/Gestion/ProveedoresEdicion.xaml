@@ -2,32 +2,27 @@
     x:Class="SGE_erp.Gestion.ProveedoresEdicion"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:SGE_erp="clr-namespace:SGE_erp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp.Gestion"
-    mc:Ignorable="d"
-    Title="Proveedores Edicion"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="EdicionProveedores"
+    Title="Proveedores Edicion"
     Width="680"
     Height="245"
     MinHeight="245"
     MaxHeight="245"
+    Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
-    Loaded="Window_Loaded">
+    mc:Ignorable="d">
     <Window.Resources>
-        <SGE_erp:SetaData
-            x:Key="setaData" />
-        <CollectionViewSource
-            x:Key="proveedoresViewSource"
-            Source="{Binding Proveedores, Source={StaticResource setaData}}" />
+        <SGE_erp:SetaData x:Key="setaData" />
+        <CollectionViewSource x:Key="proveedoresViewSource" Source="{Binding Proveedores, Source={StaticResource setaData}}" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition
-                Height="10*" />
-            <RowDefinition
-                Height="3.5*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="3.5*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -38,195 +33,184 @@
         </Grid.ColumnDefinitions>
         <Button
             x:Name="bAceptar"
-            HorizontalAlignment="Center"
             Grid.Row="1"
             Grid.Column="3"
             Width="100"
             Height="25"
-            Content="Aceptar"
-            Click="bAceptar_Click" />
+            HorizontalAlignment="Center"
+            Click="bAceptar_Click"
+            Content="Aceptar" />
         <Button
             x:Name="bCancelar"
-            HorizontalAlignment="Center"
             Grid.Row="1"
             Grid.Column="4"
             Width="100"
             Height="25"
-            Content="Cancelar"
-            Click="bCancelar_Click" />
+            HorizontalAlignment="Center"
+            Click="bCancelar_Click"
+            Content="Cancelar" />
         <Grid
             x:Name="gridGeneral"
             Grid.Row="0"
             Grid.ColumnSpan="5"
-            VerticalAlignment="Stretch"
             Margin="10,10,10,10"
             HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             DataContext="{StaticResource proveedoresViewSource}">
             <Grid.RowDefinitions>
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition
-                    Width="0.35*" />
-                <ColumnDefinition
-                    Width="1*" />
-                <ColumnDefinition
-                    Width="0.5*" />
-                <ColumnDefinition
-                    Width="1*" />
+                <ColumnDefinition Width="0.35*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="1*" />
 
             </Grid.ColumnDefinitions>
             <Label
-                VerticalAlignment="Center"
                 Grid.Row="0"
+                Grid.Column="0"
                 Margin="3"
                 HorizontalAlignment="Right"
-                Grid.Column="0"
+                VerticalAlignment="Center"
                 Content="Id Cliente:" />
             <TextBox
                 x:Name="id_ClienteTextBox"
-                VerticalAlignment="Center"
                 Grid.Row="0"
-                Margin="3"
-                Height="23"
-                HorizontalAlignment="Stretch"
                 Grid.Column="1"
+                Height="23"
+                Margin="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
                 IsEnabled="False" />
             <Label
-                VerticalAlignment="Center"
                 Grid.Row="1"
+                Grid.Column="0"
                 Margin="3"
                 HorizontalAlignment="Right"
-                Grid.Column="0"
+                VerticalAlignment="Center"
                 Content="Tipo:" />
             <ComboBox
                 x:Name="tipoComboBox"
+                Grid.Row="1"
                 Grid.Column="1"
-                HorizontalAlignment="Stretch"
                 Height="Auto"
                 Margin="3"
-                Grid.Row="1"
-                VerticalAlignment="Center"        
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
                 SelectedIndex="0">
-                
-                <ComboBoxItem
-                    Name="part">
-                    <TextBlock
-                        Text="Particular" />
+
+                <ComboBoxItem Name="part">
+                    <TextBlock Text="Particular" />
                 </ComboBoxItem>
-                <ComboBoxItem
-                    Name="empr">
-                    <TextBlock
-                        Text="Empresa" />
+                <ComboBoxItem Name="empr">
+                    <TextBlock Text="Empresa" />
                 </ComboBoxItem>
 
             </ComboBox>
             <Label
-                VerticalAlignment="Center"
                 Grid.Row="2"
+                Grid.Column="0"
                 Margin="3"
                 HorizontalAlignment="Right"
-                Grid.Column="0"
+                VerticalAlignment="Center"
                 Content="Nombre:" />
             <TextBox
                 x:Name="nombreTextBox"
-                TextChanged="GenericTextBox_TextChanged"
-                VerticalAlignment="Center"
                 Grid.Row="2"
-                Margin="3"
+                Grid.Column="1"
                 Height="23"
+                Margin="3"
                 HorizontalAlignment="Stretch"
-                Grid.Column="1" />
-            <Label
                 VerticalAlignment="Center"
+                TextChanged="GenericTextBox_TextChanged" />
+            <Label
                 Grid.Row="3"
+                Grid.Column="0"
                 Margin="3"
                 HorizontalAlignment="Right"
-                Grid.Column="0"
+                VerticalAlignment="Center"
                 Content="Telefono:" />
             <TextBox
                 x:Name="telefonoTextBox"
-                TextChanged="GenericTextBox_TextChanged"
-                PreviewTextInput="NumberValidationTextBox"
-                MaxLength="11"
-                VerticalAlignment="Center"
                 Grid.Row="3"
-                Margin="3"
+                Grid.Column="1"
                 Height="23"
-                HorizontalAlignment="Stretch"
-                Grid.Column="1" />
-            <Label
-                VerticalAlignment="Center"
-                Grid.Row="1"
                 Margin="3"
-                HorizontalAlignment="Right"
-                Grid.Column="2"
-                Content="Email:" />
-            <TextBox
-                x:Name="emailTextBox"          
-                VerticalAlignment="Center"
-                Grid.Row="1"
-                Margin="3"
-                Height="23"
                 HorizontalAlignment="Stretch"
-                Grid.Column="3"
+                VerticalAlignment="Center"
+                MaxLength="11"
+                PreviewTextInput="NumberValidationTextBox"
                 TextChanged="GenericTextBox_TextChanged" />
             <Label
-                VerticalAlignment="Center"
-                Grid.Row="2"
+                Grid.Row="1"
+                Grid.Column="2"
                 Margin="3"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Email:" />
+            <TextBox
+                x:Name="emailTextBox"
+                Grid.Row="1"
+                Grid.Column="3"
+                Height="23"
+                Margin="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                TextChanged="GenericTextBox_TextChanged" />
+            <Label
+                Grid.Row="2"
                 Grid.Column="2"
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
                 Content="Direccion:" />
             <TextBox
                 x:Name="direccionTextBox"
-                TextChanged="GenericTextBox_TextChanged"
-                VerticalAlignment="Center"
                 Grid.Row="2"
-                Margin="3"
+                Grid.Column="3"
                 Height="23"
+                Margin="3"
                 HorizontalAlignment="Stretch"
-                Grid.Column="3" />
-            <Label
                 VerticalAlignment="Center"
+                TextChanged="GenericTextBox_TextChanged" />
+            <Label
                 Grid.Row="3"
+                Grid.Column="2"
                 Margin="3"
                 HorizontalAlignment="Right"
-                Grid.Column="2"
+                VerticalAlignment="Center"
                 Content="Persona Contacto:" />
             <TextBox
                 x:Name="personaContactoTextBox"
-                TextChanged="GenericTextBox_TextChanged"
-                VerticalAlignment="Center"
                 Grid.Row="3"
-                Margin="3"
+                Grid.Column="3"
                 Height="23"
+                Margin="3"
                 HorizontalAlignment="Stretch"
-                Grid.Column="3" />
-            <Label
                 VerticalAlignment="Center"
+                TextChanged="GenericTextBox_TextChanged" />
+            <Label
                 Grid.Row="0"
+                Grid.Column="2"
                 Margin="3"
                 HorizontalAlignment="Right"
-                Grid.Column="2"
+                VerticalAlignment="Center"
                 Content="NIF:" />
             <TextBox
-                x:Name="nIFTextBox"
-                TextChanged="GenericTextBox_TextChanged"
-                VerticalAlignment="Center"
+                x:Name="nifTextBox"
                 Grid.Row="0"
-                Margin="3"
+                Grid.Column="3"
                 Height="23"
+                Margin="3"
                 HorizontalAlignment="Stretch"
-                Grid.Column="3" />
+                VerticalAlignment="Center"
+                MaxLength="9"
+                TextChanged="GenericTextBox_TextChanged" />
         </Grid>
     </Grid>
 </Window>

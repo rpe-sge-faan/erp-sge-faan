@@ -54,7 +54,7 @@ namespace SGE_erp.Gestion
                             // id
                             id_ClienteTextBox.Text = id.ToString();
                             variable = reader.GetString(reader.GetOrdinal("NIF"));
-                            nIFTextBox.Text = variable;
+                            nifTextBox.Text = variable;
 
                             int tipo = reader.GetInt32(reader.GetOrdinal("Tipo"));
 
@@ -122,7 +122,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@email", emailTextBox.Text);
                     command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nIFTextBox.Text);
+                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
                     command.Parameters.AddWithValue("@id", id);
 
                     con.Open();
@@ -185,7 +185,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@email", emailTextBox.Text);
                     command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nIFTextBox.Text);
+                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -230,41 +230,32 @@ namespace SGE_erp.Gestion
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private void emailTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            bool valido = IsValidEmail(emailTextBox.Text);
-
-            if (valido)
-            {
-                emailTextBox.ClearValue(TextBox.BackgroundProperty);
-            }
-            else
-            {
-                emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-            }
-            //CheckAceptar();
-        }
-
         private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //(sender as TextBox).SelectAll();
             //System.Diagnostics.Debug.WriteLine(txt.Name);
-            if ((sender as TextBox).Name.Equals("emailTextBox"))
+            //emailTextBox_TextChanged(sender, e);
+            string nombre = ((sender as TextBox).Name).ToString();
+            switch (nombre)
             {
-                emailTextBox_TextChanged(sender, e);
+                case "emailTextBox":
+                    try
+                    {
+                        var addr = new System.Net.Mail.MailAddress(emailTextBox.Text);
+                        if (addr.Address == emailTextBox.Text) { emailTextBox.ClearValue(TextBox.BackgroundProperty); }
+                    }
+                    catch { emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF"); }
+                    break;
+                case "nifTextBox":
+                    Regex regex = new Regex("^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$");
+                    if (regex.IsMatch(nifTextBox.Text))
+                    {
+                        nifTextBox.ClearValue(TextBox.BackgroundProperty);
+                    }
+                    else { nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF"); }
+                    break;
+
+
             }
             CheckAceptar();
         }
