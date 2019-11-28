@@ -190,20 +190,6 @@ namespace SGE_erp.Gestion
                     con.Open();
                     int a = command.ExecuteNonQuery();
 
-
-
-                    DataSet ds;
-                    SqlDataAdapter da;
-                    SqlCommandBuilder scb;
-                    DataTable dt;
-
-                    da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-                    ds = new DataSet();
-                    dt = new DataTable();
-                    ds.Clear();
-                    da.Fill(dt);
-
-
                     if (a != 0)
                     {
                         con.Close();
