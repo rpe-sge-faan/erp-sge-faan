@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp.Gestion;
+using System.Data;
 
 namespace SGE_erp.Venta
 {
@@ -24,6 +26,7 @@ namespace SGE_erp.Venta
         public VentasVista()
         {
             InitializeComponent();
+            Actualizar();
         }
 
 
@@ -35,6 +38,41 @@ namespace SGE_erp.Venta
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        private void Actualizar()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(MetodoGestion.db);
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter("SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
+                                                        "FROM VentasArticulos, Ventas " +
+                                                        "WHERE VentasArticulos.Id_Ventas = Ventas.Id_Ventas", con);
+                DataTable dt = new DataTable(); ;
+
+                ds.Clear();
+                da.Fill(dt);
+                this.dgVista.ItemsSource = dt.DefaultView;
+
+                con.Open();
+                con.Close();
+            }
+            catch
+            {
+                return;
+            }
+
+        }
+    }
+
+    class MetodoGestion
+    {
+        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
+        public static bool IsOpen(Window window)
+        {
+            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
         }
     }
 }

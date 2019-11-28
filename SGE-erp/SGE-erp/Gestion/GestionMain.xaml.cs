@@ -24,5 +24,10 @@ namespace SGE_erp.Gestion
         {
             InitializeComponent();
         }
+
+        private void ProveedoresMain_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
