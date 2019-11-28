@@ -90,13 +90,12 @@ namespace SGE_erp.Gestion
             }
         }
 
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
 
-        private void anadirPro_Click(object sender, RoutedEventArgs e)
+        private void Anadir_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
             {
@@ -109,12 +108,12 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Actualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void Editar_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
             {
@@ -134,7 +133,7 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        private void Borrar_Click(object sender, RoutedEventArgs e)
         {
             if (dataGridProveedores.SelectedItem != null)
             {
@@ -173,6 +172,48 @@ namespace SGE_erp.Gestion
                     Actualizar();
                 }
             }
+        }
+
+        private void Buscar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(p))
+            {
+                if (dataGridProveedores.SelectedItem != null)
+                {
+                    int id = -1;
+
+                    p = new ProveedoresEdicion(id);
+                    RefreshListEvent += new RefreshList(Filtrar);
+                    p.Title = "Buscar Proveedor";
+                    p.Owner = System.Windows.Application.Current.MainWindow;
+                    p.ActualizarLista = RefreshListEvent;
+                    p.Show();
+                }
+            }
+        }
+
+        private void Filtrar()
+        {
+
+            DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
+            int id = dd.Row.Field<int>("Id_Proveedor");
+            DataTable dt = (DataTable)dataGridProveedores.ItemsSource;
+            DataView dv = (DataView)dataGridProveedores.ItemsSource;
+            StringBuilder sb = new StringBuilder();
+
+            foreach (DataColumn column in dv.Table.Columns)
+            {
+                sb.AppendFormat("[{0}] Like '%{1}%' OR ", column.ColumnName, "FilterString");
+            }
+            sb.Remove(sb.Length - 3, 3);
+            dv.RowFilter = sb.ToString();
+            dataGridProveedores.ItemsSource = dv;
+            dataGridProveedores.Items.Refresh();
+        }
+
+        private void AccesoVentana(params string[] nombres)
+        {
+
         }
     }
 }

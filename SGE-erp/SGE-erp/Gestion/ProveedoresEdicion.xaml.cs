@@ -22,7 +22,9 @@ namespace SGE_erp.Gestion
     /// </summary>
     public partial class ProveedoresEdicion : Window
     {
-        private int id;
+        private readonly int id;
+        public Delegate ActualizarLista;
+
         public ProveedoresEdicion(int num)
         {
             InitializeComponent();
@@ -32,7 +34,15 @@ namespace SGE_erp.Gestion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (id != 0)
+            if (id == 0)
+            {
+                bAceptar.IsEnabled = false;
+            }
+            else if (id == -1)
+            {
+
+            }
+            else
             {
                 string variable;
                 string bd = MetodosGestion.db;
@@ -70,40 +80,40 @@ namespace SGE_erp.Gestion
                             personaContactoTextBox.Text = variable;
                         }
                         // If you need to use all rows returned use a loop:
-                        while (reader.Read())
-                        {
-                            variable = reader.GetString(reader.GetOrdinal("Column"));
-                            MessageBox.Show(variable);
-                        }
+                        //while (reader.Read())
+                        //{
+                        //    variable = reader.GetString(reader.GetOrdinal("Column"));
+                        //    MessageBox.Show(variable);
+                        //}
                     }
                 }
             }
-            else
-            {
-                bAceptar.IsEnabled = false;
-            }
+            isEmpresa();
         }
 
-        public Delegate ActualizarLista;
+        public void Filtros()
+        {
 
-        private void bAceptar_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void Aceptar_Click(object sender, RoutedEventArgs e)
         {
             if (id == 0)
             {
-                nuevo();
+                Nuevo();
             }
             else
             {
-                editar();
+                Editar();
             }
         }
 
-        private void bCancelar_Click(object sender, RoutedEventArgs e)
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void editar()
+        private void Editar()
         {
             int tipo = tipoComboBox.SelectedIndex + 1;
 
@@ -162,7 +172,7 @@ namespace SGE_erp.Gestion
             this.Close();
         }
 
-        private void nuevo()
+        private void Nuevo()
         {
 
             int tipo;
@@ -228,17 +238,30 @@ namespace SGE_erp.Gestion
                     try
                     {
                         var addr = new System.Net.Mail.MailAddress(emailTextBox.Text);
-                        if (addr.Address == emailTextBox.Text) { emailTextBox.ClearValue(TextBox.BackgroundProperty); }
+                        if (addr.Address == emailTextBox.Text)
+                        {
+                            emailTextBox.ClearValue(TextBox.BackgroundProperty);
+                            labelInfo.Content = "";
+                        }
                     }
-                    catch { emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF"); }
+                    catch
+                    {
+                        emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+                        labelInfo.Content = "Error en el formato del email";
+                    }
                     break;
                 case "nifTextBox":
-                    Regex regex = new Regex("^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$");
+                    Regex regex = new Regex("^[0-9]{8}[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe]$");
                     if (regex.IsMatch(nifTextBox.Text))
                     {
                         nifTextBox.ClearValue(TextBox.BackgroundProperty);
+                        labelInfo.Content = "";
                     }
-                    else { nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF"); }
+                    else
+                    {
+                        nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+                        labelInfo.Content = "Error en el formato del DNI";
+                    }
                     break;
 
 
@@ -253,15 +276,13 @@ namespace SGE_erp.Gestion
 
             foreach (TextBox txt in textBoxes)
             {
-                if (txt.Name != "id_ClienteTextBox")
+                if (txt.IsEnabled)
                 {
-                    var color = txt.Background.ToString();
-                    if (!color.Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
                     {
                         enable = false;
                     }
                 }
-                //else { enable = false; }
             }
 
             if (enable)
@@ -274,5 +295,19 @@ namespace SGE_erp.Gestion
             }
         }
 
+        private void isEmpresa()
+        {
+            if (personaContactoTextBox != null)
+            {
+                if ((tipoComboBox.SelectedItem.ToString()).Contains("Particular")) { personaContactoTextBox.IsEnabled = false; personaContactoTextBox.Text = ""; }
+                else { personaContactoTextBox.IsEnabled = true; }
+            }
+            CheckAceptar();
+        }
+
+        private void tipoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            isEmpresa();
+        }
     }
 }

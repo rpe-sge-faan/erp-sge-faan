@@ -38,7 +38,7 @@
             Width="100"
             Height="25"
             HorizontalAlignment="Center"
-            Click="bAceptar_Click"
+            Click="Aceptar_Click"
             Content="Aceptar" />
         <Button
             x:Name="bCancelar"
@@ -47,7 +47,7 @@
             Width="100"
             Height="25"
             HorizontalAlignment="Center"
-            Click="bCancelar_Click"
+            Click="Cancelar_Click"
             Content="Cancelar" />
         <Grid
             x:Name="gridGeneral"
@@ -102,7 +102,8 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                SelectedIndex="0">
+                SelectedIndex="0"
+                SelectionChanged="tipoComboBox_SelectionChanged">
 
                 <ComboBoxItem Name="part">
                     <TextBlock Text="Particular" />
@@ -212,5 +213,15 @@
                 MaxLength="9"
                 TextChanged="GenericTextBox_TextChanged" />
         </Grid>
+        <Label
+            x:Name="labelInfo"
+            Content=""
+            Grid.Column="0"
+            Margin="15"
+            Grid.ColumnSpan="3"
+            Foreground="Red"
+            HorizontalAlignment="Left"
+            Grid.Row="1"
+            VerticalAlignment="Center" />
     </Grid>
 </Window>
