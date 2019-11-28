@@ -199,7 +199,7 @@
                 Background="#FFFFC733"
                 Header="_Compras"
                 Style="{DynamicResource TabItemStyle1}">
-                <localCompras:ComprasGuay />
+                <localCompras:Compras />
             </TabItem>
             <TabItem
                 x:Name="tabVentas"
