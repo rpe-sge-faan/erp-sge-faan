@@ -45,23 +45,20 @@ namespace SGE_erp.Articulos
             //if (tipoComboBox.SelectedValue.ToString() == "Particular") { tipo = 1; }
            // else { tipo = 2; }
 
-
             try
             {
                 string bd = MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Proveedores (Tipo, Nombre, Telefono, Email, Persona_Contacto, Direccion, NIF) " +
-                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif)";
+                    command.CommandText = "INSERT INTO Proveedores (Id_Iva, Nombre, Descripcion, TipoArticulo) " +
+                        "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo)";
 
-                    //command.Parameters.AddWithValue("@tipo", tipo);
+                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex+1);
                     command.Parameters.AddWithValue("@nombre", id_ArticuloTextBox1.Text);
-                   //command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
-                    //command.Parameters.AddWithValue("@email", emailTextBox.Text);
-                    //command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
-                   // command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                   // command.Parameters.AddWithValue("@nif", nIFTextBox.Text);
+                    command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloTextBox1.Text);
+
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -72,7 +69,7 @@ namespace SGE_erp.Articulos
                     }
                     else
                     {
-                        MessageBox.Show("Proveedor ERROR");
+                        MessageBox.Show("ERROR articulos ");
                     }
                 }
             }

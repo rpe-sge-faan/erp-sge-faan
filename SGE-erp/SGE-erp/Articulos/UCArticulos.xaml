@@ -61,13 +61,14 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Borrar" />
+                Header="_Borrar"
+                Click="bBorrar_Click"/>
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="B_uscar" />
+                Header="B_uscar" Click="MenuItem_Click_1" />
             <MenuItem
                 Width="50"
                 Height="30"

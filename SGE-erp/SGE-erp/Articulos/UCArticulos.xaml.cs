@@ -29,7 +29,7 @@ namespace SGE_erp.Articulos
         {
             InitializeComponent();
             Actualizar();
-            //SetaData sd = new SetaData();
+            //SetaData sd = new SetaData(); 
             //ArticulosTableAdapter adapter = new ArticulosTableAdapter();
             //adapter.Fill(sd.Articulos);
             //articulosListView.ItemsSource = sd.Articulos.DefaultView;
@@ -120,7 +120,52 @@ namespace SGE_erp.Articulos
             ea.ShowDialog();
         }
 
+        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            if (articulosDataGrid.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
+                int id = dd.Row.Field<int>("Id_Articulo");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string bd = MetodosGestion.db;
+                        using (SqlConnection con = new SqlConnection(bd))
+                        using (SqlCommand command = con.CreateCommand())
+                        {
+                            command.CommandText = "DELETE FROM Articulos WHERE Id_Articulo = @id";
 
+                            command.Parameters.AddWithValue("@id", id);
+
+                            con.Open();
+                            int a = command.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al borrar articulo");
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    Actualizar();
+                }
+            }
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            BuscarArticulos bArt = new BuscarArticulos();
+            bArt.ShowDialog();
+        }
 
         /* private void TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
