@@ -15,9 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp;
-using SGE_erp.SetaDataTableAdapters;
 using System.IO;
-using System.Diagnostics;
+using System.ComponentModel;
 
 namespace SGE_erp.Gestion
 {
@@ -29,11 +28,16 @@ namespace SGE_erp.Gestion
         public ProveedoresMain()
         {
             InitializeComponent();
-            Actualizar();
+            //Actualizar();
         }
 
+        public static Delegate FiltrarLista;
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
+
+        public delegate void FilterList();
+        public event FilterList FilterListEvent;
+
         ProveedoresEdicion p = null;
 
         private void Actualizar()
@@ -77,7 +81,6 @@ namespace SGE_erp.Gestion
             {
                 return;
             }
-
         }
 
         private void SetColumnsOrder(DataTable table, params String[] columnNames)
@@ -178,42 +181,83 @@ namespace SGE_erp.Gestion
         {
             if (!MetodosGestion.IsOpen(p))
             {
-                if (dataGridProveedores.SelectedItem != null)
-                {
-                    int id = -1;
+                FilterListEvent += new FilterList(Filtrar);
+                p = new ProveedoresEdicion(-1);
+                p.Title = "Buscar Proveedor";
+                p.Owner = Application.Current.MainWindow;
+                p.FiltrarLista = FilterListEvent;
+                p.Show();
+            }
+            else
+            {
+                Filtrar();
+            }
+        }
 
-                    p = new ProveedoresEdicion(id);
-                    RefreshListEvent += new RefreshList(Filtrar);
-                    p.Title = "Buscar Proveedor";
-                    p.Owner = System.Windows.Application.Current.MainWindow;
-                    p.ActualizarLista = RefreshListEvent;
-                    p.Show();
+        DataView view = null;
+        DataTable dt;
+        public void Filtrar()
+        {
+            List<String> nombres = AccesoVentana();
+            String[] campos = { "Nombre", "Telefono","Email","Persona_Contacto","Direccion","NIF", "TipoP" };
+            
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)dataGridProveedores.ItemsSource).ToTable();
+                dt.TableName = "Proveedores";
+                view.Table = dt;
+            }        
+
+            for(int i = 0; i < nombres.Count; i++)
+            {
+                view.RowFilter = $"{campos[i]} LIKE '%{nombres[i]}%'";
+            }
+            
+            //view.Sort = "CompanyName DESC";
+            dt = view.ToTable();
+            dataGridProveedores.ItemsSource = null;
+            dataGridProveedores.ItemsSource = dt.DefaultView;
+            dataGridProveedores.Columns[0].Visibility = Visibility.Collapsed;
+            dataGridProveedores.Columns[1].Visibility = Visibility.Collapsed;
+
+        }
+        // params string[] nombres
+
+        public List<String> AccesoVentana()
+        {
+            List<String> nombres = new List<String>();
+            foreach (Window item in Application.Current.Windows)
+            {
+                //  0    1         2       3       4         5        6    7
+                // ID, NOMBRE, TELEFONO, EMAIL, CONTACTO, DIRECCION, NIF, TIPO
+                if (item.Name == "EdicionProveedores")
+                {
+                    ((ProveedoresEdicion)item).personaContactoTextBox.IsEnabled = true;
+                    int tipo = ((ProveedoresEdicion)item).tipoComboBox.SelectedIndex;
+                    String t;
+                    if (tipo == 0)
+                    {
+                        t = "Particular";
+                    }
+                    else
+                    {
+                        t = "Empresa";
+                    }
+
+                    String[] nombresArray = {
+                        ((ProveedoresEdicion)item).nombreTextBox.Text,
+                        ((ProveedoresEdicion)item).telefonoTextBox.Text,
+                        ((ProveedoresEdicion)item).emailTextBox.Text,
+                        ((ProveedoresEdicion)item).personaContactoTextBox.Text,
+                        ((ProveedoresEdicion)item).direccionTextBox.Text,
+                        ((ProveedoresEdicion)item).nifTextBox.Text,
+                        t
+                    };
+                    nombres.AddRange(nombresArray);
                 }
             }
-        }
-
-        private void Filtrar()
-        {
-
-            DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
-            int id = dd.Row.Field<int>("Id_Proveedor");
-            DataTable dt = (DataTable)dataGridProveedores.ItemsSource;
-            DataView dv = (DataView)dataGridProveedores.ItemsSource;
-            StringBuilder sb = new StringBuilder();
-
-            foreach (DataColumn column in dv.Table.Columns)
-            {
-                sb.AppendFormat("[{0}] Like '%{1}%' OR ", column.ColumnName, "FilterString");
-            }
-            sb.Remove(sb.Length - 3, 3);
-            dv.RowFilter = sb.ToString();
-            dataGridProveedores.ItemsSource = dv;
-            dataGridProveedores.Items.Refresh();
-        }
-
-        private void AccesoVentana(params string[] nombres)
-        {
-
+            return nombres;
         }
     }
 }

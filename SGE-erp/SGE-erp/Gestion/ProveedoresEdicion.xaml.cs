@@ -22,14 +22,18 @@ namespace SGE_erp.Gestion
     /// </summary>
     public partial class ProveedoresEdicion : Window
     {
-        private readonly int id;
+        public int id;
         public Delegate ActualizarLista;
+        public Delegate FiltrarLista;
+        public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
 
         public ProveedoresEdicion(int num)
         {
             InitializeComponent();
 
             this.id = num;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -40,7 +44,7 @@ namespace SGE_erp.Gestion
             }
             else if (id == -1)
             {
-
+                tipoComboBox.SelectedIndex = -1;
             }
             else
             {
@@ -88,12 +92,6 @@ namespace SGE_erp.Gestion
                     }
                 }
             }
-            isEmpresa();
-        }
-
-        public void Filtros()
-        {
-
         }
 
         private void Aceptar_Click(object sender, RoutedEventArgs e)
@@ -101,6 +99,10 @@ namespace SGE_erp.Gestion
             if (id == 0)
             {
                 Nuevo();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
             }
             else
             {
@@ -228,45 +230,47 @@ namespace SGE_erp.Gestion
 
         private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //(sender as TextBox).SelectAll();
-            //System.Diagnostics.Debug.WriteLine(txt.Name);
-            //emailTextBox_TextChanged(sender, e);
-            string nombre = ((sender as TextBox).Name).ToString();
-            switch (nombre)
+            if (id != -1)
             {
-                case "emailTextBox":
-                    try
-                    {
-                        var addr = new System.Net.Mail.MailAddress(emailTextBox.Text);
-                        if (addr.Address == emailTextBox.Text)
+                //(sender as TextBox).SelectAll();
+                //System.Diagnostics.Debug.WriteLine(txt.Name);
+                //emailTextBox_TextChanged(sender, e);
+                string nombre = ((sender as TextBox).Name).ToString();
+                switch (nombre)
+                {
+                    case "emailTextBox":
+                        try
                         {
-                            emailTextBox.ClearValue(TextBox.BackgroundProperty);
+                            var addr = new System.Net.Mail.MailAddress(emailTextBox.Text);
+                            if (addr.Address == emailTextBox.Text)
+                            {
+                                emailTextBox.ClearValue(TextBox.BackgroundProperty);
+                                labelInfo.Content = "";
+                            }
+                        }
+                        catch
+                        {
+                            emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+                            labelInfo.Content = "Error en el formato del email";
+                        }
+                        break;
+                    case "nifTextBox":
+                        Regex regex = new Regex("^[0-9]{8}[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe]$");
+                        if (regex.IsMatch(nifTextBox.Text))
+                        {
+                            nifTextBox.ClearValue(TextBox.BackgroundProperty);
                             labelInfo.Content = "";
                         }
-                    }
-                    catch
-                    {
-                        emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-                        labelInfo.Content = "Error en el formato del email";
-                    }
-                    break;
-                case "nifTextBox":
-                    Regex regex = new Regex("^[0-9]{8}[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe]$");
-                    if (regex.IsMatch(nifTextBox.Text))
-                    {
-                        nifTextBox.ClearValue(TextBox.BackgroundProperty);
-                        labelInfo.Content = "";
-                    }
-                    else
-                    {
-                        nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-                        labelInfo.Content = "Error en el formato del DNI";
-                    }
-                    break;
-
-
+                        else
+                        {
+                            nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+                            labelInfo.Content = "Error en el formato del DNI";
+                        }
+                        break;
+                }
+                CheckAceptar();
+                //ProveedoresMain.AccesoVentana();
             }
-            CheckAceptar();
         }
 
         private void CheckAceptar()
@@ -293,21 +297,6 @@ namespace SGE_erp.Gestion
             {
                 bAceptar.IsEnabled = false;
             }
-        }
-
-        private void isEmpresa()
-        {
-            if (personaContactoTextBox != null)
-            {
-                if ((tipoComboBox.SelectedItem.ToString()).Contains("Particular")) { personaContactoTextBox.IsEnabled = false; personaContactoTextBox.Text = ""; }
-                else { personaContactoTextBox.IsEnabled = true; }
-            }
-            CheckAceptar();
-        }
-
-        private void tipoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            isEmpresa();
         }
     }
 }
