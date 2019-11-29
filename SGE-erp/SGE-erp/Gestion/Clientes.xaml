@@ -40,38 +40,54 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Click="MenuItem_Click"
+                Click="Anadir_Click"
                 Header="_Añadir" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Editar" />
+                Header="_Editar"
+                Click="Editar_Click" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Borrar" />
+                Header="_Borrar"
+                Click="Borrar_Click" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="B_uscar" />
+                Header="B_uscar"
+                Click="Buscar_Click" />
             <MenuItem
-                Width="50"
+                Width="30"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Listado" />
+                Click="Actualizar_Click"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center">
+                <MenuItem.Header>
+                    <Image
+                        Source="/imagenes/refresh.png"
+                        Width="15px" />
+                </MenuItem.Header>
+
+            </MenuItem>
         </Menu>
         <DataGrid
             x:Name="dataGridClientes"
+            SelectionMode="Single"
+            IsReadOnly="True"
             HorizontalAlignment="Stretch"
+            ColumnWidth="1*"
             Margin="0"
             Grid.Row="1"
+            CanUserAddRows="True"
             VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>
