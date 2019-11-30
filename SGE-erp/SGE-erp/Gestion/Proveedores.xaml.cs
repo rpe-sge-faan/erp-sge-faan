@@ -187,11 +187,7 @@ namespace SGE_erp.Gestion
                 p.Owner = Application.Current.MainWindow;
                 p.FiltrarLista = FilterListEvent;
                 p.Show();
-            }
-            else
-            {
-                Filtrar();
-            }
+            }           
         }
 
         DataView view = null;

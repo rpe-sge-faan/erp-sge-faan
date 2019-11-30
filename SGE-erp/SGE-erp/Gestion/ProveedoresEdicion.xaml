@@ -15,10 +15,6 @@
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-    <Window.Resources>
-        <SGE_erp:SetaData x:Key="setaData" />
-        <CollectionViewSource x:Key="proveedoresViewSource" Source="{Binding Proveedores, Source={StaticResource setaData}}" />
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
@@ -55,8 +51,7 @@
             Grid.ColumnSpan="5"
             Margin="10,10,10,10"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            DataContext="{StaticResource proveedoresViewSource}">
+            VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

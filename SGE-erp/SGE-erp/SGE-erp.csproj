@@ -91,8 +91,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Administracion\EmpleadosGeneral.xaml.cs">
-      <DependentUpon>EmpleadosGeneral.xaml</DependentUpon>
+    <Compile Include="Gestion\EmpleadosEdicion.xaml.cs">
+      <DependentUpon>EmpleadosEdicion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Articulos\EditaArticulos.xaml.cs">
       <DependentUpon>EditaArticulos.xaml</DependentUpon>
@@ -100,11 +100,8 @@
     <Compile Include="Articulos\UCArticulos.xaml.cs">
       <DependentUpon>UCArticulos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administracion\Empleados.xaml.cs">
+    <Compile Include="Gestion\Empleados.xaml.cs">
       <DependentUpon>Empleados.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Administracion\EmpleadosEditar.xaml.cs">
-      <DependentUpon>EmpleadosEditar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Compras\Compras.xaml.cs">
       <DependentUpon>Compras.xaml</DependentUpon>
@@ -139,15 +136,11 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
-    <Page Include="Administracion\Empleados.xaml">
+    <Page Include="Gestion\Empleados.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Administracion\EmpleadosEditar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Administracion\EmpleadosGeneral.xaml">
+    <Page Include="Gestion\EmpleadosEdicion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,8 +301,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ventas\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

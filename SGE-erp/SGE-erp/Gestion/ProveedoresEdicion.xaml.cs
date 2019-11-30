@@ -26,12 +26,10 @@ namespace SGE_erp.Gestion
         public Delegate ActualizarLista;
         public Delegate FiltrarLista;
         public delegate void RefreshList();
-        public event RefreshList RefreshListEvent;
 
         public ProveedoresEdicion(int num)
         {
             InitializeComponent();
-
             this.id = num;
 
         }
@@ -280,7 +278,7 @@ namespace SGE_erp.Gestion
 
             foreach (TextBox txt in textBoxes)
             {
-                if (txt.IsEnabled)
+                if (txt.IsEnabled && txt.Name != "personaContactoTextBox")
                 {
                     if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
                     {
