@@ -22,17 +22,29 @@ namespace SGE_erp.Gestion
     /// </summary>
     public partial class ProveedoresEdicion : Window
     {
-        private int id;
+        public int id;
+        public Delegate ActualizarLista;
+        public Delegate FiltrarLista;
+        public delegate void RefreshList();
+
         public ProveedoresEdicion(int num)
         {
             InitializeComponent();
-
             this.id = num;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (id != 0)
+            if (id == 0)
+            {
+                bAceptar.IsEnabled = false;
+            }
+            else if (id == -1)
+            {
+                tipoComboBox.SelectedIndex = -1;
+            }
+            else
             {
                 string variable;
                 string bd = MetodosGestion.db;
@@ -54,7 +66,7 @@ namespace SGE_erp.Gestion
                             // id
                             id_ClienteTextBox.Text = id.ToString();
                             variable = reader.GetString(reader.GetOrdinal("NIF"));
-                            nIFTextBox.Text = variable;
+                            nifTextBox.Text = variable;
 
                             int tipo = reader.GetInt32(reader.GetOrdinal("Tipo"));
 
@@ -70,40 +82,38 @@ namespace SGE_erp.Gestion
                             personaContactoTextBox.Text = variable;
                         }
                         // If you need to use all rows returned use a loop:
-                        while (reader.Read())
-                        {
-                            variable = reader.GetString(reader.GetOrdinal("Column"));
-                            MessageBox.Show(variable);
-                        }
+                        //while (reader.Read())
+                        //{
+                        //    variable = reader.GetString(reader.GetOrdinal("Column"));
+                        //    MessageBox.Show(variable);
+                        //}
                     }
                 }
             }
-            else
-            {
-                bAceptar.IsEnabled = false;
-            }
         }
 
-        public Delegate ActualizarLista;
-
-        private void bAceptar_Click(object sender, RoutedEventArgs e)
+        private void Aceptar_Click(object sender, RoutedEventArgs e)
         {
             if (id == 0)
             {
-                nuevo();
+                Nuevo();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
             }
             else
             {
-                editar();
+                Editar();
             }
         }
 
-        private void bCancelar_Click(object sender, RoutedEventArgs e)
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void editar()
+        private void Editar()
         {
             int tipo = tipoComboBox.SelectedIndex + 1;
 
@@ -122,7 +132,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@email", emailTextBox.Text);
                     command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nIFTextBox.Text);
+                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
                     command.Parameters.AddWithValue("@id", id);
 
                     con.Open();
@@ -162,7 +172,7 @@ namespace SGE_erp.Gestion
             this.Close();
         }
 
-        private void nuevo()
+        private void Nuevo()
         {
 
             int tipo;
@@ -185,7 +195,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@email", emailTextBox.Text);
                     command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nIFTextBox.Text);
+                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -216,43 +226,49 @@ namespace SGE_erp.Gestion
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private void emailTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            bool valido = IsValidEmail(emailTextBox.Text);
-
-            if (valido)
-            {
-                emailTextBox.ClearValue(TextBox.BackgroundProperty);
-            }
-            else
-            {
-                emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-            }
-            //CheckAceptar();
-        }
-
         private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //(sender as TextBox).SelectAll();
-            //System.Diagnostics.Debug.WriteLine(txt.Name);
-            if ((sender as TextBox).Name.Equals("emailTextBox"))
+            if (id != -1)
             {
-                emailTextBox_TextChanged(sender, e);
+                //(sender as TextBox).SelectAll();
+                //System.Diagnostics.Debug.WriteLine(txt.Name);
+                //emailTextBox_TextChanged(sender, e);
+                string nombre = ((sender as TextBox).Name).ToString();
+                switch (nombre)
+                {
+                    case "emailTextBox":
+                        try
+                        {
+                            var addr = new System.Net.Mail.MailAddress(emailTextBox.Text);
+                            if (addr.Address == emailTextBox.Text)
+                            {
+                                emailTextBox.ClearValue(TextBox.BackgroundProperty);
+                                labelInfo.Content = "";
+                            }
+                        }
+                        catch
+                        {
+                            emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+                            labelInfo.Content = "Error en el formato del email";
+                        }
+                        break;
+                    case "nifTextBox":
+                        Regex regex = new Regex("^[0-9]{8}[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe]$");
+                        if (regex.IsMatch(nifTextBox.Text))
+                        {
+                            nifTextBox.ClearValue(TextBox.BackgroundProperty);
+                            labelInfo.Content = "";
+                        }
+                        else
+                        {
+                            nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
+                            labelInfo.Content = "Error en el formato del DNI";
+                        }
+                        break;
+                }
+                CheckAceptar();
+                //ProveedoresMain.AccesoVentana();
             }
-            CheckAceptar();
         }
 
         private void CheckAceptar()
@@ -262,15 +278,13 @@ namespace SGE_erp.Gestion
 
             foreach (TextBox txt in textBoxes)
             {
-                if (txt.Name != "id_ClienteTextBox")
+                if (txt.IsEnabled && txt.Name != "personaContactoTextBox")
                 {
-                    var color = txt.Background.ToString();
-                    if (!color.Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
                     {
                         enable = false;
                     }
                 }
-                //else { enable = false; }
             }
 
             if (enable)
@@ -282,6 +296,5 @@ namespace SGE_erp.Gestion
                 bAceptar.IsEnabled = false;
             }
         }
-
     }
 }

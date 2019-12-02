@@ -15,9 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp;
-using SGE_erp.SetaDataTableAdapters;
 using System.IO;
-using System.Diagnostics;
+using System.ComponentModel;
 
 namespace SGE_erp.Gestion
 {
@@ -29,11 +28,16 @@ namespace SGE_erp.Gestion
         public ProveedoresMain()
         {
             InitializeComponent();
-            Actualizar();
+            //Actualizar();
         }
 
+        public static Delegate FiltrarLista;
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
+
+        public delegate void FilterList();
+        public event FilterList FilterListEvent;
+
         ProveedoresEdicion p = null;
 
         private void Actualizar()
@@ -77,7 +81,6 @@ namespace SGE_erp.Gestion
             {
                 return;
             }
-
         }
 
         private void SetColumnsOrder(DataTable table, params String[] columnNames)
@@ -90,13 +93,12 @@ namespace SGE_erp.Gestion
             }
         }
 
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
 
-        private void anadirPro_Click(object sender, RoutedEventArgs e)
+        private void Anadir_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
             {
@@ -109,12 +111,12 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Actualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void Editar_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
             {
@@ -134,7 +136,7 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        private void Borrar_Click(object sender, RoutedEventArgs e)
         {
             if (dataGridProveedores.SelectedItem != null)
             {
@@ -173,6 +175,84 @@ namespace SGE_erp.Gestion
                     Actualizar();
                 }
             }
+        }
+
+        private void Buscar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(p))
+            {
+                FilterListEvent += new FilterList(Filtrar);
+                p = new ProveedoresEdicion(-1);
+                p.Title = "Buscar Proveedor";
+                p.Owner = Application.Current.MainWindow;
+                p.FiltrarLista = FilterListEvent;
+                p.Show();
+            }           
+        }
+
+        DataView view = null;
+        DataTable dt;
+        public void Filtrar()
+        {
+            List<String> nombres = AccesoVentana();
+            String[] campos = { "Nombre", "Telefono","Email","Persona_Contacto","Direccion","NIF", "TipoP" };
+            
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)dataGridProveedores.ItemsSource).ToTable();
+                dt.TableName = "Proveedores";
+                view.Table = dt;
+            }
+
+            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
+                $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
+                $"AND Tipo = '{nombres[6]}'";
+
+            //view.Sort = "CompanyName DESC";
+            dt = view.ToTable();
+            dataGridProveedores.ItemsSource = null;
+            dataGridProveedores.ItemsSource = dt.DefaultView;
+            dataGridProveedores.Columns[0].Visibility = Visibility.Collapsed;
+            dataGridProveedores.Columns[1].Visibility = Visibility.Collapsed;
+
+        }
+        // params string[] nombres
+
+        public List<String> AccesoVentana()
+        {
+            List<String> nombres = new List<String>();
+            foreach (Window item in Application.Current.Windows)
+            {
+                //  0    1         2       3       4         5        6    7
+                // ID, NOMBRE, TELEFONO, EMAIL, CONTACTO, DIRECCION, NIF, TIPO
+                if (item.Name == "EdicionProveedores")
+                {
+                    ((ProveedoresEdicion)item).personaContactoTextBox.IsEnabled = true;
+                    int tipo = ((ProveedoresEdicion)item).tipoComboBox.SelectedIndex;
+                    String t;
+                    if (tipo == 0)
+                    {
+                        t = "Particular";
+                    }
+                    else
+                    {
+                        t = "Empresa";
+                    }
+
+                    String[] nombresArray = {
+                        ((ProveedoresEdicion)item).nombreTextBox.Text,
+                        ((ProveedoresEdicion)item).telefonoTextBox.Text,
+                        ((ProveedoresEdicion)item).emailTextBox.Text,
+                        ((ProveedoresEdicion)item).personaContactoTextBox.Text,
+                        ((ProveedoresEdicion)item).direccionTextBox.Text,
+                        ((ProveedoresEdicion)item).nifTextBox.Text,
+                        t
+                    };
+                    nombres.AddRange(nombresArray);
+                }
+            }
+            return nombres;
         }
     }
 }
