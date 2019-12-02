@@ -118,7 +118,6 @@ namespace SGE_erp.Gestion
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "Nombre", "Telefono", "Email", "Persona_Contacto", "Direccion", "NIF", "TipoP" };
 
             if (view == null)
             {
@@ -128,10 +127,9 @@ namespace SGE_erp.Gestion
                 view.Table = dt;
             }
 
-            for (int i = 0; i < nombres.Count; i++)
-            {
-                view.RowFilter = $"{campos[i]} LIKE '%{nombres[i]}%'";
-            }
+            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
+                $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
+                $"AND Tipo = '{nombres[6]}'";
 
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -143,13 +141,13 @@ namespace SGE_erp.Gestion
         }
         // params string[] nombres
 
-        public List<String> AccesoVentana()
+        private List<String> AccesoVentana()
         {
             List<String> nombres = new List<String>();
             foreach (Window item in Application.Current.Windows)
             {
-                //  0    1         2       3       4         5        6    7
-                // ID, NOMBRE, TELEFONO, EMAIL, CONTACTO, DIRECCION, NIF, TIPO
+                //  0        1         2       3       4         5    6    
+                // NOMBRE, TELEFONO, EMAIL, CONTACTO, DIRECCION, NIF, TIPO
                 if (item.Name == "EdicionClientes")
                 {
                     ((ClientesEdicion)item).personaContactoTextBox.IsEnabled = true;

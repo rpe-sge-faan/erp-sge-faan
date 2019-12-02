@@ -187,20 +187,13 @@ namespace SGE_erp.Gestion
                 dt.TableName = "Empleados";
                 view.Table = dt;
             }
-            
-            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%'";
-            view.RowFilter = $"NIF LIKE '%{nombres[1]}%'";
-            view.RowFilter = $"Telefono LIKE '%{nombres[2]}%'";
-            view.RowFilter = $"Email LIKE '%{nombres[3]}%'";
-            view.RowFilter = $"Direccion LIKE '%{nombres[4]}%'";
-            view.RowFilter = $"NumVentas > {int.Parse(nombres[5])}";
-            
-            view.RowFilter = $"Salario > {decimal.Parse(nombres[6])}";
-            DateTime date = DateTime.Parse(nombres[7]);
-           // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
-            view.RowFilter = $"FechaContratacion > #{date}#";
 
-            //view.Sort = "CompanyName DESC";
+            DateTime date = DateTime.Parse(nombres[7]);
+            // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
+
+            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[1]}%' AND Telefono LIKE '%{nombres[2]}%' AND Email LIKE '%{nombres[3]}%' AND Direccion LIKE '%{nombres[4]}%' AND NumVentas > {int.Parse(nombres[5])} AND Salario > {decimal.Parse(nombres[6])} AND FechaContratacion > #{date}#";
+
+            // view.Sort = "CompanyName DESC";
             dt = view.ToTable();
             dataGridEmpleados.ItemsSource = null;
             dataGridEmpleados.ItemsSource = dt.DefaultView;

@@ -203,13 +203,12 @@ namespace SGE_erp.Gestion
                 dt = ((DataView)dataGridProveedores.ItemsSource).ToTable();
                 dt.TableName = "Proveedores";
                 view.Table = dt;
-            }        
-
-            for(int i = 0; i < nombres.Count; i++)
-            {
-                view.RowFilter = $"{campos[i]} LIKE '%{nombres[i]}%'";
             }
-            
+
+            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
+                $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
+                $"AND Tipo = '{nombres[6]}'";
+
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
             dataGridProveedores.ItemsSource = null;
