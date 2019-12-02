@@ -29,15 +29,12 @@ namespace SGE_erp.Articulos
         {
             InitializeComponent();
             Actualizar();
-            //SetaData sd = new SetaData(); 
-            //ArticulosTableAdapter adapter = new ArticulosTableAdapter();
-            //adapter.Fill(sd.Articulos);
-            //articulosListView.ItemsSource = sd.Articulos.DefaultView;
-
         }
 
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
+        EditaArticulos a = null;
+
         private void RefreshListView()
         {
             Actualizar();
@@ -53,12 +50,33 @@ namespace SGE_erp.Articulos
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Articulos]", con);
                 DataTable dt = new DataTable(); ;
 
-                ds.Clear();
+                //ds.Clear();
                 da.Fill(dt);
+
+                /*DataColumn tipoIVA = new DataColumn("TipoP", typeof(string));
+                dt.Columns.Add(tipoIVA);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i]["Tipo"].Equals(1))
+                    {
+                        dt.Rows[i]["TipoP"] = "Particular";
+                    }
+                    else
+                    {
+                        dt.Rows[i]["TipoP"] = "Empresa";
+                    }
+                }
+
+                dt.Columns["TipoP"].SetOrdinal(3);
+                */
                 this.articulosDataGrid.ItemsSource = dt.DefaultView;
 
                 con.Open();
                 con.Close();
+
+                articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch
             {
@@ -69,55 +87,47 @@ namespace SGE_erp.Articulos
         EditaArticulos ea = null;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //Actualizar();
+            Actualizar();
         }
 
         private void anadirArticulo_Click(object sender, RoutedEventArgs e)
         {
-            if (articulosDataGrid.SelectedItem != null)
+            if (!MetodosGestion.IsOpen(ea))
             {
-                DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
-                int id = dd.Row.Field<int>("Id_Articulo");
 
-                ea = new EditaArticulos();
+                ea = new EditaArticulos(0);
                 RefreshListEvent += new RefreshList(RefreshListView); // event initialization
                 ea.Title = "Añadir Articulo";
                 ea.Owner = System.Windows.Application.Current.MainWindow;
                 ea.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
                 ea.Show();
             }
+
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
+            //MessageBox.Show("REFRESCADO");
         }
 
-        /*private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void Editar_Click(object sender, RoutedEventArgs e)
         {
+            if (!MetodosGestion.IsOpen(a))
+            {
+                if (articulosDataGrid.SelectedItem != null)
+                {
+                    DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
+                    int id = dd.Row.Field<int>("Id_Articulo");
 
-            // No cargue datos en tiempo de diseño.
-            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            // {
-            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
-            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
-            // 	myCollectionViewSource.Source = your data
-            // }
-
-
-            //DataTable employeeData = CreateDataTable();
-
-
-            //articulosListView.ItemsSource = query.ToList();
-
-
-        }*/
-
-
-        private void TabItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            EditaArticulos ea = new EditaArticulos();
-            ea.ShowDialog();
+                    a = new EditaArticulos(id);
+                    RefreshListEvent += new RefreshList(Actualizar);
+                    a.Title = "Editar Articulo";
+                    a.Owner = System.Windows.Application.Current.MainWindow;
+                    a.ActualizarLista = RefreshListEvent;
+                    a.Show();
+                }
+            }
         }
 
         private void bBorrar_Click(object sender, RoutedEventArgs e)
