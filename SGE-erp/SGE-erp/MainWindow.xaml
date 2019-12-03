@@ -9,7 +9,7 @@
     xmlns:localCompras="clr-namespace:SGE_erp.Compras"
     xmlns:localVentas="clr-namespace:SGE_erp.Venta"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Compras"
+    Title="ERP - Gestión Empresarial"
     Width="800"
     Height="450"
     MinWidth="750"
