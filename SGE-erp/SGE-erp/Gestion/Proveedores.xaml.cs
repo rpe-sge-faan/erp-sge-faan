@@ -43,7 +43,7 @@ namespace SGE_erp.Gestion
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-                DataTable dt = new DataTable(); ;
+                DataTable dt = new DataTable();
 
                 // ds.Clear();
                 da.Fill(dt);
