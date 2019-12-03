@@ -31,13 +31,6 @@ namespace SGE_erp.Venta
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
-            // No cargue datos en tiempo de diseño.
-            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            // {
-            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
-            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
-            // 	myCollectionViewSource.Source = your data
-            // }
         }
 
         private void Actualizar()
@@ -47,7 +40,7 @@ namespace SGE_erp.Venta
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, Nombre, PVP, Stock FROM ProveedorArticulo, Articulos WHERE ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo AND Stock > 0", con);
-                DataTable dt = new DataTable(); ;
+                DataTable dt = new DataTable(); 
 
                 ds.Clear();
                 da.Fill(dt);
@@ -57,11 +50,87 @@ namespace SGE_erp.Venta
                 con.Close();
 
                 this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
+
+                udStock.Minimum = 1;
+                udStock.Value = 1;
+
+                
             }catch
             {
                 return;
             }
             
+        }
+
+        public void ActualizaMaximo()
+        {
+            DataRowView dd = (DataRowView)DatosAnadir.SelectedItem;
+            int stock = dd.Row.Field<int>("Stock");
+            udStock.Maximum = (uint?)stock;
+        }
+
+        private void DatosAnadir_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ActualizaMaximo();
+        }
+
+        public void nombreCombo()
+        {
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Cliente, Nombre FROM Clientes ORDER BY Nombre ASC", con);
+            DataTable dt = new DataTable();
+            
+
+            ds.Clear();
+            da.Fill(dt);
+            this.nombreComboBox.ItemsSource = dt.DefaultView;
+
+            nombreComboBox.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            nombreComboBox.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
+
+            con.Open();
+            con.Close();
+
+            nombreComboBox.SelectedIndex = 0;
+        }
+
+        private void nombreComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            nombreCombo();
+        }
+
+        private void Anadir_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+
+            /*int idArticulo;
+            int idCliente;
+            
+           
+            if (DatosAnadir.SelectedItem != null)
+            {
+                DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+                idArticulo = drv.Row.Field<int>("Id_Articulo");
+
+
+            }*/
+            if (nombreComboBox.SelectedItem != null)
+            {
+                DataRowView drv = (DataRowView)nombreComboBox.SelectedItem;
+                int idCliente = drv.Row.Field<int>("Id_Cliente");
+
+                
+
+               // MessageBox.Show((drv.Row.Field<int>("Id_Cliente")).ToString());
+            }   
+            /*
+            dgFinal.SelectedCells.Add(new string[] {
+                Convert.ToString(DatosAnadir[0, DatosAnadir.C.Index].Value),
+                Convert.ToString(DatosAnadir[1, DatosAnadir.CurrentRow.Index].Value)
+            });
+            */
         }
     }
 

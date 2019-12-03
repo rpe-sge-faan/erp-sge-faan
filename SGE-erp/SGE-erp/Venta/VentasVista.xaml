@@ -44,6 +44,7 @@
         </Menu>
         <DataGrid 
             x:Name="dgVista" 
+            IsReadOnly="True"
             Grid.Row="1"
             ColumnWidth="1*"
             />
