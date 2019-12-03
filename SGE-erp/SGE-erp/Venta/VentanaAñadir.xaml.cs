@@ -56,7 +56,7 @@ namespace SGE_erp.Venta
                 con.Open();
                 con.Close();
 
-                this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
+                //this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
             }catch
             {
                 return;

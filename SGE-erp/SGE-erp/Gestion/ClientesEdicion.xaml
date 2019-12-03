@@ -7,22 +7,20 @@
     xmlns:local="clr-namespace:SGE_erp.Gestion"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="EdicionClientes"
-    Title="Edicion Clientes"
-    Width="681"
+    Title="Clientes Edicion"
+    Width="680"
     Height="245"
     MinHeight="245"
     MaxHeight="245"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-    <Window.Resources>
-        <SGE_erp:SetaData x:Key="setaData" />
-        <CollectionViewSource x:Key="clientesViewSource" Source="{Binding Clientes, Source={StaticResource setaData}}" />
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="3.5*" />
+            <RowDefinition
+                Height="10*" />
+            <RowDefinition
+                Height="3.5*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -38,6 +36,7 @@
             Width="100"
             Height="25"
             HorizontalAlignment="Center"
+            Click="Aceptar_Click"
             Content="Aceptar" />
         <Button
             x:Name="bCancelar"
@@ -46,28 +45,35 @@
             Width="100"
             Height="25"
             HorizontalAlignment="Center"
+            Click="Cancelar_Click"
             Content="Cancelar" />
-
         <Grid
-            x:Name="grid1"
+            x:Name="gridGeneral"
             Grid.Row="0"
             Grid.ColumnSpan="5"
             Margin="10,10,10,10"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            DataContext="{StaticResource clientesViewSource}">
+            VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.35*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition
+                    Width="0.35*" />
+                <ColumnDefinition
+                    Width="1*" />
+                <ColumnDefinition
+                    Width="0.5*" />
+                <ColumnDefinition
+                    Width="1*" />
 
             </Grid.ColumnDefinitions>
             <Label
@@ -76,7 +82,7 @@
                 Margin="3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Content="Id Cliente:" />
+                Content="Id:" />
             <TextBox
                 x:Name="id_ClienteTextBox"
                 Grid.Row="0"
@@ -85,7 +91,7 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding Id_Cliente, Mode=OneWay}" />
+                IsEnabled="False" />
             <Label
                 Grid.Row="1"
                 Grid.Column="0"
@@ -94,14 +100,27 @@
                 VerticalAlignment="Center"
                 Content="Tipo:" />
             <ComboBox
-                x:Name="tipoTextBox"
+                x:Name="tipoComboBox"
                 Grid.Row="1"
                 Grid.Column="1"
-                Height="23"
+                Height="Auto"
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding Tipo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                SelectedIndex="0">
+
+                <ComboBoxItem
+                    Name="part">
+                    <TextBlock
+                        Text="Particular" />
+                </ComboBoxItem>
+                <ComboBoxItem
+                    Name="empr">
+                    <TextBlock
+                        Text="Empresa" />
+                </ComboBoxItem>
+
+            </ComboBox>
             <Label
                 Grid.Row="2"
                 Grid.Column="0"
@@ -117,7 +136,7 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="3"
                 Grid.Column="0"
@@ -133,7 +152,9 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding Telefono, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                MaxLength="11"
+                PreviewTextInput="NumberValidationTextBox"
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="1"
                 Grid.Column="2"
@@ -149,7 +170,7 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="2"
                 Grid.Column="2"
@@ -165,7 +186,7 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding Direccion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="3"
                 Grid.Column="2"
@@ -181,7 +202,7 @@
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding PersonaContacto, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="0"
                 Grid.Column="2"
@@ -190,15 +211,25 @@
                 VerticalAlignment="Center"
                 Content="NIF:" />
             <TextBox
-                x:Name="nIFTextBox"
+                x:Name="nifTextBox"
                 Grid.Row="0"
                 Grid.Column="3"
                 Height="23"
                 Margin="3"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Text="{Binding NIF, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                MaxLength="9"
+                TextChanged="GenericTextBox_TextChanged" />
         </Grid>
-
+        <Label
+            x:Name="labelInfo"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="15"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content=""
+            Foreground="Red" />
     </Grid>
 </Window>

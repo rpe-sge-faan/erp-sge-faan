@@ -41,14 +41,14 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Click="anadirPro_Click"
+                Click="Anadir_Click"
                 Header="_Añadir" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Click="MenuItem_Click_1"
+                Click="Editar_Click"
                 Header="_Editar" />
             <MenuItem
                 x:Name="bBorrar"
@@ -57,19 +57,20 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Header="_Borrar"
-                Click="bBorrar_Click" />
+                Click="Borrar_Click" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="B_uscar" />
+                Header="B_uscar"
+                Click="Buscar_Click" />
             <MenuItem
                 Width="30"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Click="MenuItem_Click"
+                Click="Actualizar_Click"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center">
                 <MenuItem.Header>
