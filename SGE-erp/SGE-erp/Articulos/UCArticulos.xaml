@@ -81,15 +81,7 @@
                             x:Name="tablaArticulos"
                             Margin="0" DataContext="{StaticResource articulosViewSource}"
                             Grid.Row="1">
-                            <DataGrid x:Name="articulosDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" ColumnWidth="1" Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn x:Name="id_ArticuloColumn" Binding="{Binding Id_Articulo}" Header="Id Articulo" IsReadOnly="True" Width="SizeToHeader"/>
-                                    <DataGridTextColumn x:Name="id_IvaColumn" Binding="{Binding Id_Iva}" Header="Id Iva" Width="SizeToHeader"/>
-                                    <DataGridTextColumn x:Name="nombreColumn" Binding="{Binding Nombre}" Header="Nombre" Width="SizeToHeader"/>
-                                    <DataGridTextColumn x:Name="descripcionColumn" Binding="{Binding Descripcion}" Header="Descripcion" Width="SizeToHeader"/>
-                                    <DataGridTextColumn x:Name="tipoArticuloColumn" Binding="{Binding TipoArticulo}" Header="Tipo Articulo" Width="SizeToHeader"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <DataGrid x:Name="articulosDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" ColumnWidth="1*" Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected"/>
 
                         </Grid>
                     </Grid>
