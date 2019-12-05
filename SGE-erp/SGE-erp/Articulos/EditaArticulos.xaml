@@ -28,14 +28,19 @@
         <Label Content="Id Articulo:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
         <TextBox x:Name="id_ArticuloTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="0" Text="{Binding Id_Articulo, Mode=OneWay}" VerticalAlignment="Center" Width="77" IsEnabled="False"/>
         <Label Content="Iva:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-        <ComboBox x:Name="id_IvaComboBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77"/>
+        <ComboBox x:Name="id_IvaComboBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77" SelectedIndex="0">
+            <ComboBoxItem Name="iva1"><TextBlock Text="0%" /></ComboBoxItem>
+            <ComboBoxItem Name="iva2"><TextBlock Text="4%" /></ComboBoxItem>
+            <ComboBoxItem Name="iva3"><TextBlock Text="10%" /></ComboBoxItem>
+            <ComboBoxItem Name="iva4"><TextBlock Text="21%" /></ComboBoxItem>
+        </ComboBox>
         <Label Content="Nombre:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
         <TextBox x:Name="nombreTextBox1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="2" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="257"/>
         <Label Content="Descripcion:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
         <TextBox x:Name="descripcionTextBox1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="3,4,-333,4" Grid.Row="3" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="600"/>
         <Label Content="Tipo Articulo:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-        <TextBox x:Name="tipoArticuloTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="4" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77"/>
-        <Button Grid.Row="5" Height="30" Margin="5,10,5,10" Content="Aceptar" Click="Aceptar_Click"/>
+        <ComboBox x:Name="tipoArticuloComboBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="4" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77"/>
+        <Button x:Name="bAceptar" Grid.Row="5" Height="30" Margin="5,10,5,10" Content="Aceptar" Click="Aceptar_Click"/>
         <Button Grid.Row="5" Grid.Column="1" Height="30" Margin="5,10,5,10" Content="Cancelar" Click="Cancelar_Click"/>
     </Grid>
 </Window>

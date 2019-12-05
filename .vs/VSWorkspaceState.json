@@ -3,7 +3,8 @@
     "",
     "\\SGE-erp",
     "\\SGE-erp\\SGE-erp",
-    "\\SGE-erp\\SGE-erp\\Venta"
+    "\\SGE-erp\\SGE-erp\\Articulos",
+    "\\SGE-erp\\SGE-erp\\Gestion"
   ],
   "SelectedNode": "\\SGE-erp\\SGE-erp.sln",
   "PreviewInSolutionExplorer": false
