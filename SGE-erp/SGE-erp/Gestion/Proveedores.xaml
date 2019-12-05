@@ -34,7 +34,6 @@
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center">
-
             <MenuItem
                 x:Name="anadirPro"
                 Width="50"

@@ -20,9 +20,7 @@ using SGE_erp.SetaDataTableAdapters;
 
 namespace SGE_erp.Articulos
 {
-    /// <summary>
-    /// Interaction logic for UCArticulos.xaml
-    /// </summary>
+
     public partial class UCArticulos : UserControl
     {
         public UCArticulos()
@@ -35,31 +33,32 @@ namespace SGE_erp.Articulos
         public event RefreshList RefreshListEvent;
         EditaArticulos a = null;
 
-        private void RefreshListView()
+        private void OcultarColumnas()
         {
-            Actualizar();
+            //articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[1].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[4].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[5].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[7].Visibility = Visibility.Collapsed;
         }
 
         private void Actualizar()
         {
             try
             {
-                //string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Articulos]", con);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos, TipoArticulo, Iva WHERE Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo", con);
                 DataTable dt = new DataTable(); ;
-
                 //ds.Clear();
                 da.Fill(dt);
 
                 this.articulosDataGrid.ItemsSource = dt.DefaultView;
-
                 con.Open();
                 con.Close();
+                articulosDataGrid.Columns[6].Header = "Categoría";
 
-                articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
-
+                OcultarColumnas();
             }
             catch
             {
@@ -67,31 +66,27 @@ namespace SGE_erp.Articulos
             }
         }
 
-        EditaArticulos ea = null;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
 
-        private void anadirArticulo_Click(object sender, RoutedEventArgs e)
+        private void Anadir_Click(object sender, RoutedEventArgs e)
         {
-            if (!MetodosGestion.IsOpen(ea))
+            if (!MetodosGestion.IsOpen(a))
             {
-
-                ea = new EditaArticulos(0);
-                RefreshListEvent += new RefreshList(RefreshListView); // event initialization
-                ea.Title = "Añadir Articulo";
-                ea.Owner = System.Windows.Application.Current.MainWindow;
-                ea.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
-                ea.Show();
+                a = new EditaArticulos(0);
+                RefreshListEvent += new RefreshList(Actualizar);
+                a.Title = "Añadir Artículo";
+                a.Owner = System.Windows.Application.Current.MainWindow;
+                a.ActualizarLista = RefreshListEvent;
+                a.Show();
             }
-
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
-            //MessageBox.Show("REFRESCADO");
         }
 
         private void Editar_Click(object sender, RoutedEventArgs e)
@@ -105,7 +100,7 @@ namespace SGE_erp.Articulos
 
                     a = new EditaArticulos(id);
                     RefreshListEvent += new RefreshList(Actualizar);
-                    a.Title = "Editar Articulo";
+                    a.Title = "Editar Artículo";
                     a.Owner = System.Windows.Application.Current.MainWindow;
                     a.ActualizarLista = RefreshListEvent;
                     a.Show();
@@ -113,7 +108,7 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        private void Borrar_Click(object sender, RoutedEventArgs e)
         {
             if (articulosDataGrid.SelectedItem != null)
             {
@@ -154,12 +149,64 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void Buscar_Click(object sender, RoutedEventArgs e)
         {
-            BuscarArticulos bArt = new BuscarArticulos();
-            bArt.ShowDialog();
+            if (!MetodosGestion.IsOpen(a))
+            {
+                a = new EditaArticulos(-1);
+                RefreshListEvent += new RefreshList(Filtrar);
+                a.Title = "Buscar Artículo";
+                a.Owner = Application.Current.MainWindow;
+                a.ActualizarLista = RefreshListEvent;
+                a.Show();
+            }
         }
 
+        DataView view = null;
+        DataTable dt;
+        private void Filtrar()
+        {
+            List<String> nombres = AccesoVentana();
+            String[] campos = { "Nombre", "Descripcion", "Categoria", "PorcentajeIva"};
+
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)articulosDataGrid.ItemsSource).ToTable();
+                dt.TableName = "Articulos";
+                view.Table = dt;
+            }
+
+            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
+                $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
+                $"AND Tipo = '{nombres[6]}'";
+
+            //view.Sort = "CompanyName DESC";
+            dt = view.ToTable();
+            articulosDataGrid.ItemsSource = null;
+            articulosDataGrid.ItemsSource = dt.DefaultView;
+
+            OcultarColumnas();
+        }
+
+        public List<String> AccesoVentana()
+        {
+            List<String> nombres = new List<String>();
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item.Name == "EditarArticulos")
+                {
+                    String[] nombresArray = {
+                        //((EditaArticulos)item).nombreTextBox.Text,
+                        //((EditaArticulos)item).telefonoTextBox.Text,
+                        //((EditaArticulos)item).emailTextBox.Text,
+                        //((EditaArticulos)item).personaContactoTextBox.Text
+                    };
+                    nombres.AddRange(nombresArray);
+                }
+            }
+            return nombres;
+        }
     }
 }
 

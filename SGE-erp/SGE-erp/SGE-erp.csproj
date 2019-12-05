@@ -94,9 +94,6 @@
     <Compile Include="Gestion\EmpleadosEdicion.xaml.cs">
       <DependentUpon>EmpleadosEdicion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Articulos\BuscarArticulos.xaml.cs">
-      <DependentUpon>BuscarArticulos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Articulos\EditaArticulos.xaml.cs">
       <DependentUpon>EditaArticulos.xaml</DependentUpon>
     </Compile>
@@ -144,10 +141,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Gestion\EmpleadosEdicion.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Articulos\BuscarArticulos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

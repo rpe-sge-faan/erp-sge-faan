@@ -1,60 +1,203 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SGE_erp.Articulos"
-        xmlns:SGE_erp="clr-namespace:SGE_erp" x:Class="SGE_erp.Articulos.EditaArticulos"
-        mc:Ignorable="d"
-        Title="EditaArticulos" Height="300" Width="750" Loaded="Window_Loaded">
-    <Window.Resources>
-        <SGE_erp:SetaData x:Key="setaData"/>
-        <CollectionViewSource x:Key="articulosViewSource" Source="{Binding Articulos, Source={StaticResource setaData}}"/>
-    </Window.Resources>
-    <Grid x:Name="grid2" DataContext="{StaticResource articulosViewSource}" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top">
+    x:Class="SGE_erp.Articulos.EditaArticulos"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:SGE_erp="clr-namespace:SGE_erp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SGE_erp.Articulos"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="EditarArticulos"
+    Title="EditaArticulos"
+    Width="559"
+    Height="245"
+    MinHeight="245"
+    MaxHeight="245"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Grid x:Name="grid2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="90"/>
-            <ColumnDefinition Width="90"/>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="3.5*" />
         </Grid.RowDefinitions>
-        <Label Content="Id Articulo:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-        <TextBox x:Name="id_ArticuloTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="0" Text="{Binding Id_Articulo, Mode=OneWay}" VerticalAlignment="Center" Width="77" IsEnabled="False"/>
-        <Label Content="Iva:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-        <ComboBox x:Name="id_IvaComboBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="1" Text="{Binding Id_Iva, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77" SelectedIndex="0">
-            <ComboBoxItem Name="iva1"><TextBlock Text="0%" /></ComboBoxItem>
-            <ComboBoxItem Name="iva2"><TextBlock Text="4%" /></ComboBoxItem>
-            <ComboBoxItem Name="iva3"><TextBlock Text="10%" /></ComboBoxItem>
-            <ComboBoxItem Name="iva4"><TextBlock Text="21%" /></ComboBoxItem>
-        </ComboBox>
-        <Label Content="Nombre:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-        <TextBox x:Name="nombreTextBox1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="2" Text="{Binding Nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="257"/>
-        <Label Content="Descripcion:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
-        <TextBox x:Name="descripcionTextBox1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="3,4,-333,4" Grid.Row="3" Text="{Binding Descripcion, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="600"/>
-        <Label Content="Tipo Articulo:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-        <ComboBox x:Name="tipoArticuloComboBox1" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,0,4" Grid.Row="4" Text="{Binding TipoArticulo, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="77">
-            <ComboBoxItem Name="tipoArt1"><TextBlock Text="LIBROS" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt2"><TextBlock Text="CINE/TV" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt3"><TextBlock Text="ELECTRÓNICA" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt4"><TextBlock Text="MÚSICA" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt5"><TextBlock Text="VIDEOJUEGOS" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt6"><TextBlock Text="JUGUETES Y BEBÉ" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt7"><TextBlock Text="HOGAR Y JARDÍN" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt8"><TextBlock Text="MASCOTAS" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt9"><TextBlock Text="ALIMENTACIÓN" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt10"><TextBlock Text="BELLEZA Y SALUD" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt11"><TextBlock Text="MODA" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt12"><TextBlock Text="DEPORTES Y AIRE LIBRE" /></ComboBoxItem>
-            <ComboBoxItem Name="tipoArt13"><TextBlock Text="COCHE Y MOTO" /></ComboBoxItem>
-        </ComboBox>
-        <Button x:Name="bAceptar" Grid.Row="5" Height="30" Margin="5,10,5,10" Content="Aceptar" Click="Aceptar_Click"/>
-        <Button Grid.Row="5" Grid.Column="1" Height="30" Margin="5,10,5,10" Content="Cancelar" Click="Cancelar_Click"/>
+        <Button
+            x:Name="bAceptar"
+            Grid.Row="1"
+            Grid.Column="3"
+            Width="90"
+            Height="25"
+            Margin="10"
+            HorizontalAlignment="Center"
+            Click="Aceptar_Click"
+            Content="Aceptar" />
+        <Button
+            x:Name="bCancelar"
+            Grid.Row="1"
+            Grid.Column="4"
+            Width="90"
+            Height="25"
+            Margin="10"
+            HorizontalAlignment="Center"
+            Click="Cancelar_Click"
+            Content="Cancelar" />
+        <Grid
+            x:Name="gridGeneral"
+            Grid.Row="0"
+            Grid.ColumnSpan="5"
+            Margin="10,10,10,10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Id Articulo:" />
+            <TextBox
+                x:Name="id_ArticuloTextBox1"
+                Grid.Row="0"
+                Grid.Column="1"
+                Height="24"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                IsEnabled="False" />
+            <Label
+                Grid.Row="3"
+                Grid.Column="2"
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Iva:" />
+            <ComboBox
+                x:Name="id_IvaComboBox1"
+                Grid.Row="3"
+                Grid.Column="3"
+                Width="80"
+                Height="24"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                SelectedIndex="0">
+                <ComboBoxItem Name="iva1">
+                    <TextBlock Text="0%" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="iva2">
+                    <TextBlock Text="4%" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="iva3">
+                    <TextBlock Text="10%" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="iva4">
+                    <TextBlock Text="21%" />
+                </ComboBoxItem>
+            </ComboBox>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Nombre:" />
+            <TextBox
+                x:Name="nombreTextBox1"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Height="24"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Descripcion:" />
+            <TextBox
+                x:Name="descripcionTextBox1"
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Height="24"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" />
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Tipo Articulo:" />
+            <ComboBox
+                x:Name="tipoArticuloComboBox1"
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="1"
+                Height="24"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center">
+                <ComboBoxItem Name="tipoArt1">
+                    <TextBlock Text="LIBROS" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt2">
+                    <TextBlock Text="CINE/TV" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt3">
+                    <TextBlock Text="ELECTRÓNICA" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt4">
+                    <TextBlock Text="MÚSICA" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt5">
+                    <TextBlock Text="VIDEOJUEGOS" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt6">
+                    <TextBlock Text="JUGUETES Y BEBÉ" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt7">
+                    <TextBlock Text="HOGAR Y JARDÍN" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt8">
+                    <TextBlock Text="MASCOTAS" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt9">
+                    <TextBlock Text="ALIMENTACIÓN" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt10">
+                    <TextBlock Text="BELLEZA Y SALUD" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt11">
+                    <TextBlock Text="MODA" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt12">
+                    <TextBlock Text="DEPORTES Y AIRE LIBRE" />
+                </ComboBoxItem>
+                <ComboBoxItem Name="tipoArt13">
+                    <TextBlock Text="COCHE Y MOTO" />
+                </ComboBoxItem>
+            </ComboBox>
+
+        </Grid>
     </Grid>
 </Window>
