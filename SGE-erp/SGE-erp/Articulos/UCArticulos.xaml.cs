@@ -53,23 +53,6 @@ namespace SGE_erp.Articulos
                 //ds.Clear();
                 da.Fill(dt);
 
-                /*DataColumn tipoIVA = new DataColumn("TipoP", typeof(string));
-                dt.Columns.Add(tipoIVA);
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    if (dt.Rows[i]["Tipo"].Equals(1))
-                    {
-                        dt.Rows[i]["TipoP"] = "Particular";
-                    }
-                    else
-                    {
-                        dt.Rows[i]["TipoP"] = "Empresa";
-                    }
-                }
-
-                dt.Columns["TipoP"].SetOrdinal(3);
-                */
                 this.articulosDataGrid.ItemsSource = dt.DefaultView;
 
                 con.Open();
@@ -177,11 +160,6 @@ namespace SGE_erp.Articulos
             bArt.ShowDialog();
         }
 
-        /* private void TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-           
-           // MessageBox.Show("Hola");
-        } */
     }
 }
 
