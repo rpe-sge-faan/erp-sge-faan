@@ -179,7 +179,6 @@ namespace SGE_erp.Gestion
             if (tipoComboBox.SelectedValue.ToString() == "Particular") { tipo = 1; }
             else { tipo = 2; }
 
-
             try
             {
                 string bd = MetodosGestion.db;

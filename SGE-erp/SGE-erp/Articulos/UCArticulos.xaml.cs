@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,7 @@ namespace SGE_erp.Articulos
         public UCArticulos()
         {
             InitializeComponent();
-            Actualizar();
-        }
+         }
 
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
@@ -78,7 +78,7 @@ namespace SGE_erp.Articulos
                 a = new EditaArticulos(0);
                 RefreshListEvent += new RefreshList(Actualizar);
                 a.Title = "Añadir Artículo";
-                a.Owner = System.Windows.Application.Current.MainWindow;
+                a.Owner = Application.Current.MainWindow;
                 a.ActualizarLista = RefreshListEvent;
                 a.Show();
             }
@@ -177,9 +177,8 @@ namespace SGE_erp.Articulos
                 view.Table = dt;
             }
 
-            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
-                $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
-                $"AND Tipo = '{nombres[6]}'";
+            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]} " +
+                $"AND TipoArticulo = {nombres[2]}";
 
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -197,17 +196,53 @@ namespace SGE_erp.Articulos
                 if (item.Name == "EditarArticulos")
                 {
                     String[] nombresArray = {
-                        //((EditaArticulos)item).nombreTextBox.Text,
-                        //((EditaArticulos)item).telefonoTextBox.Text,
-                        //((EditaArticulos)item).emailTextBox.Text,
-                        //((EditaArticulos)item).personaContactoTextBox.Text
+                        ((EditaArticulos)item).nombreTextBox1.Text,
+                        ((EditaArticulos)item).descripcionTextBox1.Text,
+                        (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex + 1).ToString(),
+                        (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex +1).ToString()
                     };
                     nombres.AddRange(nombresArray);
                 }
             }
             return nombres;
         }
+
+        private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                string nombre = ((sender as TextBox).Name).ToString();
+                CheckAceptar();
+        }
+
+        private void CheckAceptar()
+        {
+            bool enable = true;
+            var textBoxes = gridGeneral.Children.OfType<TextBox>();
+
+            foreach (TextBox txt in textBoxes)
+            {
+                if (txt.IsEnabled)
+                {
+                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    {
+                        enable = false;
+                    }
+                }
+            }
+
+            if (enable)
+            {
+                bAsignar.IsEnabled = true;
+            }
+            else
+            {
+                bAsignar.IsEnabled = false;
+            }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
     }
 }
-
-

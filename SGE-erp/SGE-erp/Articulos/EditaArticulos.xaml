@@ -8,9 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="EditarArticulos"
     Title="EditaArticulos"
-    Width="559"
+    Width="589"
     Height="245"
     MinHeight="245"
+    MaxWidth="589"
     MaxHeight="245"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
@@ -126,7 +127,8 @@
                 Grid.ColumnSpan="2"
                 Height="24"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="2"
                 Grid.Column="0"
@@ -141,7 +143,8 @@
                 Grid.ColumnSpan="3"
                 Height="24"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="3"
                 Grid.Column="0"

@@ -12,6 +12,7 @@
     Height="245"
     MinHeight="245"
     MaxHeight="245"
+    MaxWidth="680"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">

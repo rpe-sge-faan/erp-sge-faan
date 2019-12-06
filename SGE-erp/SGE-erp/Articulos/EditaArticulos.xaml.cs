@@ -24,23 +24,38 @@ namespace SGE_erp.Articulos
     public partial class EditaArticulos : Window
     {
         private int id;
+        public Delegate ActualizarLista;
+        public Delegate FiltrarLista;
+        public delegate void RefreshList();
+
         public EditaArticulos(int num)
         {
             InitializeComponent();
-
             this.id = num;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (id != 0)
+            if (id == 0)
+            {
+                bAceptar.IsEnabled = false;
+                id_IvaComboBox1.SelectedIndex = 0;
+                tipoArticuloComboBox1.SelectedIndex = 0;
+            }
+            else if (id == -1)
+            {
+                id_IvaComboBox1.SelectedIndex = -1;
+                tipoArticuloComboBox1.SelectedIndex = -1;
+            }
+            else
             {
                 string variable;
                 string bd = MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM [Articulos] where Id_Articulo = @id";
+                    //"SELECT * FROM Articulos, TipoArticulo, Iva WHERE (Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo) AND Id_Articulo = @id"
+                    command.CommandText = "SELECT * FROM [Articulos] WHERE Id_Articulo = @id";
                     command.Parameters.AddWithValue("@id", id);
                     con.Open();
 
@@ -64,32 +79,25 @@ namespace SGE_erp.Articulos
                             tipoArticuloComboBox1.SelectedIndex = tipo2 - 1;
 
                         }
-                        // If you need to use all rows returned use a loop:
-                        while (reader.Read())
-                        {
-                            variable = reader.GetString(reader.GetOrdinal("Column"));
-                            MessageBox.Show(variable);
-                        }
+
                     }
                 }
             }
-            else
-            {
-               // bAceptar.IsEnabled = false;
-            }
         }
-
-        public Delegate ActualizarLista;
 
         private void Aceptar_Click(object sender, RoutedEventArgs e)
         {
             if (id == 0)
             {
-                nuevo();
+                Nuevo();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
             }
             else
             {
-                editar();
+                Editar();
             }
         }
 
@@ -98,23 +106,21 @@ namespace SGE_erp.Articulos
             this.Close();
         }
 
-        private void editar()
+        private void Editar()
         {
-            int tipo = tipoArticuloComboBox1.SelectedIndex + 1;
-
             try
             {
                 string bd = MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo) " +
-                        "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo)";
+                    command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo WHERE Id_Articulo = @id";
 
                     command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex + 1);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipo);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex + 1);
+                    command.Parameters.AddWithValue("@id", id);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -125,7 +131,7 @@ namespace SGE_erp.Articulos
                     }
                     else
                     {
-                        MessageBox.Show("Articulo ERROR");
+                        MessageBox.Show("Editar Articulo ERROR");
                     }
                 }
             }
@@ -139,9 +145,8 @@ namespace SGE_erp.Articulos
             this.Close();
         }
 
-        private void nuevo()
+        private void Nuevo()
         {
-
             try
             {
                 string bd = MetodosGestion.db;
@@ -154,7 +159,7 @@ namespace SGE_erp.Articulos
                     command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex + 1);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex+1);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex + 1);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -179,11 +184,40 @@ namespace SGE_erp.Articulos
             this.Close();
         }
 
-        /*private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }*/
+            if (id != -1)
+            {
+                string nombre = ((sender as TextBox).Name).ToString();
 
+                CheckAceptar();
+            }
+        }
+
+        private void CheckAceptar()
+        {
+            bool enable = true;
+            var textBoxes = gridGeneral.Children.OfType<TextBox>();
+
+            foreach (TextBox txt in textBoxes)
+            {
+                if (txt.IsEnabled)
+                {
+                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    {
+                        enable = false;
+                    }
+                }
+            }
+
+            if (enable)
+            {
+                bAceptar.IsEnabled = true;
+            }
+            else
+            {
+                bAceptar.IsEnabled = false;
+            }
+        }
     }
 }

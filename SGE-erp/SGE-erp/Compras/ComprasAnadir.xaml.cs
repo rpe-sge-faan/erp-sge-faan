@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SGE_erp.Gestion;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -32,7 +33,7 @@ namespace SGE_erp.Compras
         {
             try
             {
-                string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|DeBaseDatos.mdf;Integrated Security=True";
+                string bd = MetodosGestion.db;
                 SqlConnection con = new SqlConnection(bd);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
