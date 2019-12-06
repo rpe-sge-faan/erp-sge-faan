@@ -27,7 +27,9 @@ namespace SGE_erp.Articulos
         public UCArticulos()
         {
             InitializeComponent();
-         }
+            ActualizarAsignar();
+            Actualizar();
+        }
 
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
@@ -35,11 +37,13 @@ namespace SGE_erp.Articulos
 
         private void OcultarColumnas()
         {
-            //articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[1].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[4].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[5].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[7].Visibility = Visibility.Collapsed;
+            dataProv.Columns[0].Visibility = Visibility.Collapsed;
+            dataArt.Columns[0].Visibility = Visibility.Collapsed;
         }
 
         private void Actualizar()
@@ -47,10 +51,8 @@ namespace SGE_erp.Articulos
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos, TipoArticulo, Iva WHERE Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo", con);
                 DataTable dt = new DataTable(); ;
-                //ds.Clear();
                 da.Fill(dt);
 
                 this.articulosDataGrid.ItemsSource = dt.DefaultView;
@@ -68,6 +70,7 @@ namespace SGE_erp.Articulos
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            ActualizarAsignar();
             Actualizar();
         }
 
@@ -86,6 +89,7 @@ namespace SGE_erp.Articulos
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            ActualizarAsignar();
             Actualizar();
         }
 
@@ -167,7 +171,7 @@ namespace SGE_erp.Articulos
         private void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "Nombre", "Descripcion", "Categoria", "PorcentajeIva"};
+            String[] campos = { "Nombre", "Descripcion", "Categoria", "PorcentajeIva" };
 
             if (view == null)
             {
@@ -209,8 +213,8 @@ namespace SGE_erp.Articulos
 
         private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-                string nombre = ((sender as TextBox).Name).ToString();
-                CheckAceptar();
+            string nombre = ((sender as TextBox).Name).ToString();
+            CheckAceptar();
         }
 
         private void CheckAceptar()
@@ -243,6 +247,51 @@ namespace SGE_erp.Articulos
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void ActualizarAsignar()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                DataTable dt = new DataTable();
+                SqlDataAdapter articulos = new SqlDataAdapter("SELECT Id_Articulo, Nombre, Descripcion FROM Articulos", con);
+                articulos.Fill(dt);
+                dataArt.ItemsSource = dt.DefaultView;
+
+                DataTable dt2 = new DataTable();
+                SqlDataAdapter proveedores = new SqlDataAdapter("SELECT Id_Proveedor, Nombre FROM Proveedores", con);
+                proveedores.Fill(dt2);
+                dataProv.ItemsSource = dt2.DefaultView;
+
+                con.Open();
+                con.Close();
+
+                dataProv.Columns[0].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                dataProv.Columns[0].MaxWidth = 0;
+                dataProv.Columns[1].Width = new DataGridLength(6, DataGridLengthUnitType.Star);
+                dataArt.Columns[0].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void bAsignar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bEditar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bDeselect_Click(object sender, RoutedEventArgs e)
+        {
+            dataProv.UnselectAll();
+            dataArt.UnselectAll();
         }
     }
 }

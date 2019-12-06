@@ -40,7 +40,6 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center">
-
                             <MenuItem
                                 x:Name="anadirPro"
                                 Width="50"
@@ -90,7 +89,8 @@
                             ColumnWidth="1*"
                             EnableRowVirtualization="True"
                             IsReadOnly="True"
-                            RowDetailsVisibilityMode="VisibleWhenSelected" />
+                            RowDetailsVisibilityMode="VisibleWhenSelected"
+                            SelectionMode="Single" />
                     </Grid>
                 </TabItem>
                 <TabItem
@@ -111,31 +111,40 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
-
                         <DataGrid
                             x:Name="dataArt"
                             Grid.RowSpan="2"
-                            Grid.Column="0" />
+                            Grid.Column="0"
+                            AutoGenerateColumns="True"
+                            ColumnWidth="1*"
+                            IsReadOnly="True"
+                            SelectionMode="Single" />
                         <DataGrid
                             x:Name="dataProv"
                             Grid.Column="1"
-                            Grid.ColumnSpan="2" />
+                            Grid.ColumnSpan="2"
+                            AutoGenerateColumns="True"
+                            ColumnWidth="1*"
+                            IsReadOnly="True"
+                            SelectionMode="Single" />
                         <Button
                             x:Name="bDeselect"
                             Grid.Row="2"
                             Grid.Column="0"
-                            Content="Deseleccionar" />
+                            Content="Deseleccionar"
+                            Click="bDeselect_Click" />
                         <Button
                             x:Name="bAsignar"
                             Grid.Row="2"
                             Grid.Column="1"
-                            Content="Asignar" />
+                            Content="Asignar"
+                            Click="bAsignar_Click" />
                         <Button
                             x:Name="bEditar"
                             Grid.Row="2"
                             Grid.Column="2"
-                            Content="Editar" />
-
+                            Content="Editar"
+                            Click="bEditar_Click" />
                         <Grid
                             x:Name="gridGeneral"
                             Grid.Row="1"
