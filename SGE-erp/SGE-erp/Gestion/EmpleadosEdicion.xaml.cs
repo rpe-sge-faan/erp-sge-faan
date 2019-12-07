@@ -263,6 +263,10 @@ namespace SGE_erp.Gestion
                 CheckAceptar();
                 //EmpleadosMain.AccesoVentana();
             }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
+            }
         }
 
         private void CheckAceptar()

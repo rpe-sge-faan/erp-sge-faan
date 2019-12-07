@@ -115,6 +115,7 @@
                             x:Name="dataArt"
                             Grid.RowSpan="2"
                             Grid.Column="0"
+                            Margin="3"
                             AutoGenerateColumns="True"
                             ColumnWidth="1*"
                             IsReadOnly="True"
@@ -123,6 +124,7 @@
                             x:Name="dataProv"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
+                            Margin="3"
                             AutoGenerateColumns="True"
                             ColumnWidth="1*"
                             IsReadOnly="True"
@@ -131,20 +133,17 @@
                             x:Name="bDeselect"
                             Grid.Row="2"
                             Grid.Column="0"
-                            Content="Deseleccionar"
-                            Click="bDeselect_Click" />
+                            Margin="3"
+                            Click="bDeselect_Click"
+                            Content="Deseleccionar" />
                         <Button
                             x:Name="bAsignar"
                             Grid.Row="2"
                             Grid.Column="1"
-                            Content="Asignar"
-                            Click="bAsignar_Click" />
-                        <Button
-                            x:Name="bEditar"
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Content="Editar"
-                            Click="bEditar_Click" />
+                            Grid.ColumnSpan="2"
+                            Margin="3"
+                            Click="bAsignar_Click"
+                            Content="Asignar" />
                         <Grid
                             x:Name="gridGeneral"
                             Grid.Row="1"

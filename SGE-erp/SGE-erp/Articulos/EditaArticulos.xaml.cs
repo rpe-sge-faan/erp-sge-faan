@@ -39,13 +39,13 @@ namespace SGE_erp.Articulos
             if (id == 0)
             {
                 bAceptar.IsEnabled = false;
-                id_IvaComboBox1.SelectedIndex = 0;
-                tipoArticuloComboBox1.SelectedIndex = 0;
+                id_IvaComboBox1.SelectedIndex = 1;
+                tipoArticuloComboBox1.SelectedIndex = 1;
             }
             else if (id == -1)
             {
-                id_IvaComboBox1.SelectedIndex = -1;
-                tipoArticuloComboBox1.SelectedIndex = -1;
+                id_IvaComboBox1.SelectedIndex = 0;
+                tipoArticuloComboBox1.SelectedIndex = 0;
             }
             else
             {
@@ -73,13 +73,12 @@ namespace SGE_erp.Articulos
                             descripcionTextBox1.Text = variable;
 
                             int tipo = reader.GetInt32(reader.GetOrdinal("Id_Iva"));
-                            id_IvaComboBox1.SelectedIndex = tipo - 1;
+                            id_IvaComboBox1.SelectedIndex = tipo;
 
                             int tipo2 = reader.GetInt32(reader.GetOrdinal("TipoArticulo"));
-                            tipoArticuloComboBox1.SelectedIndex = tipo2 - 1;
+                            tipoArticuloComboBox1.SelectedIndex = tipo2;
 
                         }
-
                     }
                 }
             }
@@ -110,16 +109,15 @@ namespace SGE_erp.Articulos
         {
             try
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlConnection con = new SqlConnection(MetodosGestion.db))
                 using (SqlCommand command = con.CreateCommand())
                 {
                     command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo WHERE Id_Articulo = @id";
 
-                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex + 1);
+                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex + 1);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@id", id);
 
                     con.Open();
@@ -156,10 +154,10 @@ namespace SGE_erp.Articulos
                     command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo) " +
                         "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo)";
 
-                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex + 1);
+                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex + 1);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -189,8 +187,11 @@ namespace SGE_erp.Articulos
             if (id != -1)
             {
                 string nombre = ((sender as TextBox).Name).ToString();
-
                 CheckAceptar();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
             }
         }
 

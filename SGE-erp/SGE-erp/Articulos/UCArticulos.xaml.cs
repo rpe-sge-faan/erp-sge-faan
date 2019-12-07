@@ -42,8 +42,6 @@ namespace SGE_erp.Articulos
             articulosDataGrid.Columns[4].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[5].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[7].Visibility = Visibility.Collapsed;
-            dataProv.Columns[0].Visibility = Visibility.Collapsed;
-            dataArt.Columns[0].Visibility = Visibility.Collapsed;
         }
 
         private void Actualizar()
@@ -72,6 +70,7 @@ namespace SGE_erp.Articulos
         {
             ActualizarAsignar();
             Actualizar();
+            bAsignar.IsEnabled = false;
         }
 
         private void Anadir_Click(object sender, RoutedEventArgs e)
@@ -161,7 +160,7 @@ namespace SGE_erp.Articulos
                 RefreshListEvent += new RefreshList(Filtrar);
                 a.Title = "Buscar Artículo";
                 a.Owner = Application.Current.MainWindow;
-                a.ActualizarLista = RefreshListEvent;
+                a.FiltrarLista = RefreshListEvent;
                 a.Show();
             }
         }
@@ -180,9 +179,24 @@ namespace SGE_erp.Articulos
                 dt.TableName = "Articulos";
                 view.Table = dt;
             }
+            if (nombres[2].Equals("0") && nombres[3].Equals("0"))
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%'";
+            }
+            else if (nombres[2].Equals("0"))
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND Id_Iva = {nombres[3]}";
+            }
+            else if (nombres[3].Equals("0"))
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND TipoArticulo = {nombres[2]}";
+            }
+            else
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND Id_Iva = {nombres[3]} AND TipoArticulo = {nombres[2]}";
+            }
 
-            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]} " +
-                $"AND TipoArticulo = {nombres[2]}";
+
 
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -226,7 +240,7 @@ namespace SGE_erp.Articulos
             {
                 if (txt.IsEnabled)
                 {
-                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    if (String.IsNullOrWhiteSpace(txt.Text))
                     {
                         enable = false;
                     }
@@ -280,18 +294,74 @@ namespace SGE_erp.Articulos
 
         private void bAsignar_Click(object sender, RoutedEventArgs e)
         {
+            if (dataArt.SelectedItem != null && dataProv.SelectedItem != null)
+            {
+                DataRowView dArt = (DataRowView)dataArt.SelectedItem;
+                DataRowView dPro = (DataRowView)dataProv.SelectedItem;
+                int idArticulo = dArt.Row.Field<int>("Id_Articulo");
+                int idProveedor = dPro.Row.Field<int>("Id_Proveedor");
 
-        }
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "SELECT COUNT(*) FROM [ProveedorArticulo] WHERE ([Id_Proveedor] = @prov AND [Id_Articulo] = @art)";
 
-        private void bEditar_Click(object sender, RoutedEventArgs e)
-        {
+                    command.Parameters.AddWithValue("@prov", idProveedor);
+                    command.Parameters.AddWithValue("@art", idArticulo);
 
+                    con.Open();
+                    int existe = (int)command.ExecuteScalar();
+
+                    if (existe > 0)
+                    {
+                        MessageBoxResult resultado = MessageBox.Show("Esta relación ya existe ¿Desea modificarla?", "Conflicto", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (resultado == MessageBoxResult.Yes)
+                        {
+                            using (SqlCommand editar = con.CreateCommand())
+                            {
+                                editar.CommandText = "UPDATE ProveedorArticulo SET PrecioCompra =@precio, PVP = @pvp, Stock =@stock WHERE Id_Articulo = @idA AND Id_Proveedor = @idP";
+
+                                editar.Parameters.AddWithValue("@precio", decimal.Parse(preCompraTextBox.Text));
+                                editar.Parameters.AddWithValue("@pvp", decimal.Parse(preVentaTextBox.Text));
+                                editar.Parameters.AddWithValue("@stock", int.Parse(StockTextBox.Text));
+                                editar.Parameters.AddWithValue("@idP", idProveedor);
+                                editar.Parameters.AddWithValue("@idA", idArticulo);
+
+                                int a = editar.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (SqlCommand anadir = con.CreateCommand())
+                        {
+                            String elemento = idArticulo.ToString() + idProveedor.ToString();
+
+                            anadir.CommandText = "INSERT INTO ProveedorArticulo (Id_Elemento, PrecioCompra, PVP, Stock, Id_Articulo, Id_Proveedor) VALUES (@elemento, @precio, @pvp, @stock, @idA, @idP)";
+
+                            anadir.Parameters.AddWithValue("@precio", decimal.Parse(preCompraTextBox.Text));
+                            anadir.Parameters.AddWithValue("@pvp", decimal.Parse(preVentaTextBox.Text));
+                            anadir.Parameters.AddWithValue("@stock", int.Parse(StockTextBox.Text));
+                            anadir.Parameters.AddWithValue("@idP", idProveedor);
+                            anadir.Parameters.AddWithValue("@idA", idArticulo);
+                            anadir.Parameters.AddWithValue("@elemento", int.Parse(elemento));
+
+                            int a = anadir.ExecuteNonQuery();
+                        }
+                    }
+                }
+                con.Close();
+                preCompraTextBox.Text = "";
+                preVentaTextBox.Text = "";
+                StockTextBox.Text = "";
+            }
         }
 
         private void bDeselect_Click(object sender, RoutedEventArgs e)
         {
             dataProv.UnselectAll();
             dataArt.UnselectAll();
+            bAsignar.IsEnabled = false;
         }
     }
 }
