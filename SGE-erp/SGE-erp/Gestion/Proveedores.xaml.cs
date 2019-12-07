@@ -207,7 +207,7 @@ namespace SGE_erp.Gestion
 
             view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
                 $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
-                $"AND Tipo = '{nombres[6]}'";
+                $"AND TipoP LIKE '%{nombres[6]}%'";
 
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();

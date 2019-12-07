@@ -164,6 +164,7 @@
                 Height="23"
                 Margin="3"
                 HorizontalAlignment="Stretch"
+                PreviewTextInput="NumberValidationTextBox"
                 VerticalAlignment="Center"
                 TextChanged="GenericTextBox_TextChanged" />
             <Label
