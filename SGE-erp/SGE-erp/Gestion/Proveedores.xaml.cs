@@ -47,7 +47,7 @@ namespace SGE_erp.Gestion
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-                DataTable dt = new DataTable(); ;
+                DataTable dt = new DataTable();
 
                 // ds.Clear();
                 da.Fill(dt);
@@ -176,7 +176,7 @@ namespace SGE_erp.Gestion
                 }
             }
         }
-
+        
         private void Buscar_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
@@ -187,7 +187,7 @@ namespace SGE_erp.Gestion
                 p.Owner = Application.Current.MainWindow;
                 p.FiltrarLista = FilterListEvent;
                 p.Show();
-            }           
+            }
         }
 
         DataView view = null;
@@ -195,8 +195,8 @@ namespace SGE_erp.Gestion
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "Nombre", "Telefono","Email","Persona_Contacto","Direccion","NIF", "TipoP" };
-            
+            String[] campos = { "Nombre", "Telefono", "Email", "Persona_Contacto", "Direccion", "NIF", "TipoP" };
+
             if (view == null)
             {
                 view = new DataView();
@@ -207,7 +207,7 @@ namespace SGE_erp.Gestion
 
             view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[5]}%' AND Telefono LIKE '%{nombres[1]}%' " +
                 $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
-                $"AND Tipo = '{nombres[6]}'";
+                $"AND TipoP LIKE '%{nombres[6]}%'";
 
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -215,7 +215,6 @@ namespace SGE_erp.Gestion
             dataGridProveedores.ItemsSource = dt.DefaultView;
             dataGridProveedores.Columns[0].Visibility = Visibility.Collapsed;
             dataGridProveedores.Columns[1].Visibility = Visibility.Collapsed;
-
         }
         // params string[] nombres
 

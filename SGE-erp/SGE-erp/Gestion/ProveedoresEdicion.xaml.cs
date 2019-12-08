@@ -179,7 +179,6 @@ namespace SGE_erp.Gestion
             if (tipoComboBox.SelectedValue.ToString() == "Particular") { tipo = 1; }
             else { tipo = 2; }
 
-
             try
             {
                 string bd = MetodosGestion.db;
@@ -268,6 +267,10 @@ namespace SGE_erp.Gestion
                 }
                 CheckAceptar();
                 //ProveedoresMain.AccesoVentana();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
             }
         }
 

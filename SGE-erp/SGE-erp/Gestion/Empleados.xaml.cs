@@ -29,13 +29,13 @@ namespace SGE_erp.Gestion
             //Actualizar();
         }
 
-        public static Delegate FiltrarLista;
-        public delegate void RefreshList();
-        public event RefreshList RefreshListEvent;
-
+        //public static Delegate FiltrarLista;
         public delegate void FilterList();
         public event FilterList FilterListEvent;
 
+        public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
+        
         EmpleadosEdicion p = null;
 
         private void Actualizar()
@@ -83,9 +83,9 @@ namespace SGE_erp.Gestion
             {
                 p = new EmpleadosEdicion(0);
                 RefreshListEvent += new RefreshList(Actualizar);
+                p.ActualizarLista = RefreshListEvent;
                 p.Title = "Añadir Empleado";
                 p.Owner = System.Windows.Application.Current.MainWindow;
-                p.ActualizarLista = RefreshListEvent;
                 p.Show();
             }
         }
@@ -160,16 +160,16 @@ namespace SGE_erp.Gestion
         {
             if (!MetodosGestion.IsOpen(p))
             {
-                FilterListEvent += new FilterList(Filtrar);
                 p = new EmpleadosEdicion(-1);
+                FilterListEvent += new FilterList(Filtrar);
+                p.FiltrarLista = FilterListEvent;
                 p.Title = "Buscar Empleado";
                 p.Owner = Application.Current.MainWindow;
-                p.FiltrarLista = FilterListEvent;
                 p.Show();
             }
             else
             {
-                Filtrar();
+                //Filtrar();
             }
         }
 
@@ -191,7 +191,8 @@ namespace SGE_erp.Gestion
             DateTime date = DateTime.Parse(nombres[7]);
             // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
 
-            view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND NIF LIKE '%{nombres[1]}%' AND Telefono LIKE '%{nombres[2]}%' AND Email LIKE '%{nombres[3]}%' AND Direccion LIKE '%{nombres[4]}%' AND NumVentas > {int.Parse(nombres[5])} AND Salario > {decimal.Parse(nombres[6])} AND FechaContratacion > #{date}#";
+            // [NumVentas] >= {nombres[5]} AND 
+            view.RowFilter = $"[NumVentas] >= {nombres[5]} AND [Salario] > {nombres[6]} AND [Nombre] LIKE '%{nombres[0]}%' AND [NIF] LIKE '%{nombres[1]}%' AND [Telefono] LIKE '%{nombres[2]}%' AND [Email] LIKE '%{nombres[3]}%' AND [Direccion] LIKE '%{nombres[4]}%' AND [FechaContratacion] > #{date.ToShortDateString()}#";
 
             // view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -210,15 +211,38 @@ namespace SGE_erp.Gestion
                 // ID "Nombre", "NIF", "Telefono", "Email", "Direccion", "NumVentas", "Salario", "FechaContratacion"
                 if (item.Name == "EdicionEmpleados")
                 {
+                    //((EmpleadosEdicion)item).fechaDatePicker.SelectedDate = DateTime.Today;
+                    //((EmpleadosEdicion)item).fechaDatePicker.SelectedDate = new DateTime(1990, 1, 1);
+                    DateTime time =(DateTime)((EmpleadosEdicion)item).fechaDatePicker.SelectedDate;
+                    String fecha = time.ToShortDateString();
+                    String ventas;
+                    if (((EmpleadosEdicion)item).ventasTextBox.Text.Equals(""))
+                    {
+                        ventas = "0";
+                    }
+                    else
+                    {
+                        ventas = ((EmpleadosEdicion)item).ventasTextBox.Text;
+                    }
+                    String salario;
+                    if (((EmpleadosEdicion)item).salarioTextBox.Text.Equals(""))
+                    {
+                        salario = "0";
+                    }
+                    else
+                    {
+                        salario = ((EmpleadosEdicion)item).salarioTextBox.Text;
+                    }
+
                     String[] nombresArray = {
                         ((EmpleadosEdicion)item).nombreTextBox.Text,
                         ((EmpleadosEdicion)item).nifTextBox.Text,
                         ((EmpleadosEdicion)item).telefonoTextBox.Text,
                         ((EmpleadosEdicion)item).emailTextBox.Text,
                         ((EmpleadosEdicion)item).direccionTextBox.Text,
-                        ((EmpleadosEdicion)item).ventasTextBox.Text,
-                        ((EmpleadosEdicion)item).salarioTextBox.Text,
-                        ((EmpleadosEdicion)item).fechaDatePicker.SelectedDate.ToString()
+                        ventas,
+                        salario,
+                        fecha
                     };
                     nombres.AddRange(nombresArray);
                 }
