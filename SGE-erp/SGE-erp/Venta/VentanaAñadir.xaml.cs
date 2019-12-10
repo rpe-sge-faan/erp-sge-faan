@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.SqlClient;
+using SGE_erp.Gestion;
+using System.Diagnostics;
 
 namespace SGE_erp.Venta
 {
@@ -73,6 +75,7 @@ namespace SGE_erp.Venta
 
         public void ActualizaMaximo()
         {
+
             DataRowView dd = (DataRowView)DatosAnadir.SelectedItem;
             int stock = dd.Row.Field<int>("Stock");
             udStock.Maximum = (uint?)stock;
@@ -81,7 +84,10 @@ namespace SGE_erp.Venta
 
         private void DatosAnadir_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ActualizaMaximo();
+            if (DatosAnadir.SelectedCells != null)
+            {
+                ActualizaMaximo();
+            }
         }
 
         public void nombreCombo()
@@ -135,6 +141,7 @@ namespace SGE_erp.Venta
             nombreComboEmple();
         }
 
+
         decimal totalFinal = 0;
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
@@ -169,46 +176,42 @@ namespace SGE_erp.Venta
         private void Insertar_Click(object sender, RoutedEventArgs e)
         {
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
-            SqlConnection con = new SqlConnection(MetodosGestion.db);
-            using (SqlCommand command = con.CreateCommand())
+            int idArticulo = drv.Row.Field<int>("Id_Articulo");
+
+
+            int idEmpl = (int)nombreComboBox1.SelectedValue;
+            DateTime fecha = dpFecha.SelectedDate.Value;
+            //decimal precio = (decimal)lbTotalFin.Content;
+
+            try
             {
-                //int idEmpleado = drv.Row.Field<int>("idEmpleado");
-
-                command.CommandText = "INSERT INTO Ventas (Id_Empleado, FechaVentas, PrecioTotal) " +
-                    "VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
-
-                command.Parameters.AddWithValue("@idEmpleado", nombreComboBox1.SelectedValue);
-                command.Parameters.AddWithValue("@fechaVentas", dpFecha.SelectedDate.Value);
-                command.Parameters.AddWithValue("@precioTotal", lbTotalFin.Content);
-
-                con.Open();
-                int a = command.ExecuteNonQuery();
-
-
-                if (a != 0)
+                string bd = MetodosGestion.db;
+                using (SqlConnection conn = new SqlConnection(bd))
+                using (SqlCommand command = conn.CreateCommand())
                 {
-                    con.Close();
+                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, FechaVentas, PrecioTotal) VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
 
-                    MessageBox.Show("Proveedor CORRECTO");
-                }
-                else
-                {
-                    MessageBox.Show("Proveedor ERROR");
+                    command.Parameters.AddWithValue("@idEmpleado", 1);
+                    command.Parameters.AddWithValue("@fechaVentas", fecha);
+                    command.Parameters.AddWithValue("@precioTotal", 34.6);
+
+                    conn.Open();
+                    int a = command.ExecuteNonQuery();
+
+                    if (a != 0)
+                    {
+                        conn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR");
+                    }
                 }
             }
-
-
-        }
-
-
-    }
-
-    class MetodosGestion
-    {
-        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-        public static bool IsOpen(Window window)
-        {
-            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
