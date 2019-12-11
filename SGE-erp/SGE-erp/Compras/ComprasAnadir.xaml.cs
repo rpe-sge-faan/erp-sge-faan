@@ -133,6 +133,7 @@ namespace SGE_erp.Compras
                 Compras_ArticulosDetalles cad = new Compras_ArticulosDetalles();
                 cad.cargarDatos(idArt);
                 cad.ShowDialog();
+                //Hola
             }            
         }
 
