@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Compras_ArticulosDetalles" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
-        
+        <DataGrid x:Name="detallesArticulos"/>
+
     </Grid>
 </Window>

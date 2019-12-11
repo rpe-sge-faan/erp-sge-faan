@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,17 @@ namespace SGE_erp.Compras
         public Compras_ArticulosDetalles()
         {
             InitializeComponent();
+        }
+
+        public void cargarDatos(String idArt)
+        {
+            SqlConnection con = new SqlConnection(ComprasAnadir.direccionbbdd);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos WHERE Id_Articulo='" + idArt + "'", con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            
+            this.detallesArticulos.ItemsSource = dt.DefaultView;
         }
     }
 }
