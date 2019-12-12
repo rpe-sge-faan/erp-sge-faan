@@ -132,6 +132,7 @@
         </ComboBox>
         <DatePicker x:Name="dpFecha" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="177"/>
         <Label x:Name="lbTotalFin"  Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="6" VerticalAlignment="Top" Width="167"/>
+        <ComboBox x:Name="cbFormaPago"  Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="177" Loaded="cbFormaPago_Loaded"/>
 
 
     </Grid>

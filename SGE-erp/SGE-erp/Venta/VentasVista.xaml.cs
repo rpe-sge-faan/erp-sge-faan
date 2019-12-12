@@ -32,7 +32,15 @@ namespace SGE_erp.Venta
 
         private void buscar_Click(object sender, RoutedEventArgs e)
         {
-
+            if (!MetodosGestion.IsOpen(p))
+            {
+                p = new VentaEdicion(-1);
+                FilterListEvent += new FilterList(Filtrar);
+                p.FiltrarLista = FilterListEvent;
+                p.Title = "Buscar Empleado";
+                p.Owner = Application.Current.MainWindow;
+                p.Show();
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
