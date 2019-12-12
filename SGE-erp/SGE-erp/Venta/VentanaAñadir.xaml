@@ -105,21 +105,16 @@
             ColumnWidth="1*"
             IsReadOnly="True"
             SelectionChanged="DatosAnadir_SelectionChanged" />
+
         <DataGrid
             x:Name="dgFinal"
             Grid.Row="4"
             Grid.RowSpan="4"
-            Grid.ColumnSpan="2"
-            ColumnWidth="1*" SelectionChanged="DatosAnadir_SelectionChanged"
-        />
-        <DataGrid x:Name="dgFinal" 
-            Grid.ColumnSpan="3" 
-            Margin="10" 
-            Grid.Row="4" 
-                 
-                  IsReadOnly="True"
-            Grid.RowSpan="4"
-            ColumnWidth="1*"/>
+            Grid.ColumnSpan="3"
+            Margin="10"
+            ColumnWidth="1*"
+            IsReadOnly="True"
+            SelectionChanged="DatosAnadir_SelectionChanged" />
         <ComboBox
             x:Name="nombreComboBox"
             Grid.Row="2"
@@ -161,8 +156,24 @@
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-        <DatePicker x:Name="dpFecha" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="177"/>
-        <Label x:Name="lbTotalFin"  Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="6" VerticalAlignment="Top" Width="167"/>
+        <DatePicker
+            x:Name="dpFecha"
+            Grid.Row="4"
+            Grid.Column="3"
+            Width="177"
+            Height="36"
+            Margin="13,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="lbTotalFin"
+            Grid.Row="6"
+            Grid.Column="3"
+            Width="167"
+            Height="36"
+            Margin="13,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
 
 
     </Grid>

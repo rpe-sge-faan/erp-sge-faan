@@ -255,8 +255,6 @@ namespace SGE_erp.Venta
             {
                 Console.WriteLine(ex.Message);
             }
-
-            
         }
 
          
