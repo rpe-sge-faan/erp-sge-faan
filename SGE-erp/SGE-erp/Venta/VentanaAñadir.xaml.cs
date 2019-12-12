@@ -36,6 +36,7 @@ namespace SGE_erp.Venta
             dataT = new DataTable();
             dataT.Columns.Add("Id_Articulo");
             dataT.Columns.Add("Id_Empleado");
+            dataT.Columns.Add("Id_Elemento");
             dataT.Columns.Add("Nombre");
             dataT.Columns.Add("PVP");
             dataT.Columns.Add("Unidades");
@@ -48,7 +49,7 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, Nombre, PVP, Stock " +
+                SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, ProveedorArticulo.Id_Elemento, Nombre, PVP, Stock " +
                                                         "FROM ProveedorArticulo, Articulos " +
                                                         "WHERE ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo AND Stock > 0", con);
                 DataTable dt = new DataTable();
@@ -150,6 +151,7 @@ namespace SGE_erp.Venta
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
                 int idArticulo = drv.Row.Field<int>("Id_Articulo");
                 String idEmpleado = nombreComboBox1.SelectedValue.ToString();
+                int idElemento = drv.Row.Field<int>("Id_Elemento");
                 int stock = (int)udStock.Value;
                 String nombre = drv.Row.Field<String>("Nombre");
                 decimal pvp = drv.Row.Field<decimal>("PVP");
@@ -163,6 +165,7 @@ namespace SGE_erp.Venta
                 dr = dataT.NewRow();
                 dr["Id_Articulo"] = idArticulo;
                 dr["Id_Empleado"] = idEmpleado;
+                dr["Id_Elemento"] = idElemento;
                 dr["Nombre"] = nombre;
                 dr["PVP"] = totalM;
                 dr["Unidades"] = stock;
@@ -177,11 +180,14 @@ namespace SGE_erp.Venta
         {
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
             int idArticulo = drv.Row.Field<int>("Id_Articulo");
+            int idElemento = drv.Row.Field<int>("Id_Elemento");
+            int stock = drv.Row.Field<int>("Stock");
 
-
+            //(int)nombreComboBox1.SelectedValue
             int idEmpl = (int)nombreComboBox1.SelectedValue;
             DateTime fecha = dpFecha.SelectedDate.Value;
-            //decimal precio = (decimal)lbTotalFin.Content;
+            decimal precio = (decimal)lbTotalFin.Content;
+            int id;
 
             try
             {
@@ -189,18 +195,51 @@ namespace SGE_erp.Venta
                 using (SqlConnection conn = new SqlConnection(bd))
                 using (SqlCommand command = conn.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, FechaVentas, PrecioTotal) VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
+                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, FechaVentas, PrecioTotal)  " +
+                        "OUTPUT INSERTED.Id_Ventas " +
+                        "VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
 
-                    command.Parameters.AddWithValue("@idEmpleado", 1);
+                    
+
+                    command.Parameters.AddWithValue("@idEmpleado", idEmpl);
                     command.Parameters.AddWithValue("@fechaVentas", fecha);
-                    command.Parameters.AddWithValue("@precioTotal", 34.6);
-
+                    command.Parameters.AddWithValue("@precioTotal", precio);
+                    
+                    //MessageBox.Show(a.ToString);
                     conn.Open();
+                    Int32 newIdVentas = (Int32)command.ExecuteScalar();
+                    id = newIdVentas;
                     int a = command.ExecuteNonQuery();
-
+                    
                     if (a != 0)
                     {
+                        MessageBox.Show("Insertado");
                         conn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR");
+                    }
+                }
+
+                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlCommand comando = con.CreateCommand())
+                {
+                    con.Open();
+                    comando.CommandText = @"INSERT INTO [VentasArticulos] (Id_Ventas, Id_Elemento, Cantidad)" +
+                        "VALUES (@idVentas, @idElemento, @cantidad)";
+
+                    comando.Parameters.AddWithValue("@idVentas", id);
+                    comando.Parameters.AddWithValue("@idElemento", idElemento);
+                    comando.Parameters.AddWithValue("@cantidad", stock);
+
+                
+                    int a = comando.ExecuteNonQuery();
+                    MessageBox.Show("HECHO");
+                    if (a != 0)
+                    {
+                        MessageBox.Show("HECHO");
+                        con.Close();
                     }
                     else
                     {
@@ -212,6 +251,21 @@ namespace SGE_erp.Venta
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+         
+        private void cbFormaPago_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+
+    class MetodosGestion
+    {
+        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
+        public static bool IsOpen(Window window)
+        {
+            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
         }
     }
 }
