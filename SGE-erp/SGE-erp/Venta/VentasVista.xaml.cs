@@ -32,12 +32,12 @@ namespace SGE_erp.Venta
 
         private void buscar_Click(object sender, RoutedEventArgs e)
         {
-
+            Actualizar();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Actualizar();
         }
 
 
@@ -47,7 +47,7 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodoGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
+                SqlDataAdapter da = new SqlDataAdapter(@"SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
                                                         "FROM VentasArticulos, Ventas " +
                                                         "WHERE VentasArticulos.Id_Ventas = Ventas.Id_Ventas", con);
                 DataTable dt = new DataTable(); ;

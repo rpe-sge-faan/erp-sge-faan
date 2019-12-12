@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.SqlClient;
+using SGE_erp.Gestion;
+using System.Diagnostics;
 
 namespace SGE_erp.Venta
 {
@@ -27,17 +29,17 @@ namespace SGE_erp.Venta
             InitializeComponent();
             Actualizar();
         }
-
+        DataTable dataT;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
-            // No cargue datos en tiempo de diseño.
-            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            // {
-            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
-            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
-            // 	myCollectionViewSource.Source = your data
-            // }
+            dataT = new DataTable();
+            dataT.Columns.Add("Id_Articulo");
+            dataT.Columns.Add("Id_Empleado");
+            dataT.Columns.Add("Nombre");
+            dataT.Columns.Add("PVP");
+            dataT.Columns.Add("Unidades");
+
         }
 
         private void Actualizar()
@@ -46,8 +48,10 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, Nombre, PVP, Stock FROM ProveedorArticulo, Articulos WHERE ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo AND Stock > 0", con);
-                DataTable dt = new DataTable(); ;
+                SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, Nombre, PVP, Stock " +
+                                                        "FROM ProveedorArticulo, Articulos " +
+                                                        "WHERE ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo AND Stock > 0", con);
+                DataTable dt = new DataTable();
 
                 ds.Clear();
                 da.Fill(dt);
@@ -56,21 +60,158 @@ namespace SGE_erp.Venta
                 con.Open();
                 con.Close();
 
-                //this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
-            }catch
+                this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
+
+                udStock.Minimum = 1;
+                udStock.Value = 1;
+
+            }
+            catch
             {
                 return;
             }
-            
-        }
-    }
 
-    class MetodosGestion
-    {
-        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-        public static bool IsOpen(Window window)
+        }
+
+        public void ActualizaMaximo()
         {
-            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
+
+            DataRowView dd = (DataRowView)DatosAnadir.SelectedItem;
+            int stock = dd.Row.Field<int>("Stock");
+            udStock.Maximum = (uint?)stock;
+            udStock.Value = 1;
+        }
+
+        private void DatosAnadir_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DatosAnadir.SelectedCells != null)
+            {
+                ActualizaMaximo();
+            }
+        }
+
+        public void nombreCombo()
+        {
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Cliente, Nombre FROM Clientes ORDER BY Nombre ASC", con);
+            DataTable dt = new DataTable();
+
+            ds.Clear();
+            da.Fill(dt);
+            this.nombreComboBox.ItemsSource = dt.DefaultView;
+
+            nombreComboBox.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            nombreComboBox.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
+
+            con.Open();
+            con.Close();
+
+            nombreComboBox.SelectedIndex = 0;
+        }
+
+        public void nombreComboEmple()
+        {
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Empleado, Nombre FROM Empleados ORDER BY Nombre ASC", con);
+            DataTable dt = new DataTable();
+
+
+            ds.Clear();
+            da.Fill(dt);
+            this.nombreComboBox1.ItemsSource = dt.DefaultView;
+
+            nombreComboBox1.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            nombreComboBox1.SelectedValuePath = dt.Columns["Id_Empleado"].ToString();
+
+            con.Open();
+            con.Close();
+
+            nombreComboBox1.SelectedIndex = 0;
+        }
+
+        private void nombreComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            nombreCombo();
+        }
+
+        private void nombreComboBox1_Loaded(object sender, RoutedEventArgs e)
+        {
+            nombreComboEmple();
+        }
+
+
+        decimal totalFinal = 0;
+        private void Anadir_Click(object sender, RoutedEventArgs e)
+        {
+            if (DatosAnadir.SelectedItem != null)
+            {
+                DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+                int idArticulo = drv.Row.Field<int>("Id_Articulo");
+                String idEmpleado = nombreComboBox1.SelectedValue.ToString();
+                int stock = (int)udStock.Value;
+                String nombre = drv.Row.Field<String>("Nombre");
+                decimal pvp = drv.Row.Field<decimal>("PVP");
+                decimal totalM = 0;
+                totalM = pvp * stock;
+
+                totalFinal += totalM;
+                lbTotalFin.Content = totalFinal;
+
+                DataRow dr = null;
+                dr = dataT.NewRow();
+                dr["Id_Articulo"] = idArticulo;
+                dr["Id_Empleado"] = idEmpleado;
+                dr["Nombre"] = nombre;
+                dr["PVP"] = totalM;
+                dr["Unidades"] = stock;
+                dataT.Rows.Add(dr);
+                dgFinal.ItemsSource = dataT.DefaultView;
+
+            }
+
+        }
+
+        private void Insertar_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+            int idArticulo = drv.Row.Field<int>("Id_Articulo");
+
+
+            int idEmpl = (int)nombreComboBox1.SelectedValue;
+            DateTime fecha = dpFecha.SelectedDate.Value;
+            //decimal precio = (decimal)lbTotalFin.Content;
+
+            try
+            {
+                string bd = MetodosGestion.db;
+                using (SqlConnection conn = new SqlConnection(bd))
+                using (SqlCommand command = conn.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, FechaVentas, PrecioTotal) VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
+
+                    command.Parameters.AddWithValue("@idEmpleado", 1);
+                    command.Parameters.AddWithValue("@fechaVentas", fecha);
+                    command.Parameters.AddWithValue("@precioTotal", 34.6);
+
+                    conn.Open();
+                    int a = command.ExecuteNonQuery();
+
+                    if (a != 0)
+                    {
+                        conn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
