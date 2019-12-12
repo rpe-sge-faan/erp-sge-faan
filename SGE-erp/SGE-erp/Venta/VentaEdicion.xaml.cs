@@ -20,9 +20,11 @@ namespace SGE_erp.Venta
     /// </summary>
     public partial class VentaEdicion : Page
     {
-        public VentaEdicion()
+        int id = 0;
+        public VentaEdicion(int num)
         {
             InitializeComponent();
+            id = num;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
