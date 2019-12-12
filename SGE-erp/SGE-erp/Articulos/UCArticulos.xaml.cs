@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp;
 using SGE_erp.Gestion;
-using SGE_erp.SetaDataTableAdapters;
+
 
 namespace SGE_erp.Articulos
 {
