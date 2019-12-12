@@ -228,10 +228,10 @@ namespace SGE_erp.Venta
 
                 
                     int a = comando.ExecuteNonQuery();
-                    MessageBox.Show("HECHO");
+                    
                     if (a != 0)
                     {
-                        MessageBox.Show("HECHO");
+                        
                         con.Close();
                     }
                     else
@@ -239,11 +239,17 @@ namespace SGE_erp.Venta
                         MessageBox.Show("ERROR");
                     }
                 }
+                
+                dgFinal.Columns.Clear();
+                dgFinal.ItemsSource = null;
+                dgFinal.Items.Refresh();
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
             }
+
+            
         }
 
          
