@@ -64,7 +64,6 @@ namespace SGE_erp.Compras
             {
                 DataRow row = ComprasAnadir.carritoCompra.Rows[i];
                 precioFinal += Convert.ToInt32(row["Precio Total"]);
-                MessageBox.Show(precioFinal.ToString());                
             }
         }
         

@@ -240,7 +240,7 @@ namespace SGE_erp.Compras
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 con.Open();
-                SqlCommand da = new SqlCommand("INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
+                SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
                     + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + fechaCompra.ToString("MM/dd/yyyy") + "'," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
                 con.Close();
@@ -258,7 +258,7 @@ namespace SGE_erp.Compras
                     DataRow datos = carritoCompra.Rows[i];
                     SqlConnection con2 = new SqlConnection(MetodosGestion.db);
                     con2.Open();
-                    SqlCommand da2 = new SqlCommand("INSERT INTO CompraArticulos VALUES("
+                    SqlCommand da2 = new SqlCommand(@"INSERT INTO CompraArticulos VALUES("
                         + idcompra + "," + Convert.ToInt32(datos[0]) + "," + Convert.ToInt32(datos[2]) + ");", con2);
                     da2.ExecuteNonQuery();
                     con2.Close();

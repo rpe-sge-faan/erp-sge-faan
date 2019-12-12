@@ -7,6 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
-        <DataGrid x:Name="comprasDatos"/>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="1*" />
+            <RowDefinition
+                Height="9*" />
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="comprasDatos" Grid.Row="1"
+                  />
+        <Button
+            x:Name="actualizar"
+            Width="150"
+            HorizontalAlignment="Left"
+            Grid.Row="0" 
+            Content="Actualizar"
+            Click="actualizar_Click" />
     </Grid>
 </UserControl>

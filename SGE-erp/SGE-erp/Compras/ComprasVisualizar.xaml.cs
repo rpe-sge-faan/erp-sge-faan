@@ -23,6 +23,8 @@ namespace SGE_erp.Compras
     /// </summary>
     public partial class ComprasVisualizar : UserControl
     {
+        public Delegate FiltrarLista;
+        public delegate void RefreshList();
         public ComprasVisualizar()
         {
             InitializeComponent();
@@ -38,6 +40,11 @@ namespace SGE_erp.Compras
             da.Fill(dt);
 
             this.comprasDatos.ItemsSource = dt.DefaultView;
+        }
+
+        private void actualizar_Click(object sender, RoutedEventArgs e)
+        {
+            cargarDatos();
         }
     }
 }
