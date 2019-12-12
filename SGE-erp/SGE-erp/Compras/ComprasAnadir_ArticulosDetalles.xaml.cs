@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SGE_erp.Gestion;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -21,14 +22,15 @@ namespace SGE_erp.Compras
     /// </summary>
     public partial class Compras_ArticulosDetalles : Window
     {
-        public Compras_ArticulosDetalles()
+        public Compras_ArticulosDetalles(String idArt)
         {
             InitializeComponent();
+            cargarDatos(idArt);
         }
 
         public void cargarDatos(String idArt)
         {
-            SqlConnection con = new SqlConnection(ComprasAnadir.direccionbbdd);
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
             SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos WHERE Id_Articulo='" + idArt + "'", con);
             DataTable dt = new DataTable();
             da.Fill(dt);

@@ -1,0 +1,24 @@
+﻿<Window x:Class="SGE_erp.Compras.Compras_Carrito"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SGE_erp.Compras"
+        mc:Ignorable="d"
+        Title="Carro de la Compra" Height="225" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions> 
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="carrito" />
+        <Button x:Name="btnFinalizarCompra" Content="Finalizar Compra" Grid.Row="0" Grid.Column="0" Margin="12,2" Click="BtnFinalizarCompra_Click"/>
+        <Button x:Name="btnBorrarArticulo" Content="Borrar Articulo" Grid.Row="0" Grid.Column="1" Margin="12,2" Click="BtnBorrarArticulo_Click"/>
+        <Button x:Name="btnVaciarCarro" Content="Vaciar Carrito" Grid.Row="0" Grid.Column="2" Margin="12,2" Click="BtnVaciarCarro_Click"/>
+    </Grid>
+</Window>

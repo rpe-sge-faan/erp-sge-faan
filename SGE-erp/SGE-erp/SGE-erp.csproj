@@ -91,6 +91,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Compras\Compras_Carrito.xaml.cs">
+      <DependentUpon>Compras_Carrito.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\Compras_CompararProveedor.xaml.cs">
+      <DependentUpon>Compras_CompararProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\Compras_PedirDatos.xaml.cs">
+      <DependentUpon>Compras_PedirDatos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\EmpleadosEdicion.xaml.cs">
       <DependentUpon>EmpleadosEdicion.xaml</DependentUpon>
     </Compile>
@@ -136,6 +145,18 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
+    <Page Include="Compras\Compras_Carrito.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\Compras_CompararProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\Compras_PedirDatos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gestion\Empleados.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
