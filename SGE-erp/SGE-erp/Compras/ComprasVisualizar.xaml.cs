@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SGE_erp.Gestion;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,28 @@ namespace SGE_erp.Compras
     /// </summary>
     public partial class ComprasVisualizar : UserControl
     {
+        public Delegate FiltrarLista;
+        public delegate void RefreshList();
         public ComprasVisualizar()
         {
             InitializeComponent();
+            cargarDatos();
+        }
+
+        public void cargarDatos()
+        {
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Compra", con);
+            DataTable dt = new DataTable(); ;
+
+            da.Fill(dt);
+
+            this.comprasDatos.ItemsSource = dt.DefaultView;
+        }
+
+        private void actualizar_Click(object sender, RoutedEventArgs e)
+        {
+            cargarDatos();
         }
     }
 }

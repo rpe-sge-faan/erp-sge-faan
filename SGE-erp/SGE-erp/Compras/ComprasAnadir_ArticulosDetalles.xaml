@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Compras"
         mc:Ignorable="d"
-        Title="Compras_ArticulosDetalles" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Compras_ArticulosDetalles" Height="250" Width="600" ResizeMode="NoResize">
     <Grid>
-        
+        <DataGrid x:Name="detallesArticulos"/>
+
     </Grid>
 </Window>

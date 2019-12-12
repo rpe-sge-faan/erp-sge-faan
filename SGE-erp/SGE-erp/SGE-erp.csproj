@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>e_icon-icons.com_60553.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
@@ -91,6 +94,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Compras\Compras_Carrito.xaml.cs">
+      <DependentUpon>Compras_Carrito.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\Compras_CompararProveedor.xaml.cs">
+      <DependentUpon>Compras_CompararProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\Compras_PedirDatos.xaml.cs">
+      <DependentUpon>Compras_PedirDatos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\EmpleadosEdicion.xaml.cs">
       <DependentUpon>EmpleadosEdicion.xaml</DependentUpon>
     </Compile>
@@ -127,6 +139,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SetaData.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Venta\VentaEdicion.xaml.cs">
+      <DependentUpon>VentaEdicion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Venta\VentanaAñadir.xaml.cs">
       <DependentUpon>VentanaAñadir.xaml</DependentUpon>
     </Compile>
@@ -136,6 +151,18 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
+    <Page Include="Compras\Compras_Carrito.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\Compras_CompararProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\Compras_PedirDatos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gestion\Empleados.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -213,6 +240,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Venta\VentaEdicion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Venta\VentanaAñadir.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -279,6 +310,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>DeBaseDatos.mdf</DependentUpon>
     </Content>
+    <Resource Include="e_icon-icons.com_60553.ico" />
+    <Resource Include="imagenes\e_icon-icons.com_60553.ico" />
+    <Resource Include="imagenes\icon.png" />
     <Resource Include="imagenes\refresh.png" />
     <Resource Include="imagenes\anterior.png" />
     <Resource Include="imagenes\atras.png" />

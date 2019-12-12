@@ -105,6 +105,7 @@
             ColumnWidth="1*"
             IsReadOnly="True"
             SelectionChanged="DatosAnadir_SelectionChanged" />
+
         <DataGrid
             x:Name="dgFinal"
             Grid.Row="4"
@@ -112,7 +113,8 @@
             Grid.ColumnSpan="3"
             Margin="10"
             ColumnWidth="1*"
-            IsReadOnly="True" />
+            IsReadOnly="True"
+            SelectionChanged="DatosAnadir_SelectionChanged" />
         <ComboBox
             x:Name="nombreComboBox"
             Grid.Row="2"
@@ -142,9 +144,9 @@
             x:Name="nombreComboBox1"
             Grid.Row="0"
             Grid.Column="3"
-            Height="37"
+            Height="27"
             Margin="10,10,10,0"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             DisplayMemberPath="Nombre"
             ItemsSource="{Binding}"
             Loaded="nombreComboBox1_Loaded">

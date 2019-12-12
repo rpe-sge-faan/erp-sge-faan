@@ -23,23 +23,93 @@ namespace SGE_erp.Venta
     /// </summary>
     public partial class VentasVista : UserControl
     {
+
+        public static Delegate FiltrarLista;
+        public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
+
+        public delegate void FilterList();
+        public event FilterList FilterListEvent;
+
+        VentaEdicion p = null;
+
         public VentasVista()
         {
             InitializeComponent();
             Actualizar();
         }
 
-
+        
         private void buscar_Click(object sender, RoutedEventArgs e)
         {
-            Actualizar();
+           /* if (!MetodosGestion.IsOpen(p))
+            {
+                p = new VentaEdicion(-1);
+                FilterListEvent += new FilterList(Filtrar);
+                p.FiltrarLista = FilterListEvent;
+                p.Title = "Buscar Ventas";
+                p.Owner = Application.Current.MainWindow;
+                p.Show();
+            }*/
         }
+/*
+        DataView view = null;
+        DataTable dt;
+        public void Filtrar()
+        {
+            List<String> nombres = AccesoVentana();
+            String[] campos = { "IdEmpleado", "FechaVenta", "Cantidad", "PrecioTotal"};
 
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)dgVista.ItemsSource).ToTable();
+                dt.TableName = "Empleados";
+                view.Table = dt;
+            }
+
+            DateTime date = DateTime.Parse(nombres[4]);
+            // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
+
+            // [NumVentas] >= {nombres[5]} AND 
+            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{nombres[1]}%' AND Cantidad LIKE '%{nombres[2]}%' " +
+                 $"AND PrecioTotal LIKE '%{nombres[3]}%'";
+
+            // view.Sort = "CompanyName DESC";
+            dt = view.ToTable();
+            dgVista.ItemsSource = null;
+            dgVista.ItemsSource = dt.DefaultView;
+            dgVista.Columns[0].Visibility = Visibility.Collapsed;
+        }
+        // params string[] nombres
+
+
+        public List<String> AccesoVentana()
+        {
+            List<String> nombres = new List<String>();
+            foreach (Window item in Application.Current.Windows)
+            {
+            
+                if (item.Name == "EdicionVenta")
+                { 
+                    String[] nombresArray = {
+                        ((VentaEdicion)item).nifTextBox.Text,
+                        ((VentaEdicion)item).telefonoTextBox.Text,
+                        ((VentaEdicion)item).emailTextBox.Text,
+                        ((VentaEdicion)item).direccionTextBox.Text
+                        
+                    };
+                    nombres.AddRange(nombresArray);
+                }
+            }
+            return nombres;
+        }
+        */
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
-
+       
 
         private void Actualizar()
         {

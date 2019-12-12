@@ -181,22 +181,20 @@ namespace SGE_erp.Articulos
             }
             if (nombres[2].Equals("0") && nombres[3].Equals("0"))
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%'";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%'";
             }
             else if (nombres[2].Equals("0"))
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND Id_Iva = {nombres[3]}";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]}";
             }
             else if (nombres[3].Equals("0"))
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND TipoArticulo = {nombres[2]}";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND TipoArticulo = {nombres[2]}";
             }
             else
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND Id_Iva = {nombres[3]} AND TipoArticulo = {nombres[2]}";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]} AND TipoArticulo = {nombres[2]}";
             }
-
-
 
             //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -216,8 +214,8 @@ namespace SGE_erp.Articulos
                     String[] nombresArray = {
                         ((EditaArticulos)item).nombreTextBox1.Text,
                         ((EditaArticulos)item).descripcionTextBox1.Text,
-                        (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex + 1).ToString(),
-                        (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex +1).ToString()
+                        (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex).ToString(),
+                        (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex).ToString()
                     };
                     nombres.AddRange(nombresArray);
                 }
