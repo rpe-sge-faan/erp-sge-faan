@@ -22,13 +22,17 @@ namespace SGE_erp.Gestion
         public int id;
         public Delegate ActualizarLista;
         public Delegate FiltrarLista;
-        public delegate void RefreshList();
 
         public EmpleadosEdicion(int num)
         {
             InitializeComponent();
             this.id = num;
-
+            if (id == -1)
+            {
+                salarioTextBox.Text = "0";
+                fechaDatePicker.SelectedDate = new DateTime(2000, 1, 1);
+                ventasTextBox.Text = "0";
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -39,10 +43,7 @@ namespace SGE_erp.Gestion
             }
             else if (id == -1)
             {
-                salarioTextBox.Text = "0";
-                ventasTextBox.Text = "0";
-                DateTime date = DateTime.Parse("01/01/1999");
-                fechaDatePicker.SelectedDate = date;
+                
             }
             else
             {
@@ -220,6 +221,7 @@ namespace SGE_erp.Gestion
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        int cont = 0;
         private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (id != -1)
@@ -263,6 +265,11 @@ namespace SGE_erp.Gestion
                 CheckAceptar();
                 //EmpleadosMain.AccesoVentana();
             }
+            else if (id == -1 && cont >1)
+            {
+                FiltrarLista.DynamicInvoke();
+            }
+            cont++;
         }
 
         private void CheckAceptar()

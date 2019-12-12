@@ -25,7 +25,6 @@ namespace SGE_erp.Gestion
         public Delegate ActualizarLista;
         public Delegate FiltrarLista;
         public delegate void RefreshList();
-        public event RefreshList RefreshListEvent;
         public ClientesEdicion(int num)
         {
             InitializeComponent();
@@ -267,6 +266,10 @@ namespace SGE_erp.Gestion
                 }
                 CheckAceptar();
                 //ClientesMain.AccesoVentana();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
             }
         }
 

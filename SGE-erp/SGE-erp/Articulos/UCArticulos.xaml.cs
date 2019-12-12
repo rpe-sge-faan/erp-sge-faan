@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,45 +21,44 @@ using SGE_erp.SetaDataTableAdapters;
 
 namespace SGE_erp.Articulos
 {
-    /// <summary>
-    /// Interaction logic for UCArticulos.xaml
-    /// </summary>
+
     public partial class UCArticulos : UserControl
     {
         public UCArticulos()
         {
             InitializeComponent();
+            ActualizarAsignar();
             Actualizar();
-            //SetaData sd = new SetaData();
-            //ArticulosTableAdapter adapter = new ArticulosTableAdapter();
-            //adapter.Fill(sd.Articulos);
-            //articulosListView.ItemsSource = sd.Articulos.DefaultView;
-
         }
 
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
-        private void RefreshListView()
+        EditaArticulos a = null;
+
+        private void OcultarColumnas()
         {
-            Actualizar();
+            articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[1].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[4].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[5].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[7].Visibility = Visibility.Collapsed;
         }
 
         private void Actualizar()
         {
             try
             {
-                //string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Articulos]", con);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos, TipoArticulo, Iva WHERE Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo", con);
                 DataTable dt = new DataTable(); ;
-
-                ds.Clear();
                 da.Fill(dt);
-                this.articulosDataGrid.ItemsSource = dt.DefaultView;
 
+                this.articulosDataGrid.ItemsSource = dt.DefaultView;
                 con.Open();
                 con.Close();
+                articulosDataGrid.Columns[6].Header = "Categoría";
+
+                OcultarColumnas();
             }
             catch
             {
@@ -66,68 +66,302 @@ namespace SGE_erp.Articulos
             }
         }
 
-        EditaArticulos ea = null;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //Actualizar();
+            ActualizarAsignar();
+            Actualizar();
+            bAsignar.IsEnabled = false;
         }
 
-        private void anadirArticulo_Click(object sender, RoutedEventArgs e)
+        private void Anadir_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(a))
+            {
+                a = new EditaArticulos(0);
+                RefreshListEvent += new RefreshList(Actualizar);
+                a.Title = "Añadir Artículo";
+                a.Owner = Application.Current.MainWindow;
+                a.ActualizarLista = RefreshListEvent;
+                a.Show();
+            }
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            ActualizarAsignar();
+            Actualizar();
+        }
+
+        private void Editar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(a))
+            {
+                if (articulosDataGrid.SelectedItem != null)
+                {
+                    DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
+                    int id = dd.Row.Field<int>("Id_Articulo");
+
+                    a = new EditaArticulos(id);
+                    RefreshListEvent += new RefreshList(Actualizar);
+                    a.Title = "Editar Artículo";
+                    a.Owner = System.Windows.Application.Current.MainWindow;
+                    a.ActualizarLista = RefreshListEvent;
+                    a.Show();
+                }
+            }
+        }
+
+        private void Borrar_Click(object sender, RoutedEventArgs e)
         {
             if (articulosDataGrid.SelectedItem != null)
             {
                 DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Articulo");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string bd = MetodosGestion.db;
+                        using (SqlConnection con = new SqlConnection(bd))
+                        using (SqlCommand command = con.CreateCommand())
+                        {
+                            command.CommandText = "DELETE FROM Articulos WHERE Id_Articulo = @id";
 
-                ea = new EditaArticulos();
-                RefreshListEvent += new RefreshList(RefreshListView); // event initialization
-                ea.Title = "Añadir Articulo";
-                ea.Owner = System.Windows.Application.Current.MainWindow;
-                ea.ActualizarLista = RefreshListEvent; // assigning event to the Delegate
-                ea.Show();
+                            command.Parameters.AddWithValue("@id", id);
+
+                            con.Open();
+                            int a = command.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al borrar articulo");
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    Actualizar();
+                }
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Buscar_Click(object sender, RoutedEventArgs e)
         {
-            Actualizar();
+            if (!MetodosGestion.IsOpen(a))
+            {
+                a = new EditaArticulos(-1);
+                RefreshListEvent += new RefreshList(Filtrar);
+                a.Title = "Buscar Artículo";
+                a.Owner = Application.Current.MainWindow;
+                a.FiltrarLista = RefreshListEvent;
+                a.Show();
+            }
         }
 
-        /*private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        DataView view = null;
+        DataTable dt;
+        private void Filtrar()
         {
+            List<String> nombres = AccesoVentana();
+            String[] campos = { "Nombre", "Descripcion", "Categoria", "PorcentajeIva" };
 
-            // No cargue datos en tiempo de diseño.
-            // if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            // {
-            // 	//Cargue los datos aquí y asigne el resultado a CollectionViewSource.
-            // 	System.Windows.Data.CollectionViewSource myCollectionViewSource = (System.Windows.Data.CollectionViewSource)this.Resources["Resource Key for CollectionViewSource"];
-            // 	myCollectionViewSource.Source = your data
-            // }
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)articulosDataGrid.ItemsSource).ToTable();
+                dt.TableName = "Articulos";
+                view.Table = dt;
+            }
+            if (nombres[2].Equals("0") && nombres[3].Equals("0"))
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%'";
+            }
+            else if (nombres[2].Equals("0"))
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND Id_Iva = {nombres[3]}";
+            }
+            else if (nombres[3].Equals("0"))
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND TipoArticulo = {nombres[2]}";
+            }
+            else
+            {
+                view.RowFilter = $"Nombre LIKE '%{nombres[0].ToUpper()}%' AND Descripcion LIKE '%{nombres[1].ToUpper()}%' AND Id_Iva = {nombres[3]} AND TipoArticulo = {nombres[2]}";
+            }
 
 
-            //DataTable employeeData = CreateDataTable();
 
+            //view.Sort = "CompanyName DESC";
+            dt = view.ToTable();
+            articulosDataGrid.ItemsSource = null;
+            articulosDataGrid.ItemsSource = dt.DefaultView;
 
-            //articulosListView.ItemsSource = query.ToList();
-
-
-        }*/
-
-
-        private void TabItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            EditaArticulos ea = new EditaArticulos();
-            ea.ShowDialog();
+            OcultarColumnas();
         }
 
-
-
-        /* private void TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        public List<String> AccesoVentana()
         {
-           
-           // MessageBox.Show("Hola");
-        } */
+            List<String> nombres = new List<String>();
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item.Name == "EditarArticulos")
+                {
+                    String[] nombresArray = {
+                        ((EditaArticulos)item).nombreTextBox1.Text,
+                        ((EditaArticulos)item).descripcionTextBox1.Text,
+                        (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex + 1).ToString(),
+                        (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex +1).ToString()
+                    };
+                    nombres.AddRange(nombresArray);
+                }
+            }
+            return nombres;
+        }
+
+        private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string nombre = ((sender as TextBox).Name).ToString();
+            CheckAceptar();
+        }
+
+        private void CheckAceptar()
+        {
+            bool enable = true;
+            var textBoxes = gridGeneral.Children.OfType<TextBox>();
+
+            foreach (TextBox txt in textBoxes)
+            {
+                if (txt.IsEnabled)
+                {
+                    if (String.IsNullOrWhiteSpace(txt.Text))
+                    {
+                        enable = false;
+                    }
+                }
+            }
+
+            if (enable)
+            {
+                bAsignar.IsEnabled = true;
+            }
+            else
+            {
+                bAsignar.IsEnabled = false;
+            }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void ActualizarAsignar()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                DataTable dt = new DataTable();
+                SqlDataAdapter articulos = new SqlDataAdapter("SELECT Id_Articulo, Nombre, Descripcion FROM Articulos", con);
+                articulos.Fill(dt);
+                dataArt.ItemsSource = dt.DefaultView;
+
+                DataTable dt2 = new DataTable();
+                SqlDataAdapter proveedores = new SqlDataAdapter("SELECT Id_Proveedor, Nombre FROM Proveedores", con);
+                proveedores.Fill(dt2);
+                dataProv.ItemsSource = dt2.DefaultView;
+
+                con.Open();
+                con.Close();
+
+                dataProv.Columns[0].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                dataProv.Columns[0].MaxWidth = 0;
+                dataProv.Columns[1].Width = new DataGridLength(6, DataGridLengthUnitType.Star);
+                dataArt.Columns[0].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void bAsignar_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataArt.SelectedItem != null && dataProv.SelectedItem != null)
+            {
+                DataRowView dArt = (DataRowView)dataArt.SelectedItem;
+                DataRowView dPro = (DataRowView)dataProv.SelectedItem;
+                int idArticulo = dArt.Row.Field<int>("Id_Articulo");
+                int idProveedor = dPro.Row.Field<int>("Id_Proveedor");
+
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "SELECT COUNT(*) FROM [ProveedorArticulo] WHERE ([Id_Proveedor] = @prov AND [Id_Articulo] = @art)";
+
+                    command.Parameters.AddWithValue("@prov", idProveedor);
+                    command.Parameters.AddWithValue("@art", idArticulo);
+
+                    con.Open();
+                    int existe = (int)command.ExecuteScalar();
+
+                    if (existe > 0)
+                    {
+                        MessageBoxResult resultado = MessageBox.Show("Esta relación ya existe ¿Desea modificarla?", "Conflicto", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (resultado == MessageBoxResult.Yes)
+                        {
+                            using (SqlCommand editar = con.CreateCommand())
+                            {
+                                editar.CommandText = "UPDATE ProveedorArticulo SET PrecioCompra =@precio, PVP = @pvp, Stock =@stock WHERE Id_Articulo = @idA AND Id_Proveedor = @idP";
+
+                                editar.Parameters.AddWithValue("@precio", decimal.Parse(preCompraTextBox.Text));
+                                editar.Parameters.AddWithValue("@pvp", decimal.Parse(preVentaTextBox.Text));
+                                editar.Parameters.AddWithValue("@stock", int.Parse(StockTextBox.Text));
+                                editar.Parameters.AddWithValue("@idP", idProveedor);
+                                editar.Parameters.AddWithValue("@idA", idArticulo);
+
+                                int a = editar.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (SqlCommand anadir = con.CreateCommand())
+                        {
+                            String elemento = idArticulo.ToString() + idProveedor.ToString();
+
+                            anadir.CommandText = "INSERT INTO ProveedorArticulo (Id_Elemento, PrecioCompra, PVP, Stock, Id_Articulo, Id_Proveedor) VALUES (@elemento, @precio, @pvp, @stock, @idA, @idP)";
+
+                            anadir.Parameters.AddWithValue("@precio", decimal.Parse(preCompraTextBox.Text));
+                            anadir.Parameters.AddWithValue("@pvp", decimal.Parse(preVentaTextBox.Text));
+                            anadir.Parameters.AddWithValue("@stock", int.Parse(StockTextBox.Text));
+                            anadir.Parameters.AddWithValue("@idP", idProveedor);
+                            anadir.Parameters.AddWithValue("@idA", idArticulo);
+                            anadir.Parameters.AddWithValue("@elemento", int.Parse(elemento));
+
+                            int a = anadir.ExecuteNonQuery();
+                        }
+                    }
+                }
+                con.Close();
+                preCompraTextBox.Text = "";
+                preVentaTextBox.Text = "";
+                StockTextBox.Text = "";
+            }
+        }
+
+        private void bDeselect_Click(object sender, RoutedEventArgs e)
+        {
+            dataProv.UnselectAll();
+            dataArt.UnselectAll();
+            bAsignar.IsEnabled = false;
+        }
     }
 }
-
-

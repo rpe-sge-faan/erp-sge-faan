@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,54 +15,110 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace SGE_erp.Articulos
 {
     /// <summary>
-    /// Lógica de interacción para EditaArticulos.xaml
+    /// Lógica de interacción para ProveedoresEdicion.xaml
     /// </summary>
     public partial class EditaArticulos : Window
     {
-        public EditaArticulos()
+        private int id;
+        public Delegate ActualizarLista;
+        public Delegate FiltrarLista;
+        public delegate void RefreshList();
+
+        public EditaArticulos(int num)
         {
             InitializeComponent();
+            this.id = num;
         }
-
-        public Delegate ActualizarLista;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            SGE_erp.SetaData setaData = ((SGE_erp.SetaData)(this.FindResource("setaData")));
-            // Cargar datos en la tabla Articulos. Puede modificar este código según sea necesario.
-            SGE_erp.SetaDataTableAdapters.ArticulosTableAdapter setaDataArticulosTableAdapter = new SGE_erp.SetaDataTableAdapters.ArticulosTableAdapter();
-            setaDataArticulosTableAdapter.Fill(setaData.Articulos);
-            System.Windows.Data.CollectionViewSource articulosViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("articulosViewSource")));
-            articulosViewSource.View.MoveCurrentToFirst();
-        }
-
-        private void Aceptar_Click(object sender, RoutedEventArgs e)
-        {
-            //int tipo;
-            //if (tipoComboBox.SelectedValue.ToString() == "Particular") { tipo = 1; }
-           // else { tipo = 2; }
-
-
-            try
+            if (id == 0)
             {
+                bAceptar.IsEnabled = false;
+                id_IvaComboBox1.SelectedIndex = 1;
+                tipoArticuloComboBox1.SelectedIndex = 1;
+            }
+            else if (id == -1)
+            {
+                id_IvaComboBox1.SelectedIndex = 0;
+                tipoArticuloComboBox1.SelectedIndex = 0;
+            }
+            else
+            {
+                string variable;
                 string bd = MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Proveedores (Tipo, Nombre, Telefono, Email, Persona_Contacto, Direccion, NIF) " +
-                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif)";
+                    //"SELECT * FROM Articulos, TipoArticulo, Iva WHERE (Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo) AND Id_Articulo = @id"
+                    command.CommandText = "SELECT * FROM [Articulos] WHERE Id_Articulo = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    con.Open();
 
-                    //command.Parameters.AddWithValue("@tipo", tipo);
-                    command.Parameters.AddWithValue("@nombre", id_ArticuloTextBox1.Text);
-                   //command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
-                    //command.Parameters.AddWithValue("@email", emailTextBox.Text);
-                    //command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
-                   // command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                   // command.Parameters.AddWithValue("@nif", nIFTextBox.Text);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        string[] columnas = new string[] { "Id_Articulo", "Id_Iva", "Nombre", "Descripcion", "TipoArticulo" };
+
+                        if (reader.Read())
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Nombre"));
+                            nombreTextBox1.Text = variable;
+                            // id
+                            id_ArticuloTextBox1.Text = id.ToString();
+                            variable = reader.GetString(reader.GetOrdinal("Descripcion"));
+                            descripcionTextBox1.Text = variable;
+
+                            int tipo = reader.GetInt32(reader.GetOrdinal("Id_Iva"));
+                            id_IvaComboBox1.SelectedIndex = tipo;
+
+                            int tipo2 = reader.GetInt32(reader.GetOrdinal("TipoArticulo"));
+                            tipoArticuloComboBox1.SelectedIndex = tipo2;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Aceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if (id == 0)
+            {
+                Nuevo();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
+            }
+            else
+            {
+                Editar();
+            }
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Editar()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo WHERE Id_Articulo = @id";
+
+                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
+                    command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
+                    command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
+                    command.Parameters.AddWithValue("@id", id);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -72,7 +129,7 @@ namespace SGE_erp.Articulos
                     }
                     else
                     {
-                        MessageBox.Show("Proveedor ERROR");
+                        MessageBox.Show("Editar Articulo ERROR");
                     }
                 }
             }
@@ -86,10 +143,82 @@ namespace SGE_erp.Articulos
             this.Close();
         }
 
-        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        private void Nuevo()
         {
+            try
+            {
+                string bd = MetodosGestion.db;
+                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo) " +
+                        "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo)";
+
+                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
+                    command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
+                    command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
+
+                    con.Open();
+                    int a = command.ExecuteNonQuery();
+
+                    if (a != 0)
+                    {
+                        con.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Articulos ERROR");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            ActualizarLista.DynamicInvoke();
+
             this.Close();
         }
 
+        private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (id != -1)
+            {
+                string nombre = ((sender as TextBox).Name).ToString();
+                CheckAceptar();
+            }
+            else if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
+            }
+        }
+
+        private void CheckAceptar()
+        {
+            bool enable = true;
+            var textBoxes = gridGeneral.Children.OfType<TextBox>();
+
+            foreach (TextBox txt in textBoxes)
+            {
+                if (txt.IsEnabled)
+                {
+                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    {
+                        enable = false;
+                    }
+                }
+            }
+
+            if (enable)
+            {
+                bAceptar.IsEnabled = true;
+            }
+            else
+            {
+                bAceptar.IsEnabled = false;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SGE_erp.Gestion;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,11 +17,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SGE_erp.Compras
-{ 
+{
+    /// <summary>
+    /// Lógica de interacción para ComprasGuay.xaml
+    /// </summary>
     public partial class ComprasAnadir : UserControl
     {
-        public static String direccionbbdd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-
         public ComprasAnadir()
         {
             InitializeComponent();
@@ -31,11 +33,13 @@ namespace SGE_erp.Compras
         {
             try
             {
-                SqlConnection con = new SqlConnection(direccionbbdd);
+                string bd = MetodosGestion.db;
+                SqlConnection con = new SqlConnection(bd);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
                 DataTable dt = new DataTable(); ;
 
+                //ds.Clear();
                 da.Fill(dt);
 
                 DataColumn tipoProv = new DataColumn("Tipo Proveedor", typeof(string));
@@ -56,6 +60,9 @@ namespace SGE_erp.Compras
                 dt.Columns["Tipo Proveedor"].SetOrdinal(3);
 
                 this.proveedores.ItemsSource = dt.DefaultView;                
+
+                con.Open();
+                con.Close();
 
                 this.proveedores.Columns[0].Visibility = Visibility.Collapsed;
                 this.proveedores.Columns[1].Visibility = Visibility.Collapsed;
@@ -78,10 +85,13 @@ namespace SGE_erp.Compras
 
                 try
                 {
-                    SqlConnection con = new SqlConnection(direccionbbdd);
+                    string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|DeBaseDatos.mdf;Integrated Security=True";
+                    SqlConnection con = new SqlConnection(bd);
+                    //DataSet ds = new DataSet();
                     SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM ProveedorArticulo WHERE Id_Proveedor='" + idProv + "'", con);
                     DataTable dt = new DataTable();
 
+                    //ds.Clear();
                     da.Fill(dt);
                     DataTable dt2 = null;
 
@@ -128,12 +138,9 @@ namespace SGE_erp.Compras
         {
             if(articulos.SelectedItem != null)
             {
-                DataRowView dato = (DataRowView)articulos.SelectedItem;
-                String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
                 Compras_ArticulosDetalles cad = new Compras_ArticulosDetalles();
-                cad.cargarDatos(idArt);
                 cad.ShowDialog();
-                //Hola
+                articulos.SelectedItem = null;
             }            
         }
 
