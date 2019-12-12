@@ -142,9 +142,9 @@
             x:Name="nombreComboBox1"
             Grid.Row="0"
             Grid.Column="3"
-            Height="37"
+            Height="27"
             Margin="10,10,10,0"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             DisplayMemberPath="Nombre"
             ItemsSource="{Binding}"
             Loaded="nombreComboBox1_Loaded">
@@ -154,10 +154,23 @@
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-        <DatePicker x:Name="dpFecha" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="177"/>
-        <Label x:Name="lbTotalFin"  Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="6" VerticalAlignment="Top" Width="167"/>
-        <ComboBox x:Name="cbFormaPago"  Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="13,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="177" Loaded="cbFormaPago_Loaded"/>
-
-
+        <DatePicker
+            x:Name="dpFecha"
+            Grid.Row="4"
+            Grid.Column="3"
+            Width="177"
+            Height="36"
+            Margin="13,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="lbTotalFin"
+            Grid.Row="6"
+            Grid.Column="3"
+            Width="167"
+            Height="36"
+            Margin="13,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
     </Grid>
 </UserControl>
