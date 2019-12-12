@@ -24,14 +24,12 @@
         <DataGrid Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,0,0,-25"
             x:Name="articulos" IsReadOnly="True" SelectionMode="Single" MouseDoubleClick="Articulos_MouseDoubleClick"/>
         <Button Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Margin="90,40,90,15"
-            x:Name="btnComparar" Content="COMPARAR CON OTROS PROVEEDORES" FontWeight="Bold" FontSize="10" />
-        <Button Grid.Column="0" Grid.Row="3" Margin="30"
-            x:Name="btnCompararAñadir" Content="AÑADIR" FontWeight="Bold" FontSize="10"/>
-        <Button Grid.Column="1" Grid.Row="3" Margin="30"
-            x:Name="btnCompararBorrar" Content="BORRAR" FontWeight="Bold" FontSize="10"/>
-        <Button Grid.Column="2" Grid.Row="3" Margin="30"
-            x:Name="btnCompararVerCarrito" Content="VER CARRITO" FontWeight="Bold" FontSize="10"/>
-        <Button Grid.Column="3" Grid.Row="3" Margin="30"
-            x:Name="btnCompararVaciarCarrito" Content="VACIAR CARRITO" FontWeight="Bold" FontSize="10"/>
+            x:Name="btnComparar" Content="COMPARAR CON OTROS PROVEEDORES" FontWeight="Bold" FontSize="10" Click="BtnComparar_Click" />
+        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="60,30,170,30"
+            x:Name="btnCompararAñadir" Content="AÑADIR" FontWeight="Bold" FontSize="10" Click="BtnCompararAñadir_Click"/>
+        <Button Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Margin="100,30,100,30"
+            x:Name="btnCompararVerCarrito" Content="VER CARRITO" FontWeight="Bold" FontSize="10" Click="BtnCompararVerCarrito_Click"/>
+        <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Margin="170,30,60,30"
+            x:Name="btnCompararFinalizarCompra" Content="FINALIZAR COMPRA" FontWeight="Bold" FontSize="10" Click="BtnCompararFinalizarCompra_Click"/>
     </Grid>
 </UserControl>

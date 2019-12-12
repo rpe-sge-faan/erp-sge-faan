@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace SGE_erp.Compras
 {
     /// <summary>
-    /// Lógica de interacción para Compras_ArticulosDetalles.xaml
+    /// Lógica de interacción para Compras_CompararProveedor.xaml
     /// </summary>
-    public partial class Compras_ArticulosDetalles : Window
+    public partial class Compras_CompararProveedor : Window
     {
-        public Compras_ArticulosDetalles(String idArt)
+        public Compras_CompararProveedor(String idArt)
         {
             InitializeComponent();
             cargarDatos(idArt);
@@ -31,12 +31,11 @@ namespace SGE_erp.Compras
         public void cargarDatos(String idArt)
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos WHERE Id_Articulo='" + idArt + "'", con);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM ProveedorArticulo WHERE Id_Articulo='" + idArt + "'", con);
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            
-            this.detallesArticulos.ItemsSource = dt.DefaultView;
+            this.compararProveedores.ItemsSource = dt.DefaultView;
         }
     }
 }

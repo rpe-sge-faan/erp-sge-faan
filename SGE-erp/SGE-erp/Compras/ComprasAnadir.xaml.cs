@@ -18,23 +18,36 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Compras
 {
-    /// <summary>
-    /// Lógica de interacción para ComprasGuay.xaml
-    /// </summary>
+    
+
     public partial class ComprasAnadir : UserControl
     {
+        //CREACION Y ESTRUCTURACION DEL CARRITO
+        public static DataTable carritoCompra = new DataTable();
+        DataColumn idElementoC = new DataColumn("Elemento", typeof(string));
+        DataColumn nombreArticuloc = new DataColumn("Articulo", typeof(string));
+        DataColumn cantidadc = new DataColumn("Cantidad", typeof(string));
+        DataColumn precioElementoc = new DataColumn("Precio Articulo", typeof(string));
+        DataColumn precioTotalElementoc = new DataColumn("Precio Total", typeof(string));
+
+        public static String idProveedorCompra;
+
         public ComprasAnadir()
         {
             InitializeComponent();
             Actualizar();
+            carritoCompra.Columns.Add(idElementoC);
+            carritoCompra.Columns.Add(nombreArticuloc);
+            carritoCompra.Columns.Add(cantidadc);
+            carritoCompra.Columns.Add(precioElementoc);
+            carritoCompra.Columns.Add(precioTotalElementoc);
         }
 
         private void Actualizar()
         {
             try
             {
-                string bd = MetodosGestion.db;
-                SqlConnection con = new SqlConnection(bd);
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
                 DataTable dt = new DataTable(); ;
@@ -59,7 +72,7 @@ namespace SGE_erp.Compras
 
                 dt.Columns["Tipo Proveedor"].SetOrdinal(3);
 
-                this.proveedores.ItemsSource = dt.DefaultView;                
+                this.proveedores.ItemsSource = dt.DefaultView;              
 
                 con.Open();
                 con.Close();
@@ -85,8 +98,7 @@ namespace SGE_erp.Compras
 
                 try
                 {
-                    string bd = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|DeBaseDatos.mdf;Integrated Security=True";
-                    SqlConnection con = new SqlConnection(bd);
+                    SqlConnection con = new SqlConnection(MetodosGestion.db);
                     //DataSet ds = new DataSet();
                     SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM ProveedorArticulo WHERE Id_Proveedor='" + idProv + "'", con);
                     DataTable dt = new DataTable();
@@ -112,7 +124,7 @@ namespace SGE_erp.Compras
                             //MessageBox.Show(idArticulo);
                             SqlDataAdapter da2 = new SqlDataAdapter("SELECT Nombre,Descripcion FROM [Articulos] WHERE Id_Articulo='" + idArticulo + "'", con);
                             dt2 = new DataTable();
-                            da2.Fill(dt2);                 
+                            da2.Fill(dt2);                
 
                             DataRow row2 = dt2.Rows[0];
                             nombreDato = Convert.ToString(row2[0]);
@@ -138,9 +150,11 @@ namespace SGE_erp.Compras
         {
             if(articulos.SelectedItem != null)
             {
-                Compras_ArticulosDetalles cad = new Compras_ArticulosDetalles();
+                DataRowView dato = (DataRowView)articulos.SelectedItem;
+                String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
+
+                Compras_ArticulosDetalles cad = new Compras_ArticulosDetalles(idArt);
                 cad.ShowDialog();
-                articulos.SelectedItem = null;
             }            
         }
 
@@ -148,5 +162,119 @@ namespace SGE_erp.Compras
         {
             Actualizar();
         }
-    }
+
+        private void BtnComparar_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dato = (DataRowView)articulos.SelectedItem;
+            String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
+
+            Compras_CompararProveedor ccp = new Compras_CompararProveedor(idArt);
+            ccp.ShowDialog();
+        }
+
+        private void BtnCompararAñadir_Click(object sender, RoutedEventArgs e)
+        {
+            if(articulos.SelectedItem != null)
+            {               
+                String idProveedorActual = "";
+                DataRowView tProveedor = (DataRowView)proveedores.SelectedItem;
+                if (carritoCompra.Rows.Count == 0)
+                {
+                    idProveedorCompra = tProveedor.Row.Field<int>("Id_Proveedor").ToString();
+                }
+                idProveedorActual = tProveedor.Row.Field<int>("Id_Proveedor").ToString();
+                if (idProveedorCompra.Equals(idProveedorActual))
+                {
+                    int cantidad = pedirCantidad();
+                    if (cantidad != 0)
+                    {
+                        DataRowView tArticulo = (DataRowView)articulos.SelectedItem;
+                        
+                        String idElemento = tArticulo.Row.Field<int>("Id_Elemento").ToString();
+                        String precioElemento = tArticulo.Row.Field<decimal>("PrecioCompra").ToString();
+                        double precioTotalElemento = double.Parse(precioElemento) * cantidad;
+                        String nombreArticulo = tArticulo.Row.Field<String>("Nombre Articulo");
+                        
+                        DataRow fila = carritoCompra.NewRow();
+                        fila[0] = idElemento;
+                        fila[1] = nombreArticulo;
+                        fila[2] = cantidad;
+                        fila[3] = precioElemento;
+                        fila[4] = precioTotalElemento;
+                        carritoCompra.Rows.Add(fila);
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("No puede comprar articulos de distintos proveedores. Realice otra compra o vacie el carrito");
+                }              
+            }            
+        }
+
+        private int pedirCantidad()
+        {
+            int cantidad = 0;
+            Compras_PedirDatos cpd = new Compras_PedirDatos();
+            cpd.ShowDialog();
+            cantidad = Compras_PedirDatos.cantidadRecogida;
+            return cantidad;
+        }
+
+        private void BtnCompararVerCarrito_Click(object sender, RoutedEventArgs e)
+        {
+            Compras_Carrito cc = new Compras_Carrito();
+            cc.ShowDialog();
+        }
+
+        public static void guardarCompra()
+        {
+            Compras_Carrito cc = new Compras_Carrito();
+            cc.calPrecioFinal();
+            String idEmpleado = "1";
+            DateTime fechaCompra = DateTime.Now;
+            double precioTotal = cc.precioFinal;
+
+            
+            if (carritoCompra.Rows.Count > 0)
+            {
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                con.Open();
+                SqlCommand da = new SqlCommand("INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
+                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + fechaCompra.ToString("MM/dd/yyyy") + "'," + precioTotal + ");", con);
+                da.ExecuteNonQuery();
+                con.Close();
+
+                SqlConnection con3 = new SqlConnection(MetodosGestion.db);
+                SqlDataAdapter da3 = new SqlDataAdapter("SELECT Id_Compra FROM Compra ORDER BY Id_Compra DESC", con3);
+                DataTable dt2 = new DataTable();
+                da3.Fill(dt2);
+                DataRow row2 = dt2.Rows[0];
+                String idcompra = Convert.ToString(row2[0]);
+
+
+                for (int i = 0; i < carritoCompra.Rows.Count; i++)
+                {
+                    DataRow datos = carritoCompra.Rows[i];
+                    SqlConnection con2 = new SqlConnection(MetodosGestion.db);
+                    con2.Open();
+                    SqlCommand da2 = new SqlCommand("INSERT INTO CompraArticulos VALUES("
+                        + idcompra + "," + Convert.ToInt32(datos[0]) + "," + Convert.ToInt32(datos[2]) + ");", con2);
+                    da2.ExecuteNonQuery();
+                    con2.Close();
+                }
+            }
+            MessageBox.Show("Guardado.");
+        }
+
+        private void BtnCompararFinalizarCompra_Click(object sender, RoutedEventArgs e)
+        {
+            guardarCompra();
+            ComprasVisualizar cv = new ComprasVisualizar();
+            cv.cargarDatos();
+        }
+
+        
+    }    
 }
+ 
