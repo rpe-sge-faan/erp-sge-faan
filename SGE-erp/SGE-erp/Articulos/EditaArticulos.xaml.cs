@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Articulos
 {
-    /// <summary>
-    /// Lógica de interacción para ProveedoresEdicion.xaml
-    /// </summary>
     public partial class EditaArticulos : Window
     {
         private int id;

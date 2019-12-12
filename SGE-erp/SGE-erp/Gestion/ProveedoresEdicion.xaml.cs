@@ -253,7 +253,8 @@ namespace SGE_erp.Gestion
                         break;
                     case "nifTextBox":
                         Regex regex = new Regex("^[0-9]{8}[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe]$");
-                        if (regex.IsMatch(nifTextBox.Text))
+                        Regex regex2 = new Regex("^[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe][0-9]{8}$");
+                        if (regex.IsMatch(nifTextBox.Text) || regex2.IsMatch(nifTextBox.Text))
                         {
                             nifTextBox.ClearValue(TextBox.BackgroundProperty);
                             labelInfo.Content = "";

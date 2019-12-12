@@ -11,11 +11,7 @@
     d:DesignWidth="800"
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <SGE_erp:SetaData x:Key="setaData" />
-        <CollectionViewSource x:Key="proveedoresViewSource" Source="{Binding Proveedores, Source={StaticResource setaData}}" />
-    </UserControl.Resources>
-    <Grid DataContext="{StaticResource proveedoresViewSource}">
+    <Grid>
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
         </Grid.Background>

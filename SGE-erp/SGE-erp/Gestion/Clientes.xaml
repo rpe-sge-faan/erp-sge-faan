@@ -10,11 +10,7 @@
     d:DesignWidth="800"
     Loaded="UserControl_Loaded_1"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <SGE_erp:SetaData x:Key="setaData" />
-        <CollectionViewSource x:Key="clientesViewSource" Source="{Binding Clientes, Source={StaticResource setaData}}" />
-    </UserControl.Resources>
-    <Grid DataContext="{StaticResource clientesViewSource}">
+    <Grid>
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
         </Grid.Background>
@@ -34,7 +30,6 @@
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center">
-
             <MenuItem
                 Width="50"
                 Height="30"
@@ -47,47 +42,45 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Editar"
-                Click="Editar_Click" />
+                Click="Editar_Click"
+                Header="_Editar" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Borrar"
-                Click="Borrar_Click" />
+                Click="Borrar_Click"
+                Header="_Borrar" />
             <MenuItem
                 Width="50"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="B_uscar"
-                Click="Buscar_Click" />
+                Click="Buscar_Click"
+                Header="B_uscar" />
             <MenuItem
                 Width="30"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Click="Actualizar_Click"
                 HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center">
+                VerticalContentAlignment="Center"
+                Click="Actualizar_Click">
                 <MenuItem.Header>
-                    <Image
-                        Source="/imagenes/refresh.png"
-                        Width="15px" />
+                    <Image Width="15px" Source="/imagenes/refresh.png" />
                 </MenuItem.Header>
 
             </MenuItem>
         </Menu>
         <DataGrid
             x:Name="dataGridClientes"
-            SelectionMode="Single"
-            IsReadOnly="True"
-            HorizontalAlignment="Stretch"
-            ColumnWidth="1*"
-            Margin="0"
             Grid.Row="1"
+            Margin="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             CanUserAddRows="True"
-            VerticalAlignment="Stretch" />
+            ColumnWidth="1*"
+            IsReadOnly="True"
+            SelectionMode="Single" />
     </Grid>
 </UserControl>

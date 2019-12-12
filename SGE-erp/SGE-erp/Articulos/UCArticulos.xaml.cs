@@ -27,6 +27,7 @@ namespace SGE_erp.Articulos
         public UCArticulos()
         {
             InitializeComponent();
+            ActualizarCategorias();
             ActualizarAsignar();
             Actualizar();
         }
@@ -40,8 +41,30 @@ namespace SGE_erp.Articulos
             articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[1].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[4].Visibility = Visibility.Collapsed;
-            articulosDataGrid.Columns[5].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[6].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[7].Visibility = Visibility.Collapsed;
+            articulosDataGrid.Columns[9].Visibility = Visibility.Collapsed;
+        }
+
+        private void ActualizarCategorias()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con);
+                DataTable dt = new DataTable(); ;
+                da.Fill(dt);
+
+                tipoArtdata.ItemsSource = dt.DefaultView;
+                con.Open();
+                con.Close();
+
+                //tipoArtdata.Columns[0].Visibility = Visibility.Hidden;
+            }
+            catch
+            {
+                return;
+            }
         }
 
         private void Actualizar()
@@ -56,7 +79,7 @@ namespace SGE_erp.Articulos
                 this.articulosDataGrid.ItemsSource = dt.DefaultView;
                 con.Open();
                 con.Close();
-                articulosDataGrid.Columns[6].Header = "Categoría";
+                articulosDataGrid.Columns[8].Header = "Categoría";
 
                 OcultarColumnas();
             }
@@ -69,6 +92,7 @@ namespace SGE_erp.Articulos
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ActualizarAsignar();
+            ActualizarCategorias();
             Actualizar();
             bAsignar.IsEnabled = false;
         }
@@ -317,11 +341,9 @@ namespace SGE_erp.Articulos
                         {
                             using (SqlCommand editar = con.CreateCommand())
                             {
-                                editar.CommandText = "UPDATE ProveedorArticulo SET PrecioCompra =@precio, PVP = @pvp, Stock =@stock WHERE Id_Articulo = @idA AND Id_Proveedor = @idP";
+                                editar.CommandText = "UPDATE ProveedorArticulo SET PrecioCompra =@precio WHERE Id_Articulo = @idA AND Id_Proveedor = @idP";
 
                                 editar.Parameters.AddWithValue("@precio", decimal.Parse(preCompraTextBox.Text));
-                                editar.Parameters.AddWithValue("@pvp", decimal.Parse(preVentaTextBox.Text));
-                                editar.Parameters.AddWithValue("@stock", int.Parse(StockTextBox.Text));
                                 editar.Parameters.AddWithValue("@idP", idProveedor);
                                 editar.Parameters.AddWithValue("@idA", idArticulo);
 
@@ -335,11 +357,9 @@ namespace SGE_erp.Articulos
                         {
                             String elemento = idArticulo.ToString() + idProveedor.ToString();
 
-                            anadir.CommandText = "INSERT INTO ProveedorArticulo (Id_Elemento, PrecioCompra, PVP, Stock, Id_Articulo, Id_Proveedor) VALUES (@elemento, @precio, @pvp, @stock, @idA, @idP)";
+                            anadir.CommandText = "INSERT INTO ProveedorArticulo (Id_Elemento, PrecioCompra, Id_Articulo, Id_Proveedor) VALUES (@elemento, @precio, @idA, @idP)";
 
                             anadir.Parameters.AddWithValue("@precio", decimal.Parse(preCompraTextBox.Text));
-                            anadir.Parameters.AddWithValue("@pvp", decimal.Parse(preVentaTextBox.Text));
-                            anadir.Parameters.AddWithValue("@stock", int.Parse(StockTextBox.Text));
                             anadir.Parameters.AddWithValue("@idP", idProveedor);
                             anadir.Parameters.AddWithValue("@idA", idArticulo);
                             anadir.Parameters.AddWithValue("@elemento", int.Parse(elemento));
@@ -350,8 +370,6 @@ namespace SGE_erp.Articulos
                 }
                 con.Close();
                 preCompraTextBox.Text = "";
-                preVentaTextBox.Text = "";
-                StockTextBox.Text = "";
             }
         }
 
@@ -360,6 +378,149 @@ namespace SGE_erp.Articulos
             dataProv.UnselectAll();
             dataArt.UnselectAll();
             bAsignar.IsEnabled = false;
+        }
+
+        private void tipoArtdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tipoArtdata.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)tipoArtdata.SelectedItem;
+                int id = dd.Row.Field<int>("Id_Tipo");
+                string variable;
+                string bd = MetodosGestion.db;
+                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    //"SELECT * FROM Articulos, TipoArticulo, Iva WHERE (Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo) AND Id_Articulo = @id"
+                    command.CommandText = "SELECT * FROM [TipoArticulo] WHERE Id_Tipo = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    con.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Descripcion"));
+                            nombreTb.Text = variable;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void BorrarCategoria_Click(object sender, RoutedEventArgs e)
+        {
+            if (tipoArtdata.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)tipoArtdata.SelectedItem;
+                int id = dd.Row.Field<int>("Id_Tipo");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string bd = MetodosGestion.db;
+                        using (SqlConnection con = new SqlConnection(bd))
+                        using (SqlCommand command = con.CreateCommand())
+                        {
+                            command.CommandText = "DELETE FROM TipoArticulo WHERE Id_Tipo = @id";
+
+                            command.Parameters.AddWithValue("@id", id);
+
+                            con.Open();
+                            int a = command.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al borrar categoria");
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    ActualizarCategorias();
+                }
+            }
+        }
+
+        private void EditarCategoria_Click(object sender, RoutedEventArgs e)
+        {
+            if (tipoArtdata.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)tipoArtdata.SelectedItem;
+                int id = dd.Row.Field<int>("Id_Tipo");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Edicion", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string bd = MetodosGestion.db;
+                        using (SqlConnection con = new SqlConnection(bd))
+                        using (SqlCommand command = con.CreateCommand())
+                        {
+                            command.CommandText = "UPDATE TipoArticulo SET Descripcion = @descr WHERE Id_Tipo = @id";
+
+                            command.Parameters.AddWithValue("@descr", nombreTb.Text);
+                            command.Parameters.AddWithValue("@id", id);
+
+                            con.Open();
+                            int a = command.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al editar categoria");
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    ActualizarCategorias();
+                }
+            }
+        }
+
+        private void AnadirCategoria_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string bd = MetodosGestion.db;
+                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO TipoArticulo (Descripcion) VALUES (@descripcion)";
+
+                    command.Parameters.AddWithValue("@descripcion", nombreTb.Text);
+
+                    con.Open();
+                    int a = command.ExecuteNonQuery();
+
+                    if (a != 0)
+                    {
+                        con.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Categoria ERROR");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            ActualizarCategorias();
         }
     }
 }
