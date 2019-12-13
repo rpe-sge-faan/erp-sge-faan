@@ -30,12 +30,61 @@ namespace SGE_erp.Compras
 
         public void cargarDatos(String idArt)
         {
-            SqlConnection con = new SqlConnection(MetodosGestion.db);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM ProveedorArticulo WHERE Id_Articulo='" + idArt + "'", con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            //try
+            //{
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM ProveedorArticulo WHERE Id_Articulo='" + idArt + "'", con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-            this.compararProveedores.ItemsSource = dt.DefaultView;
+                DataColumn nombreProveedor = new DataColumn("Nombre Proveedor", typeof(string));
+                dt.Columns.Add(nombreProveedor);
+                dt.Columns["Nombre Proveedor"].SetOrdinal(3);
+
+                DataColumn nombreArticulo = new DataColumn("Nombre Articulo", typeof(string));
+                dt.Columns.Add(nombreArticulo);
+                dt.Columns["Nombre Articulo"].SetOrdinal(4);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    SqlDataAdapter da2 = new SqlDataAdapter("SELECT Nombre FROM Proveedores WHERE Id_Proveedor='" + dt.Rows[i]["Id_Proveedor"] + "'", con);
+                    DataTable dt2 = new DataTable();
+                    da2.Fill(dt2);
+                    if (dt2.Rows.Count > 0)
+                    {
+                        for (int j = 0; j < dt.Rows.Count; j++)
+                        {
+                            DataRow row = dt2.Rows[j];
+                            String nProveedor = Convert.ToString(row["Nombre"]);
+                            dt.Rows[i]["Nombre Proveedor"] = nProveedor;
+                        }
+                    }
+
+                    SqlDataAdapter da3 = new SqlDataAdapter("SELECT Nombre FROM Articulos WHERE Id_Articulo='" + dt.Rows[i]["Id_Articulo"] + "'", con);
+                    DataTable dt3 = new DataTable();
+                    da3.Fill(dt3);
+                    if (dt3.Rows.Count > 0)
+                    {
+                        for (int j = 0; j < dt.Rows.Count; j++)
+                        {
+                            DataRow row = dt3.Rows[j];
+                            String nArticulo = Convert.ToString(row["Nombre"]);
+                            dt.Rows[i]["Nombre Articulo"] = nArticulo;
+                        }
+                    }
+                }
+                
+
+                this.compararProveedores.ItemsSource = dt.DefaultView;
+                /*this.compararProveedores.Columns[0].Visibility = Visibility.Collapsed;
+                this.compararProveedores.Columns[1].Visibility = Visibility.Collapsed;
+                this.compararProveedores.Columns[2].Visibility = Visibility.Collapsed;*/
+           // }
+            //catch
+            //
+//return;
+           // }
+            
         }
     }
 }
