@@ -31,7 +31,7 @@ namespace SGE_erp.Articulos
             InitializeComponent();
             this.id = num;
         }
-
+        int categoria = 0;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (id == 0)
@@ -77,7 +77,9 @@ namespace SGE_erp.Articulos
                             id_IvaComboBox1.SelectedIndex = tipo;
 
                             int tipo2 = reader.GetInt32(reader.GetOrdinal("TipoArticulo"));
-                            tipoArticuloComboBox1.SelectedIndex = tipo2;
+                            Console.Write(tipo2);
+                            tipoArticuloComboBox1.SelectedItem = tipo2;
+                            categoria = tipo2;
 
                             variable = (reader.GetDecimal(reader.GetOrdinal("PVP"))).ToString();
                             txtBoxNUEVOPVP.Text = variable;
@@ -124,10 +126,10 @@ namespace SGE_erp.Articulos
                     command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
+                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedValue);
                     command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@pvp", txtBoxNUEVOPVP.Text);
-                    command.Parameters.AddWithValue("@sTock", txtBoxNUEVOstock.Text);
+                    command.Parameters.AddWithValue("@pvp", decimal.Parse(txtBoxNUEVOPVP.Text));
+                    command.Parameters.AddWithValue("@sTock", int.Parse(txtBoxNUEVOstock.Text));
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -259,9 +261,13 @@ namespace SGE_erp.Articulos
             {
                 tipoArticuloComboBox1.SelectedIndex = -1;
             }
-            else
+            else if (id == 0)
             {
                 tipoArticuloComboBox1.SelectedIndex = 0;
+            }
+            else
+            {
+                tipoArticuloComboBox1.SelectedValue = categoria;
             }
 
         }
@@ -273,7 +279,7 @@ namespace SGE_erp.Articulos
             nombreTextBox1.Text = "";
             descripcionTextBox1.Text = "";
             tipoArticuloComboBox1.SelectedIndex = -1;
-            id_IvaComboBox1.SelectedIndex =0;
+            id_IvaComboBox1.SelectedIndex = 0;
         }
     }
 }

@@ -26,10 +26,8 @@ namespace SGE_erp.Venta
 
         public static Delegate FiltrarLista;
         public delegate void RefreshList();
-        public event RefreshList RefreshListEvent;
 
         public delegate void FilterList();
-        public event FilterList FilterListEvent;
 
         VentaEdicion p = null;
 
