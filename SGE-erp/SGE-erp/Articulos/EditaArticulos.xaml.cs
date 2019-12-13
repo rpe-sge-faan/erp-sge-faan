@@ -1,6 +1,7 @@
 ﻿using SGE_erp.Gestion;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -235,6 +236,44 @@ namespace SGE_erp.Articulos
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void tipoArticuloComboBox1_Loaded(object sender, RoutedEventArgs e)
+        {
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con);
+            DataTable dt = new DataTable();
+
+            ds.Clear();
+            da.Fill(dt);
+
+            this.tipoArticuloComboBox1.ItemsSource = dt.DefaultView;
+
+            tipoArticuloComboBox1.DisplayMemberPath = dt.Columns["Descripcion"].ToString();
+            tipoArticuloComboBox1.SelectedValuePath = dt.Columns["Id_Tipo"].ToString();
+            con.Open();
+            con.Close();
+
+            if (id == -1)
+            {
+                tipoArticuloComboBox1.SelectedIndex = -1;
+            }
+            else
+            {
+                tipoArticuloComboBox1.SelectedIndex = 0;
+            }
+
+        }
+
+        private void bReset_Click(object sender, RoutedEventArgs e)
+        {
+            txtBoxNUEVOPVP.Text = "0";
+            txtBoxNUEVOstock.Text = "0";
+            nombreTextBox1.Text = "";
+            descripcionTextBox1.Text = "";
+            tipoArticuloComboBox1.SelectedIndex = -1;
+            id_IvaComboBox1.SelectedIndex =0;
         }
     }
 }

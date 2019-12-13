@@ -64,6 +64,7 @@ namespace SGE_erp.Articulos
             {
                 return;
             }
+            nombreTb.Text = "";
         }
 
         private void Actualizar()
@@ -235,6 +236,7 @@ namespace SGE_erp.Articulos
                 {
                     String stock;
                     String pvp;
+                    String tipo;
                     if ((((EditaArticulos)item).txtBoxNUEVOstock.Text).Equals(""))
                     {
                         stock = "0";
@@ -251,12 +253,19 @@ namespace SGE_erp.Articulos
                     {
                         pvp = ((EditaArticulos)item).txtBoxNUEVOPVP.Text;
                     }
-
+                    if (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex == -1)
+                    {
+                        tipo = "0";
+                    }
+                    else
+                    {
+                        tipo = (((EditaArticulos)item).tipoArticuloComboBox1.SelectedValue).ToString();
+                    }
 
                     String[] nombresArray = {
                         ((EditaArticulos)item).nombreTextBox1.Text,
                         ((EditaArticulos)item).descripcionTextBox1.Text,
-                        (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex).ToString(),
+                        tipo,
                         (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex).ToString(),
                         pvp,
                         stock
@@ -515,26 +524,55 @@ namespace SGE_erp.Articulos
         {
             try
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
+                DataRowView dTipo = (DataRowView)tipoArtdata.SelectedItem;
+                //int idT = dTipo.Row.Field<int>("Id_Tipo");
+                int id = -1;
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO TipoArticulo (Descripcion) VALUES (@descripcion)";
-
-                    command.Parameters.AddWithValue("@descripcion", nombreTb.Text);
-
+                    command.CommandText = "SELECT * FROM [TipoArticulo] WHERE ([Descripcion] = @tipo)";
+                    command.Parameters.AddWithValue("@tipo", nombreTb.Text);
                     con.Open();
-                    int a = command.ExecuteNonQuery();
 
-                    if (a != 0)
+                    using (var reader = command.ExecuteReader())
                     {
-                        con.Close();
+                        if (reader.Read())
+                        {
+                            id = reader.GetInt32(reader.GetOrdinal("Id_Tipo"));
+                        }
+                    }
+
+                    //int existe = (int)command.ExecuteScalar();
+
+                    if (id != -1)
+                    {
+                        MessageBoxResult resultado = MessageBox.Show("Esta categoria ya existe");
                     }
                     else
                     {
-                        MessageBox.Show("Categoria ERROR");
+                        using (SqlCommand anadir = con.CreateCommand())
+                        {
+
+                            anadir.CommandText = "INSERT INTO TipoArticulo (Descripcion) VALUES (@descripcion)";
+
+                            anadir.Parameters.AddWithValue("@descripcion", nombreTb.Text);
+
+                            //con.Open();
+                            int a = anadir.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Categoria ERROR");
+                            }
+                        }
                     }
                 }
+                con.Close();
+
             }
             catch (SqlException ex)
             {
@@ -542,7 +580,5 @@ namespace SGE_erp.Articulos
             }
             ActualizarCategorias();
         }
-
-
     }
 }

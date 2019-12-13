@@ -39,6 +39,16 @@
             Click="Aceptar_Click"
             Content="Aceptar" />
         <Button
+            x:Name="bReset"
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="90"
+            Height="25"
+            Margin="10"
+            HorizontalAlignment="Center"
+            Content="Reset"
+            Click="bReset_Click" />
+        <Button
             x:Name="bCancelar"
             Grid.Row="1"
             Grid.Column="4"
@@ -163,50 +173,10 @@
                 Height="24"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                SelectedIndex="0">
-                <ComboBoxItem Name="vacioTipo">
-                    <TextBlock Text="" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt1">
-                    <TextBlock Text="LIBROS" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt2">
-                    <TextBlock Text="CINE/TV" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt3">
-                    <TextBlock Text="ELECTRÓNICA" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt4">
-                    <TextBlock Text="MÚSICA" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt5">
-                    <TextBlock Text="VIDEOJUEGOS" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt6">
-                    <TextBlock Text="JUGUETES Y BEBÉ" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt7">
-                    <TextBlock Text="HOGAR Y JARDÍN" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt8">
-                    <TextBlock Text="MASCOTAS" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt9">
-                    <TextBlock Text="ALIMENTACIÓN" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt10">
-                    <TextBlock Text="BELLEZA Y SALUD" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt11">
-                    <TextBlock Text="MODA" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt12">
-                    <TextBlock Text="DEPORTES Y AIRE LIBRE" />
-                </ComboBoxItem>
-                <ComboBoxItem Name="tipoArt13">
-                    <TextBlock Text="COCHE Y MOTO" />
-                </ComboBoxItem>
-            </ComboBox>
+                SelectedIndex="0"
+                Loaded="tipoArticuloComboBox1_Loaded" />
+
+
             <Label
                 Grid.Row="00"
                 Grid.Column="2"
