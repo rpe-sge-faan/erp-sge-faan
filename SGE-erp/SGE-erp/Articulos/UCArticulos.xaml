@@ -53,7 +53,7 @@
                                 Height="30"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Click="EditarCategoria_Click"
+                                Click="Editar_Click"
                                 Header="_Editar" />
                             <MenuItem
                                 Width="50"

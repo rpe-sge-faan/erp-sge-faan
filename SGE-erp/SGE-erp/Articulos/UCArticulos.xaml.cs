@@ -41,7 +41,6 @@ namespace SGE_erp.Articulos
             articulosDataGrid.Columns[0].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[1].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[4].Visibility = Visibility.Collapsed;
-            articulosDataGrid.Columns[6].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[7].Visibility = Visibility.Collapsed;
             articulosDataGrid.Columns[9].Visibility = Visibility.Collapsed;
         }
@@ -194,7 +193,6 @@ namespace SGE_erp.Articulos
         private void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "Nombre", "Descripcion", "Categoria", "PorcentajeIva" };
 
             if (view == null)
             {
@@ -205,19 +203,19 @@ namespace SGE_erp.Articulos
             }
             if (nombres[2].Equals("0") && nombres[3].Equals("0"))
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%'";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND [PVP] >= {nombres[4]} AND [Stock] >= {nombres[5]}";
             }
             else if (nombres[2].Equals("0"))
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]}";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]} AND PVP >= {nombres[4]} AND Stock >= {nombres[5]}";
             }
             else if (nombres[3].Equals("0"))
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND TipoArticulo = {nombres[2]}";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND TipoArticulo = {nombres[2]} AND PVP >= {nombres[4]} AND Stock >= {nombres[5]}";
             }
             else
             {
-                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]} AND TipoArticulo = {nombres[2]}";
+                view.RowFilter = $"Nombre LIKE '%{nombres[0]}%' AND Descripcion LIKE '%{nombres[1]}%' AND Id_Iva = {nombres[3]} AND TipoArticulo = {nombres[2]} AND PVP >= {nombres[4]} AND Stock >= {nombres[5]}";
             }
 
             //view.Sort = "CompanyName DESC";
@@ -235,12 +233,34 @@ namespace SGE_erp.Articulos
             {
                 if (item.Name == "EditarArticulos")
                 {
+                    String stock;
+                    String pvp;
+                    if ((((EditaArticulos)item).txtBoxNUEVOstock.Text).Equals(""))
+                    {
+                        stock = "0";
+                    }
+                    else
+                    {
+                        stock = ((EditaArticulos)item).txtBoxNUEVOstock.Text;
+                    }
+                    if (((EditaArticulos)item).txtBoxNUEVOPVP.Text.Equals(""))
+                    {
+                        pvp = "0";
+                    }
+                    else
+                    {
+                        pvp = ((EditaArticulos)item).txtBoxNUEVOPVP.Text;
+                    }
+
+
                     String[] nombresArray = {
                         ((EditaArticulos)item).nombreTextBox1.Text,
                         ((EditaArticulos)item).descripcionTextBox1.Text,
                         (((EditaArticulos)item).tipoArticuloComboBox1.SelectedIndex).ToString(),
-                        (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex).ToString()
-                    };
+                        (((EditaArticulos)item).id_IvaComboBox1.SelectedIndex).ToString(),
+                        pvp,
+                        stock
+                };
                     nombres.AddRange(nombresArray);
                 }
             }
@@ -522,5 +542,7 @@ namespace SGE_erp.Articulos
             }
             ActualizarCategorias();
         }
+
+
     }
 }

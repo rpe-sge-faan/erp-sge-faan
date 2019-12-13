@@ -38,11 +38,15 @@ namespace SGE_erp.Articulos
                 bAceptar.IsEnabled = false;
                 id_IvaComboBox1.SelectedIndex = 1;
                 tipoArticuloComboBox1.SelectedIndex = 1;
+                txtBoxNUEVOPVP.Text = "0";
+                txtBoxNUEVOstock.Text = "0";
             }
             else if (id == -1)
             {
                 id_IvaComboBox1.SelectedIndex = 0;
                 tipoArticuloComboBox1.SelectedIndex = 0;
+                txtBoxNUEVOPVP.Text = "0";
+                txtBoxNUEVOstock.Text = "0";
             }
             else
             {
@@ -58,7 +62,6 @@ namespace SGE_erp.Articulos
 
                     using (var reader = command.ExecuteReader())
                     {
-                        string[] columnas = new string[] { "Id_Articulo", "Id_Iva", "Nombre", "Descripcion", "TipoArticulo" };
 
                         if (reader.Read())
                         {
@@ -74,6 +77,12 @@ namespace SGE_erp.Articulos
 
                             int tipo2 = reader.GetInt32(reader.GetOrdinal("TipoArticulo"));
                             tipoArticuloComboBox1.SelectedIndex = tipo2;
+
+                            variable = (reader.GetDecimal(reader.GetOrdinal("PVP"))).ToString();
+                            txtBoxNUEVOPVP.Text = variable;
+
+                            variable = (reader.GetInt32(reader.GetOrdinal("Stock"))).ToString();
+                            txtBoxNUEVOstock.Text = variable;
 
                         }
                     }
@@ -109,13 +118,15 @@ namespace SGE_erp.Articulos
                 using (SqlConnection con = new SqlConnection(MetodosGestion.db))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo WHERE Id_Articulo = @id";
+                    command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo, PVP =@pvp, Stock=@sTock WHERE Id_Articulo = @id";
 
                     command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
                     command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@pvp", txtBoxNUEVOPVP.Text);
+                    command.Parameters.AddWithValue("@sTock", txtBoxNUEVOstock.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -148,13 +159,15 @@ namespace SGE_erp.Articulos
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo) " +
-                        "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo)";
+                    command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo, PVP, Stock) " +
+                        "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo, @pvp, @sTock)";
 
                     command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
                     command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
                     command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
+                    command.Parameters.AddWithValue("@pvp", txtBoxNUEVOPVP.Text);
+                    command.Parameters.AddWithValue("@sTock", txtBoxNUEVOstock.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -216,6 +229,12 @@ namespace SGE_erp.Articulos
             {
                 bAceptar.IsEnabled = false;
             }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
