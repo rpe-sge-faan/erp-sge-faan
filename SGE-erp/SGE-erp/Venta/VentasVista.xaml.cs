@@ -135,6 +135,11 @@ namespace SGE_erp.Venta
             }
 
         }
+
+        private void dgVista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
     class MetodoGestion
