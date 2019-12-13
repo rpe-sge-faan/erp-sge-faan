@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Compras"
         mc:Ignorable="d"
-        Title="Compras_CompararProveedor" Height="250" Width="600" ResizeMode="NoResize">
+        Title="Compras_CompararProveedor" Height="250" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="compararProveedores"/>
+        <DataGrid x:Name="compararProveedores" IsReadOnly="True" SelectionMode="Single"/>
     </Grid>
 </Window>

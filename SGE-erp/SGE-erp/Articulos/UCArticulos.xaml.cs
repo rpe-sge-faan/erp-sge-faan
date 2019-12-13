@@ -580,5 +580,10 @@ namespace SGE_erp.Articulos
             }
             ActualizarCategorias();
         }
+
+        private void bRefreshh_Click(object sender, RoutedEventArgs e)
+        {
+            ActualizarAsignar();
+        }
     }
 }

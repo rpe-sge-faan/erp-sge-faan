@@ -25,6 +25,8 @@ namespace SGE_erp.Compras
         {
             InitializeComponent();
             this.carrito.ItemsSource = ComprasAnadir.carritoCompra.DefaultView;
+            
+            //this.carrito.Columns[0].Visibility = Visibility.Collapsed;
         }
 
         private void BtnBorrarArticulo_Click(object sender, RoutedEventArgs e)
@@ -42,9 +44,10 @@ namespace SGE_erp.Compras
         {
             if(MessageBox.Show("¿Vaciar todo?", "Confirm delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                for (int i = 0; i < ComprasAnadir.carritoCompra.Rows.Count; i++)
+                int j = ComprasAnadir.carritoCompra.Rows.Count;
+                for (int i = 0; i < j; i++)
                 {
-                    ComprasAnadir.carritoCompra.Rows.RemoveAt(i);
+                    ComprasAnadir.carritoCompra.Rows.RemoveAt(0);
                 }
                 //this.carrito.ItemsSource = ComprasAnadir.carritoCompra.DefaultView;
             }            
@@ -55,7 +58,7 @@ namespace SGE_erp.Compras
             ComprasAnadir.guardarCompra();
             ComprasVisualizar cv = new ComprasVisualizar();
             cv.cargarDatos();
-            
+            this.Close();
         }
 
         public void calPrecioFinal()

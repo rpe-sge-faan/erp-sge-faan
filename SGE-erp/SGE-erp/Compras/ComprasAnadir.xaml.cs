@@ -89,8 +89,7 @@ namespace SGE_erp.Compras
         private void buscarArtProv_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             String idArticulo;
-            String nombreDato;
-            String descripcionDato;
+            
             if(proveedores.SelectedItem != null)
             {
                 DataRowView dato = (DataRowView)proveedores.SelectedItem;
@@ -115,6 +114,14 @@ namespace SGE_erp.Compras
                     dt.Columns.Add(descripcion);
                     dt.Columns["Descripción"].SetOrdinal(1);
 
+                    DataColumn pvp = new DataColumn("PVP", typeof(string));
+                    dt.Columns.Add(pvp);
+                    dt.Columns["PVP"].SetOrdinal(6);
+
+                    DataColumn stock = new DataColumn("Stock", typeof(string));
+                    dt.Columns.Add(stock);
+                    dt.Columns["Stock"].SetOrdinal(7);
+
                     if (dt.Rows.Count > 0)
                     {                        
                         for (int i = 0; i < dt.Rows.Count; i++)
@@ -122,15 +129,21 @@ namespace SGE_erp.Compras
                             DataRow row = dt.Rows[i];
                             idArticulo = Convert.ToString(row["Id_Articulo"]);
                             //MessageBox.Show(idArticulo);
-                            SqlDataAdapter da2 = new SqlDataAdapter("SELECT Nombre,Descripcion FROM [Articulos] WHERE Id_Articulo='" + idArticulo + "'", con);
+                            SqlDataAdapter da2 = new SqlDataAdapter("SELECT Nombre,Descripcion,PVP,Stock FROM [Articulos] WHERE Id_Articulo='"
+                                + idArticulo + "'", con);
                             dt2 = new DataTable();
                             da2.Fill(dt2);                
 
                             DataRow row2 = dt2.Rows[0];
-                            nombreDato = Convert.ToString(row2[0]);
-                            dt.Rows[i]["Nombre Articulo"] = nombreDato;
-                            descripcionDato = Convert.ToString(row2[1]);
+                            String nombreDato = Convert.ToString(row2[0]);
+                            String descripcionDato = Convert.ToString(row2[1]);
+                            String pvpDato = Convert.ToString(row2[2]);
+                            String stockDato = Convert.ToString(row2[3]);
+
+                            dt.Rows[i]["Nombre Articulo"] = nombreDato;                             
                             dt.Rows[i]["Descripción"] = descripcionDato;
+                            dt.Rows[i]["PVP"] = pvpDato;
+                            dt.Rows[i]["Stock"] = stockDato;
                         }                        
                     }                    
 
@@ -261,20 +274,29 @@ namespace SGE_erp.Compras
                     SqlCommand da2 = new SqlCommand(@"INSERT INTO CompraArticulos VALUES("
                         + idcompra + "," + Convert.ToInt32(datos[0]) + "," + Convert.ToInt32(datos[2]) + ");", con2);
                     da2.ExecuteNonQuery();
+                    
+
+                    SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2]) 
+                        +" FROM Articulos INNER JOIN ProveedorArticulo ON Articulos.Id_Articulo=ProveedorArticulo.Id_Articulo" +
+                        " WHERE ProveedorArticulo.Id_Elemento=" + Convert.ToInt32(datos[0]) +";", con2);
+                    upgrade.ExecuteNonQuery();
                     con2.Close();
                 }
+                MessageBox.Show("Guardado.");
+                int j = carritoCompra.Rows.Count;
+                for (int i = 0; i < j; i++)
+                {
+                    carritoCompra.Rows.RemoveAt(0);
+                }
             }
-            MessageBox.Show("Guardado.");
+            
         }
 
         private void BtnCompararFinalizarCompra_Click(object sender, RoutedEventArgs e)
         {
-            guardarCompra();
-            ComprasVisualizar cv = new ComprasVisualizar();
-            cv.cargarDatos();
-        }
-
-        
+            Compras_Carrito cc = new Compras_Carrito();
+            cc.ShowDialog();
+        }        
     }    
 }
  

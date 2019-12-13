@@ -14,7 +14,7 @@
                 Height="9*" />
         </Grid.RowDefinitions>
         <DataGrid x:Name="comprasDatos" Grid.Row="1"
-                  />
+                  IsReadOnly="True" SelectionMode="Single" MouseDoubleClick="ComprasDatos_MouseDoubleClick" />
         <Button
             x:Name="actualizar"
             Width="150"

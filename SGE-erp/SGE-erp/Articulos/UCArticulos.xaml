@@ -137,10 +137,18 @@
                             Click="bDeselect_Click"
                             Content="Deseleccionar" />
                         <Button
-                            x:Name="bAsignar"
+                            x:Name="bRefreshh"
                             Grid.Row="2"
                             Grid.Column="1"
-                            Grid.ColumnSpan="2"
+                            Grid.ColumnSpan="1"
+                            Margin="3"
+                            Content="Actualizar"
+                            Click="bRefreshh_Click" />
+                        <Button
+                            x:Name="bAsignar"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="1"
                             Margin="3"
                             Click="bAsignar_Click"
                             Content="Asignar" />

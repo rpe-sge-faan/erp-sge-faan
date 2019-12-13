@@ -71,7 +71,6 @@ namespace SGE_erp.Venta
             {
                 return;
             }
-
         }
 
         public void ActualizaMaximo()
@@ -144,6 +143,7 @@ namespace SGE_erp.Venta
 
 
         decimal totalFinal = 0;
+        int guardarCantidad = 0;
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
             if (DatosAnadir.SelectedItem != null)
@@ -161,6 +161,8 @@ namespace SGE_erp.Venta
                 totalFinal += totalM;
                 lbTotalFin.Content = totalFinal;
 
+                guardarCantidad += stock;
+
                 DataRow dr = null;
                 dr = dataT.NewRow();
                 dr["Id_Articulo"] = idArticulo;
@@ -172,18 +174,17 @@ namespace SGE_erp.Venta
                 dataT.Rows.Add(dr);
                 dgFinal.ItemsSource = dataT.DefaultView;
 
+                
             }
-
+            
         }
 
         private void Insertar_Click(object sender, RoutedEventArgs e)
         {
+            
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
-            int idArticulo = drv.Row.Field<int>("Id_Articulo");
+           
             int idElemento = drv.Row.Field<int>("Id_Elemento");
-            int stock = drv.Row.Field<int>("Stock");
-
-            //(int)nombreComboBox1.SelectedValue
             int idEmpl = (int)nombreComboBox1.SelectedValue;
             DateTime fecha = dpFecha.SelectedDate.Value;
             decimal precio = (decimal)lbTotalFin.Content;
@@ -213,7 +214,7 @@ namespace SGE_erp.Venta
                     
                     if (a != 0)
                     {
-                        MessageBox.Show("Insertado");
+                        MessageBox.Show("Vendido");
                         conn.Close();
                     }
                     else
@@ -231,7 +232,7 @@ namespace SGE_erp.Venta
 
                     comando.Parameters.AddWithValue("@idVentas", id);
                     comando.Parameters.AddWithValue("@idElemento", idElemento);
-                    comando.Parameters.AddWithValue("@cantidad", stock);
+                    comando.Parameters.AddWithValue("@cantidad", guardarCantidad);
 
                 
                     int a = comando.ExecuteNonQuery();
@@ -250,11 +251,21 @@ namespace SGE_erp.Venta
                 dgFinal.Columns.Clear();
                 dgFinal.ItemsSource = null;
                 dgFinal.Items.Refresh();
+
+                //DataRow datos = carritoCompra.Rows[i];
+                //SqlConnection con2 = new SqlConnection(MetodosGestion.db);
+                //con2.Open();
+                
+                //SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2]) + ";", con2);
+                //upgrade.ExecuteNonQuery();
+                //con2.Close();
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            guardarCantidad = 0;
+            lbTotalFin.Content = 0;
         }
 
          
