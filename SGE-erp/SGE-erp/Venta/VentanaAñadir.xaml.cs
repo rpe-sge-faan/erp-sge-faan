@@ -214,7 +214,7 @@ namespace SGE_erp.Venta
                     
                     if (a != 0)
                     {
-                        MessageBox.Show("Insertado");
+                        MessageBox.Show("Vendido");
                         conn.Close();
                     }
                     else
@@ -251,6 +251,14 @@ namespace SGE_erp.Venta
                 dgFinal.Columns.Clear();
                 dgFinal.ItemsSource = null;
                 dgFinal.Items.Refresh();
+
+                //DataRow datos = carritoCompra.Rows[i];
+                //SqlConnection con2 = new SqlConnection(MetodosGestion.db);
+                //con2.Open();
+                
+                //SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2]) + ";", con2);
+                //upgrade.ExecuteNonQuery();
+                //con2.Close();
             }
             catch (SqlException ex)
             {

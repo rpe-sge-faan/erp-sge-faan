@@ -62,7 +62,7 @@ namespace SGE_erp.Compras
                     DataTable dt3 = new DataTable();
                     da3.Fill(dt3);
 
-                    DataRow row3 = dt3.Rows[i];
+                    DataRow row3 = dt3.Rows[0];
                     String nombreArticuloDato = Convert.ToString(row3["Nombre"]);
                     String precioArticuloDato = Convert.ToString(row2["PrecioCompra"]);
                     double precioTotalArticulos = double.Parse(precioArticuloDato) * Convert.ToDouble(row["Cantidad"]);
@@ -70,8 +70,8 @@ namespace SGE_erp.Compras
                     dt.Rows[i]["Precio Articulo"] = precioArticuloDato;
                     dt.Rows[i]["Precio Articulo Total"] = precioTotalArticulos;
                 }
-            }
             this.detallesCompra.ItemsSource = dt.DefaultView;
+            }
             /*this.detallesCompra.Columns[0].Visibility = Visibility.Collapsed;
             this.detallesCompra.Columns[1].Visibility = Visibility.Collapsed;*/
         }
