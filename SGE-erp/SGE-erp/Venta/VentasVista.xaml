@@ -45,7 +45,7 @@
             x:Name="dgVista"
             Grid.Row="1"
             ColumnWidth="1*"
-            IsReadOnly="True" />
+            IsReadOnly="True" SelectionChanged="dgVista_SelectionChanged" />
 
     </Grid>
 </UserControl>
