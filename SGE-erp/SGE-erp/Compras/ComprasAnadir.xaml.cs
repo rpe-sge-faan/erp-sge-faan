@@ -281,6 +281,11 @@ namespace SGE_erp.Compras
                     con2.Close();
                 }
                 MessageBox.Show("Guardado.");
+                int j = carritoCompra.Rows.Count;
+                for (int i = 0; i < j; i++)
+                {
+                    carritoCompra.Rows.RemoveAt(0);
+                }
             }
             
         }

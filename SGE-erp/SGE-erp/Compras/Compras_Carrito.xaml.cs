@@ -58,6 +58,7 @@ namespace SGE_erp.Compras
             ComprasAnadir.guardarCompra();
             ComprasVisualizar cv = new ComprasVisualizar();
             cv.cargarDatos();
+            this.Close();
         }
 
         public void calPrecioFinal()
