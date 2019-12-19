@@ -28,14 +28,15 @@ namespace SGE_erp.Compras
         public ComprasVisualizar()
         {
             InitializeComponent();
-            cargarDatos();
+            //cargarDatos();
         }
-
+        DataTable dt = new DataTable();
         public void cargarDatos()
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
+            con.Open();
             SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Compra", con);
-            DataTable dt = new DataTable(); ;
+            dt.Clear();
 
             da.Fill(dt);
 
@@ -55,27 +56,36 @@ namespace SGE_erp.Compras
                     String idProv= Convert.ToString(row["Id_Proveedor"]);
                     String idEmp = Convert.ToString(row["Id_Empleado"]);
 
-                    SqlDataAdapter da2 = new SqlDataAdapter("SELECT Nombre FROM Proveedores WHERE Id_Proveedor='"
-                        + idProv + "'", con);
-                    DataTable dt2 = new DataTable();
-                    da2.Fill(dt2);
+                    MessageBox.Show(idProv + "   " + idEmp);
 
-                    DataRow row2 = dt2.Rows[0];
-                    String nombreDato = Convert.ToString(row2[0]);
-                    dt.Rows[i]["Nombre Proveedor"] = nombreDato;
+                    using (SqlCommand command = con.CreateCommand())
+                    {
+                        command.CommandText = "SELECT Nombre FROM [Proveedores] where Id_Proveedor = @id";
+                        command.Parameters.AddWithValue("@id", idProv);
+                        DataTable dt2 = new DataTable();
+                        SqlDataAdapter da2 = new SqlDataAdapter(command);
+                        da2.Fill(dt2);
+                        DataRow row2 = dt2.Rows[0];
+                        String nombreDato = Convert.ToString(row2[0]);
+                        dt.Rows[i]["Nombre Proveedor"] = nombreDato;
+                    }
 
-                    SqlDataAdapter da3 = new SqlDataAdapter("SELECT Nombre FROM Empleados WHERE Id_Empleado='"
-                        + idEmp + "'", con);
-                    DataTable dt3 = new DataTable();
-                    da3.Fill(dt3);
-
-                    DataRow row3 = dt3.Rows[0];
-                    String nombreDatoEmpl = Convert.ToString(row3[0]);
-                    dt.Rows[i]["Nombre Empleado"] = nombreDatoEmpl;
+                    using (SqlCommand command2 = con.CreateCommand())
+                    {
+                        command2.CommandText = "SELECT Nombre FROM Empleados WHERE Id_Empleado=@id";
+                        command2.Parameters.AddWithValue("@id", idEmp);
+                        DataTable dt3 = new DataTable();
+                        SqlDataAdapter da3 = new SqlDataAdapter(command2);
+                        da3.Fill(dt3);
+                        DataRow row3 = dt3.Rows[0];
+                        String nombreDatoEmpl = Convert.ToString(row3[0]);
+                        dt.Rows[i]["Nombre Empleado"] = nombreDatoEmpl;
+                    }
                 }
             }
 
             this.comprasDatos.ItemsSource = dt.DefaultView;
+            con.Close();
         }
 
         private void actualizar_Click(object sender, RoutedEventArgs e)

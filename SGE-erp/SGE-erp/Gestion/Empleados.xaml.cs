@@ -103,13 +103,11 @@ namespace SGE_erp.Gestion
                 {
                     DataRowView dd = (DataRowView)dataGridEmpleados.SelectedItem;
                     int id = dd.Row.Field<int>("Id_Empleado");
-
-
                     p = new EmpleadosEdicion(id);
                     RefreshListEvent += new RefreshList(Actualizar);
+                    p.ActualizarLista = RefreshListEvent;
                     p.Title = "Editar Empleado";
                     p.Owner = System.Windows.Application.Current.MainWindow;
-                    p.ActualizarLista = RefreshListEvent;
                     p.Show();
                 }
             }

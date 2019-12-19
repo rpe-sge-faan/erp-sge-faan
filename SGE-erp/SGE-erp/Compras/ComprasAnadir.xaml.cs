@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Compras
 {
-    
+
 
     public partial class ComprasAnadir : UserControl
     {
@@ -29,18 +29,18 @@ namespace SGE_erp.Compras
         DataColumn cantidadc = new DataColumn("Cantidad", typeof(string));
         DataColumn precioElementoc = new DataColumn("Precio Articulo", typeof(string));
         DataColumn precioTotalElementoc = new DataColumn("Precio Total", typeof(string));
+        Compras_Carrito cc = null;
+        int cont;
 
         public static String idProveedorCompra;
+
+        public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
 
         public ComprasAnadir()
         {
             InitializeComponent();
-            Actualizar();
-            carritoCompra.Columns.Add(idElementoC);
-            carritoCompra.Columns.Add(nombreArticuloc);
-            carritoCompra.Columns.Add(cantidadc);
-            carritoCompra.Columns.Add(precioElementoc);
-            carritoCompra.Columns.Add(precioTotalElementoc);
+            cont = 0;
         }
 
         private void Actualizar()
@@ -72,7 +72,7 @@ namespace SGE_erp.Compras
 
                 dt.Columns["Tipo Proveedor"].SetOrdinal(3);
 
-                this.proveedores.ItemsSource = dt.DefaultView;              
+                this.proveedores.ItemsSource = dt.DefaultView;
 
                 con.Open();
                 con.Close();
@@ -89,8 +89,8 @@ namespace SGE_erp.Compras
         private void buscarArtProv_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             String idArticulo;
-            
-            if(proveedores.SelectedItem != null)
+
+            if (proveedores.SelectedItem != null)
             {
                 DataRowView dato = (DataRowView)proveedores.SelectedItem;
                 String idProv = dato.Row.Field<int>("Id_Proveedor").ToString();
@@ -123,7 +123,7 @@ namespace SGE_erp.Compras
                     dt.Columns["Stock"].SetOrdinal(7);
 
                     if (dt.Rows.Count > 0)
-                    {                        
+                    {
                         for (int i = 0; i < dt.Rows.Count; i++)
                         {
                             DataRow row = dt.Rows[i];
@@ -132,7 +132,7 @@ namespace SGE_erp.Compras
                             SqlDataAdapter da2 = new SqlDataAdapter("SELECT Nombre,Descripcion,PVP,Stock FROM [Articulos] WHERE Id_Articulo='"
                                 + idArticulo + "'", con);
                             dt2 = new DataTable();
-                            da2.Fill(dt2);                
+                            da2.Fill(dt2);
 
                             DataRow row2 = dt2.Rows[0];
                             String nombreDato = Convert.ToString(row2[0]);
@@ -140,12 +140,12 @@ namespace SGE_erp.Compras
                             String pvpDato = Convert.ToString(row2[2]);
                             String stockDato = Convert.ToString(row2[3]);
 
-                            dt.Rows[i]["Nombre Articulo"] = nombreDato;                             
+                            dt.Rows[i]["Nombre Articulo"] = nombreDato;
                             dt.Rows[i]["Descripción"] = descripcionDato;
                             dt.Rows[i]["PVP"] = pvpDato;
                             dt.Rows[i]["Stock"] = stockDato;
-                        }                        
-                    }                    
+                        }
+                    }
 
                     this.articulos.ItemsSource = dt.DefaultView;
                     this.articulos.Columns[2].Visibility = Visibility.Collapsed;
@@ -161,19 +161,28 @@ namespace SGE_erp.Compras
 
         private void Articulos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(articulos.SelectedItem != null)
+            if (articulos.SelectedItem != null)
             {
                 DataRowView dato = (DataRowView)articulos.SelectedItem;
                 String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
 
                 Compras_ArticulosDetalles cad = new Compras_ArticulosDetalles(idArt);
                 cad.ShowDialog();
-            }            
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
+            if (cont == 0)
+            {
+                carritoCompra.Columns.Add(idElementoC);
+                carritoCompra.Columns.Add(nombreArticuloc);
+                carritoCompra.Columns.Add(cantidadc);
+                carritoCompra.Columns.Add(precioElementoc);
+                carritoCompra.Columns.Add(precioTotalElementoc);
+            }
+            cont++;
         }
 
         private void BtnComparar_Click(object sender, RoutedEventArgs e)
@@ -187,8 +196,8 @@ namespace SGE_erp.Compras
 
         private void BtnCompararAñadir_Click(object sender, RoutedEventArgs e)
         {
-            if(articulos.SelectedItem != null)
-            {               
+            if (articulos.SelectedItem != null)
+            {
                 String idProveedorActual = "";
                 DataRowView tProveedor = (DataRowView)proveedores.SelectedItem;
                 if (carritoCompra.Rows.Count == 0)
@@ -202,12 +211,12 @@ namespace SGE_erp.Compras
                     if (cantidad != 0)
                     {
                         DataRowView tArticulo = (DataRowView)articulos.SelectedItem;
-                        
+
                         String idElemento = tArticulo.Row.Field<int>("Id_Elemento").ToString();
                         String precioElemento = tArticulo.Row.Field<decimal>("PrecioCompra").ToString();
                         double precioTotalElemento = double.Parse(precioElemento) * cantidad;
                         String nombreArticulo = tArticulo.Row.Field<String>("Nombre Articulo");
-                        
+
                         DataRow fila = carritoCompra.NewRow();
                         fila[0] = idElemento;
                         fila[1] = nombreArticulo;
@@ -216,13 +225,12 @@ namespace SGE_erp.Compras
                         fila[4] = precioTotalElemento;
                         carritoCompra.Rows.Add(fila);
                     }
-                    
                 }
                 else
                 {
                     MessageBox.Show("No puede comprar articulos de distintos proveedores. Realice otra compra o vacie el carrito");
-                }              
-            }            
+                }
+            }
         }
 
         private int pedirCantidad()
@@ -236,19 +244,40 @@ namespace SGE_erp.Compras
 
         private void BtnCompararVerCarrito_Click(object sender, RoutedEventArgs e)
         {
-            Compras_Carrito cc = new Compras_Carrito();
-            cc.ShowDialog();
+            if (!MetodosGestion.IsOpen(cc))
+            {
+                cc = new Compras_Carrito();
+                RefreshListEvent += new RefreshList(guardarCompra);
+                cc.Comprar = RefreshListEvent;
+                cc.Show();
+            }
         }
 
-        public static void guardarCompra()
+        private double precioFinal()
         {
-            Compras_Carrito cc = new Compras_Carrito();
-            cc.calPrecioFinal();
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item.Name == "Carrito")
+                {
+                    ((Compras_Carrito)item).calPrecioFinal();
+                    double precio = ((Compras_Carrito)item).precioFinal;
+
+                    return precio;
+                }
+            }
+            return 0.0;
+        }
+
+        public void guardarCompra()
+        {
+            //Compras_Carrito cc = new Compras_Carrito();
+            //cc.calPrecioFinal();
             String idEmpleado = "1";
             DateTime fechaCompra = DateTime.Now;
-            double precioTotal = cc.precioFinal;
+            //double precioTotal = cc.precioFinal;
+            double precioTotal = precioFinal();
 
-            
+
             if (carritoCompra.Rows.Count > 0)
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
@@ -256,7 +285,6 @@ namespace SGE_erp.Compras
                 SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
                     + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + fechaCompra.ToString("MM/dd/yyyy") + "'," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
-                con.Close();
 
                 SqlConnection con3 = new SqlConnection(MetodosGestion.db);
                 SqlDataAdapter da3 = new SqlDataAdapter("SELECT Id_Compra FROM Compra ORDER BY Id_Compra DESC", con3);
@@ -274,11 +302,11 @@ namespace SGE_erp.Compras
                     SqlCommand da2 = new SqlCommand(@"INSERT INTO CompraArticulos VALUES("
                         + idcompra + "," + Convert.ToInt32(datos[0]) + "," + Convert.ToInt32(datos[2]) + ");", con2);
                     da2.ExecuteNonQuery();
-                    
 
-                    SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2]) 
-                        +" FROM Articulos INNER JOIN ProveedorArticulo ON Articulos.Id_Articulo=ProveedorArticulo.Id_Articulo" +
-                        " WHERE ProveedorArticulo.Id_Elemento=" + Convert.ToInt32(datos[0]) +";", con2);
+
+                    SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2])
+                        + " FROM Articulos INNER JOIN ProveedorArticulo ON Articulos.Id_Articulo=ProveedorArticulo.Id_Articulo" +
+                        " WHERE ProveedorArticulo.Id_Elemento=" + Convert.ToInt32(datos[0]) + ";", con2);
                     upgrade.ExecuteNonQuery();
                     con2.Close();
                 }
@@ -288,15 +316,20 @@ namespace SGE_erp.Compras
                 {
                     carritoCompra.Rows.RemoveAt(0);
                 }
+                con.Close();
             }
-            
         }
 
         private void BtnCompararFinalizarCompra_Click(object sender, RoutedEventArgs e)
         {
-            Compras_Carrito cc = new Compras_Carrito();
-            cc.ShowDialog();
-        }        
-    }    
+            if (!MetodosGestion.IsOpen(cc))
+            {
+                cc = new Compras_Carrito();
+                RefreshListEvent += new RefreshList(guardarCompra);
+                cc.Comprar = RefreshListEvent;
+                cc.Show();
+            }
+            
+        }
+    }
 }
- 
