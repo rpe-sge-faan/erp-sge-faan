@@ -30,14 +30,16 @@ namespace SGE_erp.Compras
             InitializeComponent();
             //cargarDatos();
         }
-        DataTable dt = new DataTable();
+        
         public void cargarDatos()
         {
+            DataTable dt = new DataTable();
             SqlConnection con = new SqlConnection(MetodosGestion.db);
             con.Open();
             SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Compra", con);
             dt.Clear();
 
+            comprasDatos.ItemsSource = null;
             da.Fill(dt);
 
             DataColumn nombreProv = new DataColumn("Nombre Proveedor", typeof(string));
@@ -56,7 +58,6 @@ namespace SGE_erp.Compras
                     String idProv= Convert.ToString(row["Id_Proveedor"]);
                     String idEmp = Convert.ToString(row["Id_Empleado"]);
 
-                    MessageBox.Show(idProv + "   " + idEmp);
 
                     using (SqlCommand command = con.CreateCommand())
                     {

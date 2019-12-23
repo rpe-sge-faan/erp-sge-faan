@@ -58,6 +58,11 @@ namespace SGE_erp.Compras
         private void BtnFinalizarCompra_Click(object sender, RoutedEventArgs e)
         {
             Comprar.DynamicInvoke();
+            MainWindow mW = Application.Current.MainWindow as MainWindow;
+            mW.actuar();
+            //MainWindow win = (MainWindow)Window.GetWindow(this);
+            //win.ucCompras.tablita();
+            //            Application.Current.MainWindow.
             //ComprasVisualizar cv = new ComprasVisualizar();
             //cv.cargarDatos();
             this.Close();

@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Gestion
 {
-    /// <summary>
-    /// Lógica de interacción para ClientesEdicion.xaml
-    /// </summary>
     public partial class ClientesEdicion : Window
     {
         public int id;
@@ -76,9 +73,22 @@ namespace SGE_erp.Gestion
                             telefonoTextBox.Text = variable;
                             variable = reader.GetString(reader.GetOrdinal("Direccion"));
                             direccionTextBox.Text = variable;
-                            variable = reader.GetString(reader.GetOrdinal("PersonaContacto"));
-                            personaContactoTextBox.Text = variable;
+                            //if (variable.IsDBNull())
+                            //{
+                            //    variable = reader.GetString(reader.GetOrdinal("PersonaContacto"));
+                            //    personaContactoTextBox.Text = variable;
+
+                            //}
+                            //else
+                            //{
+                            //    personaContactoTextBox.Text = "";
+                            //}
+                            //int codp = reader.GetInt32(reader.GetOrdinal("CodPostal"));
+                            //cpBox.Text = codp.ToString();
                         }
+
+
+
                         // If you need to use all rows returned use a loop:
                         //while (reader.Read())
                         //{
@@ -122,7 +132,7 @@ namespace SGE_erp.Gestion
                 using (SqlCommand command = con.CreateCommand())
                 {
                     command.CommandText = "UPDATE Clientes SET Tipo = @tipo, Nombre = @nombre, Telefono = @telefono, Email = @email, " +
-                        "PersonaContacto = @persona, Direccion = @direccion, NIF = @nif WHERE Id_Cliente = @id";
+                        "PersonaContacto = @persona, Direccion = @direccion, NIF = @nif, CodPostal = @codp WHERE Id_Cliente = @id";
 
                     command.Parameters.AddWithValue("@tipo", tipo);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
@@ -132,6 +142,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
                     command.Parameters.AddWithValue("@nif", nifTextBox.Text);
                     command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@codp", cpBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -184,8 +195,8 @@ namespace SGE_erp.Gestion
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Clientes (Tipo, Nombre, Telefono, Email, PersonaContacto, Direccion, NIF) " +
-                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif)";
+                    command.CommandText = "INSERT INTO Clientes (Tipo, Nombre, Telefono, Email, PersonaContacto, Direccion, NIF, CodPostal) " +
+                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif, @codp)";
 
                     command.Parameters.AddWithValue("@tipo", tipo);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
@@ -194,6 +205,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
                     command.Parameters.AddWithValue("@nif", nifTextBox.Text);
+                    command.Parameters.AddWithValue("@codp", cpBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -253,7 +265,7 @@ namespace SGE_erp.Gestion
                     case "nifTextBox":
                         Regex regex = new Regex("^[0-9]{8}[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe]$");
                         Regex regex2 = new Regex("^[TtRrWwAaGgMmYyFfPpDdXxBbNnJjZzSsQqVvHhLlCcKkEe][0-9]{8}$");
-                        if (regex.IsMatch(nifTextBox.Text)|| regex2.IsMatch(nifTextBox.Text))
+                        if (regex.IsMatch(nifTextBox.Text) || regex2.IsMatch(nifTextBox.Text))
                         {
                             nifTextBox.ClearValue(TextBox.BackgroundProperty);
                             labelInfo.Content = "";
@@ -297,6 +309,54 @@ namespace SGE_erp.Gestion
             else
             {
                 bAceptar.IsEnabled = false;
+            }
+        }
+
+        private void cpBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox obj = sender as TextBox;
+            string name = obj.Name;
+
+            string variable;
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                //command.CommandText = "SELECT * FROM [Poblaciones] WHERE CodPostal LIKE @id OR Poblacion LIKE @pobla OR Provincia LIKE @prov";
+                command.CommandText = "SELECT * FROM [Poblaciones] WHERE CodPostal LIKE @id";
+                command.Parameters.AddWithValue("@id", cpBox.Text);
+                command.Parameters.AddWithValue("@pobla", poblText.Text);
+                command.Parameters.AddWithValue("@prov", provText.Text);
+                con.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int cod = 0;
+                        if (name.Equals("cpBox"))
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Poblacion"));
+                            poblText.Text = variable;
+                            variable = reader.GetString(reader.GetOrdinal("Provincia"));
+                            provText.Text = variable;
+                        }
+                        //else if (name.Equals("poblText"))
+                        //{
+                        //    cod = reader.GetInt32(reader.GetOrdinal("CodPostal"));
+                        //    cpBox.Text = cod.ToString();
+                        //    variable = reader.GetString(reader.GetOrdinal("Provincia"));
+                        //    provText.Text = variable;
+                        //}
+                        //else
+                        //{
+                        //    cod = reader.GetInt32(reader.GetOrdinal("CodPostal"));
+                        //    cpBox.Text = cod.ToString();
+                        //    variable = reader.GetString(reader.GetOrdinal("Provincia"));
+                        //    provText.Text = variable;
+                        //}
+                    }
+                }
             }
         }
     }

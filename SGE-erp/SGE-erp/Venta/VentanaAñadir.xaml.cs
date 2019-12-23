@@ -63,7 +63,7 @@ namespace SGE_erp.Venta
 
                 this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
 
-                udStock.Minimum = 1;
+                udStock.minvalue = 1;
                 udStock.Value = 1;
 
             }
@@ -78,7 +78,7 @@ namespace SGE_erp.Venta
 
             DataRowView dd = (DataRowView)DatosAnadir.SelectedItem;
             int stock = dd.Row.Field<int>("Stock");
-            udStock.Maximum = (uint?)stock;
+            udStock.maxvalue = stock;
             udStock.Value = 1;
         }
 

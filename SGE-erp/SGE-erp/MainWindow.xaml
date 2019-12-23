@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp"
+    xmlns:localAdministracion="clr-namespace:SGE_erp.Administracion"
     xmlns:localArticulos="clr-namespace:SGE_erp.Articulos"
     xmlns:localCompras="clr-namespace:SGE_erp.Compras"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
@@ -14,13 +15,17 @@
     Height="450"
     MinWidth="750"
     MinHeight="500"
+    Background="{DynamicResource MaterialDesignPaper}"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Icon="/imagenes/e_icon-icons.com_60553.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="197*" />
-            <RowDefinition Height="272*" />
+            <RowDefinition
+                Height="197*" />
+            <RowDefinition
+                Height="272*" />
         </Grid.RowDefinitions>
         <TabControl
             Grid.Row="0"
@@ -29,12 +34,20 @@
             BorderThickness="0"
             TabStripPlacement="Top">
             <TabControl.Resources>
-                <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
-                    <Setter Property="Template">
+                <Style
+                    x:Key="TabItemStyle1"
+                    TargetType="{x:Type TabItem}">
+                    <Setter
+                        Property="Template">
                         <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type TabItem}">
-                                <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
-                                    <Border x:Name="Border" Background="{TemplateBinding Background}" />
+                            <ControlTemplate
+                                TargetType="{x:Type TabItem}">
+                                <Grid
+                                    x:Name="templateRoot"
+                                    SnapsToDevicePixels="true">
+                                    <Border
+                                        x:Name="Border"
+                                        Background="{TemplateBinding Background}" />
                                     <ContentPresenter
                                         x:Name="contentPresenter"
                                         Margin="{TemplateBinding Padding}"
@@ -48,68 +61,133 @@
                                 <ControlTemplate.Triggers>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsMouseOver" Value="True" />
+                                            <Condition
+                                                Property="IsMouseOver"
+                                                Value="True" />
                                         </MultiTrigger.Conditions>
-                                        <Setter TargetName="Border" Property="Opacity" Value="0.8" />
+                                        <Setter
+                                            TargetName="Border"
+                                            Property="Opacity"
+                                            Value="0.8" />
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="x:Name" Value="tabGestion" />
+                                            <Condition
+                                                Property="IsSelected"
+                                                Value="True" />
+                                            <Condition
+                                                Property="x:Name"
+                                                Value="tabGestion" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter TargetName="Border" Property="Opacity" Value="0.8" />
-                                            <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabGestion, Path=Background}" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Opacity"
+                                                Value="0.8" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Background"
+                                                Value="{Binding ElementName=tabGestion, Path=Background}" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="x:Name" Value="tabVentas" />
+                                            <Condition
+                                                Property="IsSelected"
+                                                Value="True" />
+                                            <Condition
+                                                Property="x:Name"
+                                                Value="tabVentas" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter TargetName="Border" Property="Opacity" Value="0.8" />
-                                            <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabVentas, Path=Background}" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Opacity"
+                                                Value="0.8" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Background"
+                                                Value="{Binding ElementName=tabVentas, Path=Background}" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="x:Name" Value="tabCompras" />
+                                            <Condition
+                                                Property="IsSelected"
+                                                Value="True" />
+                                            <Condition
+                                                Property="x:Name"
+                                                Value="tabCompras" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter TargetName="Border" Property="Opacity" Value="0.8" />
-                                            <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabCompras, Path=Background}" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Opacity"
+                                                Value="0.8" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Background"
+                                                Value="{Binding ElementName=tabCompras, Path=Background}" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="x:Name" Value="tabArticulos" />
+                                            <Condition
+                                                Property="IsSelected"
+                                                Value="True" />
+                                            <Condition
+                                                Property="x:Name"
+                                                Value="tabArticulos" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter TargetName="Border" Property="Opacity" Value="0.8" />
-                                            <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabArticulos, Path=Background}" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Opacity"
+                                                Value="0.8" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Background"
+                                                Value="{Binding ElementName=tabArticulos, Path=Background}" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="x:Name" Value="tabAdministracion" />
+                                            <Condition
+                                                Property="IsSelected"
+                                                Value="True" />
+                                            <Condition
+                                                Property="x:Name"
+                                                Value="tabAdministracion" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter TargetName="Border" Property="Opacity" Value="0.8" />
-                                            <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabAdministracion, Path=Background}" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Opacity"
+                                                Value="0.8" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Background"
+                                                Value="{Binding ElementName=tabAdministracion, Path=Background}" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="x:Name" Value="tabAyuda" />
+                                            <Condition
+                                                Property="IsSelected"
+                                                Value="True" />
+                                            <Condition
+                                                Property="x:Name"
+                                                Value="tabAyuda" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter TargetName="Border" Property="Opacity" Value="0.8" />
-                                            <Setter TargetName="Border" Property="Background" Value="{Binding ElementName=tabAyuda, Path=Background}" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Opacity"
+                                                Value="0.8" />
+                                            <Setter
+                                                TargetName="Border"
+                                                Property="Background"
+                                                Value="{Binding ElementName=tabAyuda, Path=Background}" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                 </ControlTemplate.Triggers>
@@ -128,7 +206,7 @@
                 Background="#FFFFC733"
                 Header="_Compras"
                 Style="{DynamicResource TabItemStyle1}">
-                <localCompras:Compras />
+                <localCompras:Compras x:Name="ucCompras"/>
             </TabItem>
             <TabItem
                 x:Name="tabVentas"
@@ -172,9 +250,11 @@
                 Padding="20,10,20,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="LightYellow"
+                Background="GreenYellow"
                 Header="A_dministración"
-                Style="{DynamicResource TabItemStyle1}" />
+                Style="{DynamicResource TabItemStyle1}">
+                <localAdministracion:Administracion />
+            </TabItem>
             <TabItem
                 x:Name="tabAyuda"
                 Width="120"
@@ -186,5 +266,13 @@
                 Header="A_yuda"
                 Style="{DynamicResource TabItemStyle1}" />
         </TabControl>
+        <!--<Image
+            x:Name="image"
+            HorizontalAlignment="Left"
+            Height="91"
+            Margin="677,67,0,0"
+            VerticalAlignment="Top"
+            Source="imagenes/e_icon-icons.com_60553.ico"
+            Width="89" />-->
     </Grid>
 </Window>

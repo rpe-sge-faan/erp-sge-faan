@@ -22,17 +22,17 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Header="Añadir">
-                <local:ComprasAnadir />
+                <local:ComprasAnadir x:Name="uc1" />
             </TabItem>
             <TabItem
-                x:Name="visualizar"
+                x:Name="tab2"
                 Width="100"
                 Margin="0,5,5,5"
                 Padding="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Header="Ver">
-                <local:ComprasVisualizar />
+                <local:ComprasVisualizar x:Name="uc2" />
             </TabItem>
         </TabControl>
     </Grid>

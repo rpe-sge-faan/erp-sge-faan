@@ -25,6 +25,12 @@ namespace SGE_erp
         {
             InitializeComponent();
         }
+        public delegate void DoSomethingEvent();
+
+        public void actuar()
+        {
+            ucCompras.tablita();
+        }
 
     }
 }
