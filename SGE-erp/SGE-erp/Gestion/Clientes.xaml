@@ -31,28 +31,28 @@
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center">
             <MenuItem
-                Width="50"
+                Width="120"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="Anadir_Click"
                 Header="_Añadir" />
             <MenuItem
-                Width="50"
+                Width="120"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="Editar_Click"
                 Header="_Editar" />
             <MenuItem
-                Width="50"
+                Width="120"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="Borrar_Click"
                 Header="_Borrar" />
             <MenuItem
-                Width="50"
+                Width="130"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

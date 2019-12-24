@@ -298,7 +298,7 @@
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
-            Margin="15"
+            Margin="10,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content=""

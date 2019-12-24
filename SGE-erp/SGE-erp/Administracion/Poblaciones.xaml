@@ -46,17 +46,20 @@
             Grid.Row="4"
             Grid.Column="2"
             Margin="5"
+            VerticalAlignment="Center"
             Click="bAnadir_Click"
             Content="Añadir" />
         <Button
             x:Name="bEditar"
             Grid.Row="5"
             Grid.Column="2"
+            VerticalAlignment="Center"
             Margin="5"
             Content="Editar" />
         <Button
             x:Name="bBorrar"
             Grid.Row="6"
+            VerticalAlignment="Center"
             Grid.Column="2"
             Margin="5"
             Content="Borrar" />
