@@ -7,44 +7,57 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Carrito"
     Title="Carro de la Compra"
-    Width="400"
-    Height="225"
+    Width="594"
+    Height="295"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="6*" />
+            <RowDefinition
+                Height="1*" />
+            <RowDefinition
+                Height="6*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <DataGrid
             x:Name="carrito"
             Grid.Row="1"
             Grid.Column="0"
+            ColumnWidth="1*"
             Grid.ColumnSpan="3" />
         <Button
             x:Name="btnFinalizarCompra"
             Grid.Row="0"
             Grid.Column="0"
-            Margin="12,2"
+            Margin="5,3"
+            VerticalAlignment="Center"
+            FontSize="12"
+            Padding="0"
             Click="BtnFinalizarCompra_Click"
             Content="Finalizar Compra" />
         <Button
             x:Name="btnBorrarArticulo"
             Grid.Row="0"
             Grid.Column="1"
-            Margin="12,2"
+            VerticalAlignment="Center"
+            Margin="5,3"
+            FontSize="12"
+            Padding="0"
             Click="BtnBorrarArticulo_Click"
-            Content="Borrar Articulo" />
+            Content="Borrar Artículo" />
         <Button
             x:Name="btnVaciarCarro"
             Grid.Row="0"
             Grid.Column="2"
-            Margin="12,2"
+            Margin="5,3"
+            Padding="0"
+            FontSize="12"
+            VerticalAlignment="Center"
             Click="BtnVaciarCarro_Click"
             Content="Vaciar Carrito" />
     </Grid>

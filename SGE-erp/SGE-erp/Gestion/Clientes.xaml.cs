@@ -254,5 +254,10 @@ namespace SGE_erp.Gestion
                 Filtrar();
             }
         }
+
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            Actualizar();
+        }
     }
 }

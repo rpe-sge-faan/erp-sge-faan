@@ -90,11 +90,6 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
-        {
-            Actualizar();
-        }
-
         private void Editar_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
@@ -252,6 +247,11 @@ namespace SGE_erp.Gestion
         {
             if (e.PropertyType == typeof(System.DateTime))
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+        }
+
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            Actualizar();
         }
     }
 }

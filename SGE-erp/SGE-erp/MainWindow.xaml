@@ -4,32 +4,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp"
-    xmlns:localAdministracion="clr-namespace:SGE_erp.Administracion"
     xmlns:localArticulos="clr-namespace:SGE_erp.Articulos"
     xmlns:localCompras="clr-namespace:SGE_erp.Compras"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
     xmlns:localVentas="clr-namespace:SGE_erp.Venta"
+    TextElement.FontSize="13"
+    FontFamily="{materialDesign:MaterialDesignFont}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Title="ERP - Gestión Empresarial"
-    Width="800"
-    Height="450"
-    MinWidth="750"
+    Width="900"
+    Height="600"
+    MinWidth="800"
     MinHeight="500"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     Icon="/imagenes/e_icon-icons.com_60553.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
-                Height="197*" />
-            <RowDefinition
-                Height="272*" />
+                Height="1*" />
+
         </Grid.RowDefinitions>
         <TabControl
             Grid.Row="0"
-            Grid.RowSpan="2"
             Margin="5,5,5,5"
             BorderThickness="0"
             TabStripPlacement="Top">
@@ -47,7 +48,9 @@
                                     SnapsToDevicePixels="true">
                                     <Border
                                         x:Name="Border"
-                                        Background="{TemplateBinding Background}" />
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="20"
+                                        Height="50" />
                                     <ContentPresenter
                                         x:Name="contentPresenter"
                                         Margin="{TemplateBinding Padding}"
@@ -199,23 +202,31 @@
             <TabItem
                 x:Name="tabCompras"
                 Width="120"
-                Margin="0,5,5,5"
+                Margin="5,5,5,5"
                 Padding="20,10,20,10"
                 HorizontalAlignment="Center"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
                 VerticalAlignment="Center"
-                Background="#FFFFC733"
+                Background="{DynamicResource colorCompras}"
                 Header="_Compras"
                 Style="{DynamicResource TabItemStyle1}">
-                <localCompras:Compras x:Name="ucCompras"/>
+                <localCompras:Compras
+                    x:Name="ucCompras" />
             </TabItem>
             <TabItem
                 x:Name="tabVentas"
                 Width="120"
                 Margin="5,5,5,5"
                 Padding="20,10,20,10"
+                
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="CornflowerBlue"
+                Background="{DynamicResource colorVentas}"
                 Header="_Ventas"
                 Style="{DynamicResource TabItemStyle1}">
                 <localVentas:VentasMain />
@@ -224,8 +235,12 @@
                 x:Name="tabArticulos"
                 Width="120"
                 Margin="5,5,5,5"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
                 Padding="20,10,20,10"
                 HorizontalAlignment="Center"
+                Background="{DynamicResource colorArticulos}"
                 VerticalAlignment="Center"
                 Header="_Artículos"
                 Style="{DynamicResource TabItemStyle1}">
@@ -235,34 +250,28 @@
                 x:Name="tabGestion"
                 Width="120"
                 Margin="5,5,5,5"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
                 Padding="20,10,20,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="IndianRed"
+                Background="{DynamicResource colorGestion}"
                 Header="_Gestión"
                 Style="{DynamicResource TabItemStyle1}">
                 <localGestion:GestionMain />
             </TabItem>
             <TabItem
-                x:Name="tabAdministracion"
-                Width="120"
-                Margin="5,5,5,5"
-                Padding="20,10,20,10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="GreenYellow"
-                Header="A_dministración"
-                Style="{DynamicResource TabItemStyle1}">
-                <localAdministracion:Administracion />
-            </TabItem>
-            <TabItem
                 x:Name="tabAyuda"
                 Width="120"
                 Margin="5,5,5,5"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
                 Padding="20,10,20,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="LightPink"
+                Background="{DynamicResource colorAyuda}"
                 Header="A_yuda"
                 Style="{DynamicResource TabItemStyle1}" />
         </TabControl>
