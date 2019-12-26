@@ -167,7 +167,7 @@ namespace SGE_erp.Compras
                 String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
 
                 Compras_ArticulosDetalles cad = new Compras_ArticulosDetalles(idArt);
-                cad.ShowDialog();
+                cad.Show();
             }
         }
 

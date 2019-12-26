@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Title="Detalles"
     Height="225"
-    Width="640"
+    Width="735"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen">
     <Grid>

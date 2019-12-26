@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:SGE_erp.Compras"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Carrito"
-    Title="Carro de la Compra"
-    Width="594"
+    Title="Carro"
+    Width="595"
     Height="295"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -36,7 +36,6 @@
             Grid.Column="0"
             Margin="5,3"
             VerticalAlignment="Center"
-            FontSize="12"
             Padding="0"
             Click="BtnFinalizarCompra_Click"
             Content="Finalizar Compra" />
@@ -46,7 +45,6 @@
             Grid.Column="1"
             VerticalAlignment="Center"
             Margin="5,3"
-            FontSize="12"
             Padding="0"
             Click="BtnBorrarArticulo_Click"
             Content="Borrar Artículo" />
@@ -56,7 +54,6 @@
             Grid.Column="2"
             Margin="5,3"
             Padding="0"
-            FontSize="12"
             VerticalAlignment="Center"
             Click="BtnVaciarCarro_Click"
             Content="Vaciar Carrito" />

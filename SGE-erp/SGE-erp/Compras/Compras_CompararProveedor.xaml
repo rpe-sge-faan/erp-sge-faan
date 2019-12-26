@@ -1,12 +1,20 @@
-﻿<Window x:Class="SGE_erp.Compras.Compras_CompararProveedor"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SGE_erp.Compras"
-        mc:Ignorable="d"
-        Title="Compras_CompararProveedor" Height="250" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+﻿<Window
+    x:Class="SGE_erp.Compras.Compras_CompararProveedor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:SGE_erp.Compras"
+    ResizeMode="NoResize"
+    mc:Ignorable="d"
+    Title="Comparar"
+    Height="250"
+    Width="670"
+    WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="compararProveedores" IsReadOnly="True" SelectionMode="Single"/>
+        <DataGrid
+            x:Name="compararProveedores"
+            IsReadOnly="True"
+            SelectionMode="Single" />
     </Grid>
 </Window>

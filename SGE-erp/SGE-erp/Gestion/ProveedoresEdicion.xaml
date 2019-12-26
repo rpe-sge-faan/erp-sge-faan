@@ -32,6 +32,7 @@
             Grid.Column="3"
             Width="100"
             Height="25"
+            VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Click="Aceptar_Click"
             Content="Aceptar" />
@@ -41,6 +42,7 @@
             Grid.Column="4"
             Width="100"
             Height="25"
+            VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Click="Cancelar_Click"
             Content="Cancelar" />

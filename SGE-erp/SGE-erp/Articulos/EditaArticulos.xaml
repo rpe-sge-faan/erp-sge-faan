@@ -10,13 +10,12 @@
     Title="EditaArticulos"
     Width="589"
     Height="245"
-    MinHeight="245"
-    MaxWidth="589"
-    MaxHeight="245"
+    ResizeMode="NoResize"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-    <Grid x:Name="grid2">
+    <Grid
+        x:Name="grid2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -25,8 +24,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="3.5*" />
+            <RowDefinition
+                Height="10*" />
+            <RowDefinition
+                Height="3.5*" />
         </Grid.RowDefinitions>
         <Button
             x:Name="bAceptar"
@@ -35,6 +36,8 @@
             Width="90"
             Height="25"
             Margin="10"
+            VerticalAlignment="Center"
+            Padding="0"
             HorizontalAlignment="Center"
             Click="Aceptar_Click"
             Content="Aceptar" />
@@ -45,6 +48,8 @@
             Width="90"
             Height="25"
             Margin="10"
+            VerticalAlignment="Center"
+            Padding="0"
             HorizontalAlignment="Center"
             Content="Reset"
             Click="bReset_Click" />
@@ -52,6 +57,8 @@
             x:Name="bCancelar"
             Grid.Row="1"
             Grid.Column="4"
+            VerticalAlignment="Center"
+            Padding="0"
             Width="90"
             Height="25"
             Margin="10"
@@ -66,16 +73,24 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition
+                    Width="0.5*" />
+                <ColumnDefinition
+                    Width="1*" />
+                <ColumnDefinition
+                    Width="0.5*" />
+                <ColumnDefinition
+                    Width="1*" />
             </Grid.ColumnDefinitions>
 
 
@@ -110,20 +125,30 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 SelectedIndex="0">
-                <ComboBoxItem Name="vacio">
-                    <TextBlock Text="" />
+                <ComboBoxItem
+                    Name="vacio">
+                    <TextBlock
+                        Text="" />
                 </ComboBoxItem>
-                <ComboBoxItem Name="iva1">
-                    <TextBlock Text="0%" />
+                <ComboBoxItem
+                    Name="iva1">
+                    <TextBlock
+                        Text="0%" />
                 </ComboBoxItem>
-                <ComboBoxItem Name="iva2">
-                    <TextBlock Text="4%" />
+                <ComboBoxItem
+                    Name="iva2">
+                    <TextBlock
+                        Text="4%" />
                 </ComboBoxItem>
-                <ComboBoxItem Name="iva3">
-                    <TextBlock Text="10%" />
+                <ComboBoxItem
+                    Name="iva3">
+                    <TextBlock
+                        Text="10%" />
                 </ComboBoxItem>
-                <ComboBoxItem Name="iva4">
-                    <TextBlock Text="21%" />
+                <ComboBoxItem
+                    Name="iva4">
+                    <TextBlock
+                        Text="21%" />
                 </ComboBoxItem>
             </ComboBox>
             <Label
@@ -193,7 +218,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 PreviewTextInput="NumberValidationTextBox"
-                TextChanged="GenericTextBox_TextChanged"/>
+                TextChanged="GenericTextBox_TextChanged" />
             <Label
                 Grid.Row="1"
                 Grid.Column="2"
@@ -210,7 +235,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 PreviewTextInput="NumberValidationTextBox"
-                TextChanged="GenericTextBox_TextChanged"/>
+                TextChanged="GenericTextBox_TextChanged" />
 
         </Grid>
     </Grid>

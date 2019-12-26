@@ -34,7 +34,6 @@ namespace SGE_erp.Venta
         public VentasVista()
         {
             InitializeComponent();
-            Actualizar();
         }
 
         
@@ -113,7 +112,7 @@ namespace SGE_erp.Venta
         {
             try
             {
-                SqlConnection con = new SqlConnection(MetodoGestion.db);
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(@"SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
                                                         "FROM VentasArticulos, Ventas " +
@@ -138,14 +137,11 @@ namespace SGE_erp.Venta
         {
 
         }
-    }
 
-    class MetodoGestion
-    {
-        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-        public static bool IsOpen(Window window)
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
         {
-            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
+            Actualizar();
+
         }
     }
 }

@@ -34,7 +34,7 @@
             Click="actualizar_Click">
             
             <materialDesign:PackIcon
-                Kind="Loop">
+                Kind="Loop" >
                 <materialDesign:PackIcon.LayoutTransform>
                     <ScaleTransform
                         CenterX="0.5"

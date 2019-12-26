@@ -56,7 +56,7 @@
         <DataGrid
             x:Name="articulos"
             Grid.Row="0"
-            Grid.RowSpan="5"
+            Grid.RowSpan="6"
             Grid.Column="3"
             Grid.ColumnSpan="3"
             Margin="5"
@@ -65,13 +65,15 @@
             SelectionMode="Single" />
         <Grid
             Grid.Column="3"
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.RowSpan="3"
             Grid.ColumnSpan="3">
             <Button
                 x:Name="btnCompararAñadir"
                 Grid.Row="0"
                 Grid.Column="1"
+                VerticalAlignment="Center"
+                Padding="0"
                 Width="140"
                 Click="BtnCompararAñadir_Click"
                 Content="Añadir" />
@@ -79,6 +81,8 @@
                 x:Name="btnCompararVerCarrito"
                 Grid.Row="1"
                 Grid.Column="0"
+                VerticalAlignment="Center"
+                Padding="0"
                 Width="140"
                 Click="BtnCompararVerCarrito_Click"
                 Content="Ver Carrito" />
@@ -86,6 +90,8 @@
                 x:Name="btnCompararFinalizarCompra"
                 Grid.Row="3"
                 Grid.Column="1"
+                VerticalAlignment="Center"
+                Padding="0"
                 Width="140"
                 Click="BtnCompararFinalizarCompra_Click"
                 Content="Finalizar compra" />
@@ -94,6 +100,8 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Width="140"
+                VerticalAlignment="Center"
+                Padding="0"
                 Click="BtnComparar_Click"
                 Content="Comparar" />
             <Grid.ColumnDefinitions>

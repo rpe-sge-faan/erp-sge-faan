@@ -144,6 +144,7 @@
                             x:Name="bDeselect"
                             Grid.Row="2"
                             VerticalAlignment="Center"
+                            Padding="0"
                             Grid.Column="0"
                             Margin="3"
                             Click="bDeselect_Click"
@@ -153,6 +154,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             VerticalAlignment="Center"
+                            Padding="0"
                             Grid.ColumnSpan="1"
                             Margin="3"
                             Content="Actualizar"
@@ -163,6 +165,7 @@
                             Grid.Column="2"
                             Grid.ColumnSpan="1"
                             VerticalAlignment="Center"
+                            Padding="0"
                             Margin="3"
                             Click="bAsignar_Click"
                             Content="Asignar" />
@@ -256,7 +259,8 @@
                             Grid.Column="1"
                             Margin="5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Padding="0"
                             Click="AnadirCategoria_Click"
                             Content="Añadir" />
                         <Button
@@ -264,7 +268,8 @@
                             Grid.Column="1"
                             Margin="5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Padding="0"
                             Click="EditarCategoria_Click"
                             Content="Editar" />
                         <Button
@@ -272,7 +277,8 @@
                             Grid.Column="1"
                             Margin="5"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Padding="0"
                             Click="BorrarCategoria_Click"
                             Content="Borrar" />
 
