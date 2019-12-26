@@ -58,8 +58,6 @@ namespace SGE_erp.Gestion
 
                     using (var reader = command.ExecuteReader())
                     {
-                        string[] columnas = new string[] { "Id_Empleado", "Nombre", "NIF", "Telefono", "Email", "Direccion", "NumVentas", "Salario", "FechaContratacion" };
-
                         if (reader.Read())
                         {
                             variable = reader.GetString(reader.GetOrdinal("Nombre"));
@@ -81,13 +79,8 @@ namespace SGE_erp.Gestion
                             DateTime time = reader.GetDateTime(reader.GetOrdinal("FechaContratacion"));
                             fechaDatePicker.DisplayDate = time;
                             fechaDatePicker.SelectedDate = time;
+                            cpBox.Text = reader.GetString(reader.GetOrdinal("CodPostal"));
                         }
-                        // If you need to use all rows returned use a loop:
-                        //while (reader.Read())
-                        //{
-                        //    variable = reader.GetString(reader.GetOrdinal("Column"));
-                        //    MessageBox.Show(variable);
-                        //}
                     }
                 }
             }
@@ -123,7 +116,7 @@ namespace SGE_erp.Gestion
                 using (SqlCommand command = con.CreateCommand())
                 {
                     command.CommandText = "UPDATE Empleados SET Nombre = @nombre, Telefono = @telefono, Email = @email, " +
-                        "Direccion = @direccion, NIF = @nif, NumVentas = @ventas, Salario = @salario, FechaContratacion = @fecha WHERE Id_Empleado = @id";
+                        "Direccion = @direccion, NIF = @nif, NumVentas = @ventas, Salario = @salario, FechaContratacion = @fecha, CodPostal = @codp WHERE Id_Empleado = @id";
 
                     command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
                     command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
@@ -134,6 +127,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@ventas", int.Parse(ventasTextBox.Text));
                     command.Parameters.AddWithValue("@salario", decimal.Parse(salarioTextBox.Text));
                     command.Parameters.AddWithValue("@fecha", fechaDatePicker.DisplayDate);
+                    command.Parameters.AddWithValue("@codp", cpBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -180,8 +174,8 @@ namespace SGE_erp.Gestion
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Empleados (Nombre, Telefono, Email, Direccion, NIF, NumVentas, Salario, FechaContratacion) " +
-                        "VALUES (@nombre, @telefono, @email, @direccion, @nif, @ventas, @salario, @fecha)";
+                    command.CommandText = "INSERT INTO Empleados (Nombre, Telefono, Email, Direccion, NIF, NumVentas, Salario, FechaContratacion, CodPostal) " +
+                        "VALUES (@nombre, @telefono, @email, @direccion, @nif, @ventas, @salario, @fecha, @codp)";
 
                     command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
                     command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
@@ -191,6 +185,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@ventas", ventasTextBox.Text);
                     command.Parameters.AddWithValue("@salario", salarioTextBox.Text);
                     command.Parameters.AddWithValue("@fecha", fechaDatePicker.DisplayDate);
+                    command.Parameters.AddWithValue("@codp", cpBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -296,6 +291,40 @@ namespace SGE_erp.Gestion
             else
             {
                 bAceptar.IsEnabled = false;
+            }
+        }
+
+        private void cpBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox obj = sender as TextBox;
+            string name = obj.Name;
+
+            string variable;
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                //command.CommandText = "SELECT * FROM [Poblaciones] WHERE CodPostal LIKE @id OR Poblacion LIKE @pobla OR Provincia LIKE @prov";
+                command.CommandText = "SELECT * FROM [Poblaciones] WHERE CodPostal LIKE @id";
+                command.Parameters.AddWithValue("@id", cpBox.Text);
+                command.Parameters.AddWithValue("@pobla", poblText.Text);
+                command.Parameters.AddWithValue("@prov", provText.Text);
+                con.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int cod = 0;
+                        if (name.Equals("cpBox"))
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Poblacion"));
+                            poblText.Text = variable;
+                            variable = reader.GetString(reader.GetOrdinal("Provincia"));
+                            provText.Text = variable;
+                        }
+                    }
+                }
             }
         }
     }

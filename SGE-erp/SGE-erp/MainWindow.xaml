@@ -12,14 +12,13 @@
     FontFamily="{materialDesign:MaterialDesignFont}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    Title="ERP - Gestión Empresarial"
+    Title="FAAN - Gestión Empresarial"
     Width="900"
     Height="600"
     MinWidth="800"
     MinHeight="500"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     Icon="/imagenes/e_icon-icons.com_60553.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -220,7 +219,6 @@
                 Width="120"
                 Margin="5,5,5,5"
                 Padding="20,10,20,10"
-                
                 Foreground="White"
                 FontSize="15"
                 FontWeight="Medium"

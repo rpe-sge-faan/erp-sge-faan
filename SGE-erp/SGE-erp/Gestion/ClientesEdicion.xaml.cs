@@ -52,8 +52,6 @@ namespace SGE_erp.Gestion
 
                     using (var reader = command.ExecuteReader())
                     {
-                        string[] columnas = new string[] { "Id_Cliente", "Nombre", "NIF", "Tipo", "Email", "Telefono", "Direccion", "PersonaContacto" };
-
                         if (reader.Read())
                         {
                             variable = reader.GetString(reader.GetOrdinal("Nombre"));
@@ -73,21 +71,14 @@ namespace SGE_erp.Gestion
                             telefonoTextBox.Text = variable;
                             variable = reader.GetString(reader.GetOrdinal("Direccion"));
                             direccionTextBox.Text = variable;
-                            //if (variable.IsDBNull())
-                            //{
-                            //    variable = reader.GetString(reader.GetOrdinal("PersonaContacto"));
-                            //    personaContactoTextBox.Text = variable;
+                            cpBox.Text = reader.GetString(reader.GetOrdinal("CodPostal"));
 
-                            //}
-                            //else
-                            //{
-                            //    personaContactoTextBox.Text = "";
-                            //}
-                            //int codp = reader.GetInt32(reader.GetOrdinal("CodPostal"));
-                            //cpBox.Text = codp.ToString();
+                            if (!reader.IsDBNull(reader.GetOrdinal("PersonaContacto")))
+                            {
+                                variable = reader.GetString(reader.GetOrdinal("PersonaContacto"));
+                                personaContactoTextBox.Text = variable;
+                            }
                         }
-
-
 
                         // If you need to use all rows returned use a loop:
                         //while (reader.Read())
@@ -341,20 +332,6 @@ namespace SGE_erp.Gestion
                             variable = reader.GetString(reader.GetOrdinal("Provincia"));
                             provText.Text = variable;
                         }
-                        //else if (name.Equals("poblText"))
-                        //{
-                        //    cod = reader.GetInt32(reader.GetOrdinal("CodPostal"));
-                        //    cpBox.Text = cod.ToString();
-                        //    variable = reader.GetString(reader.GetOrdinal("Provincia"));
-                        //    provText.Text = variable;
-                        //}
-                        //else
-                        //{
-                        //    cod = reader.GetInt32(reader.GetOrdinal("CodPostal"));
-                        //    cpBox.Text = cod.ToString();
-                        //    variable = reader.GetString(reader.GetOrdinal("Provincia"));
-                        //    provText.Text = variable;
-                        //}
                     }
                 }
             }

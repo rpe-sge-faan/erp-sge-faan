@@ -55,9 +55,6 @@
     <ApplicationIcon>e_icon-icons.com_60553.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.1\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -87,9 +84,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Administracion\Administracion.xaml.cs">
-      <DependentUpon>Administracion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Gestion\Poblaciones.xaml.cs">
       <DependentUpon>Poblaciones.xaml</DependentUpon>
     </Compile>
@@ -154,10 +148,6 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
-    <Page Include="Administracion\Administracion.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Gestion\Poblaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

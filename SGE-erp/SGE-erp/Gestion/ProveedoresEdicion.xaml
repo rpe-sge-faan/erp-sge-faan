@@ -9,10 +9,8 @@
     x:Name="EdicionProveedores"
     Title="Proveedores Edicion"
     Width="680"
-    Height="245"
-    MinHeight="245"
-    MaxHeight="245"
-    MaxWidth="680"
+    Height="265"
+    ResizeMode="NoResize"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
@@ -58,13 +56,14 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.35*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="80*" />
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="115*" />
+                <ColumnDefinition Width="229*" />
 
             </Grid.ColumnDefinitions>
             <Label
@@ -125,16 +124,16 @@
                 VerticalAlignment="Center"
                 TextChanged="GenericTextBox_TextChanged" />
             <Label
-                Grid.Row="3"
-                Grid.Column="0"
+                Grid.Row="2"
+                Grid.Column="2"
                 Margin="3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Content="Telefono:" />
             <TextBox
                 x:Name="telefonoTextBox"
-                Grid.Row="3"
-                Grid.Column="1"
+                Grid.Row="2"
+                Grid.Column="3"
                 Height="23"
                 Margin="3"
                 HorizontalAlignment="Stretch"
@@ -159,16 +158,16 @@
                 VerticalAlignment="Center"
                 TextChanged="GenericTextBox_TextChanged" />
             <Label
-                Grid.Row="2"
-                Grid.Column="2"
+                Grid.Row="3"
+                Grid.Column="0"
                 Margin="3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Content="Direccion:" />
             <TextBox
                 x:Name="direccionTextBox"
-                Grid.Row="2"
-                Grid.Column="3"
+                Grid.Row="3"
+                Grid.Column="1"
                 Height="23"
                 Margin="3"
                 HorizontalAlignment="Stretch"
@@ -207,6 +206,80 @@
                 VerticalAlignment="Center"
                 MaxLength="9"
                 TextChanged="GenericTextBox_TextChanged" />
+            <Grid
+                x:Name="gridPobla"
+                Grid.Row="4"
+                Grid.ColumnSpan="4"
+                Margin="0,0,0,-34"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="0.5*" />
+                    <ColumnDefinition
+                        Width="0.5*" />
+                    <ColumnDefinition
+                        Width="0.5*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition
+                        Width="0.5*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Width="39"
+                    Margin="0,0,-7,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Content="CP:" />
+                <TextBox
+                    x:Name="cpBox"
+                    Grid.Column="1"
+                    Height="23"
+                    Margin="3,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    MaxLength="5"
+                    PreviewTextInput="NumberValidationTextBox"
+                    TextChanged="cpBox_TextChanged" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Content="Provincia: " />
+                <TextBox
+                    x:Name="provText"
+                    Grid.Column="5"
+                    Height="23"
+                    Margin="3,5"
+                    IsEnabled="False"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    MaxLength="5" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Content="Población: " />
+                <TextBox
+                    x:Name="poblText"
+                    IsEnabled="False"
+                    Grid.Column="3"
+                    Height="23"
+                    Margin="3,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    MaxLength="5" />
+
+            </Grid>
         </Grid>
         <Label
             x:Name="labelInfo"

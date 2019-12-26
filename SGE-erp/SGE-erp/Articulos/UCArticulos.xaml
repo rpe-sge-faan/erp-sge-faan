@@ -6,9 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:localArticulos="clr-namespace:SGE_erp.Articulos"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Background="#FFACACAC"
+    Background="{DynamicResource colorArticulos}"
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
     <Grid>
@@ -23,7 +24,8 @@
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"
-                    Padding="10"
+                    FontSize="13"
+                    Height="45"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Header="_Articulos">
@@ -42,46 +44,54 @@
                             VerticalContentAlignment="Center">
                             <MenuItem
                                 x:Name="anadirPro"
-                                Width="50"
+                                Width="130"
                                 Height="30"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="Anadir_Click"
                                 Header="_Añadir" />
                             <MenuItem
-                                Width="50"
+                                Width="130"
                                 Height="30"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="Editar_Click"
                                 Header="_Editar" />
                             <MenuItem
-                                Width="50"
+                                Width="130"
                                 Height="30"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="Borrar_Click"
                                 Header="_Borrar" />
                             <MenuItem
-                                Width="50"
+                                Width="130"
                                 Height="30"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="Buscar_Click"
                                 Header="B_uscar" />
-                            <MenuItem
-                                Width="30"
-                                Height="30"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                Click="Refresh_Click">
-                                <MenuItem.Header>
-                                    <Image Width="15px" Source="/imagenes/refresh.png" />
-                                </MenuItem.Header>
-                            </MenuItem>
+                            
                         </Menu>
+                        <Button
+                            x:Name="bActualizar"
+                            HorizontalAlignment="Right"
+                            Margin="3"
+                            Width="25"
+                            Height="25"
+                            Padding="0"
+                            Click="Refresh_Click">
+                            <materialDesign:PackIcon
+                                Kind="Loop">
+                                <materialDesign:PackIcon.LayoutTransform>
+                                    <ScaleTransform
+                                        CenterX="0.5"
+                                        CenterY="0.5"
+                                        ScaleX="1"
+                                        ScaleY="1" />
+                                </materialDesign:PackIcon.LayoutTransform>
+                            </materialDesign:PackIcon>
+                        </Button>
                         <DataGrid
                             x:Name="articulosDataGrid"
                             Grid.Row="1"
@@ -96,7 +106,8 @@
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"
-                    Padding="10"
+                    FontSize="13"
+                    Height="45"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Header="A_signar Art.">
@@ -104,7 +115,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10*" />
                             <RowDefinition Height="5*" />
-                            <RowDefinition Height="1.2*" />
+                            <RowDefinition Height="1.5*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
@@ -132,6 +143,7 @@
                         <Button
                             x:Name="bDeselect"
                             Grid.Row="2"
+                            VerticalAlignment="Center"
                             Grid.Column="0"
                             Margin="3"
                             Click="bDeselect_Click"
@@ -140,6 +152,7 @@
                             x:Name="bRefreshh"
                             Grid.Row="2"
                             Grid.Column="1"
+                            VerticalAlignment="Center"
                             Grid.ColumnSpan="1"
                             Margin="3"
                             Content="Actualizar"
@@ -149,6 +162,7 @@
                             Grid.Row="2"
                             Grid.Column="2"
                             Grid.ColumnSpan="1"
+                            VerticalAlignment="Center"
                             Margin="3"
                             Click="bAsignar_Click"
                             Content="Asignar" />
@@ -166,7 +180,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.6*" />
+                                <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Label
@@ -193,14 +207,15 @@
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"
-                    Padding="10"
+                    FontSize="13"
+                    Height="45"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Header="_Categorías">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="3.5*" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>

@@ -33,14 +33,14 @@
             VerticalContentAlignment="Center">
             <MenuItem
                 x:Name="anadirPro"
-                Width="120"
+                Width="130"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="Anadir_Click"
                 Header="_Añadir" />
             <MenuItem
-                Width="120"
+                Width="130"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -48,14 +48,14 @@
                 Header="_Editar" />
             <MenuItem
                 x:Name="bBorrar"
-                Width="120"
+                Width="130"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="Borrar_Click"
                 Header="_Borrar" />
             <MenuItem
-                Width="120"
+                Width="130"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
