@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>e_icon-icons.com_60553.ico</ApplicationIcon>
+    <ApplicationIcon>icono.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Gestion\Ayuda.xaml.cs">
+      <DependentUpon>Ayuda.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\Poblaciones.xaml.cs">
       <DependentUpon>Poblaciones.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
+    <Page Include="Gestion\Ayuda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gestion\Poblaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -301,18 +308,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Datos.mdf</DependentUpon>
     </Content>
-    <Resource Include="e_icon-icons.com_60553.ico" />
-    <Resource Include="imagenes\e_icon-icons.com_60553.ico" />
-    <Resource Include="imagenes\icon.png" />
-    <Resource Include="imagenes\refresh.png" />
-    <Resource Include="imagenes\anterior.png" />
-    <Resource Include="imagenes\atras.png" />
-    <Resource Include="imagenes\avance-rapido.png" />
-    <Resource Include="imagenes\delante.png" />
-    <Resource Include="imagenes\imagen.png" />
-    <Resource Include="imagenes\back.png" />
-    <Resource Include="imagenes\left-arrow.png" />
-    <Resource Include="imagenes\logout.png" />
+    <Resource Include="imagenes\logo2.png" />
+    <Resource Include="imagenes\logo3.png" />
+    <Resource Include="icono.ico" />
+    <Resource Include="logo2.ico" />
+    <Resource Include="imagenes\logo.png" />
+    <Resource Include="imagenes\logo_nombre.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

@@ -19,7 +19,7 @@
     MinHeight="500"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    Icon="/imagenes/e_icon-icons.com_60553.ico"
+    Icon="/imagenes/logo2.png"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
@@ -271,7 +271,9 @@
                 VerticalAlignment="Center"
                 Background="{DynamicResource colorAyuda}"
                 Header="A_yuda"
-                Style="{DynamicResource TabItemStyle1}" />
+                Style="{DynamicResource TabItemStyle1}">
+                <localGestion:Ayuda />
+            </TabItem>
         </TabControl>
         <!--<Image
             x:Name="image"
