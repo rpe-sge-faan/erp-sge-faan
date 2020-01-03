@@ -10,26 +10,36 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SGE_erp.Venta
 {
     /// <summary>
-    /// Lógica de interacción para VentaEdicion.xaml
+    /// Lógica de interacción para VentasEdicion.xaml
     /// </summary>
-    public partial class VentaEdicion : Page
+    public partial class VentasEdicion : Window
     {
-        int id = 0;
-        public VentaEdicion(int num)
+
+        public int id;
+        public Delegate ActualizarLista;
+        public Delegate FiltrarLista;
+        private int v;
+
+        public delegate void RefreshList();
+        public VentasEdicion(int num)
         {
             InitializeComponent();
-            id = num;
+            this.id = num;
+            tbFecha.SelectedDate = DateTime.Today;
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (id == -1)
+            {
+                FiltrarLista.DynamicInvoke();
+            }
         }
     }
 }

@@ -26,10 +26,12 @@ namespace SGE_erp.Venta
 
         public static Delegate FiltrarLista;
         public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
 
         public delegate void FilterList();
+        public event FilterList FilterListEvent;
 
-        VentaEdicion p = null;
+        VentasEdicion p = null;
 
         public VentasVista()
         {
@@ -39,17 +41,17 @@ namespace SGE_erp.Venta
         
         private void buscar_Click(object sender, RoutedEventArgs e)
         {
-           /* if (!MetodosGestion.IsOpen(p))
+            if (!MetodosGestion.IsOpen(p))
             {
-                p = new VentaEdicion(-1);
+                p = new VentasEdicion(-1);
                 FilterListEvent += new FilterList(Filtrar);
                 p.FiltrarLista = FilterListEvent;
                 p.Title = "Buscar Ventas";
                 p.Owner = Application.Current.MainWindow;
                 p.Show();
-            }*/
+            }
         }
-/*
+
         DataView view = null;
         DataTable dt;
         public void Filtrar()
@@ -65,11 +67,11 @@ namespace SGE_erp.Venta
                 view.Table = dt;
             }
 
-            DateTime date = DateTime.Parse(nombres[4]);
+            DateTime date = DateTime.Parse(nombres[1]);
             // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
 
             // [NumVentas] >= {nombres[5]} AND 
-            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{nombres[1]}%' AND Cantidad LIKE '%{nombres[2]}%' " +
+            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{date}%' AND Cantidad LIKE '%{nombres[2]}%' " +
                  $"AND PrecioTotal LIKE '%{nombres[3]}%'";
 
             // view.Sort = "CompanyName DESC";
@@ -80,7 +82,6 @@ namespace SGE_erp.Venta
         }
         // params string[] nombres
 
-
         public List<String> AccesoVentana()
         {
             List<String> nombres = new List<String>();
@@ -90,10 +91,10 @@ namespace SGE_erp.Venta
                 if (item.Name == "EdicionVenta")
                 { 
                     String[] nombresArray = {
-                        ((VentaEdicion)item).nifTextBox.Text,
-                        ((VentaEdicion)item).telefonoTextBox.Text,
-                        ((VentaEdicion)item).emailTextBox.Text,
-                        ((VentaEdicion)item).direccionTextBox.Text
+                        ((VentasEdicion)item).tbIdEmple.Text,
+                        ((VentasEdicion)item).tbFecha.Text,
+                        ((VentasEdicion)item).tbCantidad.Text,
+                        ((VentasEdicion)item).tbPrecioTotal.Text
                         
                     };
                     nombres.AddRange(nombresArray);
@@ -101,7 +102,7 @@ namespace SGE_erp.Venta
             }
             return nombres;
         }
-        */
+       
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();

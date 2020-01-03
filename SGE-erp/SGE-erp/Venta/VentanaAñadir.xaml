@@ -143,7 +143,10 @@
             Grid.Column="4"
             Margin="15,0"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center" 
+            FirstDayOfWeek="Monday"
+           
+            IsTodayHighlighted="True"/>
         <Label
             x:Name="lbTotalFin"
             Grid.Row="6"

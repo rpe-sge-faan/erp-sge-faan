@@ -139,11 +139,11 @@
     <Compile Include="Venta\VentaArticulo.xaml.cs">
       <DependentUpon>VentaArticulo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Venta\VentaEdicion.xaml.cs">
-      <DependentUpon>VentaEdicion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Venta\VentanaAñadir.xaml.cs">
       <DependentUpon>VentanaAñadir.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentasEdicion.xaml.cs">
+      <DependentUpon>VentasEdicion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Venta\VentasMain.xaml.cs">
       <DependentUpon>VentasMain.xaml</DependentUpon>
@@ -256,13 +256,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Venta\VentaEdicion.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Venta\VentanaAñadir.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Venta\VentasEdicion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Venta\VentasMain.xaml">
       <Generator>MSBuild:Compile</Generator>
