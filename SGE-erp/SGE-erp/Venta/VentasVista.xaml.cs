@@ -67,11 +67,11 @@ namespace SGE_erp.Venta
                 view.Table = dt;
             }
 
-            DateTime date = DateTime.Parse(nombres[1]);
+           // DateTime date = DateTime.Parse(nombres[1]);
             // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
 
             // [NumVentas] >= {nombres[5]} AND 
-            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{date}%' AND Cantidad LIKE '%{nombres[2]}%' " +
+            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{nombres[1]}%' AND Cantidad LIKE '%{nombres[2]}%' " +
                  $"AND PrecioTotal LIKE '%{nombres[3]}%'";
 
             // view.Sort = "CompanyName DESC";
