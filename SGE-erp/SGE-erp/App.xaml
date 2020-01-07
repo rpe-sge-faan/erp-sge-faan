@@ -20,7 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush
                 x:Key="colorCompras"
-                Color="#2196F3" />
+                Color="#673ab7" />
             <SolidColorBrush
                 x:Key="colorVentas"
                 Color="#00BCD4" />
