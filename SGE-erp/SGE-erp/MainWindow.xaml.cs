@@ -22,7 +22,8 @@ namespace SGE_erp
     public partial class MainWindow : Window
     {
 
-        //http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
+        // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
+        // http://pdfsharp.net/wiki/Invoice-sample.ashx
 
         public MainWindow()
         {
