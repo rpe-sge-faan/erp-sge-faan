@@ -21,6 +21,9 @@ namespace SGE_erp
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        //http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
+
         public MainWindow()
         {
             InitializeComponent();
