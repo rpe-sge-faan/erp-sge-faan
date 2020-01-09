@@ -208,11 +208,12 @@ namespace SGE_erp.Venta
                     
                     //MessageBox.Show(a.ToString);
                     conn.Open();
-                    Int32 newIdVentas = (Int32)command.ExecuteScalar();
-                    id = newIdVentas;
-                    int a = command.ExecuteNonQuery();
+                    id = (int)command.ExecuteScalar();
+                    //Int32 newIdVentas = (Int32)command.ExecuteScalar();
+                    //id = newIdVentas;
+                    //int a = command.ExecuteNonQuery();
                     
-                    if (a != 0)
+                    if (id != 0)
                     {
                         MessageBox.Show("Vendido");
                         conn.Close();
