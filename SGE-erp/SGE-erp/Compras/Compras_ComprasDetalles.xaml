@@ -6,9 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:SGE_erp.Compras"
     mc:Ignorable="d"
-    Title="Compras_ComprasDetalles"
-    Height="225"
-    Width="400"
+    Title="Detalles"
+    Height="230"
+    Width="655"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen">
     <Grid>
         <DataGrid
