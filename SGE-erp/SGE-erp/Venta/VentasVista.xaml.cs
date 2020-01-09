@@ -115,9 +115,8 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(@"SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
-                                                        "FROM VentasArticulos, Ventas " +
-                                                        "WHERE VentasArticulos.Id_Ventas = Ventas.Id_Ventas", con);
+                SqlDataAdapter da = new SqlDataAdapter(@"SELECT Id_Ventas, Id_Empleado, FechaVentas, PrecioTotal " +
+                                                        "FROM Ventas ", con);
                 DataTable dt = new DataTable(); ;
 
                 ds.Clear();
@@ -143,6 +142,15 @@ namespace SGE_erp.Venta
         {
             Actualizar();
 
+        }
+
+        private void dgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView dato = (DataRowView)dgVista.SelectedItem;
+            String idVenta = dato.Row.Field<int>("Id_Ventas").ToString();
+
+            VentasDetalles ccd = new VentasDetalles(idVenta);
+            ccd.Show();
         }
     }
 }

@@ -63,7 +63,7 @@
             Grid.Row="1"
             ColumnWidth="1*"
             IsReadOnly="True"
-            SelectionChanged="dgVista_SelectionChanged" />
+            SelectionChanged="dgVista_SelectionChanged" MouseDoubleClick="dgVista_MouseDoubleClick" />
 
     </Grid>
 </UserControl>
