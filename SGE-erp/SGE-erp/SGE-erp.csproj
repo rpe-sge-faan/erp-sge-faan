@@ -143,6 +143,9 @@
     <Compile Include="Gestion\ProveedoresEdicion.xaml.cs">
       <DependentUpon>ProveedoresEdicion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LogInWindow.xaml.cs">
+      <DependentUpon>LogInWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Venta\VentaArticulo.xaml.cs">
       <DependentUpon>VentaArticulo.xaml</DependentUpon>
     </Compile>
@@ -235,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gestion\ProveedoresEdicion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogInWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
