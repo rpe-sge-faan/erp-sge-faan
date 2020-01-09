@@ -90,11 +90,6 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
-        {
-            Actualizar();
-        }
-
         private void Editar_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
@@ -103,13 +98,11 @@ namespace SGE_erp.Gestion
                 {
                     DataRowView dd = (DataRowView)dataGridEmpleados.SelectedItem;
                     int id = dd.Row.Field<int>("Id_Empleado");
-
-
                     p = new EmpleadosEdicion(id);
                     RefreshListEvent += new RefreshList(Actualizar);
+                    p.ActualizarLista = RefreshListEvent;
                     p.Title = "Editar Empleado";
                     p.Owner = System.Windows.Application.Current.MainWindow;
-                    p.ActualizarLista = RefreshListEvent;
                     p.Show();
                 }
             }
@@ -254,6 +247,11 @@ namespace SGE_erp.Gestion
         {
             if (e.PropertyType == typeof(System.DateTime))
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+        }
+
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            Actualizar();
         }
     }
 }

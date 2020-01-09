@@ -57,8 +57,6 @@ namespace SGE_erp.Gestion
 
                     using (var reader = command.ExecuteReader())
                     {
-                        string[] columnas = new string[] { "Id_Proveedor", "Nombre", "NIF", "Tipo", "Email", "Telefono", "Direccion", "Persona_Contacto" };
-
                         if (reader.Read())
                         {
                             variable = reader.GetString(reader.GetOrdinal("Nombre"));
@@ -78,15 +76,15 @@ namespace SGE_erp.Gestion
                             telefonoTextBox.Text = variable;
                             variable = reader.GetString(reader.GetOrdinal("Direccion"));
                             direccionTextBox.Text = variable;
-                            variable = reader.GetString(reader.GetOrdinal("Persona_Contacto"));
-                            personaContactoTextBox.Text = variable;
+
+                            cpBox.Text = reader.GetString(reader.GetOrdinal("CodPostal"));
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("Persona_Contacto")))
+                            {
+                                variable = reader.GetString(reader.GetOrdinal("Persona_Contacto"));
+                                personaContactoTextBox.Text = variable;
+                            }
                         }
-                        // If you need to use all rows returned use a loop:
-                        //while (reader.Read())
-                        //{
-                        //    variable = reader.GetString(reader.GetOrdinal("Column"));
-                        //    MessageBox.Show(variable);
-                        //}
                     }
                 }
             }
@@ -124,7 +122,7 @@ namespace SGE_erp.Gestion
                 using (SqlCommand command = con.CreateCommand())
                 {
                     command.CommandText = "UPDATE Proveedores SET Tipo = @tipo, Nombre = @nombre, Telefono = @telefono, Email = @email, " +
-                        "Persona_Contacto = @persona, Direccion = @direccion, NIF = @nif WHERE Id_Proveedor = @id";
+                        "Persona_Contacto = @persona, Direccion = @direccion, NIF = @nif, CodPostal = @codp WHERE Id_Proveedor = @id";
 
                     command.Parameters.AddWithValue("@tipo", tipo);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
@@ -134,6 +132,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
                     command.Parameters.AddWithValue("@nif", nifTextBox.Text);
                     command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@codp", cpBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -185,8 +184,8 @@ namespace SGE_erp.Gestion
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Proveedores (Tipo, Nombre, Telefono, Email, Persona_Contacto, Direccion, NIF) " +
-                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif)";
+                    command.CommandText = "INSERT INTO Proveedores (Tipo, Nombre, Telefono, Email, Persona_Contacto, Direccion, NIF, CodPostal) " +
+                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif, @codp)";
 
                     command.Parameters.AddWithValue("@tipo", tipo);
                     command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
@@ -195,6 +194,7 @@ namespace SGE_erp.Gestion
                     command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
                     command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
                     command.Parameters.AddWithValue("@nif", nifTextBox.Text);
+                    command.Parameters.AddWithValue("@codp", cpBox.Text);
 
                     con.Open();
                     int a = command.ExecuteNonQuery();
@@ -242,13 +242,13 @@ namespace SGE_erp.Gestion
                             if (addr.Address == emailTextBox.Text)
                             {
                                 emailTextBox.ClearValue(TextBox.BackgroundProperty);
-                                labelInfo.Content = "";
+                                labelInfo.Content = labelInfo.Content.ToString().Replace("Error en el formato del email \r\n", "");
                             }
                         }
                         catch
                         {
                             emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-                            labelInfo.Content = "Error en el formato del email";
+                            labelInfo.Content += "Error en el formato del email \r\n";
                         }
                         break;
                     case "nifTextBox":
@@ -257,12 +257,12 @@ namespace SGE_erp.Gestion
                         if (regex.IsMatch(nifTextBox.Text) || regex2.IsMatch(nifTextBox.Text))
                         {
                             nifTextBox.ClearValue(TextBox.BackgroundProperty);
-                            labelInfo.Content = "";
+                            labelInfo.Content = labelInfo.Content.ToString().Replace("Error en el formato del DNI \r\n", "");
                         }
                         else
                         {
                             nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-                            labelInfo.Content = "Error en el formato del DNI";
+                            labelInfo.Content += "Error en el formato del DNI \r\n";
                         }
                         break;
                 }
@@ -284,9 +284,10 @@ namespace SGE_erp.Gestion
             {
                 if (txt.IsEnabled && txt.Name != "personaContactoTextBox")
                 {
-                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    if (!String.IsNullOrWhiteSpace((labelInfo.Content).ToString()) || String.IsNullOrWhiteSpace(txt.Text))
                     {
                         enable = false;
+                        //MessageBox.Show(txt.Name);
                     }
                 }
             }
@@ -298,6 +299,40 @@ namespace SGE_erp.Gestion
             else
             {
                 bAceptar.IsEnabled = false;
+            }
+        }
+
+        private void cpBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox obj = sender as TextBox;
+            string name = obj.Name;
+
+            string variable;
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                //command.CommandText = "SELECT * FROM [Poblaciones] WHERE CodPostal LIKE @id OR Poblacion LIKE @pobla OR Provincia LIKE @prov";
+                command.CommandText = "SELECT * FROM [Poblaciones] WHERE CodPostal LIKE @id";
+                command.Parameters.AddWithValue("@id", cpBox.Text);
+                command.Parameters.AddWithValue("@pobla", poblText.Text);
+                command.Parameters.AddWithValue("@prov", provText.Text);
+                con.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int cod = 0;
+                        if (name.Equals("cpBox"))
+                        {
+                            variable = reader.GetString(reader.GetOrdinal("Poblacion"));
+                            poblText.Text = variable;
+                            variable = reader.GetString(reader.GetOrdinal("Provincia"));
+                            provText.Text = variable;
+                        }
+                    }
+                }
             }
         }
     }

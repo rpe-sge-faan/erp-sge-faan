@@ -254,6 +254,9 @@ namespace SGE_erp.Gestion
             return nombres;
         }
 
-        
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            Actualizar();
+        }
     }
 }

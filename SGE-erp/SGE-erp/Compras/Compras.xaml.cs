@@ -15,14 +15,18 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Compras
 {
-    /// <summary>
-    /// Lógica de interacción para Compras.xaml
-    /// </summary>
+
     public partial class Compras : UserControl
     {
         public Compras()
         {
             InitializeComponent();
         }
+
+        public void tablita()
+        {
+            uc2.cargarDatos();
+        }
+
     }
 }

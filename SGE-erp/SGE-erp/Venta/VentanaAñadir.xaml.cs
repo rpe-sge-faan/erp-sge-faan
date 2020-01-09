@@ -24,12 +24,14 @@ namespace SGE_erp.Venta
     /// </summary>
     public partial class VentanaAñadir : UserControl
     {
+        public static DataTable dataT;
         public VentanaAñadir()
         {
             InitializeComponent();
             Actualizar();
+            dpFecha.SelectedDate = DateTime.Today;
         }
-        DataTable dataT;
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
@@ -63,7 +65,7 @@ namespace SGE_erp.Venta
 
                 this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
 
-                udStock.Minimum = 1;
+                udStock.minvalue = 1;
                 udStock.Value = 1;
 
             }
@@ -78,7 +80,7 @@ namespace SGE_erp.Venta
 
             DataRowView dd = (DataRowView)DatosAnadir.SelectedItem;
             int stock = dd.Row.Field<int>("Stock");
-            udStock.Maximum = (uint?)stock;
+            udStock.maxvalue = stock;
             udStock.Value = 1;
         }
 
@@ -200,8 +202,6 @@ namespace SGE_erp.Venta
                         "OUTPUT INSERTED.Id_Ventas " +
                         "VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
 
-                    
-
                     command.Parameters.AddWithValue("@idEmpleado", idEmpl);
                     command.Parameters.AddWithValue("@fechaVentas", fecha);
                     command.Parameters.AddWithValue("@precioTotal", precio);
@@ -222,31 +222,38 @@ namespace SGE_erp.Venta
                         MessageBox.Show("ERROR");
                     }
                 }
-
-                using (SqlConnection con = new SqlConnection(bd))
-                using (SqlCommand comando = con.CreateCommand())
+       
+                for (int i = 0; i < dataT.Rows.Count; i++)
                 {
-                    con.Open();
-                    comando.CommandText = @"INSERT INTO [VentasArticulos] (Id_Ventas, Id_Elemento, Cantidad)" +
-                        "VALUES (@idVentas, @idElemento, @cantidad)";
 
-                    comando.Parameters.AddWithValue("@idVentas", id);
-                    comando.Parameters.AddWithValue("@idElemento", idElemento);
-                    comando.Parameters.AddWithValue("@cantidad", guardarCantidad);
-
-                
-                    int a = comando.ExecuteNonQuery();
+                    DataRow row = dataT.Rows[i];
                     
-                    if (a != 0)
+                    using (SqlConnection con = new SqlConnection(bd))
+                    using (SqlCommand comando = con.CreateCommand())
                     {
-                        
-                        con.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ERROR");
+                        con.Open();
+                        comando.CommandText = @"INSERT INTO [VentasArticulos] (Id_Ventas, Id_Elemento, Cantidad)" +
+                            "VALUES (@idVentas, @idElemento, @cantidad)";
+
+                        comando.Parameters.AddWithValue("@idVentas", id);
+                        comando.Parameters.AddWithValue("@idElemento", row[2]);
+                        comando.Parameters.AddWithValue("@cantidad", row[5]);
+
+
+                        int a = comando.ExecuteNonQuery();
+
+                        if (a != 0)
+                        {
+
+                            con.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR");
+                        }
                     }
                 }
+                
                 
                 dgFinal.Columns.Clear();
                 dgFinal.ItemsSource = null;

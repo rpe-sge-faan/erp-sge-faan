@@ -65,12 +65,11 @@ namespace SGE_erp.Compras
                     da3.Fill(dt3);
                     if (dt3.Rows.Count > 0)
                     {
-                        for (int j = 0; j < dt.Rows.Count; j++)
-                        {
-                            DataRow row = dt3.Rows[j];
+
+                            DataRow row = dt3.Rows[0];
                             String nArticulo = Convert.ToString(row["Nombre"]);
                             dt.Rows[i]["Nombre Articulo"] = nArticulo;
-                        }
+
                     }
                 }
                 

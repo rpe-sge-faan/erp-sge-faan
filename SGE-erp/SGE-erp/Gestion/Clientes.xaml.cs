@@ -190,7 +190,7 @@ namespace SGE_erp.Gestion
                     p = new ClientesEdicion(id);
                     RefreshListEvent += new RefreshList(Actualizar);
                     p.Title = "Editar Cliente";
-                    p.Owner = System.Windows.Application.Current.MainWindow;
+                    p.Owner = Application.Current.MainWindow;
                     p.ActualizarLista = RefreshListEvent;
                     p.Show();
                 }
@@ -253,6 +253,11 @@ namespace SGE_erp.Gestion
             {
                 Filtrar();
             }
+        }
+
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            Actualizar();
         }
     }
 }

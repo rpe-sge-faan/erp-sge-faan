@@ -20,7 +20,9 @@ namespace SGE_erp.Compras
     /// </summary>
     public partial class Compras_Carrito : Window
     {
-        public int precioFinal;
+        public double precioFinal;
+        public Delegate Comprar;
+
         public Compras_Carrito()
         {
             InitializeComponent();
@@ -55,9 +57,14 @@ namespace SGE_erp.Compras
 
         private void BtnFinalizarCompra_Click(object sender, RoutedEventArgs e)
         {
-            ComprasAnadir.guardarCompra();
-            ComprasVisualizar cv = new ComprasVisualizar();
-            cv.cargarDatos();
+            Comprar.DynamicInvoke();
+            MainWindow mW = Application.Current.MainWindow as MainWindow;
+            mW.actuar();
+            //MainWindow win = (MainWindow)Window.GetWindow(this);
+            //win.ucCompras.tablita();
+            //            Application.Current.MainWindow.
+            //ComprasVisualizar cv = new ComprasVisualizar();
+            //cv.cargarDatos();
             this.Close();
         }
 
@@ -66,10 +73,9 @@ namespace SGE_erp.Compras
             for (int i = 0; i < ComprasAnadir.carritoCompra.Rows.Count; i++)
             {
                 DataRow row = ComprasAnadir.carritoCompra.Rows[i];
-                precioFinal += Convert.ToInt32(row["Precio Total"]);
+                precioFinal += Convert.ToDouble(row["Precio Total"]);
             }
         }
-        
     }
 }
 

@@ -2,9 +2,39 @@
     x:Class="SGE_erp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:local="clr-namespace:SGE_erp"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--<ResourceDictionary Source="Colores.xaml" />-->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Yellow.xaml" />
+                
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush
+                x:Key="colorCompras"
+                Color="#673ab7" />
+            <SolidColorBrush
+                x:Key="colorVentas"
+                Color="#00BCD4" />
+            <SolidColorBrush
+                x:Key="colorArticulos"
+                Color="#4CAF50" />
+            <SolidColorBrush
+                x:Key="colorGestion"
+                Color="#FFC107" />
+            <SolidColorBrush
+                x:Key="colorAyuda"
+                Color="#ff6e40" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
+
+<!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />-->

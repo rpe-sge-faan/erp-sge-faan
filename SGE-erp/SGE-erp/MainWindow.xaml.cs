@@ -21,9 +21,19 @@ namespace SGE_erp
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
+        // http://pdfsharp.net/wiki/Invoice-sample.ashx
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public delegate void DoSomethingEvent();
+
+        public void actuar()
+        {
+            ucCompras.tablita();
         }
 
     }

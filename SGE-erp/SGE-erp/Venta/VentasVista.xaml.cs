@@ -26,31 +26,32 @@ namespace SGE_erp.Venta
 
         public static Delegate FiltrarLista;
         public delegate void RefreshList();
+        public event RefreshList RefreshListEvent;
 
         public delegate void FilterList();
+        public event FilterList FilterListEvent;
 
-        VentaEdicion p = null;
+        VentasEdicion p = null;
 
         public VentasVista()
         {
             InitializeComponent();
-            Actualizar();
         }
 
         
         private void buscar_Click(object sender, RoutedEventArgs e)
         {
-           /* if (!MetodosGestion.IsOpen(p))
+            if (!MetodosGestion.IsOpen(p))
             {
-                p = new VentaEdicion(-1);
+                p = new VentasEdicion(-1);
                 FilterListEvent += new FilterList(Filtrar);
                 p.FiltrarLista = FilterListEvent;
                 p.Title = "Buscar Ventas";
                 p.Owner = Application.Current.MainWindow;
                 p.Show();
-            }*/
+            }
         }
-/*
+
         DataView view = null;
         DataTable dt;
         public void Filtrar()
@@ -66,7 +67,7 @@ namespace SGE_erp.Venta
                 view.Table = dt;
             }
 
-            DateTime date = DateTime.Parse(nombres[4]);
+           // DateTime date = DateTime.Parse(nombres[1]);
             // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
 
             // [NumVentas] >= {nombres[5]} AND 
@@ -81,7 +82,6 @@ namespace SGE_erp.Venta
         }
         // params string[] nombres
 
-
         public List<String> AccesoVentana()
         {
             List<String> nombres = new List<String>();
@@ -91,10 +91,10 @@ namespace SGE_erp.Venta
                 if (item.Name == "EdicionVenta")
                 { 
                     String[] nombresArray = {
-                        ((VentaEdicion)item).nifTextBox.Text,
-                        ((VentaEdicion)item).telefonoTextBox.Text,
-                        ((VentaEdicion)item).emailTextBox.Text,
-                        ((VentaEdicion)item).direccionTextBox.Text
+                        ((VentasEdicion)item).tbIdEmple.Text,
+                        ((VentasEdicion)item).tbFecha.Text,
+                        ((VentasEdicion)item).tbCantidad.Text,
+                        ((VentasEdicion)item).tbPrecioTotal.Text
                         
                     };
                     nombres.AddRange(nombresArray);
@@ -102,7 +102,7 @@ namespace SGE_erp.Venta
             }
             return nombres;
         }
-        */
+       
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
@@ -113,7 +113,7 @@ namespace SGE_erp.Venta
         {
             try
             {
-                SqlConnection con = new SqlConnection(MetodoGestion.db);
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(@"SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
                                                         "FROM VentasArticulos, Ventas " +
@@ -138,14 +138,11 @@ namespace SGE_erp.Venta
         {
 
         }
-    }
 
-    class MetodoGestion
-    {
-        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-        public static bool IsOpen(Window window)
+        private void bActualizar_Click(object sender, RoutedEventArgs e)
         {
-            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
+            Actualizar();
+
         }
     }
 }
