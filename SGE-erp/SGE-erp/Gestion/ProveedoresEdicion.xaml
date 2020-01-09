@@ -34,6 +34,7 @@
             Height="25"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
+            VerticalContentAlignment="Center"
             Click="Aceptar_Click"
             Content="Aceptar" />
         <Button
@@ -102,10 +103,10 @@
                 SelectedIndex="0">
 
                 <ComboBoxItem Name="part">
-                    <TextBlock Text="Particular" />
+                    Particular
                 </ComboBoxItem>
                 <ComboBoxItem Name="empr">
-                    <TextBlock Text="Empresa" />
+                    Empresa
                 </ComboBoxItem>
 
             </ComboBox>
@@ -288,7 +289,7 @@
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
-            Margin="15"
+            Margin="10"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content=""

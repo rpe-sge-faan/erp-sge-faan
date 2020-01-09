@@ -244,13 +244,13 @@ namespace SGE_erp.Gestion
                             if (addr.Address == emailTextBox.Text)
                             {
                                 emailTextBox.ClearValue(TextBox.BackgroundProperty);
-                                labelInfo.Content = "";
+                                labelInfo.Content = labelInfo.Content.ToString().Replace("Error en el formato del email \r\n", "");
                             }
                         }
                         catch
                         {
                             emailTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-                            labelInfo.Content = "Error en el formato del email";
+                            labelInfo.Content += "Error en el formato del email \r\n";
                         }
                         break;
                     case "nifTextBox":
@@ -259,12 +259,12 @@ namespace SGE_erp.Gestion
                         if (regex.IsMatch(nifTextBox.Text) || regex2.IsMatch(nifTextBox.Text))
                         {
                             nifTextBox.ClearValue(TextBox.BackgroundProperty);
-                            labelInfo.Content = "";
+                            labelInfo.Content = labelInfo.Content.ToString().Replace("Error en el formato del DNI \r\n", "");
                         }
                         else
                         {
                             nifTextBox.Background = (Brush)new BrushConverter().ConvertFrom("#FFBDAF");
-                            labelInfo.Content = "Error en el formato del DNI";
+                            labelInfo.Content += "Error en el formato del DNI \r\n";
                         }
                         break;
                 }
@@ -286,7 +286,7 @@ namespace SGE_erp.Gestion
             {
                 if (txt.IsEnabled && txt.Name != "personaContactoTextBox")
                 {
-                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    if (!String.IsNullOrWhiteSpace((labelInfo.Content).ToString()) || String.IsNullOrWhiteSpace(txt.Text))
                     {
                         enable = false;
                     }
