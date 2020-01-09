@@ -303,11 +303,6 @@ namespace SGE_erp.Compras
                         + idcompra + "," + Convert.ToInt32(datos[0]) + "," + Convert.ToInt32(datos[2]) + ");", con2);
                     da2.ExecuteNonQuery();
 
-
-                    SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2])
-                        + " FROM Articulos INNER JOIN ProveedorArticulo ON Articulos.Id_Articulo=ProveedorArticulo.Id_Articulo" +
-                        " WHERE ProveedorArticulo.Id_Elemento=" + Convert.ToInt32(datos[0]) + ";", con2);
-                    upgrade.ExecuteNonQuery();
                     con2.Close();
                 }
                 MessageBox.Show("Guardado.");
