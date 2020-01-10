@@ -56,12 +56,7 @@ namespace SGE_erp.Compras
                             DataRow row = dt2.Rows[0];
                             String nProveedor = Convert.ToString(row["Nombre"]);
                             dt.Rows[i]["Nombre Proveedor"] = nProveedor;
-<<<<<<< HEAD
-                        
-=======
-                       
->>>>>>> master
-                    }
+}
 
                     SqlDataAdapter da3 = new SqlDataAdapter("SELECT Nombre FROM Articulos WHERE Id_Articulo='" + dt.Rows[i]["Id_Articulo"] + "'", con);
                     DataTable dt3 = new DataTable();

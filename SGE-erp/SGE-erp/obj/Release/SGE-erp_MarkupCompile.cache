@@ -4,30 +4,17 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
 C:\Users\aaron\Source\Repos\erp-sge-faan\SGE-erp\SGE-erp\obj\Release\
-=======
-C:\Users\34610\Desktop\DAM\2ºAÑO\SGE\SGE-Proyect\erp-sge-faan\SGE-erp\SGE-erp\obj\Release\
->>>>>>> master
 SGE_erp
 none
 false
 TRACE
-<<<<<<< HEAD
 C:\Users\aaron\Source\Repos\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
 28-2034418596
 21764986797
 33-530490850
 19-646251475
 Articulos\InfoArticulos.xaml;Gestion\Ayuda.xaml;Gestion\Poblaciones.xaml;Compras\Compras_Carrito.xaml;Compras\Compras_CompararProveedor.xaml;Compras\Compras_ComprasDetalles.xaml;Compras\Compras_PedirDatos.xaml;Controles\Numeric.xaml;Gestion\Empleados.xaml;Gestion\EmpleadosEdicion.xaml;Articulos\EditaArticulos.xaml;Articulos\UCArticulos.xaml;Compras\Compras.xaml;Compras\ComprasAnadir.xaml;Compras\ComprasAnadir_ArticulosDetalles.xaml;Compras\ComprasVisualizar.xaml;Gestion\Clientes.xaml;Gestion\ClientesEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;Gestion\ProveedoresEdicion.xaml;LogInWindow.xaml;MainWindow.xaml;Venta\VentaArticulo.xaml;Venta\VentanaAñadir.xaml;Venta\VentasEdicion.xaml;Venta\VentasMain.xaml;Venta\VentasVista.xaml;
-=======
-C:\Users\34610\Desktop\DAM\2ºAÑO\SGE\SGE-Proyect\erp-sge-faan\SGE-erp\SGE-erp\App.xaml
-26-1399945440
-21764986797
-312084526631
-191401494236
-Gestion\Ayuda.xaml;Gestion\Poblaciones.xaml;Compras\Compras_Carrito.xaml;Compras\Compras_CompararProveedor.xaml;Compras\Compras_ComprasDetalles.xaml;Compras\Compras_PedirDatos.xaml;Controles\Numeric.xaml;Gestion\Empleados.xaml;Gestion\EmpleadosEdicion.xaml;Articulos\EditaArticulos.xaml;Articulos\UCArticulos.xaml;Compras\Compras.xaml;Compras\ComprasAnadir.xaml;Compras\ComprasAnadir_ArticulosDetalles.xaml;Compras\ComprasVisualizar.xaml;Gestion\Clientes.xaml;Gestion\ClientesEdicion.xaml;Gestion\GestionMain.xaml;Gestion\Proveedores.xaml;Gestion\ProveedoresEdicion.xaml;MainWindow.xaml;Venta\VentaArticulo.xaml;Venta\VentanaAñadir.xaml;Venta\VentasEdicion.xaml;Venta\VentasMain.xaml;Venta\VentasVista.xaml;
->>>>>>> master
 
 True
 
