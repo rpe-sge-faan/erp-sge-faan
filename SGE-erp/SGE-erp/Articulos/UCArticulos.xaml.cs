@@ -585,5 +585,18 @@ namespace SGE_erp.Articulos
         {
             ActualizarAsignar();
         }
+
+        private void articulosDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (articulosDataGrid.SelectedItem != null)
+            {
+                DataRowView dato = (DataRowView)articulosDataGrid.SelectedItem;
+                String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
+
+                InfoArticulos ia = new InfoArticulos(idArt);
+                ia.Show();
+            }
+
+        }
     }
 }

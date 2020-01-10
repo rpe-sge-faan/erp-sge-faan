@@ -91,6 +91,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Articulos\InfoArticulos.xaml.cs">
+      <DependentUpon>InfoArticulos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\Ayuda.xaml.cs">
       <DependentUpon>Ayuda.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
+    <Page Include="Articulos\InfoArticulos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gestion\Ayuda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
