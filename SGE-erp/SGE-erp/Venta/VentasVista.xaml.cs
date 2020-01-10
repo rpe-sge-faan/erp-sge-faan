@@ -57,7 +57,7 @@ namespace SGE_erp.Venta
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "IdEmpleado", "FechaVenta", "Cantidad", "PrecioTotal"};
+            String[] campos = { "IdVentas", "IdEmpleado", "FechaVenta", "PrecioTotal"};
 
             if (view == null)
             {
@@ -67,20 +67,16 @@ namespace SGE_erp.Venta
                 view.Table = dt;
             }
 
-           // DateTime date = DateTime.Parse(nombres[1]);
-            // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
+            view.RowFilter = $"Id_Ventas >= '{nombres[0]}' AND Id_Empleado = '{nombres[1]}' AND FechaVentas >= '{nombres[2]}' " +
+                 $"AND PrecioTotal >= '{nombres[3]}'";
 
-            // [NumVentas] >= {nombres[5]} AND 
-            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{nombres[1]}%' AND Cantidad LIKE '%{nombres[2]}%' " +
-                 $"AND PrecioTotal LIKE '%{nombres[3]}%'";
-
-            // view.Sort = "CompanyName DESC";
+            
             dt = view.ToTable();
             dgVista.ItemsSource = null;
             dgVista.ItemsSource = dt.DefaultView;
-            dgVista.Columns[0].Visibility = Visibility.Collapsed;
+            
         }
-        // params string[] nombres
+        
 
         public List<String> AccesoVentana()
         {
@@ -91,9 +87,9 @@ namespace SGE_erp.Venta
                 if (item.Name == "EdicionVenta")
                 { 
                     String[] nombresArray = {
+                        ((VentasEdicion)item).tbIdVentas.Text,
                         ((VentasEdicion)item).tbIdEmple.Text,
                         ((VentasEdicion)item).tbFecha.Text,
-                        ((VentasEdicion)item).tbCantidad.Text,
                         ((VentasEdicion)item).tbPrecioTotal.Text
                         
                     };
