@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Venta"
         mc:Ignorable="d"
-        Title="VentasFacturas" Height="450" Width="800">
+        Title="Factura" Height="350" Width="800">
     <Grid>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Fecha de Generación" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,46,0,0" VerticalAlignment="Top" Width="178" Height="37" FontSize="12" VerticalContentAlignment="Center"/>
+            <Label Content="Precio sin IVA" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,40,0,0" VerticalAlignment="Top" Height="37" Width="178" FontSize="12" Grid.Row="2" VerticalContentAlignment="Center"/>
+            <Label Content="Estado de Pago" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,46,0,0" VerticalAlignment="Top" Height="37" Width="178" FontSize="12" Grid.Row="1" VerticalContentAlignment="Center"/>
+            <Label Content="Fecha de Pago" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,42,0,0" VerticalAlignment="Top" Height="37" Width="178" FontSize="12" VerticalContentAlignment="Center"/>
+            <Label Content="Forma de Pago" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="9,46,0,0" VerticalAlignment="Top" Height="37" Width="179" FontSize="12" Grid.Row="1" VerticalContentAlignment="Center"/>
+            <Label Content="Precio con IVA" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,40,0,0" VerticalAlignment="Top" Height="37" Width="178" FontSize="12" Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center"/>
+            <Button Content="Generar factura" Grid.Column="3" HorizontalAlignment="Left" Margin="10,35,0,0" Grid.Row="3" VerticalAlignment="Top" Width="178" Height="39"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Height="37" Width="178"/>
+            <DatePicker Grid.Column="3" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Width="178" Height="37"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="178" Height="37"/>
+            <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="10,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="178" Height="37"/>
+            <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="10,40,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+            <TextBox Grid.Column="3" HorizontalAlignment="Left" Height="37" Margin="10,40,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        </Grid>
     </Grid>
 </Window>

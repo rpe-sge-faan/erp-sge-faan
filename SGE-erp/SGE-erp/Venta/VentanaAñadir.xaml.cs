@@ -275,6 +275,8 @@ namespace SGE_erp.Venta
             }
             guardarCantidad = 0;
             lbTotalFin.Content = 0;
+            VentasFacturas vf = new VentasFacturas();
+            vf.Show();
         }
 
          
