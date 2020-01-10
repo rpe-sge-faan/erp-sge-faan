@@ -12,27 +12,37 @@
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <!--<ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />-->
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Yellow.xaml" />
                 
             </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="Blue"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Yellow"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#06A89C"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#4D1DCF"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+            <!-- accent -->
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#5C5B5E"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
+            
             <SolidColorBrush
                 x:Key="colorCompras"
-                Color="#673ab7" />
+                Color="#1E3B41" />
             <SolidColorBrush
                 x:Key="colorVentas"
-                Color="#00BCD4" />
+                Color="#185658" />
             <SolidColorBrush
                 x:Key="colorArticulos"
-                Color="#4CAF50" />
+                Color="#12716e" />
             <SolidColorBrush
                 x:Key="colorGestion"
-                Color="#FFC107" />
+                Color="#0a968d" />
             <SolidColorBrush
                 x:Key="colorAyuda"
-                Color="#ff6e40" />
+                Color="#06A89C" /> 
         </ResourceDictionary>
     </Application.Resources>
 </Application>

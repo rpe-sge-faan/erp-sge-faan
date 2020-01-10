@@ -27,14 +27,13 @@ namespace SGE_erp.Venta
         public static DataTable dataT;
         public VentanaAñadir()
         {
-            InitializeComponent();
-            Actualizar();
-            dpFecha.SelectedDate = DateTime.Today;
+            InitializeComponent();          
         }
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
+            dpFecha.SelectedDate = DateTime.Today;
             dataT = new DataTable();
             dataT.Columns.Add("Id_Articulo");
             dataT.Columns.Add("Id_Empleado");
@@ -208,11 +207,12 @@ namespace SGE_erp.Venta
                     
                     //MessageBox.Show(a.ToString);
                     conn.Open();
-                    Int32 newIdVentas = (Int32)command.ExecuteScalar();
-                    id = newIdVentas;
-                    int a = command.ExecuteNonQuery();
+                    id = (int)command.ExecuteScalar();
+                    //Int32 newIdVentas = (Int32)command.ExecuteScalar();
+                    //id = newIdVentas;
+                    //int a = command.ExecuteNonQuery();
                     
-                    if (a != 0)
+                    if (id != 0)
                     {
                         MessageBox.Show("Vendido");
                         conn.Close();

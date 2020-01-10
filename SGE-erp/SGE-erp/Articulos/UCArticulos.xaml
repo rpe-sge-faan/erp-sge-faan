@@ -31,8 +31,8 @@
                     Header="_Articulos">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="13*"/>
                         </Grid.RowDefinitions>
                         <Menu
                             x:Name="menu"
