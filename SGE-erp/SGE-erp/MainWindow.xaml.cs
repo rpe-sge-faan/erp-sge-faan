@@ -19,8 +19,13 @@ namespace SGE_erp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
+
     public partial class MainWindow : Window
     {
+        public static bool acceso;
+        public static string userEmpleado;
+        public static string passwordEmpleado;
 
         // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
         // http://pdfsharp.net/wiki/Invoice-sample.ashx
@@ -28,7 +33,19 @@ namespace SGE_erp
         public MainWindow()
         {
             InitializeComponent();
+            LogInWindow liw = new LogInWindow();
+            liw.ShowDialog();
+            if (acceso==false)
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Usuario: " + userEmpleado + "\n" + "Contraseña: " + passwordEmpleado);
+            }
+                        
         }
+
         public delegate void DoSomethingEvent();
 
         public void actuar()

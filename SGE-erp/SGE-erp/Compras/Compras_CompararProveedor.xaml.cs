@@ -52,13 +52,11 @@ namespace SGE_erp.Compras
                     da2.Fill(dt2);
                     if (dt2.Rows.Count > 0)
                     {
-                        for (int j = 0; j < dt.Rows.Count; j++)
-                        {
-                            DataRow row = dt2.Rows[j];
+                       
+                            DataRow row = dt2.Rows[0];
                             String nProveedor = Convert.ToString(row["Nombre"]);
                             dt.Rows[i]["Nombre Proveedor"] = nProveedor;
-                        }
-                    }
+}
 
                     SqlDataAdapter da3 = new SqlDataAdapter("SELECT Nombre FROM Articulos WHERE Id_Articulo='" + dt.Rows[i]["Id_Articulo"] + "'", con);
                     DataTable dt3 = new DataTable();

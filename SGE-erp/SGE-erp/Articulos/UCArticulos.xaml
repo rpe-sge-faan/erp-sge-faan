@@ -100,7 +100,8 @@
                             EnableRowVirtualization="True"
                             IsReadOnly="True"
                             RowDetailsVisibilityMode="VisibleWhenSelected"
-                            SelectionMode="Single" />
+                            SelectionMode="Single"
+                            MouseDoubleClick="articulosDataGrid_MouseDoubleClick"/>
                     </Grid>
                 </TabItem>
                 <TabItem

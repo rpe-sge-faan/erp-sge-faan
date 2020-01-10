@@ -1,0 +1,36 @@
+﻿<Window x:Class="SGE_erp.LogInWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SGE_erp"
+        mc:Ignorable="d"
+        Title="Iniciar sesión" Height="400" ResizeMode="NoResize" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image
+                Margin="5"
+                x:Name="image"
+                Source="/imagenes/logo_nombre.png"
+                Height="140"
+                Grid.ColumnSpan="2"/>
+        <Label Grid.Row="1" Content="Usuario: "  VerticalAlignment="Center" Margin="40,0,0,0"/>
+        <Label Grid.Row="2" Content="Contraseña: "  VerticalAlignment="Center" Margin="20,0,0,0"/>
+        <TextBox Name="tbUser" Grid.Row="1"  Grid.ColumnSpan="2" Margin="95,10,20,10" VerticalAlignment="Center" KeyDown="tbUser_KeyDown"/>
+        <PasswordBox x:Name="tbPassword" Grid.Row="2"  Grid.ColumnSpan="2" Margin="95,10,20,10" VerticalAlignment="Center" TouchEnter="Entrar_Click" KeyDown="tbPassword_KeyDown"/>
+        <Label x:Name="labelError" Content="Usuario o contraseña incorrectos" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="Red" Visibility="Hidden"/>
+        <Button x:Name="entrarButton" VerticalAlignment="Center" Content="Entrar" Grid.Row="4" Margin="20,10" Background="#06A89C" Click="Entrar_Click"/>
+        <Button x:Name="cancelarButton" Content="Cancelar" Grid.Row="4" Grid.Column="1" Margin="20,10" Background="#06A89C" Click="Cancelar_Click"/>
+
+    </Grid>
+</Window>
