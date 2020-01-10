@@ -27,14 +27,13 @@ namespace SGE_erp.Venta
         public static DataTable dataT;
         public VentanaAñadir()
         {
-            InitializeComponent();
-            Actualizar();
-            dpFecha.SelectedDate = DateTime.Today;
+            InitializeComponent();          
         }
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
+            dpFecha.SelectedDate = DateTime.Today;
             dataT = new DataTable();
             dataT.Columns.Add("Id_Articulo");
             dataT.Columns.Add("Id_Empleado");

@@ -110,5 +110,46 @@ namespace SGE_erp.Gestion
             }
             ActualizarTabla();
         }
+
+        private void bReset_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridPoblacion.UnselectAll();
+            codPos.Text = "";
+            tbPobla.Text = "";
+            tbProv.Text = "";
+        }
+
+        private void dataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
+            string cod = dd.Row.Field<string>("CodPostal");
+            using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Poblaciones WHERE CodPostal = @cod";
+                command.Parameters.AddWithValue("@cod", cod);
+                con.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        codPos.Text = reader.GetString(reader.GetOrdinal("CodPostal"));
+                        tbPobla.Text = reader.GetString(reader.GetOrdinal("Poblacion"));
+                        tbProv.Text = reader.GetString(reader.GetOrdinal("Provincia"));
+                    }
+                }
+            }
+        }
+
+        private void bEditar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
