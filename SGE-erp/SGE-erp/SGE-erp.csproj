@@ -155,6 +155,9 @@
     <Compile Include="Venta\VentanaAñadir.xaml.cs">
       <DependentUpon>VentanaAñadir.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Venta\VentasDetalles.xaml.cs">
+      <DependentUpon>VentasDetalles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Venta\VentasEdicion.xaml.cs">
       <DependentUpon>VentasEdicion.xaml</DependentUpon>
     </Compile>
@@ -280,6 +283,10 @@
     <Page Include="Venta\VentanaAñadir.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Venta\VentasDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Venta\VentasEdicion.xaml">
       <SubType>Designer</SubType>
