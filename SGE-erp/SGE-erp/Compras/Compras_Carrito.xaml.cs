@@ -60,11 +60,6 @@ namespace SGE_erp.Compras
             Comprar.DynamicInvoke();
             MainWindow mW = Application.Current.MainWindow as MainWindow;
             mW.actuar();
-            //MainWindow win = (MainWindow)Window.GetWindow(this);
-            //win.ucCompras.tablita();
-            //            Application.Current.MainWindow.
-            //ComprasVisualizar cv = new ComprasVisualizar();
-            //cv.cargarDatos();
             this.Close();
         }
 

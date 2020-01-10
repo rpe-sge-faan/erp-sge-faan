@@ -283,7 +283,7 @@ namespace SGE_erp.Compras
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 con.Open();
                 SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
-                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + fechaCompra.ToString("MM/dd/yyyy") + "'," + precioTotal + ");", con);
+                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + fechaCompra. ToString("MM/dd/yyyy") + "'," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
 
                 SqlConnection con3 = new SqlConnection(MetodosGestion.db);
