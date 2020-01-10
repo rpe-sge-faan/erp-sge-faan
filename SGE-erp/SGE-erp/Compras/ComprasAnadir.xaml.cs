@@ -273,7 +273,6 @@ namespace SGE_erp.Compras
             //Compras_Carrito cc = new Compras_Carrito();
             //cc.calPrecioFinal();
             String idEmpleado = "1";
-            DateTime fechaCompra = DateTime.Now;
             //double precioTotal = cc.precioFinal;
             double precioTotal = precioFinal();
 
@@ -281,9 +280,9 @@ namespace SGE_erp.Compras
             if (carritoCompra.Rows.Count > 0)
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                con.Open();
+                con.Open(); 
                 SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
-                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + fechaCompra. ToString("MM/dd/yyyy") + "'," + precioTotal + ");", con);
+                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + DateTime.Today + "'," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
 
                 SqlConnection con3 = new SqlConnection(MetodosGestion.db);
