@@ -48,8 +48,8 @@ namespace SGE_erp
 
         public void consultar()
         {
-            //string user;
-            //string password;
+            string user;
+            string password;
             string bd = MetodosGestion.db;
             using (SqlConnection con = new SqlConnection(bd))
             using (SqlCommand command = con.CreateCommand())
@@ -64,19 +64,56 @@ namespace SGE_erp
 
                     if (reader.Read())
                     {
-                        MainWindow.acceso = true;
-                        this.Close();
+                        // DESCOMENTAR PARA ACTIVAR LOS INICIOS DE SESION
+
                         /*user = reader.GetString(reader.GetOrdinal("Email"));
                         MessageBox.Show(user); // SI EXISTE ENTONCES LO MUESTRA
                         
-                        password = reader.GetString(reader.GetOrdinal("Telefono"));
-                        MessageBox.Show(password); // SI EXISTE ENTONCES LO MUESTRA*/
+                        password = reader.GetString(reader.GetOrdinal("Password"));
+                        MessageBox.Show(password); // SI EXISTE ENTONCES LO MUESTRA
+
+                        if (user.Equals(tbUser.Text) && password.Equals(tbPassword.Password))
+                        {*/
+                            MainWindow.acceso = true;
+                            this.Close();
+                        /*}
+                        else
+                        {
+                            //MessageBox.Show("TextBox: " + tbUser.Text + "\n" + "PasswordBox: " + tbPassword.Password + "\n" + "user: " + user + "password: " + password);
+                        }*/
+
                     }
                     else
                     {
+                       /* labelError.Content = "Usuario o contraseña incorrectos";
                         labelError.Visibility = Visibility.Visible;
+                        tbPassword.Password = "";
+                        */
+
+                        // ELIMINAR CUANDO SE ACTIVE EL INICIO DE SESION
+                        MainWindow.acceso = true;
+                        this.Close();
                     }
                 }
+            }
+        }
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MainWindow.userEmpleado = tbUser.Text;
+                MainWindow.passwordEmpleado = tbPassword.Password;
+                consultar();
+            }
+        }
+
+        private void tbUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && tbPassword.Password.Equals(""))
+            {
+                labelError.Content = "Inserte contraseña";
+                labelError.Visibility = Visibility.Visible;
             }
         }
     }
