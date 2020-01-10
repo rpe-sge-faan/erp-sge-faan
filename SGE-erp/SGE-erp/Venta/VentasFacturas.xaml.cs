@@ -22,6 +22,7 @@ namespace SGE_erp.Venta
         public VentasFacturas()
         {
             InitializeComponent();
+            dpGeneracion.SelectedDate = DateTime.Today;
         }
     }
 }
