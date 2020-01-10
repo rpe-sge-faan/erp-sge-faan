@@ -27,9 +27,6 @@ namespace SGE_erp.Articulos
         public UCArticulos()
         {
             InitializeComponent();
-            ActualizarCategorias();
-            ActualizarAsignar();
-            Actualizar();
         }
 
         public delegate void RefreshList();
@@ -584,6 +581,19 @@ namespace SGE_erp.Articulos
         private void bRefreshh_Click(object sender, RoutedEventArgs e)
         {
             ActualizarAsignar();
+        }
+
+        private void articulosDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (articulosDataGrid.SelectedItem != null)
+            {
+                DataRowView dato = (DataRowView)articulosDataGrid.SelectedItem;
+                String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
+
+                InfoArticulos ia = new InfoArticulos(idArt);
+                ia.Show();
+            }
+
         }
     }
 }

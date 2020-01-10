@@ -31,8 +31,8 @@
                     Header="_Articulos">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="13*"/>
                         </Grid.RowDefinitions>
                         <Menu
                             x:Name="menu"
@@ -100,7 +100,8 @@
                             EnableRowVirtualization="True"
                             IsReadOnly="True"
                             RowDetailsVisibilityMode="VisibleWhenSelected"
-                            SelectionMode="Single" />
+                            SelectionMode="Single"
+                            MouseDoubleClick="articulosDataGrid_MouseDoubleClick"/>
                     </Grid>
                 </TabItem>
                 <TabItem
