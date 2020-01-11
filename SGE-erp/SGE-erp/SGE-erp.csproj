@@ -91,6 +91,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administracion\AdminMain.xaml.cs">
+      <DependentUpon>AdminMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administracion\Poblacions.xaml.cs">
+      <DependentUpon>Poblacions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administracion\Usuarios.xaml.cs">
+      <DependentUpon>Usuarios.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Articulos\InfoArticulos.xaml.cs">
       <DependentUpon>InfoArticulos.xaml</DependentUpon>
     </Compile>
@@ -164,6 +173,18 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
+    <Page Include="Administracion\AdminMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\Poblacions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\Usuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Articulos\InfoArticulos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

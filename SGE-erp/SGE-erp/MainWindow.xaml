@@ -8,6 +8,7 @@
     xmlns:localCompras="clr-namespace:SGE_erp.Compras"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
     xmlns:localVentas="clr-namespace:SGE_erp.Venta"
+    xmlns:localAdmin="clr-namespace:SGE_erp.Administracion"
     TextElement.FontSize="13"
     FontFamily="{materialDesign:MaterialDesignFont}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -258,6 +259,21 @@
                 Header="_Gestión"
                 Style="{DynamicResource TabItemStyle1}">
                 <localGestion:GestionMain />
+            </TabItem>
+            <TabItem
+                x:Name="tabAdmin"
+                Width="120"
+                Margin="5,5,5,5"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
+                Padding="20,10,20,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="Black"
+                Header="Ad_min"
+                Style="{DynamicResource TabItemStyle1}">
+                <localAdmin:AdminMain />
             </TabItem>
             <TabItem
                 x:Name="tabAyuda"
