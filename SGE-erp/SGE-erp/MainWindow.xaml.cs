@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace SGE_erp
 
         public MainWindow()
         {
+
             InitializeComponent();
             //LogInWindow liw = new LogInWindow();
             //liw.ShowDialog();
@@ -59,7 +61,7 @@ namespace SGE_erp
 
             if (idUser)
             {
-                lblNombre.Content = userEmpleado;
+                lblNombre.Content = nombreEmpleado;
                 idUser = false;
             }
             else
@@ -68,6 +70,11 @@ namespace SGE_erp
                 idUser = true;
             }
                                           
+        }
+
+        private void lblUser_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Payaso");
         }
     }
 }

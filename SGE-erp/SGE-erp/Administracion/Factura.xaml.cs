@@ -142,7 +142,7 @@ namespace SGE_erp.Administracion
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "SELECT Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
+                    command.CommandText = "SELECT DISTINCT Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
                         "Clientes.Nombre as Cliente, Clientes.Direccion, Empleados.Nombre as Empleado," +
                         "Poblaciones.CodPostal, Poblaciones.Poblacion, Poblaciones.Provincia, " +
                         "Articulos.Nombre as Articulo, Articulos.Descripcion, Articulos.PVP " +
@@ -169,10 +169,12 @@ namespace SGE_erp.Administracion
                                 empleado.Text = (reader.GetString(reader.GetOrdinal("Empleado"))).Trim();
                                 primera = true;
                             }
-                            string articulo = reader.GetString(reader.GetOrdinal("Articulo"));
+                            string articulo = $"{reader.GetString(reader.GetOrdinal("Articulo"))} - {reader.GetString(reader.GetOrdinal("Descripcion"))}";
                             string cantidad = (reader.GetInt32(reader.GetOrdinal("Cantidad"))).ToString();
                             string precio = (reader.GetDecimal(reader.GetOrdinal("PVP"))).ToString();
-                            //addToTable();
+                            decimal subtotal = Decimal.Parse(precio) * int.Parse(cantidad);
+                            addToTable(articulo, cantidad, precio, subtotal.ToString());
+                            //reader.NextResult();
                         }
                     }
                 }

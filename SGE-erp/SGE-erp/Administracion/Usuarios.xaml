@@ -44,7 +44,7 @@
             Grid.Column="2"
             Margin="5"
             VerticalAlignment="Center"   
-            Content="Añadir" />
+            Content="Añadir"  />
         <Button
             x:Name="bEditar"
             Grid.Row="5"
@@ -53,12 +53,21 @@
             Margin="5"
             Content="Editar" />
         <Button
+            x:Name="bReset"
+            Grid.Row="0"
+            VerticalAlignment="Center"
+            Grid.Column="2"
+            Margin="110,0,0,110"
+            Content="Reset" 
+            Click="bReset_Click"/> 
+        <Button
             x:Name="bBorrar"
             Grid.Row="6"
             VerticalAlignment="Center"
             Grid.Column="2"
             Margin="5"
             Content="Borrar" />
+
 
         <Label
             Grid.Row="3"
@@ -87,6 +96,8 @@
             Grid.Row="2"
             Grid.Column="2"
             Margin="5" />
+        
 
     </Grid>
+    
 </UserControl>
