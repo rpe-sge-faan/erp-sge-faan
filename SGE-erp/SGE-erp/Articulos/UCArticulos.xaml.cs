@@ -27,9 +27,6 @@ namespace SGE_erp.Articulos
         public UCArticulos()
         {
             InitializeComponent();
-            ActualizarCategorias();
-            ActualizarAsignar();
-            Actualizar();
         }
 
         public delegate void RefreshList();

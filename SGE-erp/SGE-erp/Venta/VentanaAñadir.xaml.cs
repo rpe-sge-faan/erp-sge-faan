@@ -25,16 +25,17 @@ namespace SGE_erp.Venta
     public partial class VentanaAñadir : UserControl
     {
         public static DataTable dataT;
+        public static int idEmpl;
+        public static int id;
         public VentanaAñadir()
         {
-            InitializeComponent();
-            Actualizar();
-            dpFecha.SelectedDate = DateTime.Today;
+            InitializeComponent();          
         }
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
+            dpFecha.SelectedDate = DateTime.Today;
             dataT = new DataTable();
             dataT.Columns.Add("Id_Articulo");
             dataT.Columns.Add("Id_Empleado");
@@ -187,10 +188,10 @@ namespace SGE_erp.Venta
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
            
             int idElemento = drv.Row.Field<int>("Id_Elemento");
-            int idEmpl = (int)nombreComboBox1.SelectedValue;
+            idEmpl = (int)nombreComboBox1.SelectedValue;
             DateTime fecha = dpFecha.SelectedDate.Value;
             decimal precio = (decimal)lbTotalFin.Content;
-            int id;
+            
 
             try
             {
@@ -206,13 +207,11 @@ namespace SGE_erp.Venta
                     command.Parameters.AddWithValue("@fechaVentas", fecha);
                     command.Parameters.AddWithValue("@precioTotal", precio);
                     
-                    //MessageBox.Show(a.ToString);
-                    conn.Open();
-                    Int32 newIdVentas = (Int32)command.ExecuteScalar();
-                    id = newIdVentas;
-                    int a = command.ExecuteNonQuery();
                     
-                    if (a != 0)
+                    conn.Open();
+                    id = (int)command.ExecuteScalar();
+
+                    if (id != 0)
                     {
                         MessageBox.Show("Vendido");
                         conn.Close();
@@ -259,13 +258,6 @@ namespace SGE_erp.Venta
                 dgFinal.ItemsSource = null;
                 dgFinal.Items.Refresh();
 
-                //DataRow datos = carritoCompra.Rows[i];
-                //SqlConnection con2 = new SqlConnection(MetodosGestion.db);
-                //con2.Open();
-                
-                //SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2]) + ";", con2);
-                //upgrade.ExecuteNonQuery();
-                //con2.Close();
             }
             catch (SqlException ex)
             {
@@ -273,6 +265,7 @@ namespace SGE_erp.Venta
             }
             guardarCantidad = 0;
             lbTotalFin.Content = 0;
+            
         }
 
          

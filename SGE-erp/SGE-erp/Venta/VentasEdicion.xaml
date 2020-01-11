@@ -27,7 +27,7 @@
         <Label
             Content="Id_Empleado"
             HorizontalAlignment="Left"
-            Margin="10,22,0,0"
+            Margin="10,89,0,0"
             VerticalAlignment="Top"
             Width="80" />
         <Label
@@ -39,9 +39,9 @@
             RenderTransformOrigin="0.316,0.077"
             Width="80" />
         <Label
-            Content="Cantidad"
+            Content="IdVentas"
             HorizontalAlignment="Left"
-            Margin="10,89,0,0"
+            Margin="8,25,0,0"
             VerticalAlignment="Top"
             Width="80" />
         <Label
@@ -55,17 +55,17 @@
             x:Name="tbIdEmple"
             HorizontalAlignment="Left"
             Height="23"
-            Margin="10,25,0,0"
+            Margin="8,89,0,0"
             TextWrapping="Wrap"
             VerticalAlignment="Top"
             Width="80"
             Grid.Column="1" />
         <TextBox
-            x:Name="tbCantidad"
+            x:Name="tbIdVentas"
             Grid.Column="1"
             HorizontalAlignment="Left"
             Height="23"
-            Margin="10,93,0,0"
+            Margin="10,25,0,0"
             TextWrapping="Wrap"
             VerticalAlignment="Top"
             Width="80" />

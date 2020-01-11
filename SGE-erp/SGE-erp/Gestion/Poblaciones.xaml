@@ -31,6 +31,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
             <RowDefinition
                 Height="0.2*" />
         </Grid.RowDefinitions>
@@ -41,7 +42,7 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             ColumnWidth="1*"
-            IsReadOnly="True" />
+            IsReadOnly="True" MouseDoubleClick="dataGridPoblacion_MouseDoubleClick" />
         <Button
             x:Name="bAnadir"
             Grid.Row="4"
@@ -56,14 +57,21 @@
             Grid.Column="2"
             VerticalAlignment="Center"
             Margin="5"
-            Content="Editar" />
+            Content="Editar" Click="bEditar_Click" />
         <Button
             x:Name="bBorrar"
             Grid.Row="6"
             VerticalAlignment="Center"
             Grid.Column="2"
             Margin="5"
-            Content="Borrar" />
+            Content="Borrar" Click="bBorrar_Click" />
+        <Button
+            x:Name="bReset"
+            Grid.Row="7"
+            VerticalAlignment="Center"
+            Grid.Column="2"
+            Margin="5"
+            Content="Reset" Click="bReset_Click" />
         <Label
             Grid.Row="1"
             Grid.Column="1"
@@ -91,6 +99,7 @@
         <TextBox
             x:Name="codPos"
             Grid.Row="1"
+            MaxLength="5"
             Grid.Column="2"
             Margin="5" />
         <TextBox
