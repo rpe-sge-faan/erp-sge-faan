@@ -31,18 +31,18 @@ namespace SGE_erp
         public MainWindow()
         {
             InitializeComponent();
-            LogInWindow liw = new LogInWindow();
-            liw.ShowDialog();
-            if (acceso == false)
-            {
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Usuario: " + userEmpleado + "\n" + "Nombre: " + nombreEmpleado );
-                lblNombre.Content = nombreEmpleado;
-                lblUser.Content = userEmpleado;
-            }
+            //LogInWindow liw = new LogInWindow();
+            //liw.ShowDialog();
+            //if (acceso == false)
+            //{
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Usuario: " + userEmpleado + "\n" + "Nombre: " + nombreEmpleado );
+            //    lblNombre.Content = nombreEmpleado;
+            //    lblUser.Content = userEmpleado;
+            //}
 
         }
 

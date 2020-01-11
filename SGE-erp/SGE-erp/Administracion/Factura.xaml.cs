@@ -143,24 +143,36 @@ namespace SGE_erp.Administracion
                 using (SqlCommand command = con.CreateCommand())
                 {
                     command.CommandText = "SELECT Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
-                        "Proveedores.Nombre, Proveedores.Direccion, Empleados.Nombre," +
+                        "Clientes.Nombre as Cliente, Clientes.Direccion, Empleados.Nombre as Empleado," +
                         "Poblaciones.CodPostal, Poblaciones.Poblacion, Poblaciones.Provincia, " +
-                        "Articulos.Nombre, Articulos.Descripcion, Articulos.PVP " +
-                        "FROM Ventas, VentasArticulos, Proveedores, Poblaciones, ProveedorArticulo, Articulos, Empleados " +
-                        "WHERE Ventas.Id_Ventas = VentasArticulos.Id_Ventas AND Ventas.Id_Proveedor = Proveedores.Id_Proveedor AND Compra.Id_Empleado = Empleados.Id_Empleado AND " +
-                        "CompraArticulos.Id_Elemento = ProveedorArticulo.Id_Elemento AND ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo " +
-                        "AND Compra.Id_Compra = @id";
+                        "Articulos.Nombre as Articulo, Articulos.Descripcion, Articulos.PVP " +
+                        "FROM Ventas, VentasArticulos, Clientes, Poblaciones, ProveedorArticulo, Articulos, Empleados " +
+                        "WHERE Ventas.Id_Ventas = VentasArticulos.Id_Ventas AND Ventas.Id_Empleado = Empleados.Id_Empleado AND " +
+                        "Ventas.Id_Cliente = Clientes.Id_Cliente AND " +
+                        "VentasArticulos.Id_Elemento = ProveedorArticulo.Id_Elemento AND ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo " +
+                        "AND Ventas.Id_Ventas = @id";
                     command.Parameters.AddWithValue("@id", id);
                     con.Open();
-
+                    Boolean primera = false;
                     using (var reader = command.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
-                            DateTime dd = reader.GetDateTime(reader.GetOrdinal("FechaCompra"));
-                            fecha.Text = String.Format("{0:dddd, d MMMM, yyyy}", dd);
-                            total.Text = (reader.GetDecimal(reader.GetOrdinal("PrecioTotal"))).ToString() + "€";
-
+                            if (!primera)
+                            {
+                                DateTime dd = reader.GetDateTime(reader.GetOrdinal("FechaVentas"));
+                                fecha.Text = String.Format("{0:dddd, d MMMM, yyyy}", dd);
+                                total.Text = (reader.GetDecimal(reader.GetOrdinal("PrecioTotal"))).ToString() + "€";
+                                nombre.Text = reader.GetString(reader.GetOrdinal("Cliente"));
+                                direccion.Text = reader.GetString(reader.GetOrdinal("Direccion"));
+                                poblacion.Text = $"{reader.GetString(reader.GetOrdinal("CodPostal"))} {reader.GetString(reader.GetOrdinal("Poblacion"))}, {reader.GetString(reader.GetOrdinal("Provincia"))}";
+                                empleado.Text = (reader.GetString(reader.GetOrdinal("Empleado"))).Trim();
+                                primera = true;
+                            }
+                            string articulo = reader.GetString(reader.GetOrdinal("Articulo"));
+                            string cantidad = (reader.GetInt32(reader.GetOrdinal("Cantidad"))).ToString();
+                            string precio = (reader.GetDecimal(reader.GetOrdinal("PVP"))).ToString();
+                            //addToTable();
                         }
                     }
                 }

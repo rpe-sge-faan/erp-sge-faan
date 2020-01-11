@@ -151,7 +151,10 @@ namespace SGE_erp.Venta
 
         private void facturaV_Click(object sender, RoutedEventArgs e)
         {
-            Factura f = new Factura(1,1);
+            DataRowView dato = (DataRowView)dgVista.SelectedItem;
+            int idVenta = dato.Row.Field<int>("Id_Ventas");
+
+            Factura f = new Factura(idVenta,1);
             f.Show();
         }
     }
