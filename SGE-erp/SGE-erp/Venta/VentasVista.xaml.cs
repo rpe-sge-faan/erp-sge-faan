@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp.Gestion;
 using System.Data;
+using SGE_erp.Administracion;
 
 namespace SGE_erp.Venta
 {
@@ -137,7 +138,6 @@ namespace SGE_erp.Venta
         private void bActualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
-
         }
 
         private void dgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -147,6 +147,15 @@ namespace SGE_erp.Venta
 
             VentasDetalles ccd = new VentasDetalles(idVenta);
             ccd.Show();
+        }
+
+        private void facturaV_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dato = (DataRowView)dgVista.SelectedItem;
+            int idVenta = dato.Row.Field<int>("Id_Ventas");
+
+            Factura f = new Factura(idVenta,1);
+            f.Show();
         }
     }
 }

@@ -37,6 +37,13 @@
                 VerticalAlignment="Center"
                 Click="buscar_Click"
                 Header="_Buscar" />
+            <MenuItem
+                x:Name="facturaV"
+                Width="130"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Header="_Factura" Click="facturaV_Click" />
         </Menu>
         <Button
             x:Name="bActualizar"
