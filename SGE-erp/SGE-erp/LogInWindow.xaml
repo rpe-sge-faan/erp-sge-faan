@@ -15,7 +15,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.7*"/>
             <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.4*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Image
@@ -24,13 +24,13 @@
                 Source="/imagenes/logo_nombre.png"
                 Height="140"
                 Grid.ColumnSpan="2"/>
-        <Label Grid.Row="1" Content="Usuario: "  VerticalAlignment="Center" Margin="40,0,0,0"/>
-        <Label Grid.Row="2" Content="Contraseña: "  VerticalAlignment="Center" Margin="20,0,0,0"/>
-        <TextBox Name="tbUser" Grid.Row="1"  Grid.ColumnSpan="2" Margin="95,10,20,10" VerticalAlignment="Center" KeyDown="tbUser_KeyDown"/>
-        <PasswordBox x:Name="tbPassword" Grid.Row="2"  Grid.ColumnSpan="2" Margin="95,10,20,10" VerticalAlignment="Center" TouchEnter="Entrar_Click" KeyDown="tbPassword_KeyDown"/>
+        <Label Grid.Row="1" Content="Usuario:"  VerticalAlignment="Center" Margin="44,0,0,0"/>
+        <Label Grid.Row="2" Content="Contraseña:"  VerticalAlignment="Center" Margin="25,0,0,0"/>
+        <TextBox Name="tbUser" Grid.Row="1"  Grid.ColumnSpan="2" Margin="100,10,30,10" VerticalAlignment="Center" KeyDown="tbUser_KeyDown"/>
+        <PasswordBox x:Name="tbPassword" Grid.Row="2"  Grid.ColumnSpan="2" Margin="100,10,30,10" VerticalAlignment="Center" TouchEnter="Entrar_Click" KeyDown="tbPassword_KeyDown"/>
         <Label x:Name="labelError" Content="Usuario o contraseña incorrectos" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="Red" Visibility="Hidden"/>
-        <Button x:Name="entrarButton" VerticalAlignment="Center" Content="Entrar" Grid.Row="4" Margin="20,10" Background="#06A89C" Click="Entrar_Click"/>
-        <Button x:Name="cancelarButton" Content="Cancelar" Grid.Row="4" Grid.Column="1" Margin="20,10" Background="#06A89C" Click="Cancelar_Click"/>
+        <Button x:Name="entrarButton" VerticalAlignment="Center" Content="Entrar" Grid.Row="4" Margin="30,10,10,10" Background="#06A89C" Click="Entrar_Click"/>
+        <Button x:Name="cancelarButton" Content="Cancelar" Grid.Row="4" Grid.Column="1" Margin="10,10,30,10" Background="#06A89C" Click="Cancelar_Click"/>
 
     </Grid>
 </Window>
