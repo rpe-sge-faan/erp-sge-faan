@@ -275,6 +275,8 @@
                 <localGestion:Ayuda />
             </TabItem>
         </TabControl>
+        <Label x:Name="lblNombre" Content="Nombre" HorizontalAlignment="Right" Margin="15,7.5" Foreground="#06A89C" MouseDoubleClick="lblNombre_MouseDoubleClick"/>
+        <Label x:Name="lblUser" Content="Usuario" HorizontalAlignment="Right" Margin="15,25" Foreground="#04756d"  />
         <!--<Image
             x:Name="image"
             HorizontalAlignment="Left"

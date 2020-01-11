@@ -25,7 +25,9 @@ namespace SGE_erp
     {
         public static bool acceso;
         public static string userEmpleado;
-        public static string passwordEmpleado;
+        public static string nombreEmpleado;
+        public static int idEmpleado;
+        private bool idUser = false;
 
         // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
         // http://pdfsharp.net/wiki/Invoice-sample.ashx
@@ -41,7 +43,9 @@ namespace SGE_erp
             }
             else
             {
-                MessageBox.Show("Usuario: " + userEmpleado + "\n" + "Contraseña: " + passwordEmpleado);
+                MessageBox.Show("Usuario: " + userEmpleado + "\n" + "Nombre: " + nombreEmpleado );
+                lblNombre.Content = nombreEmpleado;
+                lblUser.Content = userEmpleado;
             }
                         
         }
@@ -53,5 +57,21 @@ namespace SGE_erp
             ucCompras.tablita();
         }
 
+        private void lblNombre_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+
+            if (idUser)
+            {
+                lblNombre.Content = userEmpleado;
+                idUser = false;
+            }
+            else
+            {
+                lblNombre.Content = "Id de empleado: " + idEmpleado;
+                idUser = true;
+            }
+                                          
+        }
     }
 }
