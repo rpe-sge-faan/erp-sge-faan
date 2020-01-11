@@ -340,7 +340,6 @@
     <Resource Include="imagenes\logo2.png" />
     <Resource Include="imagenes\logo3.png" />
     <Resource Include="icono.ico" />
-    <Resource Include="logo2.ico" />
     <Resource Include="imagenes\logo.png" />
     <Resource Include="imagenes\logo_nombre.png" />
   </ItemGroup>

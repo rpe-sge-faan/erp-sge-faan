@@ -151,7 +151,7 @@ namespace SGE_erp.Venta
 
         private void facturaV_Click(object sender, RoutedEventArgs e)
         {
-            Factura f = new Factura();
+            Factura f = new Factura(1,1);
             f.Show();
         }
     }

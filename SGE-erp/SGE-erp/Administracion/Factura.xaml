@@ -16,6 +16,8 @@
     ResizeMode="CanResize"
     WindowStyle="ToolWindow"
     FontFamily="Roboto"
+    Loaded="ventanaFacturas_Loaded"
+    x:Name="ventanaFacturas"
     WindowStartupLocation="CenterScreen">
     <Grid>
         <Button
@@ -30,7 +32,7 @@
             x:Name="print">
             <Grid.RowDefinitions>
                 <RowDefinition
-                    Height="120" />
+                    Height="130" />
                 <RowDefinition
                     Height="1*" />
                 <RowDefinition
@@ -44,8 +46,8 @@
                 Grid.Row="0">
                 <Image
                     Source="/imagenes/logo_nombre.png"
-                    Width="100"
-                    Height="100"
+                    Width="120"
+                    Height="120"
                     VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel
@@ -61,29 +63,32 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel
                         Grid.Column="0"
-                        Margin="10">
+                        Margin="10,-50,10,5">
                         <TextBlock
+                            x:Name="fecha"
                             Text="Fechaaaaaaaaaaaaaa"
                             FontSize="13"
                             Margin="5"
                             HorizontalAlignment="Left" />
                         <TextBlock
+                            x:Name="nombre"
                             Text="Nombre Cliente"
                             FontSize="20"
                             Margin="5" />
                         <TextBlock
+                            x:Name="direccion"
                             Text="Direccion"
                             FontSize="12"
                             Margin="5"
                             FontWeight="DemiBold" />
                         <TextBlock
+                            x:Name="poblacion"
                             Text="Poblacion"
                             FontSize="12"
                             Margin="5"
                             FontWeight="DemiBold" />
                     </StackPanel>
                 </Grid>
-
                 <Grid
                     Margin="10 25 10 0">
                     <Grid.ColumnDefinitions>
@@ -128,105 +133,7 @@
                 <ListView
                     x:Name="listaArticulos"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem>
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            Margin="2"
-                            Width="480">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="2*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Text="Website design"
-                                Grid.Column="0" />
-                            <TextBlock
-                                Text="$ 45.00"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center" />
-                            <TextBlock
-                                Text="10"
-                                Grid.Column="2"
-                                HorizontalAlignment="Center" />
-                            <TextBlock
-                                Text="$ 450.00"
-                                Grid.Column="3"
-                                HorizontalAlignment="Center"
-                                Foreground="#FF62013C" />
-                        </Grid>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            Margin="2"
-                            Width="480">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="2*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Text="Logo design"
-                                Grid.Column="0" />
-                            <TextBlock
-                                Text="$ 30.00"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center" />
-                            <TextBlock
-                                Text="20"
-                                Grid.Column="2"
-                                HorizontalAlignment="Center" />
-                            <TextBlock
-                                Text="$ 600.00"
-                                Grid.Column="3"
-                                HorizontalAlignment="Center"
-                                Foreground="#FF62013C" />
-                        </Grid>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            Margin="2"
-                            Width="480">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="2*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                                <ColumnDefinition
-                                    Width="1*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Text="Backend Development"
-                                Grid.Column="0" />
-                            <TextBlock
-                                Text="$ 45.00"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center" />
-                            <TextBlock
-                                Text="12"
-                                Grid.Column="2"
-                                HorizontalAlignment="Center" />
-                            <TextBlock
-                                Text="$ 540.00"
-                                Grid.Column="3"
-                                HorizontalAlignment="Center"
-                                Foreground="#FF62013C" />
-                        </Grid>
-                    </ListViewItem>
+                    <!--ARTICULOS-->
                 </ListView>
             </StackPanel>
             <StackPanel
@@ -265,6 +172,7 @@
                     <StackPanel
                         Grid.Column="1">
                         <TextBlock
+                            x:Name="total"
                             Text="1,590.00 €"
                             FontSize="25"
                             Margin="5"
@@ -283,12 +191,25 @@
                     HorizontalAlignment="Stretch">
                     <StackPanel
                         Orientation="Horizontal"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
+                        <TextBlock
+                            Text="Facturado por:"
+                            FontSize="8"
+                            Margin="5"
+                            FontWeight="Light"
+                            HorizontalAlignment="Left" />
+                        <TextBlock
+                            x:Name="empleado"
+                            Text="EMPLEADO"
+                            FontSize="8"
+                            Margin="5"
+                            FontWeight="Light"
+                            HorizontalAlignment="Left" />
                         <TextBlock
                             Text="FAAN - Calle Nueva 2 - 28922 Alcorcón"
                             FontSize="8"
-                            Margin="160 5"
+                            Margin="5"
                             FontWeight="Light"
                             HorizontalAlignment="Left" />
                         <TextBlock
