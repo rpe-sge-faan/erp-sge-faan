@@ -88,7 +88,6 @@
     <Compile Include="Administracion\Factura.xaml.cs">
       <DependentUpon>Factura.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administracion\Pdf.cs" />
     <Compile Include="Articulos\InfoArticulos.xaml.cs">
       <DependentUpon>InfoArticulos.xaml</DependentUpon>
     </Compile>

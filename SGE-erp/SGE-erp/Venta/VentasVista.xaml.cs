@@ -138,7 +138,6 @@ namespace SGE_erp.Venta
         private void bActualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
-
         }
 
         private void dgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
