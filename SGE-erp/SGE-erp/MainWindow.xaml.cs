@@ -16,26 +16,18 @@ using System.Windows.Shapes;
 
 namespace SGE_erp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    
 
     public partial class MainWindow : Window
     {
         public static bool acceso;
         public static string userEmpleado;
         public static string passwordEmpleado;
-
-        // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
-        // http://pdfsharp.net/wiki/Invoice-sample.ashx
-
         public MainWindow()
         {
             InitializeComponent();
             LogInWindow liw = new LogInWindow();
             liw.ShowDialog();
-            if (acceso==false)
+            if (acceso == false)
             {
                 this.Close();
             }
@@ -43,7 +35,7 @@ namespace SGE_erp
             {
                 MessageBox.Show("Usuario: " + userEmpleado + "\n" + "Contraseña: " + passwordEmpleado);
             }
-                        
+
         }
 
         public delegate void DoSomethingEvent();

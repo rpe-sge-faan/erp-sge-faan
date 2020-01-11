@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp.Gestion;
 using System.Data;
+using SGE_erp.Administracion;
 
 namespace SGE_erp.Venta
 {
@@ -147,6 +148,12 @@ namespace SGE_erp.Venta
 
             VentasDetalles ccd = new VentasDetalles(idVenta);
             ccd.Show();
+        }
+
+        private void facturaV_Click(object sender, RoutedEventArgs e)
+        {
+            Factura f = new Factura();
+            f.Show();
         }
     }
 }
