@@ -162,7 +162,7 @@ namespace SGE_erp.Gestion
             }
             else
             {
-                //Filtrar();
+                Filtrar();
             }
         }
 
@@ -185,7 +185,7 @@ namespace SGE_erp.Gestion
             // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
 
             // [NumVentas] >= {nombres[5]} AND 
-            view.RowFilter = $"[NumVentas] >= {nombres[5]} AND [Salario] > {nombres[6]} AND [Nombre] LIKE '%{nombres[0]}%' AND [NIF] LIKE '%{nombres[1]}%' AND [Telefono] LIKE '%{nombres[2]}%' AND [Email] LIKE '%{nombres[3]}%' AND [Direccion] LIKE '%{nombres[4]}%' AND [FechaContratacion] > #{date.ToShortDateString()}#";
+            view.RowFilter = $"[NumVentas] >= {nombres[5]} AND [Salario] >= {nombres[6]} AND [Nombre] LIKE '%{nombres[0]}%' AND [NIF] LIKE '%{nombres[1]}%' AND [Telefono] LIKE '%{nombres[2]}%' AND [Email] LIKE '%{nombres[3]}%' AND [Direccion] LIKE '%{nombres[4]}%' AND [FechaContratacion] >= #{date.ToShortDateString()}#";
 
             // view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -209,7 +209,7 @@ namespace SGE_erp.Gestion
                     DateTime time =(DateTime)((EmpleadosEdicion)item).fechaDatePicker.SelectedDate;
                     String fecha = time.ToShortDateString();
                     String ventas;
-                    if (((EmpleadosEdicion)item).ventasTextBox.Text.Equals(""))
+                    if (String.IsNullOrWhiteSpace(((EmpleadosEdicion)item).ventasTextBox.Text))
                     {
                         ventas = "0";
                     }
@@ -217,8 +217,8 @@ namespace SGE_erp.Gestion
                     {
                         ventas = ((EmpleadosEdicion)item).ventasTextBox.Text;
                     }
-                    String salario;
-                    if (((EmpleadosEdicion)item).salarioTextBox.Text.Equals(""))
+                    String salario; 
+                    if (String.IsNullOrWhiteSpace(((EmpleadosEdicion)item).salarioTextBox.Text))
                     {
                         salario = "0";
                     }

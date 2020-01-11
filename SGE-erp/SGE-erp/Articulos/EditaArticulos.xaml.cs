@@ -217,7 +217,7 @@ namespace SGE_erp.Articulos
             {
                 if (txt.IsEnabled)
                 {
-                    if (!txt.Background.ToString().Equals("#FFFFFFFF") || String.IsNullOrWhiteSpace(txt.Text))
+                    if (String.IsNullOrWhiteSpace(txt.Text))
                     {
                         enable = false;
                     }

@@ -9,7 +9,7 @@
     x:Name="EditarArticulos"
     Title="EditaArticulos"
     Width="589"
-    Height="245"
+    Height="255"
     ResizeMode="NoResize"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterOwner"
@@ -74,13 +74,13 @@
             VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition
-                    Height="Auto" />
+                    Height="1*" />
                 <RowDefinition
-                    Height="Auto" />
+                    Height="1*" />
                 <RowDefinition
-                    Height="Auto" />
+                    Height="1*" />
                 <RowDefinition
-                    Height="Auto" />
+                    Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
@@ -121,34 +121,29 @@
                 Grid.Row="3"
                 Grid.Column="3"
                 Width="80"
-                Height="24"
+                Height="26"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 SelectedIndex="0">
                 <ComboBoxItem
                     Name="vacio">
-                    <TextBlock
-                        Text="" />
+                    
                 </ComboBoxItem>
                 <ComboBoxItem
                     Name="iva1">
-                    <TextBlock
-                        Text="0%" />
+                    0%
                 </ComboBoxItem>
                 <ComboBoxItem
                     Name="iva2">
-                    <TextBlock
-                        Text="4%" />
+                    4%
                 </ComboBoxItem>
                 <ComboBoxItem
                     Name="iva3">
-                    <TextBlock
-                        Text="10%" />
+                   10%
                 </ComboBoxItem>
                 <ComboBoxItem
                     Name="iva4">
-                    <TextBlock
-                        Text="21%" />
+                    21%
                 </ComboBoxItem>
             </ComboBox>
             <Label
@@ -195,7 +190,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Grid.ColumnSpan="1"
-                Height="24"
+                Height="26"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 SelectedIndex="0"
