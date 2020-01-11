@@ -1,6 +1,7 @@
 ﻿using SGE_erp.Gestion;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -79,8 +80,6 @@ namespace SGE_erp.Administracion
             Grid.SetColumn(tb3, 2);
             Grid.SetColumn(tb4, 3);
 
-
-
             listaArticulos.Items.Add(gr);
         }
 
@@ -142,19 +141,20 @@ namespace SGE_erp.Administracion
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "SELECT DISTINCT Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
+                    command.CommandText = "SELECT DISTINCT VentasArticulos.Id_Elemento, Articulos.Nombre as Articulo, Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
                         "Clientes.Nombre as Cliente, Clientes.Direccion, Empleados.Nombre as Empleado," +
                         "Poblaciones.CodPostal, Poblaciones.Poblacion, Poblaciones.Provincia, " +
-                        "Articulos.Nombre as Articulo, Articulos.Descripcion, Articulos.PVP " +
+                        "Articulos.Descripcion, Articulos.PVP " +
                         "FROM Ventas, VentasArticulos, Clientes, Poblaciones, ProveedorArticulo, Articulos, Empleados " +
                         "WHERE Ventas.Id_Ventas = VentasArticulos.Id_Ventas AND Ventas.Id_Empleado = Empleados.Id_Empleado AND " +
                         "Ventas.Id_Cliente = Clientes.Id_Cliente AND " +
                         "VentasArticulos.Id_Elemento = ProveedorArticulo.Id_Elemento AND ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo " +
-                        "AND Ventas.Id_Ventas = @id";
+                        "AND Ventas.Id_Ventas = @id ";
                     command.Parameters.AddWithValue("@id", id);
                     con.Open();
                     Boolean primera = false;
-                    using (var reader = command.ExecuteReader())
+                    int cont = 1;
+                    using (IDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -173,8 +173,11 @@ namespace SGE_erp.Administracion
                             string cantidad = (reader.GetInt32(reader.GetOrdinal("Cantidad"))).ToString();
                             string precio = (reader.GetDecimal(reader.GetOrdinal("PVP"))).ToString();
                             decimal subtotal = Decimal.Parse(precio) * int.Parse(cantidad);
-                            addToTable(articulo, cantidad, precio, subtotal.ToString());
-                            //reader.NextResult();
+                            if (cont % 2 == 0)
+                            {
+                                addToTable(articulo, cantidad, precio, subtotal.ToString());
+                            }
+                            cont++;
                         }
                     }
                 }

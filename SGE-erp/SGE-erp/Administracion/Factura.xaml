@@ -173,7 +173,7 @@
                         Grid.Column="1">
                         <TextBlock
                             x:Name="total"
-                            Text="1,590.00 €"
+                            Text="0 €"
                             FontSize="25"
                             Margin="5"
                             HorizontalAlignment="Right"
