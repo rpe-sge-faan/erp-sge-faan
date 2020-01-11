@@ -37,19 +37,17 @@ namespace SGE_erp
 
         private void Entrar_Click(object sender, RoutedEventArgs e)
         {
-            
-            //MainWindow.acceso = true;
-            MainWindow.userEmpleado = tbUser.Text;
-            MainWindow.passwordEmpleado = tbPassword.Password;
-            consultar();
-            //this.Close();
+
+           consultar();
 
         }
 
         public void consultar()
         {
             string user;
+            string nombre;
             string password;
+            int idEmpleado;
             string bd = MetodosGestion.db;
             using (SqlConnection con = new SqlConnection(bd))
             using (SqlCommand command = con.CreateCommand())
@@ -66,33 +64,36 @@ namespace SGE_erp
                     {
                         // DESCOMENTAR PARA ACTIVAR LOS INICIOS DE SESION
 
-                        /*user = reader.GetString(reader.GetOrdinal("Email"));
-                        MessageBox.Show(user); // SI EXISTE ENTONCES LO MUESTRA
-                        
-                        password = reader.GetString(reader.GetOrdinal("Password"));
-                        MessageBox.Show(password); // SI EXISTE ENTONCES LO MUESTRA
+                        user = reader.GetString(reader.GetOrdinal("Email"));
+                        nombre = reader.GetString(reader.GetOrdinal("Nombre"));
+                        password = reader.GetString(reader.GetOrdinal("Password"));                        
+                        idEmpleado = reader.GetInt32(reader.GetOrdinal("Id_Empleado"));                        
 
                         if (user.Equals(tbUser.Text) && password.Equals(tbPassword.Password))
-                        {*/
+                        {
                             MainWindow.acceso = true;
+                            MainWindow.idEmpleado = idEmpleado;
+                            MainWindow.userEmpleado = user;
+                            MainWindow.nombreEmpleado = nombre;
+
                             this.Close();
-                        /*}
+                        }
                         else
                         {
                             //MessageBox.Show("TextBox: " + tbUser.Text + "\n" + "PasswordBox: " + tbPassword.Password + "\n" + "user: " + user + "password: " + password);
-                        }*/
+                        }
 
                     }
                     else
                     {
-                       /* labelError.Content = "Usuario o contraseña incorrectos";
+                        labelError.Content = "Usuario o contraseña incorrectos";
                         labelError.Visibility = Visibility.Visible;
                         tbPassword.Password = "";
-                        */
+                        
 
                         // ELIMINAR CUANDO SE ACTIVE EL INICIO DE SESION
-                        MainWindow.acceso = true;
-                        this.Close();
+                        /*MainWindow.acceso = true;
+                        this.Close();*/
                     }
                 }
             }
@@ -102,8 +103,6 @@ namespace SGE_erp
         {
             if (e.Key == Key.Enter)
             {
-                MainWindow.userEmpleado = tbUser.Text;
-                MainWindow.passwordEmpleado = tbPassword.Password;
                 consultar();
             }
         }

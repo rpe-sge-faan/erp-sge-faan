@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Articulos"
         mc:Ignorable="d"
-        Title="InfoArticulos" Height="450" Width="800">
+        Title="InfoArticulos" Height="450" ResizeMode="NoResize" Width="700" WindowStartupLocation="CenterScreen">
     <Grid>
         <DataGrid
             x:Name="articuloDataGrid"
