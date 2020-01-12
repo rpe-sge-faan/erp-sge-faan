@@ -116,55 +116,48 @@ namespace SGE_erp.Gestion
         {
             int tipo = tipoComboBox.SelectedIndex + 1;
 
-            try
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
-                using (SqlCommand command = con.CreateCommand())
+                command.CommandText = "UPDATE Clientes SET Tipo = @tipo, Nombre = @nombre, Telefono = @telefono, Email = @email, " +
+                    "PersonaContacto = @persona, Direccion = @direccion, NIF = @nif, CodPostal = @codp WHERE Id_Cliente = @id";
+
+                command.Parameters.AddWithValue("@tipo", tipo);
+                command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
+                command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
+                command.Parameters.AddWithValue("@email", emailTextBox.Text);
+                command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
+                command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
+                command.Parameters.AddWithValue("@nif", nifTextBox.Text);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@codp", cpBox.Text);
+
+                con.Open();
+                int a = command.ExecuteNonQuery();
+
+
+
+                //DataSet ds;
+                //SqlDataAdapter da;
+                //SqlCommandBuilder scb;
+                //DataTable dt;
+
+                //da = new SqlDataAdapter("SELECT * FROM [Clientes]", con);
+                //ds = new DataSet();
+                //dt = new DataTable();
+                //ds.Clear();
+                //da.Fill(dt);
+
+
+                if (a != 0)
                 {
-                    command.CommandText = "UPDATE Clientes SET Tipo = @tipo, Nombre = @nombre, Telefono = @telefono, Email = @email, " +
-                        "PersonaContacto = @persona, Direccion = @direccion, NIF = @nif, CodPostal = @codp WHERE Id_Cliente = @id";
-
-                    command.Parameters.AddWithValue("@tipo", tipo);
-                    command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
-                    command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
-                    command.Parameters.AddWithValue("@email", emailTextBox.Text);
-                    command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
-                    command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@codp", cpBox.Text);
-
-                    con.Open();
-                    int a = command.ExecuteNonQuery();
-
-
-
-                    //DataSet ds;
-                    //SqlDataAdapter da;
-                    //SqlCommandBuilder scb;
-                    //DataTable dt;
-
-                    //da = new SqlDataAdapter("SELECT * FROM [Clientes]", con);
-                    //ds = new DataSet();
-                    //dt = new DataTable();
-                    //ds.Clear();
-                    //da.Fill(dt);
-
-
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cliente ERROR");
-                    }
+                    con.Close();
                 }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
+                else
+                {
+                    MessageBox.Show("Cliente ERROR");
+                }
             }
 
             ActualizarLista.DynamicInvoke();

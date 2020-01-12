@@ -36,10 +36,13 @@
                 Color="#185658" />
             <SolidColorBrush
                 x:Key="colorArticulos"
-                Color="#12716e" />
+                Color="#146567" />
             <SolidColorBrush
                 x:Key="colorGestion"
-                Color="#0a968d" />
+                Color="#107b76" />
+            <SolidColorBrush
+                x:Key="colorAdmin"
+                Color="#0e847e" />
             <SolidColorBrush
                 x:Key="colorAyuda"
                 Color="#06A89C" /> 

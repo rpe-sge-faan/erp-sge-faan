@@ -116,37 +116,30 @@ namespace SGE_erp.Articulos
 
         private void Editar()
         {
-            try
+            using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+            using (SqlCommand command = con.CreateCommand())
             {
-                using (SqlConnection con = new SqlConnection(MetodosGestion.db))
-                using (SqlCommand command = con.CreateCommand())
+                command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo, PVP =@pvp, Stock=@sTock WHERE Id_Articulo = @id";
+
+                command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
+                command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
+                command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
+                command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedValue);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@pvp", decimal.Parse(txtBoxNUEVOPVP.Text));
+                command.Parameters.AddWithValue("@sTock", int.Parse(txtBoxNUEVOstock.Text));
+
+                con.Open();
+                int a = command.ExecuteNonQuery();
+
+                if (a != 0)
                 {
-                    command.CommandText = "UPDATE Articulos SET Id_Iva =@Id_Iva, Nombre =@nombre, Descripcion =@descripcion, TipoArticulo =@tipoArticulo, PVP =@pvp, Stock=@sTock WHERE Id_Articulo = @id";
-
-                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
-                    command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
-                    command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedValue);
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@pvp", decimal.Parse(txtBoxNUEVOPVP.Text));
-                    command.Parameters.AddWithValue("@sTock", int.Parse(txtBoxNUEVOstock.Text));
-
-                    con.Open();
-                    int a = command.ExecuteNonQuery();
-
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Editar Articulo ERROR");
-                    }
+                    con.Close();
                 }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
+                else
+                {
+                    MessageBox.Show("Editar Articulo ERROR");
+                }
             }
 
             ActualizarLista.DynamicInvoke();
@@ -156,38 +149,31 @@ namespace SGE_erp.Articulos
 
         private void Nuevo()
         {
-            try
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
-                using (SqlCommand command = con.CreateCommand())
+                command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo, PVP, Stock) " +
+                    "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo, @pvp, @sTock)";
+
+                command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
+                command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
+                command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
+                command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedValue);
+                command.Parameters.AddWithValue("@pvp", txtBoxNUEVOPVP.Text);
+                command.Parameters.AddWithValue("@sTock", txtBoxNUEVOstock.Text);
+
+                con.Open();
+                int a = command.ExecuteNonQuery();
+
+                if (a != 0)
                 {
-                    command.CommandText = "INSERT INTO Articulos (Id_Iva, Nombre, Descripcion, TipoArticulo, PVP, Stock) " +
-                        "VALUES (@Id_Iva, @nombre, @descripcion, @tipoArticulo, @pvp, @sTock)";
-
-                    command.Parameters.AddWithValue("@Id_Iva", id_IvaComboBox1.SelectedIndex);
-                    command.Parameters.AddWithValue("@nombre", nombreTextBox1.Text);
-                    command.Parameters.AddWithValue("@descripcion", descripcionTextBox1.Text);
-                    command.Parameters.AddWithValue("@tipoArticulo", tipoArticuloComboBox1.SelectedIndex);
-                    command.Parameters.AddWithValue("@pvp", txtBoxNUEVOPVP.Text);
-                    command.Parameters.AddWithValue("@sTock", txtBoxNUEVOstock.Text);
-
-                    con.Open();
-                    int a = command.ExecuteNonQuery();
-
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Articulos ERROR");
-                    }
+                    con.Close();
                 }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
+                else
+                {
+                    MessageBox.Show("Articulos ERROR");
+                }
             }
 
             ActualizarLista.DynamicInvoke();

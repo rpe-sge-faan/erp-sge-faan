@@ -1,11 +1,14 @@
-﻿<UserControl x:Class="SGE_erp.Administracion.AdminMain"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SGE_erp.Administracion"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Black">
+﻿<UserControl
+    x:Class="SGE_erp.Administracion.AdminMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SGE_erp.Administracion"
+    mc:Ignorable="d"
+    Background="{DynamicResource colorAdmin}"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -32,7 +35,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Header="Usuarios">
-                <local:Usuarios/>
+                <local:Usuarios />
             </TabItem>
         </TabControl>
     </Grid>
