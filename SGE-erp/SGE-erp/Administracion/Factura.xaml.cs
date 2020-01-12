@@ -98,8 +98,6 @@ namespace SGE_erp.Administracion
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addToTable("1111", "2222", "33333", "44444");
-
             try
             {
                 this.IsEnabled = false;
