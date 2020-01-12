@@ -102,15 +102,15 @@ namespace SGE_erp.Venta
 
             ds.Clear();
             da.Fill(dt);
-            this.nombreComboBox.ItemsSource = dt.DefaultView;
+            this.cbCliente.ItemsSource = dt.DefaultView;
 
-            nombreComboBox.DisplayMemberPath = dt.Columns["Nombre"].ToString();
-            nombreComboBox.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
+            cbCliente.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            cbCliente.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
 
             con.Open();
             con.Close();
 
-            nombreComboBox.SelectedIndex = 0;
+            cbCliente.SelectedIndex = 0;
         }
 
         public void nombreComboEmple()
@@ -123,18 +123,18 @@ namespace SGE_erp.Venta
 
             ds.Clear();
             da.Fill(dt);
-            this.nombreComboBox1.ItemsSource = dt.DefaultView;
+            //this.nombreComboBox1.ItemsSource = dt.DefaultView;
 
-            nombreComboBox1.DisplayMemberPath = dt.Columns["Nombre"].ToString();
-            nombreComboBox1.SelectedValuePath = dt.Columns["Id_Empleado"].ToString();
+            //nombreComboBox1.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            //nombreComboBox1.SelectedValuePath = dt.Columns["Id_Empleado"].ToString();
 
             con.Open();
             con.Close();
 
-            nombreComboBox1.SelectedIndex = 0;
+            //nombreComboBox1.SelectedIndex = 0;
         }
 
-        private void nombreComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void cbCliente_Loaded(object sender, RoutedEventArgs e)
         {
             nombreCombo();
         }
@@ -153,7 +153,7 @@ namespace SGE_erp.Venta
             {
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
                 int idArticulo = drv.Row.Field<int>("Id_Articulo");
-                String idEmpleado = nombreComboBox1.SelectedValue.ToString();
+               // String idEmpleado = nombreComboBox1.SelectedValue.ToString();
                 int idElemento = drv.Row.Field<int>("Id_Elemento");
                 int stock = (int)udStock.Value;
                 String nombre = drv.Row.Field<String>("Nombre");
@@ -169,7 +169,7 @@ namespace SGE_erp.Venta
                 DataRow dr = null;
                 dr = dataT.NewRow();
                 dr["Id_Articulo"] = idArticulo;
-                dr["Id_Empleado"] = idEmpleado;
+               // dr["Id_Empleado"] = idEmpleado;
                 dr["Id_Elemento"] = idElemento;
                 dr["Nombre"] = nombre;
                 dr["PVP"] = totalM;
@@ -188,8 +188,8 @@ namespace SGE_erp.Venta
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
            
             int idElemento = drv.Row.Field<int>("Id_Elemento");
-            int idCliente = (int)nombreComboBox.SelectedValue;
-            idEmpl = (int)nombreComboBox1.SelectedValue;
+            int idCliente = (int)cbCliente.SelectedValue;
+            //idEmpl = (int)nombreComboBox1.SelectedValue;
             DateTime fecha = dpFecha.SelectedDate.Value;
             decimal precio = (decimal)lbTotalFin.Content;
             
