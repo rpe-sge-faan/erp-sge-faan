@@ -103,9 +103,6 @@
     <Compile Include="Gestion\Ayuda.xaml.cs">
       <DependentUpon>Ayuda.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gestion\Poblaciones.xaml.cs">
-      <DependentUpon>Poblaciones.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Compras\Compras_Carrito.xaml.cs">
       <DependentUpon>Compras_Carrito.xaml</DependentUpon>
     </Compile>
@@ -155,6 +152,9 @@
     <Compile Include="LogInWindow.xaml.cs">
       <DependentUpon>LogInWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mensajes.xaml.cs">
+      <DependentUpon>Mensajes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Venta\VentaArticulo.xaml.cs">
       <DependentUpon>VentaArticulo.xaml</DependentUpon>
     </Compile>
@@ -194,10 +194,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gestion\Ayuda.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gestion\Poblaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,6 +294,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Mensajes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Venta\VentaArticulo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

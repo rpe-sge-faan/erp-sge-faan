@@ -138,8 +138,8 @@ namespace SGE_erp.Articulos
             {
                 DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Articulo");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                bool resul = Mensajes.Mostrar("¿Borrar aertículo", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     try
                     {
@@ -160,7 +160,7 @@ namespace SGE_erp.Articulos
                             }
                             else
                             {
-                                MessageBox.Show("Error al borrar articulo");
+                                Mensajes.Mostrar("Error al borrar artículo", Mensajes.Tipo.Error);
                             }
                         }
                     }
@@ -362,8 +362,8 @@ namespace SGE_erp.Articulos
 
                     if (existe > 0)
                     {
-                        MessageBoxResult resultado = MessageBox.Show("Esta relación ya existe ¿Desea modificarla?", "Conflicto", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (resultado == MessageBoxResult.Yes)
+                        bool resul = Mensajes.Mostrar("Esta relación ya existe ¿Desea modificarla?", Mensajes.Tipo.Confirmacion);
+                        if (resul)
                         {
                             using (SqlCommand editar = con.CreateCommand())
                             {
@@ -440,8 +440,8 @@ namespace SGE_erp.Articulos
             {
                 DataRowView dd = (DataRowView)tipoArtdata.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Tipo");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                bool resul = Mensajes.Mostrar("¿Borrar esta categoría", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     try
                     {

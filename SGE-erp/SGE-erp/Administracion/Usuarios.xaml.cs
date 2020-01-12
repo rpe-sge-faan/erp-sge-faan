@@ -50,8 +50,10 @@ namespace SGE_erp.Administracion
                 con.Open();
                 con.Close();
 
-                dataGridUsuarios.Columns[0].Visibility = Visibility.Collapsed;
-                dataGridUsuarios.Columns[1].Visibility = Visibility.Collapsed;
+                // MOSTRAR NOMBRE E ID
+                //dataGridUsuarios.Columns[0].Visibility = Visibility.Collapsed;
+                //dataGridUsuarios.Columns[1].Visibility = Visibility.Collapsed;
+
                 dataGridUsuarios.Columns[2].Visibility = Visibility.Collapsed;
                 dataGridUsuarios.Columns[3].Visibility = Visibility.Collapsed;
 
@@ -77,150 +79,108 @@ namespace SGE_erp.Administracion
         private void reset()
         {
             dataGridUsuarios.UnselectAll();
-            tbPobla.Text = "";
             tbProv.Text = "";
             Actualizar();
         }
 
+        private void dataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
+            string email = dd.Row.Field<string>("Email");
+            using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Empleados WHERE Email = @cod";
+                command.Parameters.AddWithValue("@cod", email);
+                con.Open();
 
-        /*
-private void bAnadir_Click(object sender, RoutedEventArgs e)
-{
-   try
-   {
-       DataRowView dv = (DataRowView)dataGridUsuarios.SelectedItem;
-       //int idT = dTipo.Row.Field<int>("Id_Tipo");
-       SqlConnection con = new SqlConnection(MetodosGestion.db);
-       using (SqlCommand command = con.CreateCommand())
-       {
-           command.CommandText = "SELECT COUNT(*) FROM [Poblaciones] WHERE ([CodPostal] = @tipo)";
-           command.Parameters.AddWithValue("@tipo", codPos.Text);
-           con.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        tbProv.Text = reader.GetString(reader.GetOrdinal("Password"));
+                       
+                    }
+                }
+            }
+        }
 
-           int existe = (int)command.ExecuteScalar();
+        private void bEditar_Click_1(object sender, RoutedEventArgs e)
+        {
+            DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
+            string email ="";
 
-           if (existe > 0)
-           {
-               MessageBoxResult resultado = MessageBox.Show("Esta poblaición ya existe");
-           }
-           else
-           {
-               using (SqlCommand anadir = con.CreateCommand())
-               {
+            try
+            {
+                email = dd.Row.Field<string>("Email");
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Seleccione un email");
+                
+            }
 
-                   anadir.CommandText = "INSERT INTO Poblaciones VALUES (@id, @poblacion, @provincia)";
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro que quieres usar '' " + tbProv.Text + " '' como nueva contraseña?", "Confirmacion Editado", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                string bd = MetodosGestion.db;
+                using (SqlConnection con = new SqlConnection(bd))
+                using (SqlCommand command = con.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Empleados SET Password=@contra WHERE Email=@email";
 
-                   anadir.Parameters.AddWithValue("@id", codPos.Text);
-                   anadir.Parameters.AddWithValue("@poblacion", tbPobla.Text);
-                   anadir.Parameters.AddWithValue("@provincia", tbProv.Text);
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@contra", tbProv.Text);
 
-                   //con.Open();
-                   int a = anadir.ExecuteNonQuery();
+                    con.Open();
+                    int a = command.ExecuteNonQuery();
 
-                   if (a != 0)
-                   {
-                       con.Close();
-                   }
-                   else
-                   {
-                       MessageBox.Show("Poblacion ERROR");
-                   }
-               }
-           }
-       }
-       con.Close();
-   }
-   catch (SqlException ex)
-   {
-       Console.WriteLine(ex.Message);
-   }
-   reset();
-}
+                    if (a != 0)
+                    {
+                        con.Close();
+                    }
+                    else
+                    {
+                        //MessageBox.Show("No puede editar el e-mail\r\nCree un elemento nuevo");
+                    }
+                }
+                reset();
+            }
+        }
 
+        private void bBorrar_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (dataGridUsuarios.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
+                string cod = dd.Row.Field<string>("Email");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+                    using (SqlCommand command = con.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE Empleados SET Password=@contra WHERE Email=@cod";
 
+                        command.Parameters.AddWithValue("@cod", cod);
+                        command.Parameters.AddWithValue("@contra", 123456789);
 
-private void dataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-{
-   DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
-   string cod = dd.Row.Field<string>("CodPostal");
-   using (SqlConnection con = new SqlConnection(MetodosGestion.db))
-   using (SqlCommand command = con.CreateCommand())
-   {
-       command.CommandText = "SELECT * FROM Poblaciones WHERE CodPostal = @cod";
-       command.Parameters.AddWithValue("@cod", cod);
-       con.Open();
+                        con.Open();
+                        int a = command.ExecuteNonQuery();
 
-       using (var reader = command.ExecuteReader())
-       {
-           if (reader.Read())
-           {
-               codPos.Text = reader.GetString(reader.GetOrdinal("CodPostal"));
-               tbPobla.Text = reader.GetString(reader.GetOrdinal("Poblacion"));
-               tbProv.Text = reader.GetString(reader.GetOrdinal("Provincia"));
-           }
-       }
-   }
-}
+                        if (a != 0)
+                        {
+                            con.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Proveedor ERROR al borrar");
+                        }
+                    }
+                    reset();
+                }
+            }
+        }
 
-private void bEditar_Click(object sender, RoutedEventArgs e)
-{
-   string bd = MetodosGestion.db;
-   using (SqlConnection con = new SqlConnection(bd))
-   using (SqlCommand command = con.CreateCommand())
-   {
-       command.CommandText = "UPDATE Poblaciones SET CodPostal=@cod, Poblacion = @pob, Provincia = @prov WHERE CodPostal = @cod";
-
-       command.Parameters.AddWithValue("@cod", codPos.Text);
-       command.Parameters.AddWithValue("@pob", tbPobla.Text);
-       command.Parameters.AddWithValue("@prov", tbProv.Text);
-
-       con.Open();
-       int a = command.ExecuteNonQuery();
-
-       if (a != 0)
-       {
-           con.Close();
-       }
-       else
-       {
-           MessageBox.Show("No puede editar el CP\r\nCree un elemento nuevo");
-       }
-   }
-   reset();
-}
-
-private void bBorrar_Click(object sender, RoutedEventArgs e)
-{
-   if (dataGridPoblacion.SelectedItem != null)
-   {
-       DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
-       string cod = dd.Row.Field<string>("CodPostal");
-       MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-       if (messageBoxResult == MessageBoxResult.Yes)
-       {
-           using (SqlConnection con = new SqlConnection(MetodosGestion.db))
-           using (SqlCommand command = con.CreateCommand())
-           {
-               command.CommandText = "DELETE FROM Poblaciones WHERE CodPostal = @id";
-
-               command.Parameters.AddWithValue("@id", cod);
-
-               con.Open();
-               int a = command.ExecuteNonQuery();
-
-               if (a != 0)
-               {
-                   con.Close();
-               }
-               else
-               {
-                   MessageBox.Show("Proveedor ERROR al borrar");
-               }
-           }
-           reset();
-       }
-   }
-}
-*/
     }
 }

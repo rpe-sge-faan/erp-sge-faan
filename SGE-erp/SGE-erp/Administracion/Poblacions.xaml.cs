@@ -111,5 +111,102 @@ namespace SGE_erp.Administracion
             ActualizarTabla();
         }
 
+        private void bReset_Click(object sender, RoutedEventArgs e)
+        {
+            reset();
+        }
+
+        private void reset()
+        {
+            dataGridPoblacion.UnselectAll();
+            codPos.Text = "";
+            tbPobla.Text = "";
+            tbProv.Text = "";
+            ActualizarTabla();
+        }
+
+        private void dataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
+            string cod = dd.Row.Field<string>("CodPostal");
+            using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Poblaciones WHERE CodPostal = @cod";
+                command.Parameters.AddWithValue("@cod", cod);
+                con.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        codPos.Text = reader.GetString(reader.GetOrdinal("CodPostal"));
+                        tbPobla.Text = reader.GetString(reader.GetOrdinal("Poblacion"));
+                        tbProv.Text = reader.GetString(reader.GetOrdinal("Provincia"));
+                    }
+                }
+            }
+        }
+
+        private void bEditar_Click_1(object sender, RoutedEventArgs e)
+        {
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
+            {
+                command.CommandText = "UPDATE Poblaciones SET CodPostal=@cod, Poblacion = @pob, Provincia = @prov WHERE CodPostal = @cod";
+
+                command.Parameters.AddWithValue("@cod", codPos.Text);
+                command.Parameters.AddWithValue("@pob", tbPobla.Text);
+                command.Parameters.AddWithValue("@prov", tbProv.Text);
+
+                con.Open();
+                int a = command.ExecuteNonQuery();
+
+                if (a != 0)
+                {
+                    con.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No puede editar el CP\r\nCree un elemento nuevo");
+                }
+            }
+            reset();
+        }
+
+        private void bBorrar_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (dataGridPoblacion.SelectedItem != null)
+            {
+                DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
+                string cod = dd.Row.Field<string>("CodPostal");
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+                    using (SqlCommand command = con.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM Poblaciones WHERE CodPostal = @id";
+
+                        command.Parameters.AddWithValue("@id", cod);
+
+                        con.Open();
+                        int a = command.ExecuteNonQuery();
+
+                        if (a != 0)
+                        {
+                            con.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Proveedor ERROR al borrar");
+                        }
+                    }
+                    reset();
+                }
+            }
+        }
+
     }
 }

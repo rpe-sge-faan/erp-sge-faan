@@ -25,12 +25,16 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="6*" />
+            <RowDefinition
+                Height="1*" />
+            <RowDefinition
+                Height="6*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition
+                Width="4*" />
+            <ColumnDefinition
+                Width="1*" />
         </Grid.ColumnDefinitions>
         <TabControl
             Grid.Row="0"
@@ -276,7 +280,7 @@
                 Padding="20,10,20,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="Black"
+                Background="{DynamicResource colorAdmin}"
                 Header="Ad_min"
                 Style="{DynamicResource TabItemStyle1}">
                 <localAdmin:AdminMain />
@@ -297,8 +301,24 @@
                 <localGestion:Ayuda />
             </TabItem>
         </TabControl>
-        <Label Grid.Column="1" Grid.Row="0" x:Name="lblNombre" Content="Nombre" HorizontalAlignment="Right" Margin="15,7.5" Foreground="#06A89C" MouseDoubleClick="lblNombre_MouseDoubleClick"/>
-        <Label Grid.Column="1" Grid.Row="0" x:Name="lblUser" Content="Usuario" HorizontalAlignment="Right" Margin="15,25" Foreground="#04756d" MouseDoubleClick="lblUser_MouseDoubleClick" />
+        <Label
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="lblNombre"
+            Content="Nombre"
+            HorizontalAlignment="Right"
+            Margin="15,7.5"
+            Foreground="#06A89C"
+            MouseDoubleClick="lblNombre_MouseDoubleClick" />
+        <Label
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="lblUser"
+            Content="Usuario"
+            HorizontalAlignment="Right"
+            Margin="15,25"
+            Foreground="#04756d"
+            MouseDoubleClick="lblUser_MouseDoubleClick" />
         <!--<Image
             x:Name="image"
             HorizontalAlignment="Left"

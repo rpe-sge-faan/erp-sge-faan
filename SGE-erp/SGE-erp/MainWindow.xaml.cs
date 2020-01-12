@@ -23,7 +23,7 @@ namespace SGE_erp
         public static bool acceso;
         public static string userEmpleado;
         public static string nombreEmpleado;
-        public static int idEmpleado;
+        public static int idEmpleado = 1;
         private bool idUser = false;
 
         // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx

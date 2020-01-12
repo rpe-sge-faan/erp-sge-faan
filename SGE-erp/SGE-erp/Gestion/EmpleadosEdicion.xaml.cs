@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Gestion
 {
-
     public partial class EmpleadosEdicion : Window
     {
         public int id;
@@ -43,7 +42,9 @@ namespace SGE_erp.Gestion
             }
             else if (id == -1)
             {
-                
+                salarioTextBox.Text = "0";
+                fechaDatePicker.SelectedDate = new DateTime(2000, 1, 1);
+                ventasTextBox.Text = "0";
             }
             else
             {
