@@ -55,6 +55,7 @@ namespace SGE_erp.Gestion
                 con.Close();
 
                 dataGridEmpleados.Columns[0].Visibility = Visibility.Collapsed;
+                dataGridEmpleados.Columns[10].Visibility = Visibility.Collapsed;
             }
             catch
             {

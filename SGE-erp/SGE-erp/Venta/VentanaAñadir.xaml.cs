@@ -25,13 +25,12 @@ namespace SGE_erp.Venta
     public partial class VentanaAñadir : UserControl
     {
         public static DataTable dataT;
-        public static int idEmpl;
         public static int id;
         public VentanaAñadir()
         {
-            InitializeComponent();          
+            InitializeComponent();
         }
-        
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
@@ -95,55 +94,30 @@ namespace SGE_erp.Venta
 
         public void nombreCombo()
         {
+            this.cbCliente.ItemsSource = null;
+            //comboBox1.Items.Clear();
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Cliente, Nombre FROM Clientes ORDER BY Nombre ASC", con);
             DataTable dt = new DataTable();
 
-            ds.Clear();
             da.Fill(dt);
+            con.Open();
+            con.Close();
+
             this.cbCliente.ItemsSource = dt.DefaultView;
 
             cbCliente.DisplayMemberPath = dt.Columns["Nombre"].ToString();
             cbCliente.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
 
-            con.Open();
-            con.Close();
+            cbCliente.InvalidateArrange();
 
             cbCliente.SelectedIndex = 0;
-        }
-
-        public void nombreComboEmple()
-        {
-            SqlConnection con = new SqlConnection(MetodosGestion.db);
-            DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Empleado, Nombre FROM Empleados ORDER BY Nombre ASC", con);
-            DataTable dt = new DataTable();
-
-
-            ds.Clear();
-            da.Fill(dt);
-            //this.nombreComboBox1.ItemsSource = dt.DefaultView;
-
-            //nombreComboBox1.DisplayMemberPath = dt.Columns["Nombre"].ToString();
-            //nombreComboBox1.SelectedValuePath = dt.Columns["Id_Empleado"].ToString();
-
-            con.Open();
-            con.Close();
-
-            //nombreComboBox1.SelectedIndex = 0;
         }
 
         private void cbCliente_Loaded(object sender, RoutedEventArgs e)
         {
             nombreCombo();
         }
-
-        private void nombreComboBox1_Loaded(object sender, RoutedEventArgs e)
-        {
-            nombreComboEmple();
-        }
-
 
         decimal totalFinal = 0;
         int guardarCantidad = 0;
@@ -153,7 +127,7 @@ namespace SGE_erp.Venta
             {
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
                 int idArticulo = drv.Row.Field<int>("Id_Articulo");
-               // String idEmpleado = nombreComboBox1.SelectedValue.ToString();
+                int idEmpleado = MainWindow.idEmpleado;
                 int idElemento = drv.Row.Field<int>("Id_Elemento");
                 int stock = (int)udStock.Value;
                 String nombre = drv.Row.Field<String>("Nombre");
@@ -169,30 +143,27 @@ namespace SGE_erp.Venta
                 DataRow dr = null;
                 dr = dataT.NewRow();
                 dr["Id_Articulo"] = idArticulo;
-               // dr["Id_Empleado"] = idEmpleado;
+                dr["Id_Empleado"] = idEmpleado;
                 dr["Id_Elemento"] = idElemento;
                 dr["Nombre"] = nombre;
                 dr["PVP"] = totalM;
                 dr["Unidades"] = stock;
                 dataT.Rows.Add(dr);
                 dgFinal.ItemsSource = dataT.DefaultView;
-
-                
             }
-            
         }
 
         private void Insertar_Click(object sender, RoutedEventArgs e)
         {
-            
+
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
-           
+
             int idElemento = drv.Row.Field<int>("Id_Elemento");
             int idCliente = (int)cbCliente.SelectedValue;
-            //idEmpl = (int)nombreComboBox1.SelectedValue;
+            int idEmpl = MainWindow.idEmpleado;
             DateTime fecha = dpFecha.SelectedDate.Value;
             decimal precio = (decimal)lbTotalFin.Content;
-            
+
 
             try
             {
@@ -208,8 +179,8 @@ namespace SGE_erp.Venta
                     command.Parameters.AddWithValue("@idCliente", idCliente);
                     command.Parameters.AddWithValue("@fechaVentas", fecha);
                     command.Parameters.AddWithValue("@precioTotal", precio);
-                    
-                    
+
+
                     conn.Open();
                     id = (int)command.ExecuteScalar();
 
@@ -223,12 +194,12 @@ namespace SGE_erp.Venta
                         MessageBox.Show("ERROR");
                     }
                 }
-       
+
                 for (int i = 0; i < dataT.Rows.Count; i++)
                 {
 
                     DataRow row = dataT.Rows[i];
-                    
+
                     using (SqlConnection con = new SqlConnection(bd))
                     using (SqlCommand comando = con.CreateCommand())
                     {
@@ -254,8 +225,8 @@ namespace SGE_erp.Venta
                         }
                     }
                 }
-                
-                
+
+
                 dgFinal.Columns.Clear();
                 dgFinal.ItemsSource = null;
                 dgFinal.Items.Refresh();
@@ -267,22 +238,38 @@ namespace SGE_erp.Venta
             }
             guardarCantidad = 0;
             lbTotalFin.Content = 0;
-            
+
         }
 
-         
+
         private void cbFormaPago_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
-    }
 
-    class MetodosGestion
-    {
-        public static String db = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-        public static bool IsOpen(Window window)
+        ClientesEdicion c;
+        private void bAddClientes_Click(object sender, RoutedEventArgs e)
         {
-            return Application.Current.Windows.Cast<Window>().Any(x => x == window);
+            if (!MetodosGestion.IsOpen(c))
+            {
+                c = new ClientesEdicion(0);
+                c.Title = "Añadir Cliente";
+                c.Owner = System.Windows.Application.Current.MainWindow;
+                c.Show();
+            }
+            nombreCombo();
+            cbCliente.Items.Refresh();
+
+        }
+
+        private void cbCliente_DropDownClosed(object sender, EventArgs e)
+        {
+            nombreCombo();
+        }
+
+        private void cbCliente_DropDownOpened(object sender, EventArgs e)
+        {
+
         }
     }
 }

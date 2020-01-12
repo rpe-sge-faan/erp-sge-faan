@@ -75,7 +75,6 @@
                     Width="115*" />
                 <ColumnDefinition
                     Width="229*" />
-
             </Grid.ColumnDefinitions>
             <Label
                 Grid.Row="0"
@@ -109,18 +108,8 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 SelectedIndex="0">
-
-                <ComboBoxItem
-                    Name="part">
-                    <TextBlock
-                        Text="Particular" />
-                </ComboBoxItem>
-                <ComboBoxItem
-                    Name="empr">
-                    <TextBlock
-                        Text="Empresa" />
-                </ComboBoxItem>
-
+                <ComboBoxItem>Particular</ComboBoxItem>
+                <ComboBoxItem>Empresa</ComboBoxItem>
             </ComboBox>
             <Label
                 Grid.Row="2"
@@ -141,7 +130,6 @@
             <Label
                 Grid.Row="2"
                 Grid.Column="2"
-                
                 Margin="3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -294,9 +282,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     MaxLength="5" />
-
             </Grid>
-
         </Grid>
         <Label
             x:Name="labelInfo"
