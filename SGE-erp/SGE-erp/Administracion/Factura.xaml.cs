@@ -147,7 +147,7 @@ namespace SGE_erp.Administracion
                         "Articulos.Descripcion, Articulos.PVP " +
                         "FROM Ventas, VentasArticulos, Clientes, Poblaciones, ProveedorArticulo, Articulos, Empleados " +
                         "WHERE Ventas.Id_Ventas = VentasArticulos.Id_Ventas AND Ventas.Id_Empleado = Empleados.Id_Empleado AND " +
-                        "Ventas.Id_Cliente = Clientes.Id_Cliente AND " +
+                        "Ventas.Id_Cliente = Clientes.Id_Cliente AND Poblaciones.CodPostal = Clientes.CodPostal AND " +
                         "VentasArticulos.Id_Elemento = ProveedorArticulo.Id_Elemento AND ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo " +
                         "AND Ventas.Id_Ventas = @id ";
                     command.Parameters.AddWithValue("@id", id);
@@ -173,11 +173,11 @@ namespace SGE_erp.Administracion
                             string cantidad = (reader.GetInt32(reader.GetOrdinal("Cantidad"))).ToString();
                             string precio = (reader.GetDecimal(reader.GetOrdinal("PVP"))).ToString();
                             decimal subtotal = Decimal.Parse(precio) * int.Parse(cantidad);
-                            if (cont % 2 == 0)
-                            {
+                            //if (cont % 2 == 0)
+                            //{
                                 addToTable(articulo, cantidad, precio, subtotal.ToString());
-                            }
-                            cont++;
+                            //}
+                            //cont++;
                         }
                     }
                 }

@@ -149,13 +149,24 @@ namespace SGE_erp.Venta
             ccd.Show();
         }
 
+        Factura f;
         private void facturaV_Click(object sender, RoutedEventArgs e)
         {
-            DataRowView dato = (DataRowView)dgVista.SelectedItem;
-            int idVenta = dato.Row.Field<int>("Id_Ventas");
+            if (!MetodosGestion.IsOpen(f))
+            {
+                if (dgVista.SelectedItem != null)
+                {
+                    DataRowView dato = (DataRowView)dgVista.SelectedItem;
+                    int idVenta = dato.Row.Field<int>("Id_Ventas");
 
-            Factura f = new Factura(idVenta,1);
-            f.Show();
+                    f = new Factura(idVenta, 1);
+                    f.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ya hay una factura abierta");
+            }
         }
     }
 }
