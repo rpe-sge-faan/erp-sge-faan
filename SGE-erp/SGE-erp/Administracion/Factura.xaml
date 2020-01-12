@@ -9,8 +9,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Title="Factura"
     Height="730"
-    Width="535"
-    MaxWidth="535"
+    Width="545"
+    MaxWidth="545"
     MinWidth="535"
     MinHeight="730"
     ResizeMode="CanResize"
@@ -38,7 +38,6 @@
                 <RowDefinition
                     Height="140" />
             </Grid.RowDefinitions>
-
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Right"
@@ -93,11 +92,15 @@
                     Margin="10 25 10 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
-                            Width="2.3*" />
+                            Width="2.5*" />
                         <ColumnDefinition
-                            Width="1*" />
+                            Width="0.8*" />
                         <ColumnDefinition
-                            Width="1*" />
+                            Width="0.8*" />
+                        <ColumnDefinition
+                            Width="0.8*" />
+                        <ColumnDefinition
+                            Width="0.5*" />
                         <ColumnDefinition
                             Width="1*" />
                     </Grid.ColumnDefinitions>
@@ -107,13 +110,13 @@
                         FontSize="12"
                         FontWeight="ExtraLight" />
                     <TextBlock
-                        Text="Cantidad"
+                        Text="Precio"
                         Grid.Column="1"
                         FontSize="12"
                         FontWeight="ExtraLight"
                         HorizontalAlignment="Center" />
                     <TextBlock
-                        Text="Precio"
+                        Text="Cantidad"
                         Grid.Column="2"
                         FontSize="12"
                         FontWeight="ExtraLight"
@@ -121,6 +124,18 @@
                     <TextBlock
                         Text="Subtotal"
                         Grid.Column="3"
+                        FontSize="12"
+                        FontWeight="ExtraLight"
+                        HorizontalAlignment="Center" />
+                    <TextBlock
+                        Text="IVA"
+                        Grid.Column="4"
+                        FontSize="12"
+                        FontWeight="ExtraLight"
+                        HorizontalAlignment="Center" />
+                    <TextBlock
+                        Text="Total"
+                        Grid.Column="5"
                         FontSize="12"
                         FontWeight="ExtraLight"
                         HorizontalAlignment="Right" />
@@ -150,8 +165,14 @@
                             Width="1*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
+                        Text="TOTAL sin IVA"
+                        Grid.Column="1"
+                        FontSize="13"
+                        FontWeight="ExtraLight"
+                        HorizontalAlignment="Right" />
+                    <TextBlock
                         Text="TOTAL"
-                        Grid.Column="3"
+                        Grid.Column="2"
                         FontSize="13"
                         FontWeight="ExtraLight"
                         HorizontalAlignment="Right" />
@@ -168,11 +189,21 @@
                             Width="1*" />
                         <ColumnDefinition
                             Width="1*" />
+                        <ColumnDefinition
+                            Width="1*" />
                     </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="1"
+                        x:Name="tbTotalSin"
+                        Text="0 €"
+                        FontSize="20"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        FontWeight="DemiBold" />
                     <StackPanel
-                        Grid.Column="1">
+                        Grid.Column="2">
                         <TextBlock
-                            x:Name="total"
+                            x:Name="tbTotal"
                             Text="0 €"
                             FontSize="25"
                             Margin="5"
@@ -185,7 +216,6 @@
                     Height="1"
                     Margin="5"
                     Opacity="0.5" />
-
                 <Grid
                     Margin="0"
                     HorizontalAlignment="Stretch">

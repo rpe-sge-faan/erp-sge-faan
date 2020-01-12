@@ -47,16 +47,6 @@
                 Header="Empleados">
                 <local:Empleados/>
             </TabItem>
-            <TabItem
-                Width="100"
-                Margin="0,5,5,5"
-                FontSize="13"
-                Height="45"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Header="Poblaciones">
-                <local:Poblaciones />
-            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

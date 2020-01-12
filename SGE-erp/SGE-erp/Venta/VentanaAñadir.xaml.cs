@@ -136,7 +136,7 @@ namespace SGE_erp.Venta
                 totalM = pvp * stock;
 
                 totalFinal += totalM;
-                lbTotalFin.Content = totalFinal;
+                lbTotalFin.Content = $"{totalFinal}€";
 
                 guardarCantidad += stock;
 
@@ -162,7 +162,7 @@ namespace SGE_erp.Venta
             int idCliente = (int)cbCliente.SelectedValue;
             int idEmpl = MainWindow.idEmpleado;
             DateTime fecha = dpFecha.SelectedDate.Value;
-            decimal precio = (decimal)lbTotalFin.Content;
+            decimal precio = totalFinal;
 
 
             try
