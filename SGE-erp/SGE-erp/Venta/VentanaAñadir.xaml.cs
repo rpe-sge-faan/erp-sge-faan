@@ -188,6 +188,7 @@ namespace SGE_erp.Venta
             DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
            
             int idElemento = drv.Row.Field<int>("Id_Elemento");
+            int idCliente = (int)nombreComboBox.SelectedValue;
             idEmpl = (int)nombreComboBox1.SelectedValue;
             DateTime fecha = dpFecha.SelectedDate.Value;
             decimal precio = (decimal)lbTotalFin.Content;
@@ -199,11 +200,12 @@ namespace SGE_erp.Venta
                 using (SqlConnection conn = new SqlConnection(bd))
                 using (SqlCommand command = conn.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, FechaVentas, PrecioTotal)  " +
+                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, Id_Cliente, FechaVentas, PrecioTotal)  " +
                         "OUTPUT INSERTED.Id_Ventas " +
-                        "VALUES (@idEmpleado, @fechaVentas, @precioTotal)";
+                        "VALUES (@idEmpleado, @idCliente, @fechaVentas, @precioTotal)";
 
                     command.Parameters.AddWithValue("@idEmpleado", idEmpl);
+                    command.Parameters.AddWithValue("@idCliente", idCliente);
                     command.Parameters.AddWithValue("@fechaVentas", fecha);
                     command.Parameters.AddWithValue("@precioTotal", precio);
                     
