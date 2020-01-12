@@ -140,6 +140,10 @@ namespace SGE_erp.Gestion
                         tbPobla.Text = reader.GetString(reader.GetOrdinal("Poblacion"));
                         tbProv.Text = reader.GetString(reader.GetOrdinal("Provincia"));
                     }
+                    else
+                    {
+                        MessageBox.Show("NO");
+                    }
                 }
             }
         }
