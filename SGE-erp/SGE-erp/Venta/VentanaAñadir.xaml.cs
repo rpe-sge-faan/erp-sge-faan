@@ -155,92 +155,93 @@ namespace SGE_erp.Venta
 
         private void Insertar_Click(object sender, RoutedEventArgs e)
         {
-
-            DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
-
-            int idElemento = drv.Row.Field<int>("Id_Elemento");
-            int idCliente = (int)cbCliente.SelectedValue;
-            int idEmpl = MainWindow.idEmpleado;
-            DateTime fecha = dpFecha.SelectedDate.Value;
-            decimal precio = totalFinal;
-
-
-            try
+            if (dgFinal.Items.Count != 0)
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection conn = new SqlConnection(bd))
-                using (SqlCommand command = conn.CreateCommand())
+                DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+
+                int idElemento = drv.Row.Field<int>("Id_Elemento");
+                int idCliente = (int)cbCliente.SelectedValue;
+                int idEmpl = MainWindow.idEmpleado;
+                DateTime fecha = dpFecha.SelectedDate.Value;
+                decimal precio = totalFinal;
+
+
+                try
                 {
-                    command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, Id_Cliente, FechaVentas, PrecioTotal)  " +
-                        "OUTPUT INSERTED.Id_Ventas " +
-                        "VALUES (@idEmpleado, @idCliente, @fechaVentas, @precioTotal)";
-
-                    command.Parameters.AddWithValue("@idEmpleado", idEmpl);
-                    command.Parameters.AddWithValue("@idCliente", idCliente);
-                    command.Parameters.AddWithValue("@fechaVentas", fecha);
-                    command.Parameters.AddWithValue("@precioTotal", precio);
-
-
-                    conn.Open();
-                    id = (int)command.ExecuteScalar();
-
-                    if (id != 0)
+                    string bd = MetodosGestion.db;
+                    using (SqlConnection conn = new SqlConnection(bd))
+                    using (SqlCommand command = conn.CreateCommand())
                     {
-                        MessageBox.Show("Vendido");
-                        conn.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ERROR");
-                    }
-                }
+                        command.CommandText = "INSERT INTO [Ventas] (Id_Empleado, Id_Cliente, FechaVentas, PrecioTotal)  " +
+                            "OUTPUT INSERTED.Id_Ventas " +
+                            "VALUES (@idEmpleado, @idCliente, @fechaVentas, @precioTotal)";
 
-                for (int i = 0; i < dataT.Rows.Count; i++)
-                {
-
-                    DataRow row = dataT.Rows[i];
-
-                    using (SqlConnection con = new SqlConnection(bd))
-                    using (SqlCommand comando = con.CreateCommand())
-                    {
-                        con.Open();
-                        comando.CommandText = @"INSERT INTO [VentasArticulos] (Id_Ventas, Id_Elemento, Cantidad)" +
-                            "VALUES (@idVentas, @idElemento, @cantidad)";
-
-                        comando.Parameters.AddWithValue("@idVentas", id);
-                        comando.Parameters.AddWithValue("@idElemento", row[2]);
-                        comando.Parameters.AddWithValue("@cantidad", row[5]);
+                        command.Parameters.AddWithValue("@idEmpleado", idEmpl);
+                        command.Parameters.AddWithValue("@idCliente", idCliente);
+                        command.Parameters.AddWithValue("@fechaVentas", fecha);
+                        command.Parameters.AddWithValue("@precioTotal", precio);
 
 
-                        int a = comando.ExecuteNonQuery();
+                        conn.Open();
+                        id = (int)command.ExecuteScalar();
 
-                        if (a != 0)
+                        if (id != 0)
                         {
-
-                            con.Close();
+                            MessageBox.Show("Vendido");
+                            conn.Close();
                         }
                         else
                         {
                             MessageBox.Show("ERROR");
                         }
                     }
+
+                    for (int i = 0; i < dataT.Rows.Count; i++)
+                    {
+
+                        DataRow row = dataT.Rows[i];
+
+                        using (SqlConnection con = new SqlConnection(bd))
+                        using (SqlCommand comando = con.CreateCommand())
+                        {
+                            con.Open();
+                            comando.CommandText = @"INSERT INTO [VentasArticulos] (Id_Ventas, Id_Elemento, Cantidad)" +
+                                "VALUES (@idVentas, @idElemento, @cantidad)";
+
+                            comando.Parameters.AddWithValue("@idVentas", id);
+                            comando.Parameters.AddWithValue("@idElemento", row[2]);
+                            comando.Parameters.AddWithValue("@cantidad", row[5]);
+
+
+                            int a = comando.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+
+                                con.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("ERROR");
+                            }
+                        }
+                    }
+
+
+                    dgFinal.Columns.Clear();
+                    dgFinal.ItemsSource = null;
+                    dgFinal.Items.Refresh();
+
                 }
-
-
-                dgFinal.Columns.Clear();
-                dgFinal.ItemsSource = null;
-                dgFinal.Items.Refresh();
-
+                catch (SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                guardarCantidad = 0;
+                lbTotalFin.Content = 0;
+                totalFinal = 0;
+                dataT.Clear();
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            guardarCantidad = 0;
-            lbTotalFin.Content = 0;
-            totalFinal = 0;
-            dataT.Clear();
-
         }
 
 

@@ -118,7 +118,7 @@
             Loaded="cbCliente_Loaded"
             DropDownClosed="cbCliente_DropDownClosed"
             DropDownOpened="cbCliente_DropDownOpened">
-            
+
         </ComboBox>
         <Button
             x:Name="bAddClientes"
@@ -175,10 +175,8 @@
         <Label
             Content="Fecha venta: "
             Grid.Column="3"
-            HorizontalAlignment="Left"
             Margin="26,16,0,0"
             Grid.Row="5"
-            VerticalAlignment="Top"
-            Width="78" />
+            VerticalAlignment="Top" />
     </Grid>
 </UserControl>

@@ -26,9 +26,6 @@ namespace SGE_erp
         public static int idEmpleado = 1;
         private bool idUser = false;
 
-        // http://www.pdfsharp.net/wiki/HelloWorld-sample.ashx
-        // http://pdfsharp.net/wiki/Invoice-sample.ashx
-
         public MainWindow()
         {
 
