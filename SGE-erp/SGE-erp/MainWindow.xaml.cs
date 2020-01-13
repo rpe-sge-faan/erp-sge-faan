@@ -21,8 +21,8 @@ namespace SGE_erp
     public partial class MainWindow : Window
     {
         public static bool acceso;
-        public static string userEmpleado;
-        public static string nombreEmpleado;
+        public static string userEmpleado = "User@";
+        public static string nombreEmpleado = "User";
         public static int idEmpleado = 1;
         private bool idUser = false;
 
@@ -71,7 +71,7 @@ namespace SGE_erp
 
         private void lblUser_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Payaso");
+           
         }
     }
 }
