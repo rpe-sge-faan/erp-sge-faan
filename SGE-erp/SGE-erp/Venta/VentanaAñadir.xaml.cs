@@ -238,6 +238,8 @@ namespace SGE_erp.Venta
             }
             guardarCantidad = 0;
             lbTotalFin.Content = 0;
+            totalFinal = 0;
+            dataT.Clear();
 
         }
 
