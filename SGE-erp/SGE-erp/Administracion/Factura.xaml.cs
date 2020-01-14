@@ -1,20 +1,19 @@
-﻿using SGE_erp.Gestion;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.IO;
+using System.IO.Packaging;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Controls;
+using System.Windows;
+using SGE_erp.Gestion;
+using System.Data.SqlClient;
+using System.Data;
+using System;
+using Microsoft.Win32;
+using System.Net.Mail;
+using System.Net;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace SGE_erp.Administracion
 {
@@ -198,7 +197,7 @@ namespace SGE_erp.Administracion
 
                             addToTable(articulo, String.Format("{0:0.00}", precioSin), cantidad.ToString(), String.Format("{0:0.00}", subtotal), iva.ToString(), String.Format("{0:0.00}", total));
                         }
-                        tbTotalSin.Text = String.Format("{0:0.00}€", totalSin); 
+                        tbTotalSin.Text = String.Format("{0:0.00}€", totalSin);
                     }
                 }
             }
@@ -207,6 +206,73 @@ namespace SGE_erp.Administracion
         private void ventanaFacturas_Loaded(object sender, RoutedEventArgs e)
         {
             cargarFactura();
+        }
+
+        string rutaPdf = "";
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ToPdf();
+        }
+
+        private void ToPdf()
+        {
+            MemoryStream lMemoryStream = new MemoryStream();
+            Package package = Package.Open(lMemoryStream, FileMode.Create);
+            XpsDocument doc = new XpsDocument(package);
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
+            writer.Write(print);
+            doc.Close();
+            package.Close();
+            var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
+
+            DateTime parsedDate = DateTime.Parse(fecha.Text);
+            String f = String.Format("{0:yyyyMMdd}", parsedDate);
+
+            SaveFileDialog dialog = new SaveFileDialog()
+            {
+                FileName = $"Factura{nombre.Text}{f}",
+                Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+            }
+
+            rutaPdf = dialog.FileName;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ToPdf();
+            try
+            {
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress("andrea.lobo93@gmail.com");
+                    mail.To.Add("thewilkin25@gmail.com");
+                    mail.Subject = "Factura - FAAN";
+                    mail.Body = "Le adjuntamos la factura de su compra. Gracias por usar nuestros servicios.";
+
+                    System.Net.Mail.Attachment attachment;
+                    attachment = new System.Net.Mail.Attachment(rutaPdf);
+                    mail.Attachments.Add(attachment);
+
+                    using (SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        SmtpServer.UseDefaultCredentials = false;
+                        SmtpServer.EnableSsl = true;
+                        SmtpServer.Credentials = new System.Net.NetworkCredential("andrea.lobo93@gmail.com", "contraseña");
+                        SmtpServer.EnableSsl = true;
+                        SmtpServer.Send(mail);
+                    }
+                }
+                MessageBox.Show("Mail Sent");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
