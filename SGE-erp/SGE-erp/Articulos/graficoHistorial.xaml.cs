@@ -17,22 +17,19 @@ namespace SGE_erp.Articulos
         public graficoHistorial()
         {
             InitializeComponent();
-
-            Values = new ChartValues<double> { 0,150, 12, 160, 140 };
-            Values.Add(100);
-            double[] stock = new double[5] { 99, 98, 92, 97, 95 };
-            IEnumerable<double> m = stock;
-            Values.AddRange(m);
-
-
+            Values = new ChartValues<double> { 0 };
             DataContext = this;
         }
 
         public ChartValues<double> Values { get; set; }
 
-        private void UpdateOnclick(object sender, RoutedEventArgs e)
+        private void Update()
         {
+            double[] stock = InfoArticulos.valoresStock;
+            IEnumerable<double> m = stock;
+            Values.AddRange(m);
             Chart.Update(true);
+            //DataContext = this;
         }
 
         private string nameValue = "Nombre articulo";
@@ -40,6 +37,11 @@ namespace SGE_erp.Articulos
         {
             get { return nameValue; }
             set { nameValue = value; }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Update();
         }
     }
 }
