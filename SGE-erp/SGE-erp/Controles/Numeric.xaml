@@ -6,8 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SGE_erp.Controles"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    Height="30"
-    Width="100"
+    d:DesignHeight="30"
+    d:DesignWidth="155"
+
     mc:Ignorable="d">
     <Grid>
         <Grid
