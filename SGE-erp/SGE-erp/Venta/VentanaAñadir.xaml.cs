@@ -273,5 +273,29 @@ namespace SGE_erp.Venta
         {
 
         }
+
+        private void filtarNom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String[] campos = { "Nombre" };
+
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)DatosAnadir.ItemsSource).ToTable();
+                dt.TableName = "Articulos";
+                view.Table = dt;
+            }
+
+            view.RowFilter = $"Nombre LIKE '%{filtarNom.Text}%'";
+
+            dt = view.ToTable();
+            DatosAnadir.ItemsSource = null;
+            DatosAnadir.ItemsSource = dt.DefaultView;   
+        }
+
+        
+        DataView view = null;
+        DataTable dt;
+       
     }
 }

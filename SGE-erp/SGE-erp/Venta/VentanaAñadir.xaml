@@ -49,7 +49,7 @@
                 Width="1*" />
         </Grid.ColumnDefinitions>
         <Label
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="3"
             Margin="5,0"
             VerticalAlignment="Center"
@@ -59,7 +59,7 @@
             Content="Nombre cliente:"
             RenderTransformOrigin="0.472,3.627" />
         <Label
-            Grid.Row="0"
+            Grid.Row="1"
             Grid.Column="3"
             Margin="5,0"
             VerticalAlignment="Center"
@@ -68,7 +68,7 @@
             VerticalContentAlignment="Center"
             Content="Cantidad:" />
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="4"
             Margin="15,0"
             HorizontalAlignment="Stretch"
@@ -86,7 +86,7 @@
             Content="Confirmar compra" />
         <control:Numeric
             x:Name="udStock"
-            Grid.Row="0"
+            Grid.Row="1"
             Grid.Column="4"
             Height="30"
             Width="140"
@@ -112,18 +112,18 @@
             SelectionChanged="DatosAnadir_SelectionChanged" />
         <ComboBox
             x:Name="cbCliente"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="4"
             Margin="15,15,51,14"
             Loaded="cbCliente_Loaded"
             DropDownClosed="cbCliente_DropDownClosed"
             DropDownOpened="cbCliente_DropDownOpened">
-            
+
         </ComboBox>
         <Button
             x:Name="bAddClientes"
             HorizontalAlignment="Right"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="4"
             Margin="10"
             Width="25"
@@ -180,5 +180,16 @@
             Grid.Row="5"
             VerticalAlignment="Top"
             Width="78" />
+        <TextBox 
+            x:Name="filtarNom"  
+            Grid.Column="4" 
+            HorizontalAlignment="Left" 
+            Height="37" 
+            Margin="17,10,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="140" TextChanged="filtarNom_TextChanged"
+            />
+        <Label Content="Filtrar artículo:" Grid.Column="3" Margin="10,25,10,0" VerticalAlignment="Top" Height="22"/>
     </Grid>
 </UserControl>
