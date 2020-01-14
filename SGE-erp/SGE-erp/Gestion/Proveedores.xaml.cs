@@ -142,8 +142,8 @@ namespace SGE_erp.Gestion
             {
                 DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Proveedor");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro de que quieres borrar este proveedor?", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     try
                     {
@@ -164,7 +164,7 @@ namespace SGE_erp.Gestion
                             }
                             else
                             {
-                                MessageBox.Show("Proveedor ERROR al borrar");
+                                Mensajes.Mostrar("Proveedor ERROR al borrar", Mensajes.Tipo.Error);
                             }
                         }
                     }

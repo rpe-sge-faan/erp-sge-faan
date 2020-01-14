@@ -153,7 +153,7 @@ namespace SGE_erp.Gestion
                     }
                     else
                     {
-                        MessageBox.Show("Empleado ERROR");
+                        Mensajes.Mostrar("Empleado ERROR Editar", Mensajes.Tipo.Error);
                     }
                 }
             }
@@ -197,7 +197,7 @@ namespace SGE_erp.Gestion
                     }
                     else
                     {
-                        MessageBox.Show("Empleado ERROR");
+                        Mensajes.Mostrar("Empleado ERROR Añadir", Mensajes.Tipo.Error);
                     }
                 }
             }
@@ -262,7 +262,7 @@ namespace SGE_erp.Gestion
                 CheckAceptar();
                 //EmpleadosMain.AccesoVentana();
             }
-            else if (id == -1 && cont >1)
+            else if (id == -1 && cont > 1)
             {
                 FiltrarLista.DynamicInvoke();
             }

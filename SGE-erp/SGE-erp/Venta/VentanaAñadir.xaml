@@ -49,7 +49,7 @@
                 Width="1*" />
         </Grid.ColumnDefinitions>
         <Label
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="3"
             Margin="5,0"
             VerticalAlignment="Center"
@@ -59,7 +59,7 @@
             Content="Nombre cliente:"
             RenderTransformOrigin="0.472,3.627" />
         <Label
-            Grid.Row="0"
+            Grid.Row="1"
             Grid.Column="3"
             Margin="5,0"
             VerticalAlignment="Center"
@@ -68,7 +68,7 @@
             VerticalContentAlignment="Center"
             Content="Cantidad:" />
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="4"
             Margin="15,0"
             HorizontalAlignment="Stretch"
@@ -78,7 +78,7 @@
         <Button
             Grid.Row="7"
             Grid.Column="4"
-            Margin="15,0"
+            Margin="15,12"
             Padding="0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
@@ -86,10 +86,8 @@
             Content="Confirmar compra" />
         <control:Numeric
             x:Name="udStock"
-            Grid.Row="0"
+            Grid.Row="1"
             Grid.Column="4"
-            Height="30"
-            Width="140"
             Margin="15,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center" />
@@ -112,20 +110,20 @@
             SelectionChanged="DatosAnadir_SelectionChanged" />
         <ComboBox
             x:Name="cbCliente"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="4"
-            Margin="15,15,51,14"
+            Margin="15,14,45,14"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
             Loaded="cbCliente_Loaded"
             DropDownClosed="cbCliente_DropDownClosed"
-            DropDownOpened="cbCliente_DropDownOpened">
-
-        </ComboBox>
+            DropDownOpened="cbCliente_DropDownOpened"></ComboBox>
         <Button
             x:Name="bAddClientes"
             HorizontalAlignment="Right"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="4"
-            Margin="10"
+            Margin="0,16,15,15"
             Width="25"
             Height="25"
             Padding="0"
@@ -159,7 +157,7 @@
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
             FontSize="17"
-            Margin="15,0"
+            Margin="15,10"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center" />
         <Label
@@ -177,6 +175,22 @@
             Grid.Column="3"
             Margin="26,16,0,0"
             Grid.Row="5"
-            VerticalAlignment="Top" />
+            VerticalAlignment="Top"
+            Width="78" />
+        <TextBox
+            x:Name="filtarNom"
+            Grid.Column="4"
+            Margin="15,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            TextChanged="filtarNom_TextChanged" />
+        <Label
+            Content="Filtrar artículo:"
+            Grid.Column="3"
+            Margin="5,0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center" />
     </Grid>
 </UserControl>

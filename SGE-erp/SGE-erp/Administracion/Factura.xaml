@@ -28,6 +28,23 @@
             <materialDesign:PackIcon
                 Kind="Printer" />
         </Button>
+        <Button
+            HorizontalAlignment="Left"
+            Margin="63,10,0,0"
+            Click="Button_Click_1"
+            VerticalAlignment="Top">
+            <materialDesign:PackIcon
+                Kind="Download" />
+        </Button>
+        <Button
+            HorizontalAlignment="Left"
+            Margin="116,10,0,0"
+            Click="Button_Click_2"
+            VerticalAlignment="Top">
+            <materialDesign:PackIcon
+                Kind="Email"
+                Foreground="White" />
+        </Button>
         <Grid
             x:Name="print">
             <Grid.RowDefinitions>
@@ -65,7 +82,7 @@
                         Margin="10,-50,10,5">
                         <TextBlock
                             x:Name="fecha"
-                            Text="Fechaaaaaaaaaaaaaa"
+                            Text="Fecha"
                             FontSize="13"
                             Margin="5"
                             HorizontalAlignment="Left" />

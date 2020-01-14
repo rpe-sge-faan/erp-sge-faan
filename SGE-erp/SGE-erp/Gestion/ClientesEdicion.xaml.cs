@@ -156,7 +156,7 @@ namespace SGE_erp.Gestion
                 }
                 else
                 {
-                    MessageBox.Show("Cliente ERROR");
+                    Mensajes.Mostrar("Cliente ERROR", Mensajes.Tipo.Error);
                 }
             }
 
@@ -198,7 +198,7 @@ namespace SGE_erp.Gestion
                 }
                 else
                 {
-                    MessageBox.Show("Cliente ERROR");
+                    Mensajes.Mostrar("Cliente ERROR", Mensajes.Tipo.Error);                                       
                 }
             }
 

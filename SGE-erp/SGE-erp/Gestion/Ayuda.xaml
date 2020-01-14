@@ -43,9 +43,14 @@
                     <Label
                         HorizontalAlignment="Center"
                         Content="Andrea Lobo&#x0a;Fernando Moreno&#x0a;Noelia Pérez&#x0a;Aarón Pérez" />
-                    <Label
-                        FontSize="16"
-                        Content="Manual de uso: {{link.pdf}}" />
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="19">
+                            <Hyperlink
+                                Click="Hyperlink_Click">Manual de uso</Hyperlink>
+                        </Label>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

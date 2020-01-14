@@ -29,6 +29,7 @@ namespace SGE_erp.Articulos
 
         }
 
+        public static double[] valoresStock;
         private void Actualizar(string idArticulo)
         {
             try
@@ -41,6 +42,13 @@ namespace SGE_erp.Articulos
                 this.articuloDataGrid.ItemsSource = dt.DefaultView;
                 con.Open();
                 con.Close();
+
+                valoresStock = new double[dt.Rows.Count];
+                int i = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    valoresStock[i++] = double.Parse(dr[6].ToString());
+                }
 
             }
             catch
