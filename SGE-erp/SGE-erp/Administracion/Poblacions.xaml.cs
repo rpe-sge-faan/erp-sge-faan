@@ -71,7 +71,7 @@ namespace SGE_erp.Administracion
 
                     if (existe > 0)
                     {
-                        MessageBoxResult resultado = MessageBox.Show("Esta poblaición ya existe");
+                        Mensajes.Mostrar("Esta población ya existe", Mensajes.Tipo.Info);
                     }
                     else
                     {
@@ -93,7 +93,7 @@ namespace SGE_erp.Administracion
                             }
                             else
                             {
-                                MessageBox.Show("Poblacion ERROR");
+                                Mensajes.Mostrar("Población ERROR Añadir", Mensajes.Tipo.Error);
                             }
                         }
                     }
@@ -169,7 +169,7 @@ namespace SGE_erp.Administracion
                 }
                 else
                 {
-                    MessageBox.Show("No puede editar el CP\r\nCree un elemento nuevo");
+                    Mensajes.Mostrar("No puede editar el CP\r\nCree un elemento nuevo", Mensajes.Tipo.Info);
                 }
             }
             reset();
@@ -181,8 +181,8 @@ namespace SGE_erp.Administracion
             {
                 DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
                 string cod = dd.Row.Field<string>("CodPostal");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro de borrar esta población?", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     using (SqlConnection con = new SqlConnection(MetodosGestion.db))
                     using (SqlCommand command = con.CreateCommand())
@@ -200,7 +200,7 @@ namespace SGE_erp.Administracion
                         }
                         else
                         {
-                            MessageBox.Show("Proveedor ERROR al borrar");
+                            Mensajes.Mostrar("Población ERROR Borrar", Mensajes.Tipo.Error);
                         }
                     }
                     reset();
