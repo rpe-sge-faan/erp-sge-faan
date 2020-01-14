@@ -30,6 +30,7 @@ namespace SGE_erp.Articulos
             Values.AddRange(m);
             Chart.Update(true);
             //DataContext = this;
+            Labels = InfoArticulos.valoresFecha;
         }
 
         private string nameValue = "Nombre articulo";

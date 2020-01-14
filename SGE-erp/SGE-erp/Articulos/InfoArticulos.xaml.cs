@@ -30,6 +30,8 @@ namespace SGE_erp.Articulos
         }
 
         public static double[] valoresStock;
+        public static string[] valoresFecha;
+
         private void Actualizar(string idArticulo)
         {
             try
@@ -42,12 +44,13 @@ namespace SGE_erp.Articulos
                 this.articuloDataGrid.ItemsSource = dt.DefaultView;
                 con.Open();
                 con.Close();
-
+                valoresFecha = new string[dt.Rows.Count];
                 valoresStock = new double[dt.Rows.Count];
                 int i = 0;
                 foreach (DataRow dr in dt.Rows)
                 {
                     valoresStock[i++] = double.Parse(dr[6].ToString());
+                    valoresFecha[i++] = (dr[1].ToString());
                 }
 
             }

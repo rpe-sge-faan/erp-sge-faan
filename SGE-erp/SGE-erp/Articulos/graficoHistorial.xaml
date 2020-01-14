@@ -49,7 +49,8 @@
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis
-                    IsEnabled="False"
+                    Labels="{Binding Labels}"
+                    IsEnabled="True"
                     ShowLabels="False" />
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
