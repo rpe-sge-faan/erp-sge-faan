@@ -35,7 +35,7 @@ namespace SGE_erp.Articulos
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Movimientos WHERE Id_Articulo=" + idArticulo + ";", con);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Movimientos WHERE Id_Articulo=" + idArticulo + " order by Fecha;", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
