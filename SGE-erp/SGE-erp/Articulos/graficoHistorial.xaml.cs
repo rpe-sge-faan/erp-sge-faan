@@ -22,6 +22,7 @@ namespace SGE_erp.Articulos
         }
 
         public ChartValues<double> Values { get; set; }
+        private string[] lab;
 
         private void Update()
         {
@@ -30,7 +31,7 @@ namespace SGE_erp.Articulos
             Values.AddRange(m);
             Chart.Update(true);
             //DataContext = this;
-            Labels = InfoArticulos.valoresFecha;
+            lab = InfoArticulos.valoresFecha;
         }
 
         private string nameValue = "Nombre articulo";
@@ -39,6 +40,14 @@ namespace SGE_erp.Articulos
             get { return nameValue; }
             set { nameValue = value; }
         }
+
+        
+        public string[] Labels
+        {
+            get { return lab; }
+            set { lab = value; }
+        }
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
