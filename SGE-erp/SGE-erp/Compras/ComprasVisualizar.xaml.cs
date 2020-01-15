@@ -1,4 +1,5 @@
-﻿using SGE_erp.Gestion;
+﻿using SGE_erp.Administracion;
+using SGE_erp.Gestion;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -104,6 +105,15 @@ namespace SGE_erp.Compras
 
             Compras_ComprasDetalles ccd = new Compras_ComprasDetalles(idCompra);
             ccd.Show();
+        }
+
+        private void facturaV_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dato = (DataRowView)comprasDatos.SelectedItem;
+            int idCompra = dato.Row.Field<int>("Id_Compra");
+
+            Factura f = new Factura(idCompra,2);
+            f.Show();
         }
     }
 }

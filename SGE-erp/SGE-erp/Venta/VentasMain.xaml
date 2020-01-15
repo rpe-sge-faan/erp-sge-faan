@@ -21,7 +21,7 @@
                     Height="45"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Header="_Añadir Ventas">
+                    Header="_Añadir">
                     <local:VentanaAñadir HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
                 </TabItem>
                 <TabItem
@@ -31,7 +31,7 @@
                     Height="45"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Header="_Ver Ventas">
+                    Header="_Ver">
                     <local:VentasVista HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
                 </TabItem>
             </TabControl>

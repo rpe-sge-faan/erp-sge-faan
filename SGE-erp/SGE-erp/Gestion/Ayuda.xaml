@@ -15,42 +15,44 @@
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-            
-        
-        <StackPanel
-            Grid.Row="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Margin="5"
-            Orientation="Vertical">
-            <StackPanel.Background>
-                <SolidColorBrush
-                    Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}" />
-            </StackPanel.Background>
-            <Image
-                Margin="15"
-                x:Name="image"
-                Source="/imagenes/logo_nombre.png"
-                Height="238" />
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
             <StackPanel
-                Margin="0,15"
-                HorizontalAlignment="Center">
-                <Label
-                    HorizontalAlignment="Center"
-                    FontSize="16"
-                    Content="Desarrollado por:" />
-                <Label
-                    HorizontalAlignment="Center"
-                    Content="Andrea Lobo&#x0a;Fernando Moreno&#x0a;Noelia Pérez&#x0a;Aarón Pérez" />
-                <Label
-                    FontSize="16"
-                    Content="Manual de uso: {{link.pdf}}" />
-
+                Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="5"
+                Orientation="Vertical">
+                <StackPanel.Background>
+                    <SolidColorBrush
+                        Color="{DynamicResource {x:Static SystemColors.ControlLightLightColorKey}}" />
+                </StackPanel.Background>
+                <Image
+                    Margin="15"
+                    x:Name="image"
+                    Source="/imagenes/logo_nombre.png"
+                    Height="238" />
+                <StackPanel
+                    Margin="0,15"
+                    HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        Content="Desarrollado por:" />
+                    <Label
+                        HorizontalAlignment="Center"
+                        Content="Andrea Lobo&#x0a;Fernando Moreno&#x0a;Noelia Pérez&#x0a;Aarón Pérez" />
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="19">
+                            <Hyperlink
+                                Click="Hyperlink_Click">Manual de uso</Hyperlink>
+                        </Label>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
-
-        </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

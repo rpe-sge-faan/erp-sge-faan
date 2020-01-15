@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp.Gestion;
 using System.Data;
+using SGE_erp.Administracion;
 
 namespace SGE_erp.Venta
 {
@@ -57,7 +58,7 @@ namespace SGE_erp.Venta
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "IdEmpleado", "FechaVenta", "Cantidad", "PrecioTotal"};
+            String[] campos = { "IdVentas", "IdEmpleado", "FechaVenta", "PrecioTotal"};
 
             if (view == null)
             {
@@ -67,20 +68,16 @@ namespace SGE_erp.Venta
                 view.Table = dt;
             }
 
-           // DateTime date = DateTime.Parse(nombres[1]);
-            // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
+            view.RowFilter = $"Id_Ventas >= '{nombres[0]}' AND Id_Empleado = '{nombres[1]}' AND FechaVentas >= '{nombres[2]}' " +
+                 $"AND PrecioTotal >= '{nombres[3]}'";
 
-            // [NumVentas] >= {nombres[5]} AND 
-            view.RowFilter = $"Id_Empleado LIKE '%{nombres[0]}%' AND FechaVentas LIKE '%{nombres[1]}%' AND Cantidad LIKE '%{nombres[2]}%' " +
-                 $"AND PrecioTotal LIKE '%{nombres[3]}%'";
-
-            // view.Sort = "CompanyName DESC";
+            
             dt = view.ToTable();
             dgVista.ItemsSource = null;
             dgVista.ItemsSource = dt.DefaultView;
-            dgVista.Columns[0].Visibility = Visibility.Collapsed;
+            
         }
-        // params string[] nombres
+        
 
         public List<String> AccesoVentana()
         {
@@ -91,9 +88,9 @@ namespace SGE_erp.Venta
                 if (item.Name == "EdicionVenta")
                 { 
                     String[] nombresArray = {
+                        ((VentasEdicion)item).tbIdVentas.Text,
                         ((VentasEdicion)item).tbIdEmple.Text,
                         ((VentasEdicion)item).tbFecha.Text,
-                        ((VentasEdicion)item).tbCantidad.Text,
                         ((VentasEdicion)item).tbPrecioTotal.Text
                         
                     };
@@ -115,9 +112,8 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(@"SELECT VentasArticulos.Id_Ventas, Id_Empleado, FechaVentas, VentasArticulos.Cantidad, PrecioTotal " +
-                                                        "FROM VentasArticulos, Ventas " +
-                                                        "WHERE VentasArticulos.Id_Ventas = Ventas.Id_Ventas", con);
+                SqlDataAdapter da = new SqlDataAdapter(@"SELECT Id_Ventas, Id_Empleado, FechaVentas, PrecioTotal " +
+                                                        "FROM Ventas ", con);
                 DataTable dt = new DataTable(); ;
 
                 ds.Clear();
@@ -142,7 +138,35 @@ namespace SGE_erp.Venta
         private void bActualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
+        }
 
+        private void dgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView dato = (DataRowView)dgVista.SelectedItem;
+            String idVenta = dato.Row.Field<int>("Id_Ventas").ToString();
+
+            VentasDetalles ccd = new VentasDetalles(idVenta);
+            ccd.Show();
+        }
+
+        Factura f;
+        private void facturaV_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MetodosGestion.IsOpen(f))
+            {
+                if (dgVista.SelectedItem != null)
+                {
+                    DataRowView dato = (DataRowView)dgVista.SelectedItem;
+                    int idVenta = dato.Row.Field<int>("Id_Ventas");
+
+                    f = new Factura(idVenta, 1);
+                    f.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ya hay una factura abierta");
+            }
         }
     }
 }

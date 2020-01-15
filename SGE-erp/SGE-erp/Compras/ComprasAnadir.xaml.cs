@@ -187,11 +187,15 @@ namespace SGE_erp.Compras
 
         private void BtnComparar_Click(object sender, RoutedEventArgs e)
         {
-            DataRowView dato = (DataRowView)articulos.SelectedItem;
-            String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
+            if (articulos.SelectedItem != null)
+            {
 
-            Compras_CompararProveedor ccp = new Compras_CompararProveedor(idArt);
-            ccp.ShowDialog();
+                DataRowView dato = (DataRowView)articulos.SelectedItem;
+                String idArt = dato.Row.Field<int>("Id_Articulo").ToString();
+
+                Compras_CompararProveedor ccp = new Compras_CompararProveedor(idArt);
+                ccp.ShowDialog();
+            }
         }
 
         private void BtnCompararAñadir_Click(object sender, RoutedEventArgs e)
@@ -403,7 +407,7 @@ namespace SGE_erp.Compras
                 cc.Comprar = RefreshListEvent;
                 cc.Show();
             }
-            
+
         }
     }
 }

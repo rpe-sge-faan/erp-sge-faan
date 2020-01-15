@@ -157,7 +157,7 @@ namespace SGE_erp.Gestion
                     }
                     else
                     {
-                        MessageBox.Show("Proveedor ERROR");
+                        Mensajes.Mostrar("Proveedor ERROR editar", Mensajes.Tipo.Error);
                     }
                 }
             }
@@ -205,7 +205,7 @@ namespace SGE_erp.Gestion
                     }
                     else
                     {
-                        MessageBox.Show("Proveedor ERROR");
+                        Mensajes.Mostrar("Proveedor ERROR añadir", Mensajes.Tipo.Error);
                     }
                 }
             }

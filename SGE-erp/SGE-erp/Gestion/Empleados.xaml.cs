@@ -35,7 +35,7 @@ namespace SGE_erp.Gestion
 
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
-        
+
         EmpleadosEdicion p = null;
 
         private void Actualizar()
@@ -55,6 +55,7 @@ namespace SGE_erp.Gestion
                 con.Close();
 
                 dataGridEmpleados.Columns[0].Visibility = Visibility.Collapsed;
+                dataGridEmpleados.Columns[10].Visibility = Visibility.Collapsed;
             }
             catch
             {
@@ -114,8 +115,8 @@ namespace SGE_erp.Gestion
             {
                 DataRowView dd = (DataRowView)dataGridEmpleados.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Empleado");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                Boolean resul = Mensajes.Mostrar("¿Está seguro de que quiere borrar este empleado?", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     try
                     {
@@ -136,7 +137,7 @@ namespace SGE_erp.Gestion
                             }
                             else
                             {
-                                MessageBox.Show("Empleado ERROR al borrar");
+                                Mensajes.Mostrar("Empleado ERROR Borrar", Mensajes.Tipo.Error);
                             }
                         }
                     }
@@ -162,7 +163,7 @@ namespace SGE_erp.Gestion
             }
             else
             {
-                //Filtrar();
+                Filtrar();
             }
         }
 
@@ -185,7 +186,7 @@ namespace SGE_erp.Gestion
             // Console.WriteLine(dt.ToString("dd/MM/yyyy"));
 
             // [NumVentas] >= {nombres[5]} AND 
-            view.RowFilter = $"[NumVentas] >= {nombres[5]} AND [Salario] > {nombres[6]} AND [Nombre] LIKE '%{nombres[0]}%' AND [NIF] LIKE '%{nombres[1]}%' AND [Telefono] LIKE '%{nombres[2]}%' AND [Email] LIKE '%{nombres[3]}%' AND [Direccion] LIKE '%{nombres[4]}%' AND [FechaContratacion] > #{date.ToShortDateString()}#";
+            view.RowFilter = $"[NumVentas] >= {nombres[5]} AND [Salario] >= {nombres[6]} AND [Nombre] LIKE '%{nombres[0]}%' AND [NIF] LIKE '%{nombres[1]}%' AND [Telefono] LIKE '%{nombres[2]}%' AND [Email] LIKE '%{nombres[3]}%' AND [Direccion] LIKE '%{nombres[4]}%' AND [FechaContratacion] >= #{date.ToShortDateString()}#";
 
             // view.Sort = "CompanyName DESC";
             dt = view.ToTable();
@@ -206,10 +207,10 @@ namespace SGE_erp.Gestion
                 {
                     //((EmpleadosEdicion)item).fechaDatePicker.SelectedDate = DateTime.Today;
                     //((EmpleadosEdicion)item).fechaDatePicker.SelectedDate = new DateTime(1990, 1, 1);
-                    DateTime time =(DateTime)((EmpleadosEdicion)item).fechaDatePicker.SelectedDate;
+                    DateTime time = (DateTime)((EmpleadosEdicion)item).fechaDatePicker.SelectedDate;
                     String fecha = time.ToShortDateString();
                     String ventas;
-                    if (((EmpleadosEdicion)item).ventasTextBox.Text.Equals(""))
+                    if (String.IsNullOrWhiteSpace(((EmpleadosEdicion)item).ventasTextBox.Text))
                     {
                         ventas = "0";
                     }
@@ -218,7 +219,7 @@ namespace SGE_erp.Gestion
                         ventas = ((EmpleadosEdicion)item).ventasTextBox.Text;
                     }
                     String salario;
-                    if (((EmpleadosEdicion)item).salarioTextBox.Text.Equals(""))
+                    if (String.IsNullOrWhiteSpace(((EmpleadosEdicion)item).salarioTextBox.Text))
                     {
                         salario = "0";
                     }

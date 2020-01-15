@@ -203,8 +203,8 @@ namespace SGE_erp.Gestion
             {
                 DataRowView dd = (DataRowView)dataGridClientes.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Cliente");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro de borrar este cliente?", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     try
                     {
@@ -225,7 +225,7 @@ namespace SGE_erp.Gestion
                             }
                             else
                             {
-                                MessageBox.Show("Cliente ERROR al borrar");
+                                Mensajes.Mostrar("Cliente ERROR al borrar", Mensajes.Tipo.Error);
                             }
                         }
                     }

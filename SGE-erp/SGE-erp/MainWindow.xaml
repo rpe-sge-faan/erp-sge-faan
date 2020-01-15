@@ -8,15 +8,16 @@
     xmlns:localCompras="clr-namespace:SGE_erp.Compras"
     xmlns:localGestion="clr-namespace:SGE_erp.Gestion"
     xmlns:localVentas="clr-namespace:SGE_erp.Venta"
+    xmlns:localAdmin="clr-namespace:SGE_erp.Administracion"
     TextElement.FontSize="13"
     FontFamily="{materialDesign:MaterialDesignFont}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Title="FAAN - Gestión Empresarial"
     Width="900"
-    Height="600"
-    MinWidth="800"
-    MinHeight="500"
+    Height="650"
+    MinWidth="900"
+    MinHeight="650"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Icon="/imagenes/logo2.png"
@@ -26,10 +27,20 @@
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="1*" />
-
+            <RowDefinition
+                Height="6*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="4*" />
+            <ColumnDefinition
+                Width="1*" />
+        </Grid.ColumnDefinitions>
         <TabControl
             Grid.Row="0"
+            Grid.Column="0"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
             Margin="5,5,5,5"
             BorderThickness="0"
             TabStripPlacement="Top">
@@ -260,6 +271,21 @@
                 <localGestion:GestionMain />
             </TabItem>
             <TabItem
+                x:Name="tabAdmin"
+                Width="120"
+                Margin="5,5,5,5"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Medium"
+                Padding="20,10,20,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="{DynamicResource colorAdmin}"
+                Header="Ad_min"
+                Style="{DynamicResource TabItemStyle1}">
+                <localAdmin:AdminMain />
+            </TabItem>
+            <TabItem
                 x:Name="tabAyuda"
                 Width="120"
                 Margin="5,5,5,5"
@@ -275,6 +301,24 @@
                 <localGestion:Ayuda />
             </TabItem>
         </TabControl>
+        <Label
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="lblNombre"
+            Content="Nombre"
+            HorizontalAlignment="Right"
+            Margin="15,7.5"
+            Foreground="#06A89C"
+            MouseDoubleClick="lblNombre_MouseDoubleClick" />
+        <Label
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="lblUser"
+            Content="Usuario"
+            HorizontalAlignment="Right"
+            Margin="15,25"
+            Foreground="#04756d"
+            MouseDoubleClick="lblUser_MouseDoubleClick" />
         <!--<Image
             x:Name="image"
             HorizontalAlignment="Left"

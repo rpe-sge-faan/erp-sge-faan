@@ -24,5 +24,11 @@ namespace SGE_erp.Gestion
         {
             InitializeComponent();
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            var appPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            System.Diagnostics.Process.Start(appPath + "manual.pdf");
+        }
     }
 }

@@ -116,55 +116,48 @@ namespace SGE_erp.Gestion
         {
             int tipo = tipoComboBox.SelectedIndex + 1;
 
-            try
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
-                using (SqlCommand command = con.CreateCommand())
+                command.CommandText = "UPDATE Clientes SET Tipo = @tipo, Nombre = @nombre, Telefono = @telefono, Email = @email, " +
+                    "PersonaContacto = @persona, Direccion = @direccion, NIF = @nif, CodPostal = @codp WHERE Id_Cliente = @id";
+
+                command.Parameters.AddWithValue("@tipo", tipo);
+                command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
+                command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
+                command.Parameters.AddWithValue("@email", emailTextBox.Text);
+                command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
+                command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
+                command.Parameters.AddWithValue("@nif", nifTextBox.Text);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@codp", cpBox.Text);
+
+                con.Open();
+                int a = command.ExecuteNonQuery();
+
+
+
+                //DataSet ds;
+                //SqlDataAdapter da;
+                //SqlCommandBuilder scb;
+                //DataTable dt;
+
+                //da = new SqlDataAdapter("SELECT * FROM [Clientes]", con);
+                //ds = new DataSet();
+                //dt = new DataTable();
+                //ds.Clear();
+                //da.Fill(dt);
+
+
+                if (a != 0)
                 {
-                    command.CommandText = "UPDATE Clientes SET Tipo = @tipo, Nombre = @nombre, Telefono = @telefono, Email = @email, " +
-                        "PersonaContacto = @persona, Direccion = @direccion, NIF = @nif, CodPostal = @codp WHERE Id_Cliente = @id";
-
-                    command.Parameters.AddWithValue("@tipo", tipo);
-                    command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
-                    command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
-                    command.Parameters.AddWithValue("@email", emailTextBox.Text);
-                    command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
-                    command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@codp", cpBox.Text);
-
-                    con.Open();
-                    int a = command.ExecuteNonQuery();
-
-
-
-                    //DataSet ds;
-                    //SqlDataAdapter da;
-                    //SqlCommandBuilder scb;
-                    //DataTable dt;
-
-                    //da = new SqlDataAdapter("SELECT * FROM [Clientes]", con);
-                    //ds = new DataSet();
-                    //dt = new DataTable();
-                    //ds.Clear();
-                    //da.Fill(dt);
-
-
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cliente ERROR");
-                    }
+                    con.Close();
                 }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
+                else
+                {
+                    Mensajes.Mostrar("Cliente ERROR", Mensajes.Tipo.Error);
+                }
             }
 
             ActualizarLista.DynamicInvoke();
@@ -180,43 +173,39 @@ namespace SGE_erp.Gestion
             else { tipo = 2; }
 
 
-            try
+            string bd = MetodosGestion.db;
+            using (SqlConnection con = new SqlConnection(bd))
+            using (SqlCommand command = con.CreateCommand())
             {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
-                using (SqlCommand command = con.CreateCommand())
+                command.CommandText = "INSERT INTO Clientes (Tipo, Nombre, Telefono, Email, PersonaContacto, Direccion, NIF, CodPostal) " +
+                    "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif, @codp)";
+
+                command.Parameters.AddWithValue("@tipo", tipo);
+                command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
+                command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
+                command.Parameters.AddWithValue("@email", emailTextBox.Text);
+                command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
+                command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
+                command.Parameters.AddWithValue("@nif", nifTextBox.Text);
+                command.Parameters.AddWithValue("@codp", cpBox.Text);
+
+                con.Open();
+                int a = command.ExecuteNonQuery();
+
+                if (a != 0)
                 {
-                    command.CommandText = "INSERT INTO Clientes (Tipo, Nombre, Telefono, Email, PersonaContacto, Direccion, NIF, CodPostal) " +
-                        "VALUES (@tipo, @nombre, @telefono, @email, @persona, @direccion, @nif, @codp)";
-
-                    command.Parameters.AddWithValue("@tipo", tipo);
-                    command.Parameters.AddWithValue("@nombre", nombreTextBox.Text);
-                    command.Parameters.AddWithValue("@telefono", telefonoTextBox.Text);
-                    command.Parameters.AddWithValue("@email", emailTextBox.Text);
-                    command.Parameters.AddWithValue("@persona", personaContactoTextBox.Text);
-                    command.Parameters.AddWithValue("@direccion", direccionTextBox.Text);
-                    command.Parameters.AddWithValue("@nif", nifTextBox.Text);
-                    command.Parameters.AddWithValue("@codp", cpBox.Text);
-
-                    con.Open();
-                    int a = command.ExecuteNonQuery();
-
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cliente ERROR");
-                    }
+                    con.Close();
+                }
+                else
+                {
+                    Mensajes.Mostrar("Cliente ERROR", Mensajes.Tipo.Error);                                       
                 }
             }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
 
-            ActualizarLista.DynamicInvoke();
+            if (ActualizarLista != null)
+            {
+                ActualizarLista.DynamicInvoke();
+            }
 
             this.Close();
         }

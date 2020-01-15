@@ -16,14 +16,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SGE_erp.Gestion
+namespace SGE_erp.Administracion
 {
     /// <summary>
-    /// Interaction logic for Poblaciones.xaml
+    /// Lógica de interacción para Poblacions.xaml
     /// </summary>
-    public partial class Poblaciones : UserControl
+    public partial class Poblacions : UserControl
     {
-        public Poblaciones()
+        public Poblacions()
         {
             InitializeComponent();
         }
@@ -71,7 +71,7 @@ namespace SGE_erp.Gestion
 
                     if (existe > 0)
                     {
-                        MessageBoxResult resultado = MessageBox.Show("Esta poblaición ya existe");
+                        Mensajes.Mostrar("Esta población ya existe", Mensajes.Tipo.Info);
                     }
                     else
                     {
@@ -93,18 +93,22 @@ namespace SGE_erp.Gestion
                             }
                             else
                             {
-                                MessageBox.Show("Poblacion ERROR");
+                                Mensajes.Mostrar("Población ERROR Añadir", Mensajes.Tipo.Error);
                             }
                         }
                     }
                 }
                 con.Close();
+                codPos.Text = "";
+                tbPobla.Text = "";
+                tbProv.Text = "";
+
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            reset();
+            ActualizarTabla();
         }
 
         private void bReset_Click(object sender, RoutedEventArgs e)
@@ -144,7 +148,7 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void bEditar_Click(object sender, RoutedEventArgs e)
+        private void bEditar_Click_1(object sender, RoutedEventArgs e)
         {
             string bd = MetodosGestion.db;
             using (SqlConnection con = new SqlConnection(bd))
@@ -165,20 +169,20 @@ namespace SGE_erp.Gestion
                 }
                 else
                 {
-                    MessageBox.Show("No puede editar el CP\r\nCree un elemento nuevo");
+                    Mensajes.Mostrar("No puede editar el CP\r\nCree un elemento nuevo", Mensajes.Tipo.Info);
                 }
             }
             reset();
         }
 
-        private void bBorrar_Click(object sender, RoutedEventArgs e)
+        private void bBorrar_Click_1(object sender, RoutedEventArgs e)
         {
             if (dataGridPoblacion.SelectedItem != null)
             {
                 DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
                 string cod = dd.Row.Field<string>("CodPostal");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro de borrar esta población?", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     using (SqlConnection con = new SqlConnection(MetodosGestion.db))
                     using (SqlCommand command = con.CreateCommand())
@@ -196,12 +200,13 @@ namespace SGE_erp.Gestion
                         }
                         else
                         {
-                            MessageBox.Show("Proveedor ERROR al borrar");
+                            Mensajes.Mostrar("Población ERROR Borrar", Mensajes.Tipo.Error);
                         }
                     }
                     reset();
                 }
             }
         }
+
     }
 }

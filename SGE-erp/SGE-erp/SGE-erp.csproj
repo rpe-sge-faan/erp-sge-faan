@@ -55,23 +55,31 @@
     <ApplicationIcon>icono.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.2\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=3.0.1.920, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.3.0.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    <Reference Include="PdfSharp-WPF">
+      <HintPath>..\..\data\PdfSharpXpsBin\PdfSharp-WPF.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    <Reference Include="PdfSharp.Xps">
+      <HintPath>..\..\data\PdfSharpXpsBin\PdfSharp.Xps.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,14 +99,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administracion\Factura.xaml.cs">
+      <DependentUpon>Factura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administracion\AdminMain.xaml.cs">
+      <DependentUpon>AdminMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administracion\Poblacions.xaml.cs">
+      <DependentUpon>Poblacions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administracion\Usuarios.xaml.cs">
+      <DependentUpon>Usuarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Articulos\graficoHistorial.xaml.cs">
+      <DependentUpon>graficoHistorial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Articulos\InfoArticulos.xaml.cs">
       <DependentUpon>InfoArticulos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gestion\Ayuda.xaml.cs">
       <DependentUpon>Ayuda.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gestion\Poblaciones.xaml.cs">
-      <DependentUpon>Poblaciones.xaml</DependentUpon>
     </Compile>
     <Compile Include="Compras\Compras_Carrito.xaml.cs">
       <DependentUpon>Compras_Carrito.xaml</DependentUpon>
@@ -149,11 +169,17 @@
     <Compile Include="LogInWindow.xaml.cs">
       <DependentUpon>LogInWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mensajes.xaml.cs">
+      <DependentUpon>Mensajes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Venta\VentaArticulo.xaml.cs">
       <DependentUpon>VentaArticulo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Venta\VentanaAñadir.xaml.cs">
       <DependentUpon>VentanaAñadir.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\VentasDetalles.xaml.cs">
+      <DependentUpon>VentasDetalles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Venta\VentasEdicion.xaml.cs">
       <DependentUpon>VentasEdicion.xaml</DependentUpon>
@@ -164,15 +190,31 @@
     <Compile Include="Venta\VentasVista.xaml.cs">
       <DependentUpon>VentasVista.xaml</DependentUpon>
     </Compile>
+    <Page Include="Administracion\AdminMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\Poblacions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\Usuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\Factura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Articulos\graficoHistorial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Articulos\InfoArticulos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gestion\Ayuda.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gestion\Poblaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,6 +315,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Mensajes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Venta\VentaArticulo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -280,6 +326,10 @@
     <Page Include="Venta\VentanaAñadir.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Venta\VentasDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Venta\VentasEdicion.xaml">
       <SubType>Designer</SubType>
@@ -312,6 +362,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="manual.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -332,7 +385,6 @@
     <Resource Include="imagenes\logo2.png" />
     <Resource Include="imagenes\logo3.png" />
     <Resource Include="icono.ico" />
-    <Resource Include="logo2.ico" />
     <Resource Include="imagenes\logo.png" />
     <Resource Include="imagenes\logo_nombre.png" />
   </ItemGroup>
