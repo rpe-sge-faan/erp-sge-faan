@@ -286,7 +286,7 @@ namespace SGE_erp.Compras
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 con.Open();
                 SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
-                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + DateTime.Today + "'," + precioTotal + ");", con);
+                    + int.Parse(idProveedorCompra) + "," + idEmpleado + "," + DateTime.Today.ToString("dd/MM/yyyy") + "," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
 
                 SqlConnection con3 = new SqlConnection(MetodosGestion.db);
@@ -305,13 +305,87 @@ namespace SGE_erp.Compras
                     SqlCommand da2 = new SqlCommand(@"INSERT INTO CompraArticulos VALUES("
                         + idcompra + "," + Convert.ToInt32(datos[0]) + "," + Convert.ToInt32(datos[2]) + ");", con2);
                     da2.ExecuteNonQuery();
-
-                    //SqlCommand upgrade = new SqlCommand(@"UPDATE Articulos SET Stock=Stock+" + Convert.ToInt32(datos[2])
-                    //    + " FROM Articulos INNER JOIN ProveedorArticulo ON Articulos.Id_Articulo=ProveedorArticulo.Id_Articulo" +
-                    //    " WHERE ProveedorArticulo.Id_Elemento=" + Convert.ToInt32(datos[0]) + ";", con2);
-                    //upgrade.ExecuteNonQuery();
-
                     con2.Close();
+
+                    // INSERT EN LA TABLA DE MOVIMIENTOS
+                    string idArt ="";
+                    using (SqlConnection conex = new SqlConnection(MetodosGestion.db))
+                    using (SqlCommand command = conex.CreateCommand())
+                    {
+                        command.CommandText = "SELECT Id_Articulo FROM ProveedorArticulo WHERE Id_Elemento = @idele";
+                        command.Parameters.AddWithValue("@idele", Convert.ToInt32(datos[0]));
+                        conex.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                idArt = reader.GetInt32(reader.GetOrdinal("Id_Articulo")).ToString();
+                                //MessageBox.Show(idArt);
+                            }
+                            else MessageBox.Show("Fallo");
+                        }
+                    }
+                    int stock = 0;
+                    using (SqlConnection conex = new SqlConnection(MetodosGestion.db))
+                    using (SqlCommand command = conex.CreateCommand())
+                    {
+                        command.CommandText = "SELECT Stock FROM Articulos WHERE Id_Articulo = @idele";
+                        command.Parameters.AddWithValue("@idele", idArt);
+                        conex.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+
+                            if (reader.Read())
+                            {
+                                stock = reader.GetInt32(reader.GetOrdinal("Stock"));
+                                //MessageBox.Show(stock.ToString());
+                            }
+                            else MessageBox.Show("Fallo");
+                        }
+                    }
+                    String nombreProv = "";
+                    using (SqlConnection conex = new SqlConnection(MetodosGestion.db))
+                    using (SqlCommand command = conex.CreateCommand())
+                    {
+                        command.CommandText = "SELECT Nombre FROM Proveedores WHERE Id_Proveedor = @idprov";
+                        command.Parameters.AddWithValue("@idprov", int.Parse(idProveedorCompra));
+                        conex.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+
+                            if (reader.Read())
+                            {
+                                nombreProv = reader.GetString(reader.GetOrdinal("Nombre"));
+                                //MessageBox.Show(nombreProv);
+                            }
+                            else MessageBox.Show("Fallo");
+                        }
+                    }
+                    using (SqlConnection conection = new SqlConnection(MetodosGestion.db))
+                    using (SqlCommand command = conection.CreateCommand())
+                    {
+                        command.CommandText = "INSERT INTO Movimientos OUTPUT INSERTED.Id_Movimiento VALUES(@fecha, @idarticulo, @origen, " +
+                            "@nomprov, @cantidad, @stock)";
+
+                        command.Parameters.AddWithValue("@fecha", DateTime.Today.ToString("dd/MM/yyyy"));
+                        command.Parameters.AddWithValue("@idarticulo", idArt);
+                        command.Parameters.AddWithValue("@origen", "Proveedor");
+                        command.Parameters.AddWithValue("@nomprov", nombreProv);
+                        command.Parameters.AddWithValue("@cantidad", Convert.ToInt32(datos[2]));
+                        command.Parameters.AddWithValue("@stock", stock);
+
+                        conection.Open();
+                        int a = command.ExecuteNonQuery();
+
+                        if (a != 0)
+                        {
+                            conection.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error de movimiento.");
+                        }
+                    }
                 }
                 MessageBox.Show("Guardado.");
                 int j = carritoCompra.Rows.Count;

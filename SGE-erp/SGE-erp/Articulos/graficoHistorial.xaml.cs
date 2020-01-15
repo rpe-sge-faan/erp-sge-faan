@@ -18,20 +18,23 @@ namespace SGE_erp.Articulos
         {
             InitializeComponent();
             Values = new ChartValues<double> { 0 };
+            lab = new ChartValues<string> { "0" };
             DataContext = this;
         }
 
         public ChartValues<double> Values { get; set; }
-        private string[] lab;
+        public ChartValues<string> lab { get; set; }
+        //private string[] lab;
 
         private void Update()
         {
             double[] stock = InfoArticulos.valoresStock;
             IEnumerable<double> m = stock;
             Values.AddRange(m);
+            lab.AddRange(InfoArticulos.valoresFecha);
             Chart.Update(true);
             //DataContext = this;
-            lab = InfoArticulos.valoresFecha;
+            //lab = InfoArticulos.valoresFecha;
         }
 
         private string nameValue = "Nombre articulo";
@@ -42,11 +45,11 @@ namespace SGE_erp.Articulos
         }
 
         
-        public string[] Labels
-        {
-            get { return lab; }
-            set { lab = value; }
-        }
+        //public string[] Labels
+        //{
+        //    get { return lab.; }
+        //    set { lab = value; }
+        //}
 
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
