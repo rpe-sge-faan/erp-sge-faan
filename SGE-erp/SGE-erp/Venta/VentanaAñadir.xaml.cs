@@ -187,12 +187,14 @@ namespace SGE_erp.Venta
 
                         if (id != 0)
                         {
-                            MessageBox.Show("Vendido");
+                            
+                            Mensajes.Mostrar("Vendido", Mensajes.Tipo.Info);
                             conn.Close();
                         }
                         else
                         {
-                            MessageBox.Show("ERROR");
+                            
+                            Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                         }
                     }
 
@@ -222,7 +224,7 @@ namespace SGE_erp.Venta
                             }
                             else
                             {
-                                MessageBox.Show("ERROR");
+                                Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                             }
                         }
                         // INSERT EN LA TABLA DE MOVIMIENTOS
@@ -241,7 +243,7 @@ namespace SGE_erp.Venta
                                     idArt = reader.GetInt32(reader.GetOrdinal("Id_Articulo")).ToString();
                                     //MessageBox.Show(idArt);
                                 }
-                                else MessageBox.Show("Fallo");
+                                else Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                             }
                         }
                         int stock = 0;
@@ -259,7 +261,7 @@ namespace SGE_erp.Venta
                                     stock = reader.GetInt32(reader.GetOrdinal("Stock"));
                                     //MessageBox.Show(stock.ToString());
                                 }
-                                else MessageBox.Show("Fallo");
+                                else Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                             }
                         }
                         String nombreCli = "";
@@ -277,7 +279,7 @@ namespace SGE_erp.Venta
                                     nombreCli = reader.GetString(reader.GetOrdinal("Nombre"));
                                     //MessageBox.Show(nombreCli);
                                 }
-                                else MessageBox.Show("Fallo");
+                                else Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                             }
                         }
                         using (SqlConnection conection = new SqlConnection(MetodosGestion.db))
@@ -302,7 +304,7 @@ namespace SGE_erp.Venta
                             }
                             else
                             {
-                                MessageBox.Show("Error de movimiento.");
+                                Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                             }
                         }
                     }

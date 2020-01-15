@@ -142,11 +142,15 @@ namespace SGE_erp.Venta
 
         private void dgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataRowView dato = (DataRowView)dgVista.SelectedItem;
-            String idVenta = dato.Row.Field<int>("Id_Ventas").ToString();
+            if (dgVista.SelectedItem != null)
+            {
+                DataRowView dato = (DataRowView)dgVista.SelectedItem;
+                String idVenta = dato.Row.Field<int>("Id_Ventas").ToString();
 
-            VentasDetalles ccd = new VentasDetalles(idVenta);
-            ccd.Show();
+                VentasDetalles ccd = new VentasDetalles(idVenta);
+                ccd.Show();
+            }
+            
         }
 
         Factura f;
