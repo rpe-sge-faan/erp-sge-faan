@@ -286,7 +286,7 @@ namespace SGE_erp.Compras
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 con.Open();
                 SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
-                    + int.Parse(idProveedorCompra) + "," + idEmpleado + "," + DateTime.Today.ToString("dd/MM/yyyy") + "," + precioTotal + ");", con);
+                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + DateTime.Now.ToShortDateString().ToString() + "'," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
 
                 SqlConnection con3 = new SqlConnection(MetodosGestion.db);
@@ -387,7 +387,7 @@ namespace SGE_erp.Compras
                         }
                     }
                 }
-                MessageBox.Show("Guardado.");
+                Mensajes.Mostrar("Guardado.", Mensajes.Tipo.Info);
                 int j = carritoCompra.Rows.Count;
                 for (int i = 0; i < j; i++)
                 {
