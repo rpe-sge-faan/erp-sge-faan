@@ -57,6 +57,9 @@ namespace SGE_erp.Compras
                     DataRow row = dt.Rows[i];
                     String idProv= Convert.ToString(row["Id_Proveedor"]);
                     String idEmp = Convert.ToString(row["Id_Empleado"]);
+                    DateTime fecha = Convert.ToDateTime(row["FechaCompra"]);
+                    //MessageBox.Show(fecha);
+                    dt.Rows[i]["FechaCompra"] = fecha.ToShortDateString();
 
 
                     using (SqlCommand command = con.CreateCommand())
