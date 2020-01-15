@@ -286,7 +286,7 @@ namespace SGE_erp.Compras
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 con.Open();
                 SqlCommand da = new SqlCommand(@"INSERT INTO Compra OUTPUT INSERTED.Id_Compra VALUES("
-                    + int.Parse(idProveedorCompra) + "," + idEmpleado + ",'" + DateTime.Today.ToString("dd/MM/yyyy") + "'," + precioTotal + ");", con);
+                    + int.Parse(idProveedorCompra) + "," + idEmpleado + "," + DateTime.Today.ToString("dd/MM/yyyy") + "," + precioTotal + ");", con);
                 da.ExecuteNonQuery();
 
                 SqlConnection con3 = new SqlConnection(MetodosGestion.db);
@@ -317,7 +317,6 @@ namespace SGE_erp.Compras
                         conex.Open();
                         using (var reader = command.ExecuteReader())
                         {
-
                             if (reader.Read())
                             {
                                 idArt = reader.GetInt32(reader.GetOrdinal("Id_Articulo")).ToString();

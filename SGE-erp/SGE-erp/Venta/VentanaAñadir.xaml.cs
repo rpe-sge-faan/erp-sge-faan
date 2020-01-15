@@ -225,6 +225,86 @@ namespace SGE_erp.Venta
                                 MessageBox.Show("ERROR");
                             }
                         }
+                        // INSERT EN LA TABLA DE MOVIMIENTOS
+                        string idArt = "";
+                        using (SqlConnection conex = new SqlConnection(MetodosGestion.db))
+                        using (SqlCommand command = conex.CreateCommand())
+                        {
+                            command.CommandText = "SELECT Id_Articulo FROM ProveedorArticulo WHERE Id_Elemento = @idele";
+                            command.Parameters.AddWithValue("@idele", row[2]);
+                            conex.Open();
+                            using (var reader = command.ExecuteReader())
+                            {
+
+                                if (reader.Read())
+                                {
+                                    idArt = reader.GetInt32(reader.GetOrdinal("Id_Articulo")).ToString();
+                                    //MessageBox.Show(idArt);
+                                }
+                                else MessageBox.Show("Fallo");
+                            }
+                        }
+                        int stock = 0;
+                        using (SqlConnection conex = new SqlConnection(MetodosGestion.db))
+                        using (SqlCommand command = conex.CreateCommand())
+                        {
+                            command.CommandText = "SELECT Stock FROM Articulos WHERE Id_Articulo = @idele";
+                            command.Parameters.AddWithValue("@idele", idArt);
+                            conex.Open();
+                            using (var reader = command.ExecuteReader())
+                            {
+
+                                if (reader.Read())
+                                {
+                                    stock = reader.GetInt32(reader.GetOrdinal("Stock"));
+                                    //MessageBox.Show(stock.ToString());
+                                }
+                                else MessageBox.Show("Fallo");
+                            }
+                        }
+                        String nombreCli = "";
+                        using (SqlConnection conex = new SqlConnection(MetodosGestion.db))
+                        using (SqlCommand command = conex.CreateCommand())
+                        {
+                            command.CommandText = "SELECT Nombre FROM Clientes WHERE Id_Cliente = @idcli";
+                            command.Parameters.AddWithValue("@idcli", idCliente);
+                            conex.Open();
+                            using (var reader = command.ExecuteReader())
+                            {
+
+                                if (reader.Read())
+                                {
+                                    nombreCli = reader.GetString(reader.GetOrdinal("Nombre"));
+                                    //MessageBox.Show(nombreCli);
+                                }
+                                else MessageBox.Show("Fallo");
+                            }
+                        }
+                        using (SqlConnection conection = new SqlConnection(MetodosGestion.db))
+                        using (SqlCommand command = conection.CreateCommand())
+                        {
+                            command.CommandText = "INSERT INTO Movimientos OUTPUT INSERTED.Id_Movimiento VALUES(@fecha, @idarticulo, @origen, " +
+                                "@nomprov, @cantidad, @stock)";
+
+                            command.Parameters.AddWithValue("@fecha", DateTime.Today.ToString("dd/MM/yyyy"));
+                            command.Parameters.AddWithValue("@idarticulo", idArt);
+                            command.Parameters.AddWithValue("@origen", "Cliente");
+                            command.Parameters.AddWithValue("@nomprov", nombreCli);
+                            command.Parameters.AddWithValue("@cantidad", row[5]);
+                            command.Parameters.AddWithValue("@stock", stock);
+
+                            conection.Open();
+                            int a = command.ExecuteNonQuery();
+
+                            if (a != 0)
+                            {
+                                conection.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error de movimiento.");
+                            }
+                        }
                     }
 
 
