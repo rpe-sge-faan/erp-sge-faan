@@ -27,8 +27,6 @@
         </Grid.RowDefinitions>
         <Border
             Grid.ColumnSpan="2"></Border>
-        
-            
         <lvc:CartesianChart
             Name="Chart"
             Grid.Row="1"
@@ -39,18 +37,18 @@
                 <lvc:LineSeries
                     Values="{Binding Values}"
                     LineSmoothness="1"
-                    StrokeThickness="3"
+                    StrokeThickness="2"
                     DataLabels="True"
                     FontSize="15"
                     Foreground="#6B303030"
                     Stroke="White"
                     Fill="Transparent"
-                    PointGeometrySize="0" />
+                    PointGeometrySize="5" />
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis
-                    Labels="{Binding Labels}"
-                    IsEnabled="True"
+                    Labels="{Binding lab}"
+                    IsEnabled="False"
                     ShowLabels="False" />
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
@@ -63,7 +61,7 @@
                             StrokeThickness="1"
                             Stroke="#8EFFFFFF"
                             StrokeDashArray="5"
-                            Step="50" />
+                            Step="10" />
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisY>
