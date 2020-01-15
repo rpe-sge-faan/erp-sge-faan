@@ -249,7 +249,7 @@ namespace SGE_erp.Administracion
             {
                 using (MailMessage mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("andrea.lobo93@gmail.com");
+                    mail.From = new MailAddress("faan.erp@gmail.com");
                     mail.To.Add("thewilkin25@gmail.com");
                     mail.Subject = "Factura - FAAN";
                     mail.Body = "Le adjuntamos la factura de su compra. Gracias por usar nuestros servicios.";
@@ -262,12 +262,12 @@ namespace SGE_erp.Administracion
                     {
                         SmtpServer.UseDefaultCredentials = false;
                         SmtpServer.EnableSsl = true;
-                        SmtpServer.Credentials = new System.Net.NetworkCredential("andrea.lobo93@gmail.com", "contraseña");
+                        SmtpServer.Credentials = new System.Net.NetworkCredential("faan.erp@gmail.com", "2FeArApN");
                         SmtpServer.EnableSsl = true;
                         SmtpServer.Send(mail);
                     }
                 }
-                MessageBox.Show("Mail Sent");
+                Mensajes.Mostrar("Email enviado", Mensajes.Tipo.Info);
             }
             catch (Exception ex)
             {
