@@ -108,44 +108,51 @@ namespace SGE_erp.Administracion
         private void bEditar_Click_1(object sender, RoutedEventArgs e)
         {
             DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
-            string email ="";
+            string email = "";
 
-            try
-            {
-                email = dd.Row.Field<string>("Email");
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Seleccione un email");
-                
-            }
-
-            //MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro que quieres usar '' " + tbProv.Text + " '' como nueva contraseña?", "Confirmacion Editado", System.Windows.MessageBoxButton.YesNo);
-            bool resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
-            if (resul)
-            {
-                string bd = MetodosGestion.db;
-                using (SqlConnection con = new SqlConnection(bd))
-                using (SqlCommand command = con.CreateCommand())
+            if (!tbProv.Text.Equals("")) { 
+                try
                 {
-                    command.CommandText = "UPDATE Empleados SET Password=@contra WHERE Email=@email";
-
-                    command.Parameters.AddWithValue("@email", email);
-                    command.Parameters.AddWithValue("@contra", tbProv.Text);
-
-                    con.Open();
-                    int a = command.ExecuteNonQuery();
-
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("No puede editar el e-mail\r\nCree un elemento nuevo");
-                    }
+                    email = dd.Row.Field<string>("Email");
                 }
-                reset();
+                catch (NullReferenceException)
+                {
+
+                    Mensajes.Mostrar("Seleccione un email", Mensajes.Tipo.Error);
+
+                }
+
+                //MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro que quieres usar '' " + tbProv.Text + " '' como nueva contraseña?", "Confirmacion Editado", System.Windows.MessageBoxButton.YesNo);
+                bool resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
+                if (resul)
+                {
+                    string bd = MetodosGestion.db;
+                    using (SqlConnection con = new SqlConnection(bd))
+                    using (SqlCommand command = con.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE Empleados SET Password=@contra WHERE Email=@email";
+
+                        command.Parameters.AddWithValue("@email", email);
+                        command.Parameters.AddWithValue("@contra", tbProv.Text);
+
+                        con.Open();
+                        int a = command.ExecuteNonQuery();
+
+                        if (a != 0)
+                        {
+                            con.Close();
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No puede editar el e-mail\r\nCree un elemento nuevo");
+                        }
+                    }
+                    reset();
+                }
+            }
+            else
+            {
+                Mensajes.Mostrar("Escriba la contraseña", Mensajes.Tipo.Error);
             }
         }
 
@@ -155,8 +162,9 @@ namespace SGE_erp.Administracion
             {
                 DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
                 string cod = dd.Row.Field<string>("Email");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Borrado", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                
+                bool resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
+                if (resul)
                 {
                     using (SqlConnection con = new SqlConnection(MetodosGestion.db))
                     using (SqlCommand command = con.CreateCommand())
@@ -175,7 +183,8 @@ namespace SGE_erp.Administracion
                         }
                         else
                         {
-                            MessageBox.Show("Proveedor ERROR al borrar");
+                            
+                            Mensajes.Mostrar("Error al borrar", Mensajes.Tipo.Error);
                         }
                     }
                     reset();

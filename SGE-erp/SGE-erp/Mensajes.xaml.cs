@@ -67,14 +67,17 @@ namespace SGE_erp
                 case Tipo.Info:
                     btnCancel.Visibility = Visibility.Hidden;
                     iconito.Kind = MaterialDesignThemes.Wpf.PackIconKind.InfoCircle;
+                    this.Title = "INFO";
                     break;
                 case Tipo.Confirmacion:
                     btnCancel.Visibility = Visibility.Visible;
                     iconito.Kind = MaterialDesignThemes.Wpf.PackIconKind.QuestionMarkCircle;
+                    this.Title = "CONFIRMAR";
                     break;
                 case Tipo.Error:
                     btnCancel.Visibility = Visibility.Hidden;
                     iconito.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
+                    this.Title = "ERROR";
                     break;
             }
             info.Text = $"{this.mensaje}";
