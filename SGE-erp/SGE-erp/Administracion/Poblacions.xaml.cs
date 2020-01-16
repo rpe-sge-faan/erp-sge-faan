@@ -56,59 +56,65 @@ namespace SGE_erp.Administracion
 
         private void bAnadir_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DataRowView dv = (DataRowView)dataGridPoblacion.SelectedItem;
-                //int idT = dTipo.Row.Field<int>("Id_Tipo");
-                SqlConnection con = new SqlConnection(MetodosGestion.db);
-                using (SqlCommand command = con.CreateCommand())
+            if (!tbProv.Text.Equals("") && !tbPobla.Text.Equals("") && !codPos.Text.Equals("")) {
+                try
                 {
-                    command.CommandText = "SELECT COUNT(*) FROM [Poblaciones] WHERE ([CodPostal] = @tipo)";
-                    command.Parameters.AddWithValue("@tipo", codPos.Text);
-                    con.Open();
-
-                    int existe = (int)command.ExecuteScalar();
-
-                    if (existe > 0)
+                    DataRowView dv = (DataRowView)dataGridPoblacion.SelectedItem;
+                    //int idT = dTipo.Row.Field<int>("Id_Tipo");
+                    SqlConnection con = new SqlConnection(MetodosGestion.db);
+                    using (SqlCommand command = con.CreateCommand())
                     {
-                        Mensajes.Mostrar("Esta población ya existe", Mensajes.Tipo.Info);
-                    }
-                    else
-                    {
-                        using (SqlCommand anadir = con.CreateCommand())
+                        command.CommandText = "SELECT COUNT(*) FROM [Poblaciones] WHERE ([CodPostal] = @tipo)";
+                        command.Parameters.AddWithValue("@tipo", codPos.Text);
+                        con.Open();
+
+                        int existe = (int)command.ExecuteScalar();
+
+                        if (existe > 0)
                         {
-
-                            anadir.CommandText = "INSERT INTO Poblaciones VALUES (@id, @poblacion, @provincia)";
-
-                            anadir.Parameters.AddWithValue("@id", codPos.Text);
-                            anadir.Parameters.AddWithValue("@poblacion", tbPobla.Text);
-                            anadir.Parameters.AddWithValue("@provincia", tbProv.Text);
-
-                            //con.Open();
-                            int a = anadir.ExecuteNonQuery();
-
-                            if (a != 0)
+                            Mensajes.Mostrar("Esta población ya existe", Mensajes.Tipo.Info);
+                        }
+                        else
+                        {
+                            using (SqlCommand anadir = con.CreateCommand())
                             {
-                                con.Close();
-                            }
-                            else
-                            {
-                                Mensajes.Mostrar("Población ERROR Añadir", Mensajes.Tipo.Error);
+
+                                anadir.CommandText = "INSERT INTO Poblaciones VALUES (@id, @poblacion, @provincia)";
+
+                                anadir.Parameters.AddWithValue("@id", codPos.Text);
+                                anadir.Parameters.AddWithValue("@poblacion", tbPobla.Text);
+                                anadir.Parameters.AddWithValue("@provincia", tbProv.Text);
+
+                                //con.Open();
+                                int a = anadir.ExecuteNonQuery();
+
+                                if (a != 0)
+                                {
+                                    con.Close();
+                                }
+                                else
+                                {
+                                    Mensajes.Mostrar("Población ERROR Añadir", Mensajes.Tipo.Error);
+                                }
                             }
                         }
                     }
-                }
-                con.Close();
-                codPos.Text = "";
-                tbPobla.Text = "";
-                tbProv.Text = "";
+                    con.Close();
+                    codPos.Text = "";
+                    tbPobla.Text = "";
+                    tbProv.Text = "";
 
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                ActualizarTabla();
             }
-            catch (SqlException ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                Mensajes.Mostrar("Rellene los campos", Mensajes.Tipo.Error);
             }
-            ActualizarTabla();
         }
 
         private void bReset_Click(object sender, RoutedEventArgs e)
@@ -181,7 +187,7 @@ namespace SGE_erp.Administracion
             {
                 DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
                 string cod = dd.Row.Field<string>("CodPostal");
-                Boolean resul = Mensajes.Mostrar("¿Estás seguro de borrar esta población?", Mensajes.Tipo.Confirmacion);
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
                     using (SqlConnection con = new SqlConnection(MetodosGestion.db))
