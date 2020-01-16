@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,16 +66,24 @@ namespace SGE_erp.Controles
                 NumericUD.Text = Convert.ToString(number - 1);
         }
 
-        
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
 
         private void NumericUD_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int number = 0;
-            if (NumericUD.Text != "")
-                if (!int.TryParse(NumericUD.Text, out number)) NumericUD.Text = startvalue.ToString();
-            if (number > maxvalue) NumericUD.Text = maxvalue.ToString();
-            if (number < minvalue) NumericUD.Text = minvalue.ToString();
-            NumericUD.SelectionStart = NumericUD.Text.Length;
+            //int number = 0;
+            //if (NumericUD.Text != "")
+            //    if (!int.TryParse(NumericUD.Text, out number)) NumericUD.Text = startvalue.ToString();
+            //if (number > maxvalue) NumericUD.Text = maxvalue.ToString();
+            //if (number <= minvalue)
+            //{
+            //    NumericUD.Text = minvalue.ToString();
+            //}
+            //else { }
+            //NumericUD.SelectionStart = NumericUD.Text.Length;
 
         }
     }

@@ -196,7 +196,8 @@ namespace SGE_erp.Venta
                 }
                 else
                 {
-                    MessageBox.Show("No existe stock");
+                    
+                    Mensajes.Mostrar("No existe stock", Mensajes.Tipo.Info);
                 }
 
 
