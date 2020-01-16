@@ -124,8 +124,13 @@ namespace SGE_erp.Venta
         int guardarCantidad = 0;
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
+            Boolean acabado = false;
             if (DatosAnadir.SelectedItem != null)
             {
+                //Tabla de arriba
+                DataTable dta = new DataTable();
+                dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
+                //Tabla de abajo
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
                 int rowIndex = DatosAnadir.Items.IndexOf(DatosAnadir.SelectedItem);
                 int idArticulo = drv.Row.Field<int>("Id_Articulo");
@@ -137,12 +142,10 @@ namespace SGE_erp.Venta
                 decimal totalM = 0;
                 totalM = pvp * stock;
 
-                totalFinal += totalM;
-                lbTotalFin.Content = $"{totalFinal}€";
-
-                guardarCantidad += stock;
+               
 
                 Boolean encontrado = false;
+
                 int index = -1;
 
                 for (int i = 0; i < dataT.Rows.Count; i++)
@@ -157,31 +160,47 @@ namespace SGE_erp.Venta
                     }
 
                 }
-                if (encontrado)
+                if (Convert.ToInt32(dta.Rows[rowIndex]["Stock"]) > 0)
                 {
-                    dataT.Rows[index]["Unidades"] = Convert.ToInt32(dataT.Rows[index]["Unidades"]) + stock;
-                    dataT.Rows[index]["PVP"] = Convert.ToDecimal(dataT.Rows[index]["PVP"]) + (pvp * stock);
+
+
+                    if (encontrado)
+                    {
+                        dataT.Rows[index]["Unidades"] = Convert.ToInt32(dataT.Rows[index]["Unidades"]) + stock;
+                        dataT.Rows[index]["PVP"] = Convert.ToDecimal(dataT.Rows[index]["PVP"]) + (pvp * stock);
+                    }
+                    else
+                    {
+                        DataRow dr = null;
+                        dr = dataT.NewRow();
+                        dr["Id_Articulo"] = idArticulo;
+                        dr["Id_Empleado"] = idEmpleado;
+                        dr["Id_Elemento"] = idElemento;
+                        dr["Nombre"] = nombre;
+                        dr["PVP"] = totalM;
+                        dr["Unidades"] = stock;
+
+                        dataT.Rows.Add(dr);
+                        dgFinal.ItemsSource = dataT.DefaultView;
+                    }
+
+
+                    dta.Rows[rowIndex]["Stock"] = Convert.ToInt32(dta.Rows[rowIndex]["Stock"]) - stock;
+                    DatosAnadir.ItemsSource = dta.DefaultView;
+                    DatosAnadir.SelectedIndex = rowIndex;
+
+                    totalFinal += totalM;
+                    lbTotalFin.Content = $"{totalFinal}€";
+
+                    guardarCantidad += stock;
                 }
                 else
                 {
-                    DataRow dr = null;
-                    dr = dataT.NewRow();
-                    dr["Id_Articulo"] = idArticulo;
-                    dr["Id_Empleado"] = idEmpleado;
-                    dr["Id_Elemento"] = idElemento;
-                    dr["Nombre"] = nombre;
-                    dr["PVP"] = totalM;
-                    dr["Unidades"] = stock;
-                    dataT.Rows.Add(dr);
-                    dgFinal.ItemsSource = dataT.DefaultView;
+                    MessageBox.Show("No existe stock");
                 }
 
-                DataTable dta = new DataTable();
-                dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
-                dta.Rows[rowIndex]["Stock"] = Convert.ToInt32(dta.Rows[rowIndex]["Stock"]) - stock;
 
-                DatosAnadir.ItemsSource = dta.DefaultView;
-                DatosAnadir.SelectedIndex = rowIndex;
+
             }
         }
 
