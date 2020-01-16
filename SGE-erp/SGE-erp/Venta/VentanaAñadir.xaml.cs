@@ -51,7 +51,7 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, ProveedorArticulo.Id_Elemento, Nombre, PVP, Stock " +
+                SqlDataAdapter da = new SqlDataAdapter("SELECT Articulos.Id_Articulo, ProveedorArticulo.Id_Elemento, Nombre, Descripcion, PVP, Stock " +
                                                         "FROM ProveedorArticulo, Articulos " +
                                                         "WHERE ProveedorArticulo.Id_Articulo = Articulos.Id_Articulo AND Stock > 0", con);
                 DataTable dt = new DataTable();
@@ -67,7 +67,6 @@ namespace SGE_erp.Venta
 
                 udStock.minvalue = 1;
                 udStock.Value = 1;
-
             }
             catch
             {
@@ -77,11 +76,13 @@ namespace SGE_erp.Venta
 
         public void ActualizaMaximo()
         {
-
             DataRowView dd = (DataRowView)DatosAnadir.SelectedItem;
-            int stock = dd.Row.Field<int>("Stock");
-            udStock.maxvalue = stock;
-            udStock.Value = 1;
+            if (dd != null)
+            {
+                int stock = dd.Row.Field<int>("Stock");
+                udStock.maxvalue = stock;
+                udStock.Value = 1;
+            }
         }
 
         private void DatosAnadir_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,6 +127,7 @@ namespace SGE_erp.Venta
             if (DatosAnadir.SelectedItem != null)
             {
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+                int rowIndex = DatosAnadir.Items.IndexOf(DatosAnadir.SelectedItem);
                 int idArticulo = drv.Row.Field<int>("Id_Articulo");
                 int idEmpleado = MainWindow.idEmpleado;
                 int idElemento = drv.Row.Field<int>("Id_Elemento");
@@ -140,16 +142,46 @@ namespace SGE_erp.Venta
 
                 guardarCantidad += stock;
 
-                DataRow dr = null;
-                dr = dataT.NewRow();
-                dr["Id_Articulo"] = idArticulo;
-                dr["Id_Empleado"] = idEmpleado;
-                dr["Id_Elemento"] = idElemento;
-                dr["Nombre"] = nombre;
-                dr["PVP"] = totalM;
-                dr["Unidades"] = stock;
-                dataT.Rows.Add(dr);
-                dgFinal.ItemsSource = dataT.DefaultView;
+                Boolean encontrado = false;
+                int index = -1;
+
+                for (int i = 0; i < dataT.Rows.Count; i++)
+                {
+                    DataRow row = dataT.Rows[i];
+                    int id = Convert.ToInt32(dataT.Rows[i]["Id_Articulo"]);
+                    if (id == idArticulo)
+                    {
+                        encontrado = true;
+                        index = i;
+                        break;
+                    }
+
+                }
+                if (encontrado)
+                {
+                    dataT.Rows[index]["Unidades"] = Convert.ToInt32(dataT.Rows[index]["Unidades"]) + stock;
+                    dataT.Rows[index]["PVP"] = Convert.ToDecimal(dataT.Rows[index]["PVP"]) + (pvp * stock);
+                }
+                else
+                {
+                    DataRow dr = null;
+                    dr = dataT.NewRow();
+                    dr["Id_Articulo"] = idArticulo;
+                    dr["Id_Empleado"] = idEmpleado;
+                    dr["Id_Elemento"] = idElemento;
+                    dr["Nombre"] = nombre;
+                    dr["PVP"] = totalM;
+                    dr["Unidades"] = stock;
+                    dataT.Rows.Add(dr);
+                    dgFinal.ItemsSource = dataT.DefaultView;
+                }
+
+                DataTable dta = new DataTable();
+                dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
+                dta.Rows[rowIndex]["Stock"] = Convert.ToInt32(dta.Rows[rowIndex]["Stock"]) - stock;
+
+                DatosAnadir.ItemsSource = dta.DefaultView;
+                DatosAnadir.SelectedIndex = rowIndex;
             }
         }
 
@@ -187,13 +219,13 @@ namespace SGE_erp.Venta
 
                         if (id != 0)
                         {
-                            
+
                             Mensajes.Mostrar("Vendido", Mensajes.Tipo.Info);
                             conn.Close();
                         }
                         else
                         {
-                            
+
                             Mensajes.Mostrar("ERROR", Mensajes.Tipo.Error);
                         }
                     }
@@ -373,12 +405,12 @@ namespace SGE_erp.Venta
 
             dt = view.ToTable();
             DatosAnadir.ItemsSource = null;
-            DatosAnadir.ItemsSource = dt.DefaultView;   
+            DatosAnadir.ItemsSource = dt.DefaultView;
         }
 
-        
+
         DataView view = null;
         DataTable dt;
-       
+
     }
 }
