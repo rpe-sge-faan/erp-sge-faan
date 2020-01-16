@@ -115,7 +115,7 @@ namespace SGE_erp.Gestion
             {
                 DataRowView dd = (DataRowView)dataGridEmpleados.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Empleado");
-                Boolean resul = Mensajes.Mostrar("¿Está seguro de que quiere borrar este empleado?", Mensajes.Tipo.Confirmacion);
+                Boolean resul = Mensajes.Mostrar("¿Está seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
                     try

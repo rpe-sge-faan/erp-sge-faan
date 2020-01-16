@@ -362,7 +362,7 @@ namespace SGE_erp.Articulos
 
                     if (existe > 0)
                     {
-                        bool resul = Mensajes.Mostrar("Esta relación ya existe ¿Desea modificarla?", Mensajes.Tipo.Confirmacion);
+                        bool resul = Mensajes.Mostrar("Relación existente, ¿desea modificarla?", Mensajes.Tipo.Confirmacion);
                         if (resul)
                         {
                             using (SqlCommand editar = con.CreateCommand())

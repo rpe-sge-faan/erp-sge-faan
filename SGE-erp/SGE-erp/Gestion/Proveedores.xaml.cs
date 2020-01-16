@@ -142,7 +142,7 @@ namespace SGE_erp.Gestion
             {
                 DataRowView dd = (DataRowView)dataGridProveedores.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Proveedor");
-                Boolean resul = Mensajes.Mostrar("¿Estás seguro de que quieres borrar este proveedor?", Mensajes.Tipo.Confirmacion);
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
                     try

@@ -62,10 +62,10 @@
             <TextBlock
                 x:Name="info"
                 FontSize="12"
-                Margin="10,10,5,20"
                 Text="TEXTO"
                 TextWrapping="Wrap"
-                HorizontalAlignment="Center"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center" Height="44"
                 />
         </Label>
         <Grid Grid.Row="2"
@@ -74,7 +74,7 @@
             Margin="-5"
               
             >
-        <StackPanel
+            <StackPanel
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="3"
@@ -83,21 +83,21 @@
             HorizontalAlignment="Right"
 
             >
-            <Button
+                <Button
                 Content="_Cancel"
                 IsCancel="True"
                 Margin="5"
                 FontSize="12"
                 Name="btnCancel"
                 Click="btnCancel_Click" />
-            <Button
+                <Button
                 Content="_OK"
                 IsDefault="True"
                 Margin="5"
                 FontSize="12"
                 Name="btnOk"
                 Click="btnOk_Click" />
-        </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

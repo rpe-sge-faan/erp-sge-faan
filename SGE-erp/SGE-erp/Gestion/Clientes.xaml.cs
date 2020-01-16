@@ -203,7 +203,7 @@ namespace SGE_erp.Gestion
             {
                 DataRowView dd = (DataRowView)dataGridClientes.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Cliente");
-                Boolean resul = Mensajes.Mostrar("¿Estás seguro de borrar este cliente?", Mensajes.Tipo.Confirmacion);
+                Boolean resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
                     try
