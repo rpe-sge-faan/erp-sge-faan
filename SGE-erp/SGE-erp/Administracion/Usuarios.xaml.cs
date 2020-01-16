@@ -120,8 +120,9 @@ namespace SGE_erp.Administracion
                 
             }
 
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro que quieres usar '' " + tbProv.Text + " '' como nueva contraseña?", "Confirmacion Editado", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            //MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro que quieres usar '' " + tbProv.Text + " '' como nueva contraseña?", "Confirmacion Editado", System.Windows.MessageBoxButton.YesNo);
+            bool resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
+            if (resul)
             {
                 string bd = MetodosGestion.db;
                 using (SqlConnection con = new SqlConnection(bd))

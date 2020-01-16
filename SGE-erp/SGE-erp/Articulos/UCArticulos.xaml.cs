@@ -138,7 +138,7 @@ namespace SGE_erp.Articulos
             {
                 DataRowView dd = (DataRowView)articulosDataGrid.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Articulo");
-                bool resul = Mensajes.Mostrar("¿Borrar aertículo", Mensajes.Tipo.Confirmacion);
+                bool resul = Mensajes.Mostrar("¿Borrar artículo?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
                     try
@@ -441,6 +441,7 @@ namespace SGE_erp.Articulos
                 DataRowView dd = (DataRowView)tipoArtdata.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Tipo");
                 bool resul = Mensajes.Mostrar("¿Borrar esta categoría", Mensajes.Tipo.Confirmacion);
+
                 if (resul)
                 {
                     try
@@ -481,8 +482,10 @@ namespace SGE_erp.Articulos
             {
                 DataRowView dd = (DataRowView)tipoArtdata.SelectedItem;
                 int id = dd.Row.Field<int>("Id_Tipo");
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Edicion", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                //MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("¿Estás seguro?", "Confirmacion Edicion", System.Windows.MessageBoxButton.YesNo);
+                bool messageBoxResult = Mensajes.Mostrar("¿Borrar esta categoría", Mensajes.Tipo.Confirmacion);
+
+                if (messageBoxResult)
                 {
                     try
                     {
@@ -504,7 +507,8 @@ namespace SGE_erp.Articulos
                             }
                             else
                             {
-                                MessageBox.Show("Error al editar categoria");
+                                Mensajes.Mostrar("Error al editar categoria", Mensajes.Tipo.Error);
+
                             }
                         }
                     }
@@ -543,7 +547,7 @@ namespace SGE_erp.Articulos
 
                     if (id != -1)
                     {
-                        MessageBoxResult resultado = MessageBox.Show("Esta categoria ya existe");
+                        Mensajes.Mostrar("Esta categoria ya existe",Mensajes.Tipo.Info); //MessageBox.Show("Esta categoria ya existe");
                     }
                     else
                     {
