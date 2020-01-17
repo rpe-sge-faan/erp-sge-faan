@@ -27,6 +27,8 @@ namespace SGE_erp.Compras
         {
             InitializeComponent();
             this.carrito.ItemsSource = ComprasAnadir.carritoCompra.DefaultView;
+            calPrecioFinal();
+            this.lb_PrecioTotal.Content = "PRECIO TOTAL " + precioFinal + "€";
             
             //this.carrito.Columns[0].Visibility = Visibility.Collapsed;
         }
@@ -38,6 +40,8 @@ namespace SGE_erp.Compras
                 if (Mensajes.Mostrar("¿Borrar articulo seleccionado?", Mensajes.Tipo.Confirmacion))
                 {
                     ComprasAnadir.carritoCompra.Rows.RemoveAt(carrito.SelectedIndex);
+                    calPrecioFinal();
+                    this.lb_PrecioTotal.Content = "PRECIO TOTAL " + precioFinal + "€";
                 }
             }                          
         }
@@ -50,6 +54,8 @@ namespace SGE_erp.Compras
                 for (int i = 0; i < j; i++)
                 {
                     ComprasAnadir.carritoCompra.Rows.RemoveAt(0);
+                    calPrecioFinal();
+                    this.lb_PrecioTotal.Content = "PRECIO TOTAL " + precioFinal + "€";
                 }
                 //this.carrito.ItemsSource = ComprasAnadir.carritoCompra.DefaultView;
             }            
@@ -65,6 +71,7 @@ namespace SGE_erp.Compras
 
         public void calPrecioFinal()
         {
+            precioFinal = 0;
             for (int i = 0; i < ComprasAnadir.carritoCompra.Rows.Count; i++)
             {
                 DataRow row = ComprasAnadir.carritoCompra.Rows[i];
