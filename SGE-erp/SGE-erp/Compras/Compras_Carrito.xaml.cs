@@ -35,7 +35,7 @@ namespace SGE_erp.Compras
         {
             if (carrito.SelectedItem != null)
             {
-                if (MessageBox.Show("¿Borrar seleccionado?", "Confirm delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (Mensajes.Mostrar("¿Borrar articulo seleccionado?", Mensajes.Tipo.Confirmacion))
                 {
                     ComprasAnadir.carritoCompra.Rows.RemoveAt(carrito.SelectedIndex);
                 }
@@ -44,7 +44,7 @@ namespace SGE_erp.Compras
 
         private void BtnVaciarCarro_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show("¿Vaciar todo?", "Confirm delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if(Mensajes.Mostrar("¿Eliminar todos los articulos?", Mensajes.Tipo.Confirmacion))
             {
                 int j = ComprasAnadir.carritoCompra.Rows.Count;
                 for (int i = 0; i < j; i++)
