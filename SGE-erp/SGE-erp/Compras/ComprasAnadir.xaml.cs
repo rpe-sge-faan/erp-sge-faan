@@ -276,7 +276,7 @@ namespace SGE_erp.Compras
         {
             //Compras_Carrito cc = new Compras_Carrito();
             //cc.calPrecioFinal();
-            String idEmpleado = "1";
+            String idEmpleado = MainWindow.idEmpleado.ToString();
             //double precioTotal = cc.precioFinal;
             double precioTotal = precioFinal();
 
