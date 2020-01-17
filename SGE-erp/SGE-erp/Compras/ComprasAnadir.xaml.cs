@@ -387,7 +387,7 @@ namespace SGE_erp.Compras
                         }
                     }
                 }
-                Mensajes.Mostrar("Guardado.", Mensajes.Tipo.Info);
+                Mensajes.Mostrar("Compra realizada correctamente.", Mensajes.Tipo.Info);
                 int j = carritoCompra.Rows.Count;
                 for (int i = 0; i < j; i++)
                 {
