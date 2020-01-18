@@ -206,8 +206,8 @@ namespace SGE_erp.Venta
 
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
-            //DataTable dta = new DataTable();
-            //dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
+            DataTable dta = new DataTable();
+            dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
             //int index = -1;
             //int rowIndex = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
             ////Mensajes.Mostrar("Debe seleccionar una fila", Mensajes.Tipo.Info);
