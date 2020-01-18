@@ -90,6 +90,7 @@ namespace SGE_erp.Venta
             if (DatosAnadir.SelectedCells != null)
             {
                 ActualizaMaximo();
+                
             }
         }
 
@@ -122,6 +123,8 @@ namespace SGE_erp.Venta
 
         decimal totalFinal = 0;
         int guardarCantidad = 0;
+
+        
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
             Boolean acabado = false;
@@ -141,9 +144,7 @@ namespace SGE_erp.Venta
                 decimal pvp = drv.Row.Field<decimal>("PVP");
                 decimal totalM = 0;
                 totalM = pvp * stock;
-
-               
-
+  
                 Boolean encontrado = false;
 
                 int index = -1;
@@ -162,8 +163,6 @@ namespace SGE_erp.Venta
                 }
                 if (Convert.ToInt32(dta.Rows[rowIndex]["Stock"]) > 0)
                 {
-
-
                     if (encontrado)
                     {
                         dataT.Rows[index]["Unidades"] = Convert.ToInt32(dataT.Rows[index]["Unidades"]) + stock;
@@ -201,8 +200,49 @@ namespace SGE_erp.Venta
                 }
 
 
-
+                this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void Eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            //DataTable dta = new DataTable();
+            //dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
+            //int index = -1;
+            //int rowIndex = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
+            ////Mensajes.Mostrar("Debe seleccionar una fila", Mensajes.Tipo.Info);
+            //DataRowView drv = (DataRowView)dgFinal.SelectedItem;
+
+            //for (int i = 0; i < dataT.Rows.Count; i++)
+            //{
+            //    index = i;
+            //    DataRow row = dataT.Rows[i];
+            //    break;
+
+            //}
+            //if (dgFinal.SelectedItems.Count >= 0)
+            //    {
+            //        dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
+            //        if (Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) > 0)
+            //        {
+            //            MessageBox.Show("holaaaaaaa");
+            //            totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
+            //            //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal;
+            //            DatosAnadir.ItemsSource = dta.DefaultView;
+            //            DatosAnadir.SelectedIndex = rowIndex;
+            //        }
+
+            //}
+            dgFinal.Columns.Clear();
+            dgFinal.ItemsSource = null;
+            dgFinal.Items.Refresh();
+
+
+            guardarCantidad = 0;
+            lbTotalFin.Content = 0;
+            totalFinal = 0;
+            dataT.Clear();
+            Actualizar();
         }
 
         private void Insertar_Click(object sender, RoutedEventArgs e)
@@ -216,7 +256,6 @@ namespace SGE_erp.Venta
                 int idEmpl = MainWindow.idEmpleado;
                 DateTime fecha = dpFecha.SelectedDate.Value;
                 decimal precio = totalFinal;
-
 
                 try
                 {
@@ -412,25 +451,32 @@ namespace SGE_erp.Venta
         private void filtarNom_TextChanged(object sender, TextChangedEventArgs e)
         {
             String[] campos = { "Nombre" };
-
+            
             if (view == null)
             {
                 view = new DataView();
                 dt = ((DataView)DatosAnadir.ItemsSource).ToTable();
                 dt.TableName = "Articulos";
                 view.Table = dt;
+                
             }
 
             view.RowFilter = $"Nombre LIKE '%{filtarNom.Text}%'";
 
             dt = view.ToTable();
+           
             DatosAnadir.ItemsSource = null;
             DatosAnadir.ItemsSource = dt.DefaultView;
+            this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
         }
 
 
         DataView view = null;
         DataTable dt;
 
+        private void dgFinal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
     }
 }
