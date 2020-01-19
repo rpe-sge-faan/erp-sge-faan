@@ -194,11 +194,9 @@ namespace SGE_erp.Venta
                     guardarCantidad += stock;
                 }
                 else
-                {
-                    
+                {     
                     Mensajes.Mostrar("No existe stock", Mensajes.Tipo.Info);
                 }
-
 
                 this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
             }
@@ -208,40 +206,56 @@ namespace SGE_erp.Venta
         {
             DataTable dta = new DataTable();
             dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
-            //int index = -1;
-            //int rowIndex = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
-            ////Mensajes.Mostrar("Debe seleccionar una fila", Mensajes.Tipo.Info);
+            DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+            //DataRowView drv = (DataRowView)dgFinal.SelectedItem;
+            Boolean encontrado = false;
+            int idArticulo = drv.Row.Field<int>("Id_Articulo");
+            int index = -1;
+            int rowIndex = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
+            //Mensajes.Mostrar("Debe seleccionar una fila", Mensajes.Tipo.Info);
             //DataRowView drv = (DataRowView)dgFinal.SelectedItem;
 
             //for (int i = 0; i < dataT.Rows.Count; i++)
             //{
-            //    index = i;
             //    DataRow row = dataT.Rows[i];
-            //    break;
-
-            //}
-            //if (dgFinal.SelectedItems.Count >= 0)
+            //    int id = Convert.ToInt32(dataT.Rows[i]["Id_Articulo"]);
+            //    if (id == idArticulo)
             //    {
-            //        dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
-            //        if (Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) > 0)
-            //        {
-            //            MessageBox.Show("holaaaaaaa");
-            //            totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
-            //            //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal;
-            //            DatosAnadir.ItemsSource = dta.DefaultView;
-            //            DatosAnadir.SelectedIndex = rowIndex;
-            //        }
+            //        encontrado = true;
+            //        index = i;
+            //        break;
+            //    }
+            //    //index = i;
+            //    //;
+            //    //break;
 
             //}
-            dgFinal.Columns.Clear();
-            dgFinal.ItemsSource = null;
-            dgFinal.Items.Refresh();
+            if (dgFinal.SelectedItems.Count >= 0)
+            {
+                dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
+                if (Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) > 0)
+                {
+                    MessageBox.Show("holaaaaaaa");
+                    // totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
+                    //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal;
+                    //
+                    lbTotalFin.Content = $"{Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal}€";
+                    DatosAnadir.ItemsSource = dta.DefaultView;
+                    DatosAnadir.SelectedIndex = rowIndex;
+                }
+
+            }
+
+            //ELIMINA LA TABLA ENTERA
+            //dgFinal.Columns.Clear();
+            //dgFinal.ItemsSource = null;
+            //dgFinal.Items.Refresh();
 
 
-            guardarCantidad = 0;
-            lbTotalFin.Content = 0;
-            totalFinal = 0;
-            dataT.Clear();
+            //guardarCantidad = 0;
+            //lbTotalFin.Content = 0;
+            //totalFinal = 0;
+            //dataT.Clear();
             Actualizar();
         }
 
