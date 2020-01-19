@@ -232,14 +232,17 @@ namespace SGE_erp.Venta
             //}
             if (dgFinal.SelectedItems.Count >= 0)
             {
-                dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
+
+               
                 if (Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) > 0)
                 {
                     MessageBox.Show("holaaaaaaa");
-                    // totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
+                    totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
+                    MessageBox.Show(Convert.ToString(totalFinal));
                     //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal;
-                    //
-                    lbTotalFin.Content = $"{Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal}€";
+                    // 
+                    dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
+                    lbTotalFin.Content = $"{totalFinal}€";
                     DatosAnadir.ItemsSource = dta.DefaultView;
                     DatosAnadir.SelectedIndex = rowIndex;
                 }
