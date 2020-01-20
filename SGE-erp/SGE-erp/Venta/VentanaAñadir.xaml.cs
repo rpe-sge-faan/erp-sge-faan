@@ -90,7 +90,7 @@ namespace SGE_erp.Venta
             if (DatosAnadir.SelectedCells != null)
             {
                 ActualizaMaximo();
-                
+
             }
         }
 
@@ -124,15 +124,13 @@ namespace SGE_erp.Venta
         decimal totalFinal = 0;
         int guardarCantidad = 0;
 
-        
+
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
-            Boolean acabado = false;
             if (DatosAnadir.SelectedItem != null)
             {
                 //Tabla de arriba
-                DataTable dta = new DataTable();
-                dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
+                DataTable dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
                 //Tabla de abajo
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
                 int rowIndex = DatosAnadir.Items.IndexOf(DatosAnadir.SelectedItem);
@@ -144,7 +142,7 @@ namespace SGE_erp.Venta
                 decimal pvp = drv.Row.Field<decimal>("PVP");
                 decimal totalM = 0;
                 totalM = pvp * stock;
-  
+
                 Boolean encontrado = false;
 
                 int index = -1;
@@ -181,7 +179,7 @@ namespace SGE_erp.Venta
 
                         dataT.Rows.Add(dr);
                         dgFinal.ItemsSource = dataT.DefaultView;
-                        
+
                     }
 
 
@@ -195,7 +193,7 @@ namespace SGE_erp.Venta
                     guardarCantidad += stock;
                 }
                 else
-                {     
+                {
                     Mensajes.Mostrar("No existe stock", Mensajes.Tipo.Info);
                 }
 
@@ -205,68 +203,38 @@ namespace SGE_erp.Venta
 
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dta = new DataTable();
-            dta = ((DataView)dgFinal.ItemsSource).ToTable();
-            DataRowView drv = (DataRowView)dgFinal.SelectedItem;
-            //DataRowView drv = (DataRowView)dgFinal.SelectedItem;
-            Boolean encontrado = false;
-            //int idArticulo = drv.Row.Field<int>("Id_Articulo");
-            int index = -1;
-            int rowIndex = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
-            //Mensajes.Mostrar("Debe seleccionar una fila", Mensajes.Tipo.Info);
-            //DataRowView drv = (DataRowView)dgFinal.SelectedItem;
-
-            //for (int i = 0; i < dataT.Rows.Count; i++)
-            //{
-            //    DataRow row = dataT.Rows[i];
-            //    int id = Convert.ToInt32(dataT.Rows[i]["Id_Articulo"]);
-            //    if (id == idArticulo)
-            //    {
-            //        encontrado = true;
-            //        index = i;
-            //        break;
-            //    }
-            //    //index = i;
-            //    //;
-            //    //break;
-
-            //}
-            if (dgFinal.SelectedItems.Count >= 0)
+            if (dgFinal.SelectedItem != null)
             {
-                if (Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) > 0)
+                DataTable dtaFinal = ((DataView)dgFinal.ItemsSource).ToTable();
+                int indexFinal = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
+                int stock = Convert.ToInt32(dtaFinal.Rows[indexFinal]["Unidades"]);
+                int idA = Convert.ToInt32(dtaFinal.Rows[indexFinal]["Id_Articulo"]);
+
+                totalFinal -= Convert.ToDecimal(dtaFinal.Rows[indexFinal]["PVP"]);
+                lbTotalFin.Content = $"{totalFinal}€";
+                dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
+
+                DataTable dtaAnadir = ((DataView)DatosAnadir.ItemsSource).ToTable();
+
+                int cont = 0;
+                foreach (DataRow row in dtaAnadir.Rows)
                 {
-                    MessageBox.Show("holaaaaaaa");
-                    totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
-                    MessageBox.Show(Convert.ToString(dta.Rows[rowIndex]["PVP"]));
-                    //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal; 
-                    dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
-                    lbTotalFin.Content = $"{totalFinal}€";
-                    DatosAnadir.ItemsSource = dta.DefaultView;
-                    DatosAnadir.SelectedIndex = rowIndex;
+                    if (Convert.ToInt32(row["Id_Articulo"]) == idA)
+                    {
+                        int indexAnadir = DatosAnadir.Items.IndexOf(row);
+                        dtaAnadir.Rows[cont]["Stock"] = Convert.ToInt32(dtaAnadir.Rows[cont]["Stock"]) + stock;
+                        break;
+                    }
+                    cont++;
                 }
-
+                DatosAnadir.ItemsSource = dtaAnadir.DefaultView;
             }
-
-            //ELIMINA LA TABLA ENTERA
-            //dgFinal.Columns.Clear();
-            //dgFinal.ItemsSource = null;
-            //dgFinal.Items.Refresh();
-
-
-            //guardarCantidad = 0;
-            //lbTotalFin.Content = 0;
-            //totalFinal = 0;
-            //dataT.Clear();
-            Actualizar();
         }
 
         private void Insertar_Click(object sender, RoutedEventArgs e)
         {
             if (dgFinal.Items.Count != 0)
             {
-                DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
-
-                int idElemento = drv.Row.Field<int>("Id_Elemento");
                 int idCliente = (int)cbCliente.SelectedValue;
                 int idEmpl = MainWindow.idEmpleado;
                 DateTime fecha = dpFecha.SelectedDate.Value;
@@ -466,20 +434,20 @@ namespace SGE_erp.Venta
         private void filtarNom_TextChanged(object sender, TextChangedEventArgs e)
         {
             String[] campos = { "Nombre" };
-            
+
             if (view == null)
             {
                 view = new DataView();
                 dt = ((DataView)DatosAnadir.ItemsSource).ToTable();
                 dt.TableName = "Articulos";
                 view.Table = dt;
-                
+
             }
 
             view.RowFilter = $"Nombre LIKE '%{filtarNom.Text}%'";
 
             dt = view.ToTable();
-           
+
             DatosAnadir.ItemsSource = null;
             DatosAnadir.ItemsSource = dt.DefaultView;
             this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
@@ -491,7 +459,7 @@ namespace SGE_erp.Venta
 
         private void dgFinal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
     }
 }
