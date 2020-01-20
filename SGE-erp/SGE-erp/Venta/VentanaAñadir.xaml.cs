@@ -181,6 +181,7 @@ namespace SGE_erp.Venta
 
                         dataT.Rows.Add(dr);
                         dgFinal.ItemsSource = dataT.DefaultView;
+                        
                     }
 
 
@@ -205,11 +206,11 @@ namespace SGE_erp.Venta
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
             DataTable dta = new DataTable();
-            dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
-            DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
+            dta = ((DataView)dgFinal.ItemsSource).ToTable();
+            DataRowView drv = (DataRowView)dgFinal.SelectedItem;
             //DataRowView drv = (DataRowView)dgFinal.SelectedItem;
             Boolean encontrado = false;
-            int idArticulo = drv.Row.Field<int>("Id_Articulo");
+            //int idArticulo = drv.Row.Field<int>("Id_Articulo");
             int index = -1;
             int rowIndex = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
             //Mensajes.Mostrar("Debe seleccionar una fila", Mensajes.Tipo.Info);
@@ -232,15 +233,12 @@ namespace SGE_erp.Venta
             //}
             if (dgFinal.SelectedItems.Count >= 0)
             {
-
-               
                 if (Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) > 0)
                 {
                     MessageBox.Show("holaaaaaaa");
                     totalFinal = totalFinal - Convert.ToInt32(dta.Rows[rowIndex]["PVP"]);
-                    MessageBox.Show(Convert.ToString(totalFinal));
-                    //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal;
-                    // 
+                    MessageBox.Show(Convert.ToString(dta.Rows[rowIndex]["PVP"]));
+                    //dta.Rows[rowIndex]["PVP"] = Convert.ToInt32(dta.Rows[rowIndex]["PVP"]) - totalFinal; 
                     dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
                     lbTotalFin.Content = $"{totalFinal}€";
                     DatosAnadir.ItemsSource = dta.DefaultView;
