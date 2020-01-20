@@ -71,7 +71,13 @@
                                 VerticalAlignment="Center"
                                 Click="Buscar_Click"
                                 Header="B_uscar" />
-                            
+                            <MenuItem
+                                Width="140"
+                                Height="30"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"                                
+                                Header="Informe"
+                                Click="Informe_Click" />
                         </Menu>
                         <Button
                             x:Name="bActualizar"
