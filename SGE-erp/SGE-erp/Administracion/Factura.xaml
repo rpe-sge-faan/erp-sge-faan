@@ -16,7 +16,7 @@
     ResizeMode="CanResize"
     WindowStyle="ToolWindow"
     FontFamily="Roboto"
-    Loaded="ventanaFacturas_Loaded"
+    Loaded="VentanaFacturas_Loaded"
     x:Name="ventanaFacturas"
     WindowStartupLocation="CenterScreen">
     <Grid>

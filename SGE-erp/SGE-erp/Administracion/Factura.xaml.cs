@@ -22,8 +22,8 @@ namespace SGE_erp.Administracion
     /// </summary>
     public partial class Factura : Window
     {
-        int id;
-        int tipo; // 1 VENTAS 2 COMPRAS
+        readonly int id;
+        readonly int tipo; // 1 VENTAS 2 COMPRAS
         public Factura(int id, int tipo)
         {
             InitializeComponent();
@@ -31,25 +31,39 @@ namespace SGE_erp.Administracion
             this.tipo = tipo;
         }
 
-        private void addToTable(params string[] args)
+        private void AddToTable(params string[] args)
         {
-            Grid gr = new Grid();
-            gr.HorizontalAlignment = HorizontalAlignment.Stretch;
-            gr.Margin = new Thickness(2);
-            gr.Width = 480;
+            Grid gr = new Grid
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Margin = new Thickness(2),
+                Width = 480
+            };
 
-            ColumnDefinition gridCol1 = new ColumnDefinition();
-            gridCol1.Width = new GridLength(2.4, GridUnitType.Star);
-            ColumnDefinition gridCol2 = new ColumnDefinition();
-            gridCol2.Width = new GridLength(0.7, GridUnitType.Star);
-            ColumnDefinition gridCol3 = new ColumnDefinition();
-            gridCol3.Width = new GridLength(0.5, GridUnitType.Star);
-            ColumnDefinition gridCol4 = new ColumnDefinition();
-            gridCol4.Width = new GridLength(0.8, GridUnitType.Star);
-            ColumnDefinition gridCol5 = new ColumnDefinition();
-            gridCol5.Width = new GridLength(0.5, GridUnitType.Star);
-            ColumnDefinition gridCol6 = new ColumnDefinition();
-            gridCol6.Width = new GridLength(1, GridUnitType.Star);
+            ColumnDefinition gridCol1 = new ColumnDefinition
+            {
+                Width = new GridLength(2.4, GridUnitType.Star)
+            };
+            ColumnDefinition gridCol2 = new ColumnDefinition
+            {
+                Width = new GridLength(0.7, GridUnitType.Star)
+            };
+            ColumnDefinition gridCol3 = new ColumnDefinition
+            {
+                Width = new GridLength(0.5, GridUnitType.Star)
+            };
+            ColumnDefinition gridCol4 = new ColumnDefinition
+            {
+                Width = new GridLength(0.8, GridUnitType.Star)
+            };
+            ColumnDefinition gridCol5 = new ColumnDefinition
+            {
+                Width = new GridLength(0.5, GridUnitType.Star)
+            };
+            ColumnDefinition gridCol6 = new ColumnDefinition
+            {
+                Width = new GridLength(1, GridUnitType.Star)
+            };
 
             gr.ColumnDefinitions.Add(gridCol1);
             gr.ColumnDefinitions.Add(gridCol2);
@@ -60,23 +74,35 @@ namespace SGE_erp.Administracion
 
             // articulo -  sin iva - cantidad - subtotal - IVA - total
 
-            TextBlock tb1 = new TextBlock();
-            tb1.Text = args[0];
-            TextBlock tb2 = new TextBlock();
-            tb2.Text = $"{args[1]}€";
-            tb2.HorizontalAlignment = HorizontalAlignment.Center;
-            TextBlock tb3 = new TextBlock();
-            tb3.Text = $"{args[2]}";
-            tb3.HorizontalAlignment = HorizontalAlignment.Center;
-            TextBlock tb4 = new TextBlock();
-            tb4.Text = $"{args[3]}€";
-            tb4.HorizontalAlignment = HorizontalAlignment.Center;
-            TextBlock tb5 = new TextBlock();
-            tb5.Text = $"{args[4]}%";
-            tb5.HorizontalAlignment = HorizontalAlignment.Center;
-            TextBlock tb6 = new TextBlock();
-            tb6.Text = $"{args[5]}€";
-            tb6.HorizontalAlignment = HorizontalAlignment.Center;
+            TextBlock tb1 = new TextBlock
+            {
+                Text = args[0]
+            };
+            TextBlock tb2 = new TextBlock
+            {
+                Text = $"{args[1]}€",
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            TextBlock tb3 = new TextBlock
+            {
+                Text = $"{args[2]}",
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            TextBlock tb4 = new TextBlock
+            {
+                Text = $"{args[3]}€",
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            TextBlock tb5 = new TextBlock
+            {
+                Text = $"{args[4]}%",
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            TextBlock tb6 = new TextBlock
+            {
+                Text = $"{args[5]}€",
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
 
             gr.Children.Add(tb1);
             gr.Children.Add(tb2);
@@ -112,7 +138,7 @@ namespace SGE_erp.Administracion
             }
         }
 
-        private void cargarFactura()
+        private void CargarFactura()
         {
             if (tipo == 2)
             {
@@ -195,7 +221,7 @@ namespace SGE_erp.Administracion
                             decimal total = precio * cant;
                             totalSin += subtotal;
 
-                            addToTable(articulo, String.Format("{0:0.00}", precioSin), cantidad.ToString(), String.Format("{0:0.00}", subtotal), iva.ToString(), String.Format("{0:0.00}", total));
+                            AddToTable(articulo, String.Format("{0:0.00}", precioSin), cantidad.ToString(), String.Format("{0:0.00}", subtotal), iva.ToString(), String.Format("{0:0.00}", total));
                         }
                         tbTotalSin.Text = String.Format("{0:0.00}€", totalSin);
                     }
@@ -203,9 +229,9 @@ namespace SGE_erp.Administracion
             }
         }
 
-        private void ventanaFacturas_Loaded(object sender, RoutedEventArgs e)
+        private void VentanaFacturas_Loaded(object sender, RoutedEventArgs e)
         {
-            cargarFactura();
+            CargarFactura();
         }
 
         string rutaPdf = "";
@@ -223,56 +249,50 @@ namespace SGE_erp.Administracion
             writer.Write(print);
             doc.Close();
             package.Close();
-            var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
-
-            DateTime parsedDate = DateTime.Parse(fecha.Text);
-            String f = String.Format("{0:yyyyMMdd}", parsedDate);
-
-            SaveFileDialog dialog = new SaveFileDialog()
+            using (var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream))
             {
-                FileName = $"Factura{nombre.Text}{f}",
-                Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
-            };
+                DateTime parsedDate = DateTime.Parse(fecha.Text);
+                String f = String.Format("{0:yyyyMMdd}", parsedDate);
 
-            if (dialog.ShowDialog() == true)
-            {
-                PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+                SaveFileDialog dialog = new SaveFileDialog()
+                {
+                    FileName = $"Factura{nombre.Text}{f}",
+                    Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
+                };
+
+                if (dialog.ShowDialog() == true)
+                {
+                    PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+                }
+
+                rutaPdf = dialog.FileName;
             }
-
-            rutaPdf = dialog.FileName;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ToPdf();
-            try
+            using (MailMessage mail = new MailMessage())
             {
-                using (MailMessage mail = new MailMessage())
+                mail.From = new MailAddress("faan.erp@gmail.com");
+                mail.To.Add("thewilkin25@gmail.com");
+                mail.Subject = "Factura - FAAN";
+                mail.Body = "Le adjuntamos la factura de su compra. Gracias por usar nuestros servicios.";
+
+                System.Net.Mail.Attachment attachment;
+                attachment = new System.Net.Mail.Attachment(rutaPdf);
+                mail.Attachments.Add(attachment);
+
+                using (SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    mail.From = new MailAddress("faan.erp@gmail.com");
-                    mail.To.Add("thewilkin25@gmail.com");
-                    mail.Subject = "Factura - FAAN";
-                    mail.Body = "Le adjuntamos la factura de su compra. Gracias por usar nuestros servicios.";
-
-                    System.Net.Mail.Attachment attachment;
-                    attachment = new System.Net.Mail.Attachment(rutaPdf);
-                    mail.Attachments.Add(attachment);
-
-                    using (SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        SmtpServer.UseDefaultCredentials = false;
-                        SmtpServer.EnableSsl = true;
-                        SmtpServer.Credentials = new System.Net.NetworkCredential("faan.erp@gmail.com", "2FeArApN");
-                        SmtpServer.EnableSsl = true;
-                        SmtpServer.Send(mail);
-                    }
+                    SmtpServer.UseDefaultCredentials = false;
+                    SmtpServer.EnableSsl = true;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("faan.erp@gmail.com", "2FeArApN");
+                    SmtpServer.EnableSsl = true;
+                    SmtpServer.Send(mail);
                 }
-                Mensajes.Mostrar("Email enviado", Mensajes.Tipo.Info);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            Mensajes.Mostrar("Email enviado", Mensajes.Tipo.Info);
         }
     }
 }

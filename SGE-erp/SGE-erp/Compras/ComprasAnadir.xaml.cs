@@ -48,7 +48,6 @@ namespace SGE_erp.Compras
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
                 DataTable dt = new DataTable(); ;
 

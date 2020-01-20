@@ -109,7 +109,7 @@ namespace SGE_erp
 
         private void tbUser_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && tbPassword.Password.Equals(""))
+            if (e.Key == Key.Enter && String.IsNullOrEmpty(tbPassword.Password))
             {
                 labelError.Content = "Inserte contraseña";
                 labelError.Visibility = Visibility.Visible;

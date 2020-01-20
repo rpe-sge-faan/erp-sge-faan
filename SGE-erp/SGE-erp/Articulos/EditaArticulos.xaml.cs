@@ -21,7 +21,7 @@ namespace SGE_erp.Articulos
 {
     public partial class EditaArticulos : Window
     {
-        private int id;
+        private readonly int id;
         public Delegate ActualizarLista;
         public Delegate FiltrarLista;
         public delegate void RefreshList();
@@ -132,19 +132,14 @@ namespace SGE_erp.Articulos
                 con.Open();
                 int a = command.ExecuteNonQuery();
 
-                if (a != 0)
-                {
-                    con.Close();
-                }
-                else
+                if (a == 0)
                 {
                     MessageBox.Show("Editar Articulo ERROR");
                 }
+                con.Close();
             }
-
             ActualizarLista.DynamicInvoke();
-
-            this.Close();
+            Close();
         }
 
         private void Nuevo()
@@ -185,7 +180,6 @@ namespace SGE_erp.Articulos
         {
             if (id != -1)
             {
-                string nombre = ((sender as TextBox).Name).ToString();
                 CheckAceptar();
             }
             else if (id == -1)
@@ -226,20 +220,20 @@ namespace SGE_erp.Articulos
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void tipoArticuloComboBox1_Loaded(object sender, RoutedEventArgs e)
+        private void TipoArticuloComboBox1_Loaded(object sender, RoutedEventArgs e)
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con);
-            DataTable dt = new DataTable();
+            using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con))
+            {
+                DataTable dt = new DataTable();
 
-            ds.Clear();
-            da.Fill(dt);
+                da.Fill(dt);
 
-            this.tipoArticuloComboBox1.ItemsSource = dt.DefaultView;
+                this.tipoArticuloComboBox1.ItemsSource = dt.DefaultView;
 
-            tipoArticuloComboBox1.DisplayMemberPath = dt.Columns["Descripcion"].ToString();
-            tipoArticuloComboBox1.SelectedValuePath = dt.Columns["Id_Tipo"].ToString();
+                tipoArticuloComboBox1.DisplayMemberPath = dt.Columns["Descripcion"].ToString();
+                tipoArticuloComboBox1.SelectedValuePath = dt.Columns["Id_Tipo"].ToString();
+            }
             con.Open();
             con.Close();
 
@@ -258,7 +252,7 @@ namespace SGE_erp.Articulos
 
         }
 
-        private void bReset_Click(object sender, RoutedEventArgs e)
+        private void BReset_Click(object sender, RoutedEventArgs e)
         {
             txtBoxNUEVOPVP.Text = "0";
             txtBoxNUEVOstock.Text = "0";

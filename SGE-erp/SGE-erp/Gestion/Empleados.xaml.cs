@@ -43,11 +43,9 @@ namespace SGE_erp.Gestion
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Empleados]", con);
                 DataTable dt = new DataTable(); ;
 
-                // ds.Clear();
                 da.Fill(dt);
                 this.dataGridEmpleados.ItemsSource = dt.DefaultView;
 
@@ -60,16 +58,6 @@ namespace SGE_erp.Gestion
             catch
             {
                 return;
-            }
-        }
-
-        private void SetColumnsOrder(DataTable table, params String[] columnNames)
-        {
-            int columnIndex = 0;
-            foreach (var columnName in columnNames)
-            {
-                table.Columns[columnName].SetOrdinal(columnIndex);
-                columnIndex++;
             }
         }
 
@@ -172,7 +160,6 @@ namespace SGE_erp.Gestion
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "Nombre", "NIF", "Telefono", "Email", "Direccion", "NumVentas", "Salario", "FechaContratacion" };
 
             if (view == null)
             {

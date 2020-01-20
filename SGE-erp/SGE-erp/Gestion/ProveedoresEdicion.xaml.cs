@@ -199,14 +199,11 @@ namespace SGE_erp.Gestion
                     con.Open();
                     int a = command.ExecuteNonQuery();
 
-                    if (a != 0)
-                    {
-                        con.Close();
-                    }
-                    else
+                    if (a == 0)
                     {
                         Mensajes.Mostrar("Proveedor ERROR añadir", Mensajes.Tipo.Error);
                     }
+                    con.Close();
                 }
             }
             catch (SqlException ex)
@@ -323,7 +320,6 @@ namespace SGE_erp.Gestion
                 {
                     if (reader.Read())
                     {
-                        int cod = 0;
                         if (name.Equals("cpBox"))
                         {
                             variable = reader.GetString(reader.GetOrdinal("Poblacion"));

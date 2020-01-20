@@ -313,7 +313,6 @@ namespace SGE_erp.Gestion
                 {
                     if (reader.Read())
                     {
-                        int cod = 0;
                         if (name.Equals("cpBox"))
                         {
                             variable = reader.GetString(reader.GetOrdinal("Poblacion"));

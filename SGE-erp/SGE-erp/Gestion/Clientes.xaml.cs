@@ -42,7 +42,6 @@ namespace SGE_erp.Gestion
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Clientes]", con);
                 DataTable dt = new DataTable(); ;
 
@@ -80,16 +79,6 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void SetColumnsOrder(DataTable table, params String[] columnNames)
-        {
-            int columnIndex = 0;
-            foreach (var columnName in columnNames)
-            {
-                table.Columns[columnName].SetOrdinal(columnIndex);
-                columnIndex++;
-            }
-        }
-
         private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
         {
             Actualizar();
@@ -106,11 +95,6 @@ namespace SGE_erp.Gestion
                 p.ActualizarLista = RefreshListEvent;
                 p.Show();
             }
-        }
-
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
-        {
-            Actualizar();
         }
 
         DataView view = null;

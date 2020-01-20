@@ -47,11 +47,13 @@ namespace SGE_erp.Articulos
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con);
-                DataTable dt = new DataTable(); ;
-                da.Fill(dt);
+                using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con))
+                {
+                    DataTable dt = new DataTable(); ;
+                    da.Fill(dt);
 
-                tipoArtdata.ItemsSource = dt.DefaultView;
+                    tipoArtdata.ItemsSource = dt.DefaultView;
+                }
                 con.Open();
                 con.Close();
 
@@ -69,11 +71,13 @@ namespace SGE_erp.Articulos
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos, TipoArticulo, Iva WHERE Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo", con);
-                DataTable dt = new DataTable(); ;
-                da.Fill(dt);
+                using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Articulos, TipoArticulo, Iva WHERE Articulos.Id_Iva = Iva.Id_Iva AND Articulos.TipoArticulo = TipoArticulo.Id_Tipo", con))
+                {
+                    DataTable dt = new DataTable(); ;
+                    da.Fill(dt);
 
-                this.articulosDataGrid.ItemsSource = dt.DefaultView;
+                    this.articulosDataGrid.ItemsSource = dt.DefaultView;
+                }
                 con.Open();
                 con.Close();
                 articulosDataGrid.Columns[8].Header = "Categoría";
@@ -234,7 +238,7 @@ namespace SGE_erp.Articulos
                     String stock;
                     String pvp;
                     String tipo;
-                    if ((((EditaArticulos)item).txtBoxNUEVOstock.Text).Equals(""))
+                    if (String.IsNullOrEmpty(((EditaArticulos)item).txtBoxNUEVOstock.Text))
                     {
                         stock = "0";
                     }
@@ -242,7 +246,7 @@ namespace SGE_erp.Articulos
                     {
                         stock = ((EditaArticulos)item).txtBoxNUEVOstock.Text;
                     }
-                    if (((EditaArticulos)item).txtBoxNUEVOPVP.Text.Equals(""))
+                    if (String.IsNullOrEmpty(((EditaArticulos)item).txtBoxNUEVOPVP.Text))
                     {
                         pvp = "0";
                     }
@@ -275,7 +279,6 @@ namespace SGE_erp.Articulos
 
         private void GenericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string nombre = ((sender as TextBox).Name).ToString();
             CheckAceptar();
         }
 
@@ -317,13 +320,17 @@ namespace SGE_erp.Articulos
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataTable dt = new DataTable();
-                SqlDataAdapter articulos = new SqlDataAdapter("SELECT Id_Articulo, Nombre, Descripcion FROM Articulos", con);
-                articulos.Fill(dt);
+                using (SqlDataAdapter articulos = new SqlDataAdapter("SELECT Id_Articulo, Nombre, Descripcion FROM Articulos", con))
+                {
+                    articulos.Fill(dt);
+                }
                 dataArt.ItemsSource = dt.DefaultView;
 
                 DataTable dt2 = new DataTable();
-                SqlDataAdapter proveedores = new SqlDataAdapter("SELECT Id_Proveedor, Nombre FROM Proveedores", con);
-                proveedores.Fill(dt2);
+                using (SqlDataAdapter proveedores = new SqlDataAdapter("SELECT Id_Proveedor, Nombre FROM Proveedores", con))
+                {
+                    proveedores.Fill(dt2);
+                }
                 dataProv.ItemsSource = dt2.DefaultView;
 
                 con.Open();
@@ -340,7 +347,7 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void bAsignar_Click(object sender, RoutedEventArgs e)
+        private void BAsignar_Click(object sender, RoutedEventArgs e)
         {
             if (dataArt.SelectedItem != null && dataProv.SelectedItem != null)
             {
@@ -373,7 +380,7 @@ namespace SGE_erp.Articulos
                                 editar.Parameters.AddWithValue("@idP", idProveedor);
                                 editar.Parameters.AddWithValue("@idA", idArticulo);
 
-                                int a = editar.ExecuteNonQuery();
+                                editar.ExecuteNonQuery();
                             }
                         }
                     }
@@ -390,7 +397,7 @@ namespace SGE_erp.Articulos
                             anadir.Parameters.AddWithValue("@idA", idArticulo);
                             anadir.Parameters.AddWithValue("@elemento", int.Parse(elemento));
 
-                            int a = anadir.ExecuteNonQuery();
+                            anadir.ExecuteNonQuery();
                         }
                     }
                 }
@@ -399,14 +406,14 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void bDeselect_Click(object sender, RoutedEventArgs e)
+        private void BDeselect_Click(object sender, RoutedEventArgs e)
         {
             dataProv.UnselectAll();
             dataArt.UnselectAll();
             bAsignar.IsEnabled = false;
         }
 
-        private void tipoArtdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TipoArtdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tipoArtdata.SelectedItem != null)
             {
@@ -525,8 +532,6 @@ namespace SGE_erp.Articulos
         {
             try
             {
-                DataRowView dTipo = (DataRowView)tipoArtdata.SelectedItem;
-                //int idT = dTipo.Row.Field<int>("Id_Tipo");
                 int id = -1;
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 using (SqlCommand command = con.CreateCommand())
@@ -582,12 +587,12 @@ namespace SGE_erp.Articulos
             ActualizarCategorias();
         }
 
-        private void bRefreshh_Click(object sender, RoutedEventArgs e)
+        private void BRefresh_Click(object sender, RoutedEventArgs e)
         {
             ActualizarAsignar();
         }
 
-        private void articulosDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ArticulosDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (articulosDataGrid.SelectedItem != null)
             {

@@ -23,7 +23,6 @@ namespace SGE_erp.Venta
         public int id;
         public Delegate ActualizarLista;
         public Delegate FiltrarLista;
-        private int v;
 
         public delegate void RefreshList();
         public VentasEdicion(int num)

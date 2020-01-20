@@ -39,7 +39,6 @@ namespace SGE_erp.Administracion
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Empleados]", con);
                 DataTable dt = new DataTable(); ;
 
@@ -110,7 +109,7 @@ namespace SGE_erp.Administracion
             DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
             string email = "";
 
-            if (!tbProv.Text.Equals("")) { 
+            if (String.IsNullOrEmpty(tbProv.Text)) { 
                 try
                 {
                     email = dd.Row.Field<string>("Email");

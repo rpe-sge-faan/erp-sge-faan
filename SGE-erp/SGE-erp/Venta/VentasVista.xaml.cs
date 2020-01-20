@@ -27,7 +27,6 @@ namespace SGE_erp.Venta
 
         public static Delegate FiltrarLista;
         public delegate void RefreshList();
-        public event RefreshList RefreshListEvent;
 
         public delegate void FilterList();
         public event FilterList FilterListEvent;
@@ -58,7 +57,6 @@ namespace SGE_erp.Venta
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "IdVentas", "IdEmpleado", "FechaVenta", "PrecioTotal"};
 
             if (view == null)
             {

@@ -51,7 +51,7 @@ namespace SGE_erp.Controles
         private void Up_Click(object sender, RoutedEventArgs e)
         {
             int number;
-            if (NumericUD.Text != "") number = Convert.ToInt32(NumericUD.Text);
+            if (!String.IsNullOrEmpty(NumericUD.Text)) number = Convert.ToInt32(NumericUD.Text);
             else number = 0;
             if (number < maxvalue)
                 NumericUD.Text = Convert.ToString(number + 1);
@@ -60,7 +60,7 @@ namespace SGE_erp.Controles
         private void Down_Click(object sender, RoutedEventArgs e)
         {
             int number;
-            if (NumericUD.Text != "") number = Convert.ToInt32(NumericUD.Text);
+            if (!String.IsNullOrEmpty(NumericUD.Text)) number = Convert.ToInt32(NumericUD.Text);
             else number = 0;
             if (number > minvalue)
                 NumericUD.Text = Convert.ToString(number - 1);
