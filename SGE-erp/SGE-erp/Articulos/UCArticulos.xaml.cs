@@ -49,15 +49,15 @@ namespace SGE_erp.Articulos
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM TipoArticulo", con))
                 {
-                    DataTable dt = new DataTable(); ;
-                    da.Fill(dt);
+                    DataTable dtt = new DataTable(); ;
+                    da.Fill(dtt);
 
-                    tipoArtdata.ItemsSource = dt.DefaultView;
+                    tipoArtdata.ItemsSource = dtt.DefaultView;
                 }
                 con.Open();
                 con.Close();
 
-                //tipoArtdata.Columns[0].Visibility = Visibility.Hidden;
+                tipoArtdata.Columns[0].Visibility = Visibility.Collapsed;
             }
             catch
             {
@@ -65,6 +65,7 @@ namespace SGE_erp.Articulos
             }
             nombreTb.Text = "";
         }
+
 
         private void Actualizar()
         {

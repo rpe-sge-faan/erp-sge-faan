@@ -92,7 +92,6 @@ namespace SGE_erp.Administracion
                             }
                         }
                     }
-                    con.Close();
                     codPos.Text = "";
                     tbPobla.Text = "";
                     tbProv.Text = "";
@@ -149,8 +148,7 @@ namespace SGE_erp.Administracion
 
         private void BEditar_Click_1(object sender, RoutedEventArgs e)
         {
-            string bd = MetodosGestion.db;
-            using (SqlConnection con = new SqlConnection(bd))
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
             using (SqlCommand command = con.CreateCommand())
             {
                 command.CommandText = "UPDATE Poblaciones SET CodPostal=@cod, Poblacion = @pob, Provincia = @prov WHERE CodPostal = @cod";
@@ -183,7 +181,7 @@ namespace SGE_erp.Administracion
                 Boolean resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
-                    using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+                    SqlConnection con = new SqlConnection(MetodosGestion.db);
                     using (SqlCommand command = con.CreateCommand())
                     {
                         command.CommandText = "DELETE FROM Poblaciones WHERE CodPostal = @id";

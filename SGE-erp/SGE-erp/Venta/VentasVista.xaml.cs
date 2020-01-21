@@ -39,7 +39,7 @@ namespace SGE_erp.Venta
         }
 
         
-        private void buscar_Click(object sender, RoutedEventArgs e)
+        private void Buscar_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(p))
             {
@@ -106,39 +106,28 @@ namespace SGE_erp.Venta
 
         private void Actualizar()
         {
-            try
-            {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(@"SELECT Id_Ventas, Id_Empleado, FechaVentas, PrecioTotal " +
-                                                        "FROM Ventas ", con);
-                DataTable dt = new DataTable(); ;
+                using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT Id_Ventas, Id_Empleado, FechaVentas, PrecioTotal " +
+                                                        "FROM Ventas ", con))
+                {
+                    DataTable dt = new DataTable(); ;
 
-                ds.Clear();
-                da.Fill(dt);
-                this.dgVista.ItemsSource = dt.DefaultView;
-
-                con.Open();
-                con.Close();
-            }
-            catch
-            {
-                return;
-            }
-
+                    da.Fill(dt);
+                    this.dgVista.ItemsSource = dt.DefaultView;
+                }
         }
 
-        private void dgVista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DgVista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void bActualizar_Click(object sender, RoutedEventArgs e)
+        private void BActualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
         }
 
-        private void dgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgVista_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (dgVista.SelectedItem != null)
             {
@@ -152,7 +141,7 @@ namespace SGE_erp.Venta
         }
 
         Factura f;
-        private void facturaV_Click(object sender, RoutedEventArgs e)
+        private void FacturaV_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(f))
             {

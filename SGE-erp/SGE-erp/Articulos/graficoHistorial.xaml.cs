@@ -12,18 +12,18 @@ namespace SGE_erp.Articulos
     /// <summary>
     /// Interaction logic for graficoHistorial.xaml
     /// </summary>
-    public partial class graficoHistorial : UserControl
+    public partial class GraficoHistorial : UserControl
     {
-        public graficoHistorial()
+        public GraficoHistorial()
         {
             InitializeComponent();
             Values = new ChartValues<double> { 0 };
-            lab = new ChartValues<string> { "0" };
+            Lab = new ChartValues<string> { "0" };
             DataContext = this;
         }
 
         public ChartValues<double> Values { get; set; }
-        public ChartValues<string> lab { get; set; }
+        public ChartValues<string> Lab { get; set; }
         //private string[] lab;
 
         private void Update()
@@ -31,7 +31,7 @@ namespace SGE_erp.Articulos
             double[] stock = InfoArticulos.valoresStock;
             IEnumerable<double> m = stock;
             Values.AddRange(m);
-            lab.AddRange(InfoArticulos.valoresFecha);
+            Lab.AddRange(InfoArticulos.valoresFecha);
             Chart.Update(true);
             //DataContext = this;
             //lab = InfoArticulos.valoresFecha;

@@ -324,8 +324,6 @@
     <Rule Id="IDE0066WithoutSuggestion" Action="None" />
     <Rule Id="IDE1005" Action="None" />
     <Rule Id="IDE1005WithoutSuggestion" Action="None" />
-    <Rule Id="IDE1006" Action="None" />
-    <Rule Id="IDE1006WithoutSuggestion" Action="None" />
     <Rule Id="RE0001" Action="None" />
     <Rule Id="RE0001WithoutSuggestion" Action="None" />
   </Rules>
@@ -338,7 +336,6 @@
     <Rule Id="IDE0044WithoutSuggestion" Action="None" />
     <Rule Id="IDE0055" Action="None" />
     <Rule Id="IDE0055WithoutSuggestion" Action="None" />
-    <Rule Id="IDE0067" Action="None" />
     <Rule Id="IDE0068" Action="None" />
     <Rule Id="IDE0069" Action="None" />
   </Rules>
