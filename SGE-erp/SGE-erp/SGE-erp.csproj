@@ -172,6 +172,9 @@
     <Compile Include="Mensajes.xaml.cs">
       <DependentUpon>Mensajes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Venta\FacturasVentas.xaml.cs">
+      <DependentUpon>FacturasVentas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Venta\VentaArticulo.xaml.cs">
       <DependentUpon>VentaArticulo.xaml</DependentUpon>
     </Compile>
@@ -316,6 +319,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Mensajes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Venta\FacturasVentas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -172,5 +172,10 @@ namespace SGE_erp.Venta
                 MessageBox.Show("Ya hay una factura abierta");
             }
         }
+
+        private void informeV_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
