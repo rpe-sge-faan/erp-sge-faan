@@ -45,7 +45,6 @@ namespace SGE_erp.Gestion
             try
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
                 DataTable dt = new DataTable();
 
@@ -83,16 +82,6 @@ namespace SGE_erp.Gestion
             }
         }
 
-        private void SetColumnsOrder(DataTable table, params String[] columnNames)
-        {
-            int columnIndex = 0;
-            foreach (var columnName in columnNames)
-            {
-                table.Columns[columnName].SetOrdinal(columnIndex);
-                columnIndex++;
-            }
-        }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Actualizar();
@@ -109,11 +98,6 @@ namespace SGE_erp.Gestion
                 p.ActualizarLista = RefreshListEvent;
                 p.Show();
             }
-        }
-
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
-        {
-            Actualizar();
         }
 
         private void Editar_Click(object sender, RoutedEventArgs e)
@@ -195,7 +179,6 @@ namespace SGE_erp.Gestion
         public void Filtrar()
         {
             List<String> nombres = AccesoVentana();
-            String[] campos = { "Nombre", "Telefono", "Email", "Persona_Contacto", "Direccion", "NIF", "TipoP" };
 
             if (view == null)
             {
@@ -209,14 +192,12 @@ namespace SGE_erp.Gestion
                 $"AND Email LIKE '%{nombres[2]}%' AND Direccion LIKE '%{nombres[4]}%' AND Persona_Contacto LIKE '%{nombres[3]}%' " +
                 $"AND TipoP LIKE '%{nombres[6]}%'";
 
-            //view.Sort = "CompanyName DESC";
             dt = view.ToTable();
             dataGridProveedores.ItemsSource = null;
             dataGridProveedores.ItemsSource = dt.DefaultView;
             dataGridProveedores.Columns[0].Visibility = Visibility.Collapsed;
             dataGridProveedores.Columns[1].Visibility = Visibility.Collapsed;
         }
-        // params string[] nombres
 
         public List<String> AccesoVentana()
         {

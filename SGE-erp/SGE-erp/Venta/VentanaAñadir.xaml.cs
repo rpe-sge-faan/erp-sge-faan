@@ -124,7 +124,6 @@ namespace SGE_erp.Venta
         int guardarCantidad = 0;
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
-            Boolean acabado = false;
             if (DatosAnadir.SelectedItem != null)
             {
                 //Tabla de arriba
@@ -150,7 +149,6 @@ namespace SGE_erp.Venta
 
                 for (int i = 0; i < dataT.Rows.Count; i++)
                 {
-                    DataRow row = dataT.Rows[i];
                     int id = Convert.ToInt32(dataT.Rows[i]["Id_Articulo"]);
                     if (id == idArticulo)
                     {
@@ -209,9 +207,6 @@ namespace SGE_erp.Venta
         {
             if (dgFinal.Items.Count != 0)
             {
-                DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
-
-                int idElemento = drv.Row.Field<int>("Id_Elemento");
                 int idCliente = (int)cbCliente.SelectedValue;
                 int idEmpl = MainWindow.idEmpleado;
                 DateTime fecha = dpFecha.SelectedDate.Value;
@@ -232,7 +227,6 @@ namespace SGE_erp.Venta
                         command.Parameters.AddWithValue("@idCliente", idCliente);
                         command.Parameters.AddWithValue("@fechaVentas", fecha);
                         command.Parameters.AddWithValue("@precioTotal", precio);
-
 
                         conn.Open();
                         id = (int)command.ExecuteScalar();
@@ -378,12 +372,6 @@ namespace SGE_erp.Venta
             }
         }
 
-
-        private void cbFormaPago_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         ClientesEdicion c;
         private void bAddClientes_Click(object sender, RoutedEventArgs e)
         {
@@ -411,8 +399,6 @@ namespace SGE_erp.Venta
 
         private void filtarNom_TextChanged(object sender, TextChangedEventArgs e)
         {
-            String[] campos = { "Nombre" };
-
             if (view == null)
             {
                 view = new DataView();

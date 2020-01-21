@@ -88,7 +88,7 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             CanUserAddRows="True"
-            ColumnWidth="1*"
+            ColumnWidth="Auto"
             IsReadOnly="True"
             SelectionMode="Single" />
     </Grid>

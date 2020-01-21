@@ -30,23 +30,18 @@ namespace SGE_erp.Administracion
 
         private void ActualizarTabla()
         {
-            try
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Poblaciones", con))
             {
-                SqlConnection con = new SqlConnection(MetodosGestion.db);
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Poblaciones", con);
                 DataTable dt = new DataTable(); ;
                 da.Fill(dt);
 
                 dataGridPoblacion.ItemsSource = dt.DefaultView;
-                con.Open();
-                con.Close();
+            }
+            con.Open();
+            con.Close();
 
-                //tipoArtdata.Columns[0].Visibility = Visibility.Hidden;
-            }
-            catch
-            {
-                return;
-            }
+            //tipoArtdata.Columns[0].Visibility = Visibility.Hidden;
         }
 
         private void AdminPoblaciones_Loaded(object sender, RoutedEventArgs e)
@@ -54,13 +49,12 @@ namespace SGE_erp.Administracion
             ActualizarTabla();
         }
 
-        private void bAnadir_Click(object sender, RoutedEventArgs e)
+        private void Anadir_Click(object sender, RoutedEventArgs e)
         {
-            if (!tbProv.Text.Equals("") && !tbPobla.Text.Equals("") && !codPos.Text.Equals("")) {
+            if (!String.IsNullOrEmpty(tbProv.Text) && !String.IsNullOrEmpty(tbPobla.Text) && !String.IsNullOrEmpty(codPos.Text))
+            {
                 try
                 {
-                    DataRowView dv = (DataRowView)dataGridPoblacion.SelectedItem;
-                    //int idT = dTipo.Row.Field<int>("Id_Tipo");
                     SqlConnection con = new SqlConnection(MetodosGestion.db);
                     using (SqlCommand command = con.CreateCommand())
                     {
@@ -85,7 +79,6 @@ namespace SGE_erp.Administracion
                                 anadir.Parameters.AddWithValue("@poblacion", tbPobla.Text);
                                 anadir.Parameters.AddWithValue("@provincia", tbProv.Text);
 
-                                //con.Open();
                                 int a = anadir.ExecuteNonQuery();
 
                                 if (a != 0)
@@ -99,7 +92,6 @@ namespace SGE_erp.Administracion
                             }
                         }
                     }
-                    con.Close();
                     codPos.Text = "";
                     tbPobla.Text = "";
                     tbProv.Text = "";
@@ -117,12 +109,12 @@ namespace SGE_erp.Administracion
             }
         }
 
-        private void bReset_Click(object sender, RoutedEventArgs e)
+        private void BReset_Click(object sender, RoutedEventArgs e)
         {
-            reset();
+            Reset();
         }
 
-        private void reset()
+        private void Reset()
         {
             dataGridPoblacion.UnselectAll();
             codPos.Text = "";
@@ -131,7 +123,7 @@ namespace SGE_erp.Administracion
             ActualizarTabla();
         }
 
-        private void dataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataRowView dd = (DataRowView)dataGridPoblacion.SelectedItem;
             string cod = dd.Row.Field<string>("CodPostal");
@@ -154,10 +146,9 @@ namespace SGE_erp.Administracion
             }
         }
 
-        private void bEditar_Click_1(object sender, RoutedEventArgs e)
+        private void BEditar_Click_1(object sender, RoutedEventArgs e)
         {
-            string bd = MetodosGestion.db;
-            using (SqlConnection con = new SqlConnection(bd))
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
             using (SqlCommand command = con.CreateCommand())
             {
                 command.CommandText = "UPDATE Poblaciones SET CodPostal=@cod, Poblacion = @pob, Provincia = @prov WHERE CodPostal = @cod";
@@ -178,10 +169,10 @@ namespace SGE_erp.Administracion
                     Mensajes.Mostrar("No puede editar el CP\r\nCree un elemento nuevo", Mensajes.Tipo.Info);
                 }
             }
-            reset();
+            Reset();
         }
 
-        private void bBorrar_Click_1(object sender, RoutedEventArgs e)
+        private void BBorrar_Click_1(object sender, RoutedEventArgs e)
         {
             if (dataGridPoblacion.SelectedItem != null)
             {
@@ -190,7 +181,7 @@ namespace SGE_erp.Administracion
                 Boolean resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
-                    using (SqlConnection con = new SqlConnection(MetodosGestion.db))
+                    SqlConnection con = new SqlConnection(MetodosGestion.db);
                     using (SqlCommand command = con.CreateCommand())
                     {
                         command.CommandText = "DELETE FROM Poblaciones WHERE CodPostal = @id";
@@ -209,7 +200,7 @@ namespace SGE_erp.Administracion
                             Mensajes.Mostrar("Población ERROR Borrar", Mensajes.Tipo.Error);
                         }
                     }
-                    reset();
+                    Reset();
                 }
             }
         }

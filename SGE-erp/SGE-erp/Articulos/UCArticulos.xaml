@@ -102,12 +102,12 @@
                             x:Name="articulosDataGrid"
                             Grid.Row="1"
                             AutoGenerateColumns="True"
-                            ColumnWidth="1*"
+                            ColumnWidth="Auto"
                             EnableRowVirtualization="True"
                             IsReadOnly="True"
                             RowDetailsVisibilityMode="VisibleWhenSelected"
                             SelectionMode="Single"
-                            MouseDoubleClick="articulosDataGrid_MouseDoubleClick"/>
+                            MouseDoubleClick="ArticulosDataGrid_MouseDoubleClick"/>
                     </Grid>
                 </TabItem>
                 <TabItem
@@ -154,7 +154,7 @@
                             Padding="0"
                             Grid.Column="0"
                             Margin="3"
-                            Click="bDeselect_Click"
+                            Click="BDeselect_Click"
                             Content="Deseleccionar" />
                         <Button
                             x:Name="bRefreshh"
@@ -165,7 +165,7 @@
                             Grid.ColumnSpan="1"
                             Margin="3"
                             Content="Actualizar"
-                            Click="bRefreshh_Click" />
+                            Click="BRefresh_Click" />
                         <Button
                             x:Name="bAsignar"
                             Grid.Row="2"
@@ -174,7 +174,7 @@
                             VerticalAlignment="Center"
                             Padding="0"
                             Margin="3"
-                            Click="bAsignar_Click"
+                            Click="BAsignar_Click"
                             Content="Asignar" />
                         <Grid
                             x:Name="gridGeneral"
@@ -250,7 +250,7 @@
                             VerticalAlignment="Stretch"
                             ColumnWidth="1*"
                             IsReadOnly="True"
-                            SelectionChanged="tipoArtdata_SelectionChanged"
+                            SelectionChanged="TipoArtdata_SelectionChanged"
                             SelectionMode="Single" />
 
                         <TextBox

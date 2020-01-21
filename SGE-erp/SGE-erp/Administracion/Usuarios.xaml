@@ -38,7 +38,7 @@
             VerticalAlignment="Stretch"
             ColumnWidth="1*"
             IsReadOnly="True" 
-            MouseDoubleClick="dataGridPoblacion_MouseDoubleClick"/>
+            MouseDoubleClick="DataGridPoblacion_MouseDoubleClick"/>
 
         <Button
             x:Name="bEditar"
@@ -46,7 +46,7 @@
             Grid.Column="2"
             VerticalAlignment="Center"
             Margin="5"
-            Content="Editar" Click="bEditar_Click_1" />
+            Content="Editar" Click="BEditar_Click_1" />
         <Button
             x:Name="bReset"
             Grid.Row="0"
@@ -54,14 +54,14 @@
             Grid.Column="2"
             Margin="110,0,0,110"
             Content="Reset" 
-            Click="bReset_Click"/> 
+            Click="BReset_Click"/> 
         <Button
             x:Name="bBorrar"
             Grid.Row="6"
             VerticalAlignment="Center"
             Grid.Column="2"
             Margin="5"
-            Content="Borrar" Click="bBorrar_Click_1" />
+            Content="Borrar" Click="BBorrar_Click_1" />
 
 
         <Label

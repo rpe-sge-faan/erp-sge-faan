@@ -52,7 +52,7 @@
             Padding="0"
             HorizontalAlignment="Center"
             Content="Reset"
-            Click="bReset_Click" />
+            Click="BReset_Click" />
         <Button
             x:Name="bCancelar"
             Grid.Row="1"
@@ -194,7 +194,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 SelectedIndex="0"
-                Loaded="tipoArticuloComboBox1_Loaded" />
+                Loaded="TipoArticuloComboBox1_Loaded" />
 
 
             <Label

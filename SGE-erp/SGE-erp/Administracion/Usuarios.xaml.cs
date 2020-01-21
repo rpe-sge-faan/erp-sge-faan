@@ -36,54 +36,50 @@ namespace SGE_erp.Administracion
 
         private void Actualizar()
         {
-            try
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Empleados]", con))
             {
-                SqlConnection con = new SqlConnection(MetodosGestion.db);
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Empleados]", con);
                 DataTable dt = new DataTable(); ;
 
                 // ds.Clear();
                 da.Fill(dt);
                 this.dataGridUsuarios.ItemsSource = dt.DefaultView;
+            }
 
-                con.Open();
-                con.Close();
+            // MOSTRAR NOMBRE E ID
+            //dataGridUsuarios.Columns[0].Visibility = Visibility.Collapsed;
+            //dataGridUsuarios.Columns[1].Visibility = Visibility.Collapsed;
 
-                // MOSTRAR NOMBRE E ID
-                //dataGridUsuarios.Columns[0].Visibility = Visibility.Collapsed;
-                //dataGridUsuarios.Columns[1].Visibility = Visibility.Collapsed;
-
+            try
+            {
                 dataGridUsuarios.Columns[2].Visibility = Visibility.Collapsed;
                 dataGridUsuarios.Columns[3].Visibility = Visibility.Collapsed;
-
 
                 dataGridUsuarios.Columns[5].Visibility = Visibility.Collapsed;
                 dataGridUsuarios.Columns[6].Visibility = Visibility.Collapsed;
                 dataGridUsuarios.Columns[7].Visibility = Visibility.Collapsed;
                 dataGridUsuarios.Columns[8].Visibility = Visibility.Collapsed;
                 dataGridUsuarios.Columns[9].Visibility = Visibility.Collapsed;
-
             }
-            catch
+            catch (System.ArgumentOutOfRangeException)
             {
                 return;
             }
         }
 
-        private void bReset_Click(object sender, RoutedEventArgs e)
+        private void BReset_Click(object sender, RoutedEventArgs e)
         {
-            reset();
+            Reset();
         }
 
-        private void reset()
+        private void Reset()
         {
             dataGridUsuarios.UnselectAll();
             tbProv.Text = "";
             Actualizar();
         }
 
-        private void dataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DataGridPoblacion_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
             string email = dd.Row.Field<string>("Email");
@@ -99,18 +95,19 @@ namespace SGE_erp.Administracion
                     if (reader.Read())
                     {
                         tbProv.Text = reader.GetString(reader.GetOrdinal("Password"));
-                       
+
                     }
                 }
             }
         }
 
-        private void bEditar_Click_1(object sender, RoutedEventArgs e)
+        private void BEditar_Click_1(object sender, RoutedEventArgs e)
         {
             DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
             string email = "";
 
-            if (!tbProv.Text.Equals("")) { 
+            if (String.IsNullOrEmpty(tbProv.Text))
+            {
                 try
                 {
                     email = dd.Row.Field<string>("Email");
@@ -147,7 +144,7 @@ namespace SGE_erp.Administracion
                             //MessageBox.Show("No puede editar el e-mail\r\nCree un elemento nuevo");
                         }
                     }
-                    reset();
+                    Reset();
                 }
             }
             else
@@ -156,13 +153,13 @@ namespace SGE_erp.Administracion
             }
         }
 
-        private void bBorrar_Click_1(object sender, RoutedEventArgs e)
+        private void BBorrar_Click_1(object sender, RoutedEventArgs e)
         {
             if (dataGridUsuarios.SelectedItem != null)
             {
                 DataRowView dd = (DataRowView)dataGridUsuarios.SelectedItem;
                 string cod = dd.Row.Field<string>("Email");
-                
+
                 bool resul = Mensajes.Mostrar("¿Estás seguro?", Mensajes.Tipo.Confirmacion);
                 if (resul)
                 {
@@ -177,17 +174,12 @@ namespace SGE_erp.Administracion
                         con.Open();
                         int a = command.ExecuteNonQuery();
 
-                        if (a != 0)
+                        if (a == 0)
                         {
-                            con.Close();
-                        }
-                        else
-                        {
-                            
                             Mensajes.Mostrar("Error al borrar", Mensajes.Tipo.Error);
                         }
                     }
-                    reset();
+                    Reset();
                 }
             }
         }

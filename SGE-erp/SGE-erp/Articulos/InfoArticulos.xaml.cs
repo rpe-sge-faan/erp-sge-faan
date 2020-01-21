@@ -34,21 +34,23 @@ namespace SGE_erp.Articulos
         private void Actualizar(string idArticulo)
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Movimientos WHERE Id_Articulo=" + idArticulo + " order by Fecha, Id_Movimiento", con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            this.articuloDataGrid.ItemsSource = dt.DefaultView;
-            con.Open();
-            con.Close();
-            valoresFecha = new string[dt.Rows.Count];
-            valoresStock = new double[dt.Rows.Count];
-            int i = 0;
-            int j = 0;
-            foreach (DataRow dr in dt.Rows)
+            using (SqlDataAdapter da = new SqlDataAdapter($"SELECT * FROM Movimientos WHERE Id_Articulo={idArticulo} order by Fecha, Id_Movimiento", con))
             {
-                valoresStock[i++] = double.Parse(dr[6].ToString());
-                valoresFecha[j++] = (dr[1].ToString());
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                this.articuloDataGrid.ItemsSource = dt.DefaultView;
+                con.Open();
+                con.Close();
+                valoresFecha = new string[dt.Rows.Count];
+                valoresStock = new double[dt.Rows.Count];
+                int i = 0;
+                int j = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    valoresStock[i++] = double.Parse(dr[6].ToString());
+                    valoresFecha[j++] = (dr[1].ToString());
+                }
             }
         }
     }
