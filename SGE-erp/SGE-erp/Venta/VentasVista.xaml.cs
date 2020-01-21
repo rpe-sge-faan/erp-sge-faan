@@ -175,7 +175,14 @@ namespace SGE_erp.Venta
 
         private void informeV_Click(object sender, RoutedEventArgs e)
         {
+            if (dgVista.SelectedItem != null)
+            {
+                DataRowView dato = (DataRowView)dgVista.SelectedItem;
+                String idVentas= dato.Row.Field<int>("Id_Ventas").ToString();
 
+                InformeVenta ina = new InformeVenta(idVentas);
+                ina.Show();
+            }
         }
     }
 }

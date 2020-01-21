@@ -18,29 +18,31 @@ using System.Windows.Shapes;
 namespace SGE_erp.Venta
 {
     /// <summary>
-    /// Lógica de interacción para FacturasVentas.xaml
+    /// Lógica de interacción para InformeVenta.xaml
     /// </summary>
-    public partial class FacturasVentas : Window
+    public partial class InformeVenta : Window
     {
-        public FacturasVentas()
+        public InformeVenta(string idVentas)
         {
             InitializeComponent();
+            Actualizar(idVentas);
         }
-       
 
         private void Actualizar(string idVentas)
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Ventas, FechaVentas, Nombre, NIF, SUM(PrecioTotal - PorcenajeIva), PorcenajeIva, PrecioTotal" +
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Ventas.Id_Ventas, Ventas.FechaVentas, Clientes.Nombre, Clientes.NIF, Iva.Porcentaje_Iva, Ventas.PrecioTotal" +
                                                     "FROM Ventas, Clientes, Iva " +
-                                                    "WHERE Id_Articulo=" + idVentas + " order by FechaVentas, Id_Ventas", con);
+                                                    "WHERE Id_Ventas ='" + idVentas + "'", con);
             DataTable dt = new DataTable();
+            ds.Clear();
             da.Fill(dt);
 
             this.ventasDataGrid.ItemsSource = dt.DefaultView;
             con.Open();
             con.Close();
-            
+
         }
     }
 }
