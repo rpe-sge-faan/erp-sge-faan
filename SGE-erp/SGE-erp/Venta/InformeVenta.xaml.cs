@@ -32,9 +32,9 @@ namespace SGE_erp.Venta
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
             DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Ventas.Id_Ventas, Ventas.FechaVentas, Clientes.Nombre, Clientes.NIF, Iva.Porcentaje_Iva, Ventas.PrecioTotal" +
-                                                    "FROM Ventas, Clientes, Iva " +
-                                                    "WHERE Id_Ventas ='" + idVentas + "'", con);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Ventas.Id_Ventas, Ventas.FechaVentas, Clientes.Nombre, Clientes.NIF, Ventas.PrecioTotal " +
+                                                    "FROM Ventas, Clientes" +
+                                                    "WHERE Ventas.Id_Cliente = Clientes.Id_Cliente AND Id_Ventas ='" + idVentas + "'", con);
             DataTable dt = new DataTable();
             ds.Clear();
             da.Fill(dt);
