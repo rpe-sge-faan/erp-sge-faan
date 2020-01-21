@@ -102,7 +102,7 @@
                             x:Name="articulosDataGrid"
                             Grid.Row="1"
                             AutoGenerateColumns="True"
-                            ColumnWidth="1*"
+                            ColumnWidth="Auto"
                             EnableRowVirtualization="True"
                             IsReadOnly="True"
                             RowDetailsVisibilityMode="VisibleWhenSelected"

@@ -229,6 +229,7 @@ namespace SGE_erp.Administracion
             }
         }
 
+
         private void VentanaFacturas_Loaded(object sender, RoutedEventArgs e)
         {
             CargarFactura();
@@ -237,10 +238,10 @@ namespace SGE_erp.Administracion
         string rutaPdf = "";
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ToPdf();
+            ToPdf(true);
         }
 
-        private void ToPdf()
+        private void ToPdf(Boolean guardar)
         {
             MemoryStream lMemoryStream = new MemoryStream();
             Package package = Package.Open(lMemoryStream, FileMode.Create);
@@ -254,28 +255,39 @@ namespace SGE_erp.Administracion
                 DateTime parsedDate = DateTime.Parse(fecha.Text);
                 String f = String.Format("{0:yyyyMMdd}", parsedDate);
 
-                SaveFileDialog dialog = new SaveFileDialog()
+                if (guardar)
                 {
-                    FileName = $"Factura{nombre.Text}{f}",
-                    Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
-                };
+                    SaveFileDialog dialog = new SaveFileDialog()
+                    {
+                        FileName = $"Factura{nombre.Text}{f}",
+                        Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
+                    };
 
-                if (dialog.ShowDialog() == true)
-                {
-                    PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+                    }
+
+                    rutaPdf = dialog.FileName;
+                    System.Diagnostics.Process.Start(rutaPdf);
                 }
-
-                rutaPdf = dialog.FileName;
+                else
+                {
+                    string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"Factura{f}");
+                    PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, path, 0);
+                    rutaPdf = path;
+                }
+                
             }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            ToPdf();
+            ToPdf(false);
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress("faan.erp@gmail.com");
-                mail.To.Add("thewilkin25@gmail.com");
+                mail.To.Add("andrea.lobo93@gmail.com");
                 mail.Subject = "Factura - FAAN";
                 mail.Body = "Le adjuntamos la factura de su compra. Gracias por usar nuestros servicios.";
 
@@ -291,8 +303,9 @@ namespace SGE_erp.Administracion
                     SmtpServer.EnableSsl = true;
                     SmtpServer.Send(mail);
                 }
+                Mensajes.Mostrar("Email enviado", Mensajes.Tipo.Info);
             }
-            Mensajes.Mostrar("Email enviado", Mensajes.Tipo.Info);
+            File.Delete(rutaPdf);
         }
     }
 }
