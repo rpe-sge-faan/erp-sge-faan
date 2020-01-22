@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:SGE_erp.Venta"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="InformeVenta" Width="545"
-        MaxWidth="545"
+        Title="InformeVenta" Width="700"
+        MaxWidth="700"
         MinWidth="535"
         MinHeight="730">
     <Grid>
@@ -55,11 +55,12 @@
             x:Name="ventasDataGrid"
             AutoGenerateColumns="True"
             ColumnWidth="1*"
-            Grid.Row="1"
+            Grid.Row="2"
             EnableRowVirtualization="True"
             IsReadOnly="True"
             RowDetailsVisibilityMode="VisibleWhenSelected"
-            SelectionMode="Single" />
+            SelectionMode="Single" 
+            />
 
     </Grid>
 </Window>

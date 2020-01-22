@@ -112,8 +112,9 @@ namespace SGE_erp.Venta
             {
                 SqlConnection con = new SqlConnection(MetodosGestion.db);
                 DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(@"SELECT Id_Ventas, Id_Empleado, FechaVentas, PrecioTotal " +
-                                                        "FROM Ventas ", con);
+                SqlDataAdapter da = new SqlDataAdapter(@"SELECT Id_Ventas, Nombre, CONVERT(VARCHAR(10), [FechaVentas], 103)[FechaVentas], PrecioTotal " +
+                                                        "FROM Ventas, Empleados " +
+                                                        "WHERE Empleados.Id_Empleado = Empleados.Id_Empleado", con);
                 DataTable dt = new DataTable(); ;
 
                 ds.Clear();

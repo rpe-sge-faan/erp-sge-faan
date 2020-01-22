@@ -26,17 +26,20 @@ namespace SGE_erp.Venta
         {
             InitializeComponent();
             Actualizar(idVentas);
+            
         }
-
+ 
         private void Actualizar(string idVentas)
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
             DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Ventas.Id_Ventas, Ventas.FechaVentas, Clientes.Nombre, Clientes.NIF, Ventas.PrecioTotal " +
-                                                    "FROM Ventas, Clientes" +
-                                                    "WHERE Ventas.Id_Cliente = Clientes.Id_Cliente AND Id_Ventas ='" + idVentas + "'", con);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Ventas.Id_Ventas, CONVERT(VARCHAR(10), [FechaVentas], 103) AS Fecha, Clientes.Nombre, Clientes.NIF, " +
+                                                    "CAST((PrecioTotal-((PrecioTotal*Porcentaje_Iva)/100)) AS DECIMAL(7, 2)) AS Precio, " +
+                                                    "Iva.Porcentaje_Iva AS IVA, Ventas.PrecioTotal AS Total " +
+                                                    "FROM Ventas, Clientes, Iva, Articulos " +
+                                                    "WHERE Ventas.Id_Cliente = Clientes.Id_Cliente AND Articulos.Id_Iva = Iva.Id_Iva AND Id_Ventas =" + idVentas, con);
             DataTable dt = new DataTable();
-            ds.Clear();
+            ds.Clear(); //CONVERT(VARCHAR(10), [ManufacturingDate], 103)[ManufacturingDate]
             da.Fill(dt);
 
             this.ventasDataGrid.ItemsSource = dt.DefaultView;
