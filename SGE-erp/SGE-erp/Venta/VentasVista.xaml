@@ -46,7 +46,7 @@
                 Header="_Factura" Click="facturaV_Click" />
             <MenuItem
                 x:Name="informeV"
-                Width="130"
+                Width="135"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
