@@ -39,16 +39,6 @@
             <materialDesign:PackIcon
                 Kind="Download" />
         </Button>
-        <Button
-            Click="BEmail_Click"
-            x:Name="BEmail"
-            HorizontalAlignment="Left"
-            Margin="116,10,0,0"
-            VerticalAlignment="Top">
-            <materialDesign:PackIcon
-                Kind="Email"
-                Foreground="White" />
-        </Button>
         <Grid
             x:Name="print">
             <Grid.RowDefinitions>

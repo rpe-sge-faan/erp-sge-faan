@@ -109,33 +109,6 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void BEmail_Click(object sender, RoutedEventArgs e)
-        {
-            ToPdf(false);
-            using (MailMessage mail = new MailMessage())
-            {
-                mail.From = new MailAddress("faan.erp@gmail.com");
-                mail.To.Add("andrea.lobo93@gmail.com");
-                mail.Subject = $"Informe {variable} - FAAN";
-                mail.Body = $"Le adjuntamos el informe de {variable}. Gracias por usar nuestros servicios.";
-
-                System.Net.Mail.Attachment attachment;
-                attachment = new System.Net.Mail.Attachment(rutaPdf);
-                mail.Attachments.Add(attachment);
-
-                using (SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587))
-                {
-                    SmtpServer.UseDefaultCredentials = false;
-                    SmtpServer.EnableSsl = true;
-                    SmtpServer.Credentials = new System.Net.NetworkCredential("faan.erp@gmail.com", "2FeArApN");
-                    SmtpServer.EnableSsl = true;
-                    SmtpServer.Send(mail);
-                }
-                Mensajes.Mostrar("Email enviado", Mensajes.Tipo.Info);
-            }
-            File.Delete(rutaPdf);
-        }
-
         private void BDescargar_Click(object sender, RoutedEventArgs e)
         {
             ToPdf(true);
@@ -158,7 +131,7 @@ namespace SGE_erp.Articulos
                 {
                     SaveFileDialog dialog = new SaveFileDialog()
                     {
-                        FileName = $"Informe{variable}{f}",
+                        FileName = $"Informe{variable.Replace(" ", "")}{f}",
                         Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
                     };
 
@@ -167,7 +140,7 @@ namespace SGE_erp.Articulos
                         PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
                     }
 
-                    rutaPdf = dialog.FileName;
+                    rutaPdf = (dialog.FileName);
                     System.Diagnostics.Process.Start(rutaPdf);
                 }
                 else
