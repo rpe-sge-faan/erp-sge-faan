@@ -30,7 +30,7 @@
             <materialDesign:PackIcon
                 Kind="Download" />
         </Button>
-       
+
         <Grid
             x:Name="print">
 
@@ -51,8 +51,8 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Margin="0,0,10,0"/>
-        <Label Content="INFORME DE VENTAS" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource colorAyuda}" Margin="10,10,10,10"/>
-        <DataGrid
+            <Label Content="INFORME DE VENTAS" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource colorAyuda}" Margin="10,10,10,10"/>
+            <DataGrid
             x:Name="ventasDataGrid"
             AutoGenerateColumns="True"
             ColumnWidth="auto"
@@ -63,134 +63,134 @@
             SelectionMode="Single" 
             />
 
-        <StackPanel
+            <StackPanel
                 Grid.Row="2"
                 Margin="20,0,20,20">
-            <Grid
+                <Grid
                     Margin="10 10 10 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                            Width="239*" />
-                    <ColumnDefinition
-                            Width="124*" />
-                    <ColumnDefinition
-                            Width="152*" />
-                    <ColumnDefinition
-                            Width="117*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="193*" />
+                        <ColumnDefinition
+                            Width="94*" />
+                        <ColumnDefinition
+                            Width="102*" />
+                        <ColumnDefinition
+                            Width="88*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
                         Text="BASE"
                         Grid.Column="1"
                         FontSize="13"
                         FontWeight="ExtraLight"
-                        HorizontalAlignment="Right" Margin="0,0,10,0" Width="93" />
-                <TextBlock
+                        HorizontalAlignment="Right" Margin="0,0,10,0" Width="74" />
+                    <TextBlock
                         Text="CUOTA"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         FontSize="13"
                         FontWeight="ExtraLight"
-                        HorizontalAlignment="Right" Margin="0,0,10,0" Width="93" />
-                <TextBlock
+                        HorizontalAlignment="Right" Width="103" Grid.ColumnSpan="2" />
+                    <TextBlock
                         Text="TOTAL"
                         Grid.Column="3"
                         FontSize="13"
                         FontWeight="ExtraLight"
                         HorizontalAlignment="Right" Width="34" />
-            </Grid>
-            <Rectangle
+                </Grid>
+                <Rectangle
                     Fill="Black"
                     Height="1"
                     Margin="5"
                     Opacity="0.5" />
-            <Grid
+                <Grid
                     Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
                             Width="Auto" />
-                    <ColumnDefinition Width="243*" />
-                    <ColumnDefinition Width="118*" />
-                    <ColumnDefinition Width="137*" />
-                    <ColumnDefinition Width="134*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock
+                        <ColumnDefinition Width="243*" />
+                        <ColumnDefinition Width="118*" />
+                        <ColumnDefinition Width="137*" />
+                        <ColumnDefinition Width="134*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
                         Grid.Column="2"
                         x:Name="tbBase"
                         Text="0 €"
                         FontSize="20"
-                        Margin="0,10,41,0"
+                        Margin="0,10,5,0"
                         HorizontalAlignment="Right"
-                        FontWeight="DemiBold" Width="59" />
-                <TextBlock
+                        FontWeight="DemiBold" Width="74" />
+                    <TextBlock
                         Grid.Column="3"
                         x:Name="tbCuota"
                         Text="0 €"
                         FontSize="20"
                         Margin="0,10,23,0"
                         HorizontalAlignment="Right"
-                        FontWeight="DemiBold" Width="59" />
-                <StackPanel
+                        FontWeight="DemiBold" Width="70" />
+                    <StackPanel
                         Grid.Column="3" Grid.ColumnSpan="2">
-                    <TextBlock
+                        <TextBlock
                             x:Name="tbTotal"
                             Text="0 €"
                             FontSize="25"
                             Margin="5"
                             HorizontalAlignment="Right"
                             FontWeight="Bold" />
-                </StackPanel>
-            </Grid>
-            <Rectangle
+                    </StackPanel>
+                </Grid>
+                <Rectangle
                     Fill="Black"
                     Height="1"
                     Margin="5"
                     Opacity="0.5" />
-            <Grid
+                <Grid
                     Margin="0"
                     HorizontalAlignment="Stretch">
-                <StackPanel
+                    <StackPanel
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
-                    <TextBlock
+                        <TextBlock
                             Text="Facturado por:"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light"
                             HorizontalAlignment="Left" />
-                    <TextBlock
+                        <TextBlock
                             x:Name="empleado"
                             Text="EMPLEADO"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light"
                             HorizontalAlignment="Left" />
-                    <TextBlock
+                        <TextBlock
                             Text="FAAN - Calle Nueva 2 - 28922 Alcorcón"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light"
                             HorizontalAlignment="Left" />
-                    <TextBlock
+                        <TextBlock
                             Text="support@faan.com"
                             VerticalAlignment="Center"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light" />
-                    <TextBlock
+                        <TextBlock
                             Text="99 999 99 99"
                             VerticalAlignment="Center"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light" />
-                    <TextBlock
+                        <TextBlock
                             Text="www.faan.com"
                             VerticalAlignment="Center"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light" />
-                </StackPanel>
-            </Grid>
-        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
