@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace SGE_erp.Articulos
 {
-    /// <summary>
-    /// Lógica de interacción para InfoArticulos.xaml
-    /// </summary>
     public partial class InfoArticulos : Window
     {
         public InfoArticulos(String idArticulo)
