@@ -56,6 +56,7 @@
             HorizontalAlignment="Left"
             Height="23"
             Margin="8,89,0,0"
+            PreviewTextInput="NumberValidationTextBox"
             TextWrapping="Wrap"
             VerticalAlignment="Top"
             Width="80"
@@ -64,6 +65,7 @@
             x:Name="tbIdVentas"
             Grid.Column="1"
             HorizontalAlignment="Left"
+            PreviewTextInput="NumberValidationTextBox"
             Height="23"
             Margin="10,25,0,0"
             TextWrapping="Wrap"
@@ -73,6 +75,7 @@
         <TextBox
             x:Name="tbPrecioTotal"
             Grid.Column="3"
+            PreviewTextInput="NumberValidationTextBox"
             HorizontalAlignment="Left"
             Height="22"
             Margin="10,94,0,0"
