@@ -43,7 +43,8 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Factura" Click="facturaV_Click" />
+                Header="_Factura"
+                Click="FacturaV_Click" />
             <MenuItem
                 x:Name="informeV"
                 Width="135"
