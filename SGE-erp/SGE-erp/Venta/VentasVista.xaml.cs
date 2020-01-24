@@ -174,6 +174,26 @@ namespace SGE_erp.Venta
             else
             {
                 Mensajes.Mostrar("Ya hay una factura abierta", Mensajes.Tipo.Info);
+            }
+        }
+
+        private void informeV_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgVista != null)
+            {
+                int[] ids = new int[dgVista.Items.Count];
+                int cont = 0;
+
+                foreach (DataRowView row in dgVista.Items)
+                {
+                    ids[cont++] = int.Parse(row["Id_Ventas"].ToString());
+                }
+                //sacar ids
+
+
+                InformeVenta ina = new InformeVenta(ids);
+                ina.Show();
+            }
         }
     }
 }

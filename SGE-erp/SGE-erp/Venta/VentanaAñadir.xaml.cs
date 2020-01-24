@@ -90,6 +90,7 @@ namespace SGE_erp.Venta
             if (DatosAnadir.SelectedCells != null)
             {
                 ActualizaMaximo();
+
             }
         }
 
@@ -122,13 +123,14 @@ namespace SGE_erp.Venta
 
         decimal totalFinal = 0;
         int guardarCantidad = 0;
+
+
         private void Anadir_Click(object sender, RoutedEventArgs e)
         {
             if (DatosAnadir.SelectedItem != null)
             {
                 //Tabla de arriba
-                DataTable dta = new DataTable();
-                dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
+                DataTable dta = ((DataView)DatosAnadir.ItemsSource).ToTable();
                 //Tabla de abajo
                 DataRowView drv = (DataRowView)DatosAnadir.SelectedItem;
                 int rowIndex = DatosAnadir.Items.IndexOf(DatosAnadir.SelectedItem);
@@ -140,8 +142,6 @@ namespace SGE_erp.Venta
                 decimal pvp = drv.Row.Field<decimal>("PVP");
                 decimal totalM = 0;
                 totalM = pvp * stock;
-
-               
 
                 Boolean encontrado = false;
 
@@ -160,8 +160,6 @@ namespace SGE_erp.Venta
                 }
                 if (Convert.ToInt32(dta.Rows[rowIndex]["Stock"]) > 0)
                 {
-
-
                     if (encontrado)
                     {
                         dataT.Rows[index]["Unidades"] = Convert.ToInt32(dataT.Rows[index]["Unidades"]) + stock;
@@ -180,6 +178,7 @@ namespace SGE_erp.Venta
 
                         dataT.Rows.Add(dr);
                         dgFinal.ItemsSource = dataT.DefaultView;
+
                     }
 
 
@@ -194,12 +193,40 @@ namespace SGE_erp.Venta
                 }
                 else
                 {
-                    
                     Mensajes.Mostrar("No existe stock", Mensajes.Tipo.Info);
                 }
 
+                this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
+            }
+        }
 
+        private void Eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgFinal.SelectedItem != null)
+            {
+                DataTable dtaFinal = ((DataView)dgFinal.ItemsSource).ToTable();
+                int indexFinal = dgFinal.Items.IndexOf(dgFinal.SelectedItem);
+                int stock = Convert.ToInt32(dtaFinal.Rows[indexFinal]["Unidades"]);
+                int idA = Convert.ToInt32(dtaFinal.Rows[indexFinal]["Id_Articulo"]);
 
+                totalFinal -= Convert.ToDecimal(dtaFinal.Rows[indexFinal]["PVP"]);
+                lbTotalFin.Content = $"{totalFinal}€";
+                dataT.Rows.RemoveAt(dgFinal.SelectedIndex);
+
+                DataTable dtaAnadir = ((DataView)DatosAnadir.ItemsSource).ToTable();
+
+                int cont = 0;
+                foreach (DataRow row in dtaAnadir.Rows)
+                {
+                    if (Convert.ToInt32(row["Id_Articulo"]) == idA)
+                    {
+                        int indexAnadir = DatosAnadir.Items.IndexOf(row);
+                        dtaAnadir.Rows[cont]["Stock"] = Convert.ToInt32(dtaAnadir.Rows[cont]["Stock"]) + stock;
+                        break;
+                    }
+                    cont++;
+                }
+                DatosAnadir.ItemsSource = dtaAnadir.DefaultView;
             }
         }
 
@@ -211,7 +238,6 @@ namespace SGE_erp.Venta
                 int idEmpl = MainWindow.idEmpleado;
                 DateTime fecha = dpFecha.SelectedDate.Value;
                 decimal precio = totalFinal;
-
 
                 try
                 {
@@ -405,18 +431,25 @@ namespace SGE_erp.Venta
                 dt = ((DataView)DatosAnadir.ItemsSource).ToTable();
                 dt.TableName = "Articulos";
                 view.Table = dt;
+
             }
 
             view.RowFilter = $"Nombre LIKE '%{filtarNom.Text}%'";
 
             dt = view.ToTable();
+
             DatosAnadir.ItemsSource = null;
             DatosAnadir.ItemsSource = dt.DefaultView;
+            this.DatosAnadir.Columns[0].Visibility = Visibility.Collapsed;
         }
 
 
         DataView view = null;
         DataTable dt;
 
+        private void dgFinal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
