@@ -68,22 +68,22 @@ namespace SGE_erp.Venta
 
             if (nombres[0].Equals("") && nombres[1].Equals(""))
             {
-                view.RowFilter = $"FechaVentas >= '{nombres[2]}' AND PrecioTotal >= '{nombres[3]}'";
-            }
-            else if (nombres[1].Equals(""))
-            {
-                view.RowFilter = $"Id_Empleado = '{nombres[1]}' AND FechaVentas >= '{nombres[2]}' " +
-                 $"AND PrecioTotal >= '{nombres[3]}'";
+                view.RowFilter = $"FechaVentas >= '{nombres[2]}' AND FechaVentas <= '{nombres[3]}' AND PrecioTotal >= {nombres[4]}";
             }
             else if (nombres[0].Equals(""))
             {
-                view.RowFilter = $"Id_Ventas = '{nombres[0]}' AND FechaVentas >= '{nombres[2]}' " +
-                 $"AND PrecioTotal >= '{nombres[3]}'";
+                view.RowFilter = $"Id_Empleado = {nombres[1]} AND FechaVentas >= '{nombres[2]}' AND FechaVentas <= '{nombres[3]}' " +
+                 $"AND PrecioTotal >= {nombres[4]}";
+            }
+            else if (nombres[1].Equals(""))
+            {
+                view.RowFilter = $"Id_Ventas = '{nombres[0]}' AND FechaVentas >= '{nombres[2]}' AND FechaVentas <= '{nombres[3]}' " +
+                 $"AND PrecioTotal >= {nombres[4]}";
             }
             else
             {
-                view.RowFilter = $"Id_Ventas = '{nombres[0]}' AND Id_Empleado = '{nombres[1]}' AND FechaVentas >= '{nombres[2]}' " +
-                 $"AND PrecioTotal >= '{nombres[3]}'";
+                view.RowFilter = $"Id_Ventas = {nombres[0]} AND Id_Empleado = {nombres[1]} AND FechaVentas >= '{nombres[2]}' AND FechaVentas <= '{nombres[3]}' " +
+                 $"AND PrecioTotal >= {nombres[4]}";
             }
 
 
@@ -105,7 +105,8 @@ namespace SGE_erp.Venta
                     String[] nombresArray = {
                         ((VentasEdicion)item).tbIdVentas.Text,
                         ((VentasEdicion)item).tbIdEmple.Text,
-                        ((VentasEdicion)item).tbFecha.Text,
+                        ((VentasEdicion)item).tbFechaAnt.Text,
+                         ((VentasEdicion)item).tbFechaPos.Text,
                         ((VentasEdicion)item).tbPrecioTotal.Text
 
                     };
