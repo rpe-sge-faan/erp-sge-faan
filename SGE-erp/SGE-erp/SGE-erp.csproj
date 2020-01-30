@@ -123,6 +123,12 @@
     <Compile Include="Articulos\InformeArticulo.xaml.cs">
       <DependentUpon>InformeArticulo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Compras\Compras_FiltroCompra.xaml.cs">
+      <DependentUpon>Compras_FiltroCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\InformeCompras.xaml.cs">
+      <DependentUpon>InformeCompras.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gestion\Ayuda.xaml.cs">
       <DependentUpon>Ayuda.xaml</DependentUpon>
     </Compile>
@@ -218,6 +224,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Articulos\InformeArticulo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\Compras_FiltroCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compras\InformeCompras.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

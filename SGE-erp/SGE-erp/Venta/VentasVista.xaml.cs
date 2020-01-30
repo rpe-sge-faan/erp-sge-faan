@@ -174,6 +174,7 @@ namespace SGE_erp.Venta
             else
             {
                 Mensajes.Mostrar("Ya hay una factura abierta", Mensajes.Tipo.Info);
+            }
         }
     }
 }

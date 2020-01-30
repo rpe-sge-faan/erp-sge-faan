@@ -138,10 +138,11 @@ namespace SGE_erp.Articulos
                     if (dialog.ShowDialog() == true)
                     {
                         PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+                        rutaPdf = (dialog.FileName);
+                        System.Diagnostics.Process.Start(rutaPdf);
                     }
 
-                    rutaPdf = (dialog.FileName);
-                    System.Diagnostics.Process.Start(rutaPdf);
+                    
                 }
                 else
                 {

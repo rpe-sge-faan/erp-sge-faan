@@ -109,11 +109,14 @@ namespace SGE_erp.Compras
 
         private void facturaV_Click(object sender, RoutedEventArgs e)
         {
-            DataRowView dato = (DataRowView)comprasDatos.SelectedItem;
-            int idCompra = dato.Row.Field<int>("Id_Compra");
-
-            Factura f = new Factura(idCompra,2);
+            InformeCompras f = new InformeCompras();
             f.Show();
+        }
+
+        private void Buscar_Click(object sender, RoutedEventArgs e)
+        {
+            Compras_FiltroCompra cfc = new Compras_FiltroCompra();
+            cfc.ShowDialog();
         }
     }
 }
