@@ -23,13 +23,16 @@ namespace SGE_erp.Compras
     /// Lógica de interacción para ComprasVisualizar.xaml
     /// </summary>
     public partial class ComprasVisualizar : UserControl
-    {
+    {       
         public Delegate FiltrarLista;
         public delegate void RefreshList();
+
+        public static String sentenciaWhere = " ";
+        public static String sentenciaOrder = " ";
         public ComprasVisualizar()
         {
             InitializeComponent();
-            //cargarDatos();
+            cargarDatos();
         }
         
         public void cargarDatos()
@@ -37,7 +40,7 @@ namespace SGE_erp.Compras
             DataTable dt = new DataTable();
             SqlConnection con = new SqlConnection(MetodosGestion.db);
             con.Open();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Compra", con);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Compra " + sentenciaWhere + sentenciaOrder, con);
             dt.Clear();
 
             comprasDatos.ItemsSource = null;
@@ -95,6 +98,8 @@ namespace SGE_erp.Compras
 
         private void actualizar_Click(object sender, RoutedEventArgs e)
         {
+            sentenciaWhere = " ";
+            sentenciaOrder = " ";
             cargarDatos();
         }
 
@@ -109,11 +114,17 @@ namespace SGE_erp.Compras
 
         private void facturaV_Click(object sender, RoutedEventArgs e)
         {
-            DataRowView dato = (DataRowView)comprasDatos.SelectedItem;
-            int idCompra = dato.Row.Field<int>("Id_Compra");
-
-            Factura f = new Factura(idCompra,2);
+            InformeCompras f = new InformeCompras();
             f.Show();
+        }
+
+        private void Buscar_Click(object sender, RoutedEventArgs e)
+        {
+            Compras_FiltroCompra cfc = new Compras_FiltroCompra();
+            cfc.ShowDialog();
+            sentenciaWhere = Compras_FiltroCompra.swhere;
+            sentenciaOrder = Compras_FiltroCompra.sorder;
+            cargarDatos();
         }
     }
 }
