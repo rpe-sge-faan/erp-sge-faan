@@ -81,28 +81,30 @@ namespace SGE_erp.Administracion
             TextBlock tb2 = new TextBlock
             {
                 Text = $"{args[1]}€",
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Right
             };
             TextBlock tb3 = new TextBlock
             {
                 Text = $"{args[2]}",
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Right
             };
             TextBlock tb4 = new TextBlock
             {
                 Text = $"{args[3]}€",
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Right
             };
             TextBlock tb5 = new TextBlock
             {
                 Text = $"{args[4]}%",
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Right
             };
             TextBlock tb6 = new TextBlock
             {
                 Text = $"{args[5]}€",
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 0, 10, 0)
+
+        };
 
             gr.Children.Add(tb1);
             gr.Children.Add(tb2);
@@ -173,12 +175,14 @@ namespace SGE_erp.Administracion
             else
             {
                 decimal totalSin = 0;
+                String dniT="";
                 string bd = MetodosGestion.db;
+                int nFactura = 0;
                 using (SqlConnection con = new SqlConnection(bd))
                 using (SqlCommand command = con.CreateCommand())
                 {
-                    command.CommandText = "SELECT VentasArticulos.Id_Elemento, Articulos.Nombre as Articulo, Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
-                            "Clientes.Nombre as Cliente, Clientes.Direccion, Empleados.Nombre as Empleado," +
+                    command.CommandText = "SELECT Ventas.Id_Ventas, VentasArticulos.Id_Elemento, Articulos.Nombre as Articulo, Ventas.FechaVentas, Ventas.PrecioTotal, VentasArticulos.Cantidad,  " +
+                            "Clientes.Nombre as Cliente, Clientes.NIF, Clientes.Direccion, Empleados.Nombre as Empleado," +
                             "Poblaciones.CodPostal, Poblaciones.Poblacion, Poblaciones.Provincia, " +
                             "Articulos.Descripcion, Articulos.PVP,  Iva.Porcentaje_Iva " +
                         "FROM Ventas, VentasArticulos, Clientes, Poblaciones, ProveedorArticulo, Articulos, Empleados, Iva " +
@@ -202,7 +206,7 @@ namespace SGE_erp.Administracion
                             {
                                 DateTime dd = reader.GetDateTime(reader.GetOrdinal("FechaVentas"));
                                 fecha.Text = String.Format("{0:dddd, d MMMM, yyyy}", dd);
-                                tbTotal.Text = (reader.GetDecimal(reader.GetOrdinal("PrecioTotal"))).ToString() + "€";
+                                tbTotal.Text = String.Format("{0:n}", reader.GetDecimal(reader.GetOrdinal("PrecioTotal"))) +"€";
                                 nombre.Text = reader.GetString(reader.GetOrdinal("Cliente"));
                                 direccion.Text = reader.GetString(reader.GetOrdinal("Direccion"));
                                 poblacion.Text = $"{reader.GetString(reader.GetOrdinal("CodPostal"))} {reader.GetString(reader.GetOrdinal("Poblacion"))}, {reader.GetString(reader.GetOrdinal("Provincia"))}";
@@ -220,10 +224,14 @@ namespace SGE_erp.Administracion
                             decimal subtotal = precioSin * cant;
                             decimal total = precio * cant;
                             totalSin += subtotal;
-
-                            AddToTable(articulo, String.Format("{0:0.00}", precioSin), cantidad.ToString(), String.Format("{0:0.00}", subtotal), iva.ToString(), String.Format("{0:0.00}", total));
+                            dniT = reader.GetString(reader.GetOrdinal("NIF"));
+                            nFactura= reader.GetInt32(reader.GetOrdinal("Id_Ventas"));
+                            AddToTable(articulo, String.Format("{0:n}", precioSin), cantidad.ToString(), String.Format("{0:n}", subtotal), iva.ToString(), String.Format("{0:n}", total));
                         }
-                        tbTotalSin.Text = String.Format("{0:0.00}€", totalSin);
+                        tbTotalSin.Text = String.Format("{0:n}€", totalSin);
+                        dni.Text = dniT;
+                        numFactura.Text = $"Nº factura: {nFactura.ToString()}";
+                        
                     }
                 }
             }
