@@ -29,14 +29,14 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Buscar" />
+                Header="_Filtrar" Click="Buscar_Click" />
             <MenuItem
                 x:Name="facturaV"
-                Width="130"
+                Width="140"
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Header="_Factura"
+                Header="_Informe"
                 Click="facturaV_Click" />
         </Menu>
 

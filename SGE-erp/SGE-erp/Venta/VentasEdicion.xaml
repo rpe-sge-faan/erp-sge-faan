@@ -31,7 +31,7 @@
             VerticalAlignment="Top"
             Width="80" />
         <Label
-            Content="Fecha Venta"
+            Content="Fecha Inicial"
             Grid.Column="2"
             HorizontalAlignment="Left"
             Margin="10,22,0,0"
@@ -92,11 +92,27 @@
             VerticalAlignment="Top"
             Width="80"
             Click="Button_Click" />
+        <Label
+            Content="Fecha Final"
+            Grid.Column="2"
+            HorizontalAlignment="Left"
+            Margin="10,59,0,0"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.316,0.077"
+            Width="80" />
         <DatePicker
-            x:Name="tbFecha"
+            x:Name="tbFechaAnt"
             Grid.Column="3"
             HorizontalAlignment="Left"
-            Margin="10,22,0,0"
+            Margin="10,16,0,0"
+            VerticalAlignment="Top"
+            Height="26"
+            Width="80" />
+        <DatePicker
+            x:Name="tbFechaPos"
+            Grid.Column="3"
+            HorizontalAlignment="Left"
+            Margin="10,58,0,0"
             VerticalAlignment="Top"
             Height="26"
             Width="80" />

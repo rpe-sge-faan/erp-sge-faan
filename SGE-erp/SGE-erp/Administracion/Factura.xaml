@@ -203,11 +203,9 @@
                     Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
-                            Width="1*" />
-                        <ColumnDefinition
-                            Width="1*" />
-                        <ColumnDefinition
-                            Width="1*" />
+                            Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="1"

@@ -30,7 +30,8 @@ namespace SGE_erp.Venta
         {
             InitializeComponent();
             this.id = num;
-            tbFecha.SelectedDate = DateTime.Today;
+            tbFechaPos.SelectedDate = DateTime.Today;
+            tbFechaAnt.SelectedDate = DateTime.Today;
             this.tbPrecioTotal.Text = "0";
         }
 

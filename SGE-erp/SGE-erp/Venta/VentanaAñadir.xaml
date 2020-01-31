@@ -76,6 +76,14 @@
             Click="Anadir_Click"
             Content="Añadir" />
         <Button
+            Grid.Row="4"
+            Grid.Column="4"
+            Margin="15,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Click="Eliminar_Click"
+            Content="Eliminar" />
+        <Button
             Grid.Row="7"
             Grid.Column="4"
             Margin="15,12"
@@ -107,7 +115,7 @@
             Margin="5"
             ColumnWidth="1*"
             IsReadOnly="True"
-            SelectionChanged="DatosAnadir_SelectionChanged" />
+            SelectionChanged="dgFinal_SelectionChanged" />
         <ComboBox
             x:Name="cbCliente"
             Grid.Row="2"
