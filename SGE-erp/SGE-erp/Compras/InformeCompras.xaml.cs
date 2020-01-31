@@ -99,7 +99,7 @@ namespace SGE_erp.Compras
                 {
                     SaveFileDialog dialog = new SaveFileDialog()
                     {
-                        FileName = $"Informe{variable.Replace(" ", "")}{f}",
+                        FileName = $"InformeCompra"+Compras_FiltroCompra.fechaDesde.Replace("/","_")+"-"+Compras_FiltroCompra.fechaHasta.Replace("/", "_"),
                         Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
                     };
 
