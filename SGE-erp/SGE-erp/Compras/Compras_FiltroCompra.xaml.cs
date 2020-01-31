@@ -22,6 +22,11 @@ namespace SGE_erp.Compras
     /// </summary>
     public partial class Compras_FiltroCompra : Window
     {
+        public static String fechaDesde = "01/01/2000";
+        public static String fechaHasta = DateTime.Today.ToShortDateString();
+        public static String idProv;
+        public static String swhere;
+        public static String sorder;
         public Compras_FiltroCompra()
         {
             InitializeComponent();
@@ -33,15 +38,31 @@ namespace SGE_erp.Compras
 
         private void Btn_Aplicar_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(Convert.ToDateTime(Convert.ToString(dp_FHasta)).ToShortDateString());
-            MessageBox.Show(cb_ProvDesde.SelectedValue.ToString());
+            String sproveedor;
+            fechaDesde = Convert.ToDateTime(Convert.ToString(dp_FDesde )).ToShortDateString();
+            fechaHasta = Convert.ToDateTime(Convert.ToString(dp_FHasta)).ToShortDateString();
+            if(cb_ProvDesde.SelectedValue == null)
+            {
+                sproveedor = " ";
+            }
+            else
+            {
+                idProv = cb_ProvDesde.SelectedValue.ToString();
+                sproveedor = " AND compra.Id_Proveedor = " + cb_ProvDesde.SelectedValue.ToString();
+            }
+
+
+            swhere = "where convert(date,Compra.FechaCompra,103) >= convert(date,'" + fechaDesde + "',103)and convert(date,Compra.FechaCompra,103) <= convert(date,'" +
+                fechaHasta + "',103) " + sproveedor;
+            sorder = " order by convert(date,Compra.FechaCompra,103)DESC";
+            this.Close();
         }
 
         private DataTable Cargar()
         {
             SqlConnection con = new SqlConnection(MetodosGestion.db);
             SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [Proveedores]", con);
-            DataTable dt = new DataTable(); ;
+            DataTable dt = new DataTable();
 
             //ds.Clear();
             da.Fill(dt);

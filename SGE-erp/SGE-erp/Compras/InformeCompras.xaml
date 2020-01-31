@@ -10,6 +10,7 @@
     <Grid>
         <Button
             x:Name="BImprimir"
+            Click="BImprimir_Click"
             HorizontalAlignment="Left"
             Margin="10"
             VerticalAlignment="Top">
@@ -18,6 +19,7 @@
         </Button>
         <Button
             x:Name="BDescargar"
+            Click="BDescargar_Click"
             HorizontalAlignment="Left"
             Margin="63,10,0,0"
             VerticalAlignment="Top">
@@ -58,7 +60,7 @@
                     Foreground="{DynamicResource colorAyuda}"
                     Margin="15,0" />
                 <Label
-                    Content="{Binding Path=NArticulo, UpdateSourceTrigger=PropertyChanged}"
+                    x:Name="lb_tituloFechas"
                     VerticalAlignment="Bottom"
                     FontSize="15"
                     Height="30"
@@ -66,7 +68,7 @@
                     Foreground="{DynamicResource colorAyuda}"
                     Margin="25,0" />
                 <Label
-                    Content="{Binding Path=Fecha}"
+                    x:Name="lb_PrecioTotal"
                     FontSize="13"
                     Margin="25,0" />
             </StackPanel>
@@ -75,13 +77,14 @@
                 HorizontalAlignment="Stretch"
                 Margin="10">
                 <DataGrid
-                    x:Name="articuloDataGrid"
+                    x:Name="comprasDataGrid"
                     AutoGenerateColumns="True"
                     ColumnWidth="Auto"
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
                     RowDetailsVisibilityMode="VisibleWhenSelected"
                     SelectionMode="Single" />
+
             </StackPanel>
             <StackPanel
                 Grid.Row="3"
