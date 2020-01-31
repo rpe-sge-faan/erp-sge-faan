@@ -1,22 +1,12 @@
-﻿using SGE_erp.Gestion;
+﻿using Microsoft.Win32;
+using SGE_erp.Compras;
+using SGE_erp.Gestion;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 
@@ -55,7 +45,8 @@ namespace SGE_erp.Compras
                 dt = new DataTable();
                 da.Fill(dt);                
 
-                this.comprasDataGrid.ItemsSource = dt.DefaultView;
+                comprasDataGrid.ItemsSource = dt.DefaultView;
+                
             }
 
             this.lb_tituloFechas.Content = "Compras desde: " + Compras_FiltroCompra.fechaDesde + " hasta: " + Compras_FiltroCompra.fechaHasta;
@@ -112,12 +103,12 @@ namespace SGE_erp.Compras
                         Filter = "Text Files(*.pdf)|*.pdf|All(*.*)|*"
                     };
 
-                    //if (dialog.ShowDialog()==true)
-                    //{
-                    //    PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
-                    //    rutaPdf = (dialog.FileName);
-                    //    System.Diagnostics.Process.Start(rutaPdf);
-                    //}
+                    if (dialog.ShowDialog() == true)
+                    {
+                        PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, dialog.FileName, 0);
+                        rutaPdf = (dialog.FileName);
+                        System.Diagnostics.Process.Start(rutaPdf);
+                    }
 
 
                 }
