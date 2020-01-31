@@ -26,14 +26,16 @@ namespace SGE_erp.Compras
         public void cargarlistado()
         {
             DataTable dt;
-            double precioTotal = 0;
+            double importeTotal = 0;
+            double baseTotal = 0;
+            double cuotaIvaTotal = 0;
 
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            using (SqlDataAdapter da = new SqlDataAdapter("select Compra.id_compra, compra.fechaCompra,Proveedores.Nombre, Proveedores.NIF, " +
-                    "round(cast(Sum(CompraArticulos.Cantidad * (ProveedorArticulo.PrecioCompra / ( 1 + (convert(decimal,iva.Porcentaje_Iva)/100))))AS DECIMAL (8,2)),2) as BaseImponible, " +
+            using (SqlDataAdapter da = new SqlDataAdapter("select Compra.id_compra as 'Id Compra', compra.fechaCompra as 'Fecha Compra',Proveedores.Nombre as 'Nombre Proveedor', Proveedores.NIF, " +
+                    "round(cast(Sum(CompraArticulos.Cantidad * (ProveedorArticulo.PrecioCompra / ( 1 + (convert(decimal,iva.Porcentaje_Iva)/100))))AS DECIMAL (8,2)),2) as 'Base Imponible', " +
                     "Sum(compraArticulos.Cantidad * ProveedorArticulo.PrecioCompra) - Sum(CompraArticulos.Cantidad * (ProveedorArticulo.PrecioCompra /" +
-                    " ( 1 + (convert(decimal,iva.Porcentaje_Iva)/100)))) as Cuotaiva, " +
-                    "Sum(compraArticulos.Cantidad * ProveedorArticulo.PrecioCompra) as ImporteTotal " +
+                    " ( 1 + (convert(decimal,iva.Porcentaje_Iva)/100)))) as 'Cuota Iva', " +
+                    "Sum(compraArticulos.Cantidad * ProveedorArticulo.PrecioCompra) as 'Importe Total' " +
                     "from Compra " +
                     "inner join compraArticulos on Compra.Id_compra = CompraArticulos.Id_Compra " + 
                     "inner join ProveedorArticulo on CompraArticulos.id_Elemento = ProveedorArticulo.id_Elemento " +
@@ -49,14 +51,19 @@ namespace SGE_erp.Compras
                 
             }
 
-            this.lb_tituloFechas.Content = "Compras desde: " + Compras_FiltroCompra.fechaDesde + " hasta: " + Compras_FiltroCompra.fechaHasta;
+            this.lb_tituloFechas.Content = "Informe compras \n" + Compras_FiltroCompra.fechaDesde + " - " + Compras_FiltroCompra.fechaHasta;
 
             for(int i=0; i < dt.Rows.Count; i++)
             {
                 DataRow drow = dt.Rows[i];
-                precioTotal += Convert.ToDouble(drow["ImporteTotal"]);
+                importeTotal += Convert.ToDouble(drow["Importe Total"]);
+                baseTotal += Convert.ToDouble(drow["Base Imponible"]);
+                cuotaIvaTotal += Convert.ToDouble(drow["Cuota Iva"]);
             }
-            this.lb_PrecioTotal.Content = "Importe total reflejado en el informe: " + precioTotal + "€";
+
+            tbBase.Text = baseTotal.ToString() + "€";
+            tbCuota.Text = cuotaIvaTotal.ToString() + "€";
+            tbTotal.Text = importeTotal.ToString() + "€";
         }
         private void BImprimir_Click(object sender, RoutedEventArgs e)
         {

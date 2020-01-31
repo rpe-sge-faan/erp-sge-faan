@@ -6,89 +6,139 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Compras"
         mc:Ignorable="d"
-        Title="InformeCompras" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="InformeCompras" Height="730" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
+
         <Button
-            x:Name="BImprimir"
-            Click="BImprimir_Click"
             HorizontalAlignment="Left"
             Margin="10"
+            Click="BImprimir_Click"
             VerticalAlignment="Top">
             <materialDesign:PackIcon
                 Kind="Printer" />
         </Button>
         <Button
-            x:Name="BDescargar"
-            Click="BDescargar_Click"
             HorizontalAlignment="Left"
             Margin="63,10,0,0"
+            Click="BDescargar_Click"
             VerticalAlignment="Top">
             <materialDesign:PackIcon
                 Kind="Download" />
         </Button>
+
         <Grid
             x:Name="print">
+
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="130" />
                 <RowDefinition
-                    Height="70" />
-                <RowDefinition
                     Height="1*" />
                 <RowDefinition
-                    Height="30" />
+                    Height="150" />
             </Grid.RowDefinitions>
-            <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Right"
-                Margin="10"
-                Grid.Row="0">
-                <Image
-                    Source="/imagenes/logo_nombre.png"
-                    Width="120"
-                    Height="120"
-                    VerticalAlignment="Center" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="1"
-                Margin="0,-35,0,0">
-                <Label
-                    Content="Informe de Compras"
-                    VerticalAlignment="Bottom"
-                    FontSize="25"
-                    FontWeight="Bold"
-                    Foreground="{DynamicResource colorAyuda}"
-                    Margin="15,0" />
-                <Label
-                    x:Name="lb_tituloFechas"
-                    VerticalAlignment="Bottom"
-                    FontSize="15"
-                    Height="30"
-                    FontWeight="Bold"
-                    Foreground="{DynamicResource colorAyuda}"
-                    Margin="25,0" />
-                <Label
-                    x:Name="lb_PrecioTotal"
-                    FontSize="13"
-                    Margin="25,0" />
-            </StackPanel>
+
+
+            <Image
+            Source="/imagenes/logo_nombre.png"
+            Width="100"
+            Height="100"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Margin="0,0,10,0"/>
+            <Label x:Name="lb_tituloFechas" Content="INFORME DE COMPRAS" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource colorAyuda}" Margin="10,10,10,10"/>
+            <DataGrid
+            x:Name="comprasDataGrid"
+            AutoGenerateColumns="True"
+            ColumnWidth="auto"
+            Grid.Row="1"
+            EnableRowVirtualization="True"
+            IsReadOnly="True"
+            RowDetailsVisibilityMode="VisibleWhenSelected"
+            SelectionMode="Single" 
+            />
+
             <StackPanel
                 Grid.Row="2"
-                HorizontalAlignment="Stretch"
-                Margin="10">
-                <DataGrid
-                    x:Name="comprasDataGrid"
-                    AutoGenerateColumns="True"
-                    ColumnWidth="Auto"
-                    EnableRowVirtualization="True"
-                    IsReadOnly="True"
-                    RowDetailsVisibilityMode="VisibleWhenSelected"
-                    SelectionMode="Single" />
-
-            </StackPanel>
-            <StackPanel
-                Grid.Row="3"
-                Margin="0">
+                Margin="20,0,20,20">
+                <Grid
+                    Margin="10 10 10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="193*" />
+                        <ColumnDefinition
+                            Width="94*" />
+                        <ColumnDefinition
+                            Width="102*" />
+                        <ColumnDefinition
+                            Width="88*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Text="BASE"
+                        Grid.Column="1"
+                        FontSize="13"
+                        FontWeight="ExtraLight"
+                        HorizontalAlignment="Right" Margin="0,0,10,0" Width="74" />
+                    <TextBlock
+                        Text="CUOTA"
+                        Grid.Column="1"
+                        FontSize="13"
+                        FontWeight="ExtraLight"
+                        HorizontalAlignment="Right" Width="103" Grid.ColumnSpan="2" />
+                    <TextBlock
+                        Text="TOTAL"
+                        Grid.Column="3"
+                        FontSize="13"
+                        FontWeight="ExtraLight"
+                        HorizontalAlignment="Right" Width="34" />
+                </Grid>
+                <Rectangle
+                    Fill="Black"
+                    Height="1"
+                    Margin="5"
+                    Opacity="0.5" />
+                <Grid
+                    Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="Auto" />
+                        <ColumnDefinition Width="243*" />
+                        <ColumnDefinition Width="118*" />
+                        <ColumnDefinition Width="137*" />
+                        <ColumnDefinition Width="134*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="2"
+                        x:Name="tbBase"
+                        Text="0 €"
+                        FontSize="20"
+                        Margin="0,10,5,0"
+                        HorizontalAlignment="Right"
+                        FontWeight="DemiBold" Width="74" />
+                    <TextBlock
+                        Grid.Column="3"
+                        x:Name="tbCuota"
+                        Text="0 €"
+                        FontSize="20"
+                        Margin="0,10,23,0"
+                        HorizontalAlignment="Right"
+                        FontWeight="DemiBold" Width="70" />
+                    <StackPanel
+                        Grid.Column="3" Grid.ColumnSpan="2">
+                        <TextBlock
+                            x:Name="tbTotal"
+                            Text="0 €"
+                            FontSize="25"
+                            Margin="5"
+                            HorizontalAlignment="Right"
+                            FontWeight="Bold" />
+                    </StackPanel>
+                </Grid>
+                <Rectangle
+                    Fill="Black"
+                    Height="1"
+                    Margin="5"
+                    Opacity="0.5" />
                 <Grid
                     Margin="0"
                     HorizontalAlignment="Stretch">
@@ -97,7 +147,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
                         <TextBlock
-                            Text="Informe realizado por:"
+                            Text="Facturado por:"
                             FontSize="8"
                             Margin="5"
                             FontWeight="Light"
@@ -137,5 +187,4 @@
                 </Grid>
             </StackPanel>
         </Grid>
-    </Grid>
-</Window>
+    </Grid></Window>

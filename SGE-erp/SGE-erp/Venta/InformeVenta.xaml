@@ -51,7 +51,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Margin="0,0,10,0"/>
-            <Label Content="INFORME DE VENTAS" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource colorAyuda}" Margin="10,10,10,10"/>
+            <Label Content="INFORME DE VENTAS" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource colorAyuda}" Margin="10,10,10,10"/>
             <DataGrid
             x:Name="ventasDataGrid"
             AutoGenerateColumns="True"
