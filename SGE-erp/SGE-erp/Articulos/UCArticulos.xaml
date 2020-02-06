@@ -110,6 +110,91 @@
                             MouseDoubleClick="ArticulosDataGrid_MouseDoubleClick"/>
                     </Grid>
                 </TabItem>
+                
+                <TabItem
+                    Width="100"
+                    Margin="0,5,5,5"
+                    FontSize="13"
+                    Height="45"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Header="_Inventario">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="13*"/>
+                        </Grid.RowDefinitions>
+                        <Menu
+                            x:Name="menuInvent"
+                            Grid.Row="0"
+                            Margin="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center">
+                            <MenuItem
+                                x:Name="anadirInvent"
+
+                                Height="30"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Click="Anadir_Click"
+                                Header="_Añadir" />
+
+                            <MenuItem
+                               
+                                Height="30"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Click="Buscar_Click"
+                                Header="B_uscar" />
+                            <MenuItem
+                                
+                                Height="30"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"                                
+                                Header="Informe"
+                                Click="Informe_Click" />
+                            <MenuItem
+                                
+                                Height="30"
+                                HorizontalAlignment="Center"
+                                
+                                VerticalAlignment="Center"
+                                Click="Editar_Click"
+                                Header="_Actualizar stock" />
+                        </Menu>
+                        <Button
+                            x:Name="bActualizarInvent"
+                            HorizontalAlignment="Right"
+                            Margin="3"
+                            Width="25"
+                            Height="25"
+                            Padding="0"
+                            Click="Refresh_Click">
+                            <materialDesign:PackIcon
+                                Kind="Loop">
+                                <materialDesign:PackIcon.LayoutTransform>
+                                    <ScaleTransform
+                                        CenterX="0.5"
+                                        CenterY="0.5"
+                                        ScaleX="1"
+                                        ScaleY="1" />
+                                </materialDesign:PackIcon.LayoutTransform>
+                            </materialDesign:PackIcon>
+                        </Button>
+                        <DataGrid
+                            x:Name="articulosDataGridInvent"
+                            Grid.Row="1"
+                            AutoGenerateColumns="True"
+                            ColumnWidth="Auto"
+                            EnableRowVirtualization="True"
+                            IsReadOnly="True"
+                            RowDetailsVisibilityMode="VisibleWhenSelected"
+                            SelectionMode="Single"
+                            MouseDoubleClick="ArticulosDataGrid_MouseDoubleClick"/>
+                    </Grid>
+                </TabItem>
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"
@@ -214,6 +299,7 @@
                         </Grid>
                     </Grid>
                 </TabItem>
+
                 <TabItem
                     Width="100"
                     Margin="0,5,5,5"
