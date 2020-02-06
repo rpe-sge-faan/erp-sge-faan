@@ -123,6 +123,9 @@
     <Compile Include="Articulos\InformeArticulo.xaml.cs">
       <DependentUpon>InformeArticulo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Articulos\InformeInventario.xaml.cs">
+      <DependentUpon>InformeInventario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Compras\Compras_FiltroCompra.xaml.cs">
       <DependentUpon>Compras_FiltroCompra.xaml</DependentUpon>
     </Compile>
@@ -227,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Articulos\InformeArticulo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Articulos\InformeInventario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -223,7 +223,6 @@ namespace SGE_erp.Administracion
                             decimal precioSin = precio - (precio * dividir);
                             //decimal subtotal = precioSin * cant;
                             decimal total = precio * cant;
-
                             decimal subtotal = total / (1 + dividir);
                             totalSin += subtotal;
                             dniT = reader.GetString(reader.GetOrdinal("NIF"));
