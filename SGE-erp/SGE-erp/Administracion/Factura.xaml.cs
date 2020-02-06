@@ -104,7 +104,7 @@ namespace SGE_erp.Administracion
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Margin = new Thickness(0, 0, 10, 0)
 
-        };
+            };
 
             gr.Children.Add(tb1);
             gr.Children.Add(tb2);
@@ -175,7 +175,7 @@ namespace SGE_erp.Administracion
             else
             {
                 decimal totalSin = 0;
-                String dniT="";
+                String dniT = "";
                 string bd = MetodosGestion.db;
                 int nFactura = 0;
                 using (SqlConnection con = new SqlConnection(bd))
@@ -206,7 +206,7 @@ namespace SGE_erp.Administracion
                             {
                                 DateTime dd = reader.GetDateTime(reader.GetOrdinal("FechaVentas"));
                                 fecha.Text = String.Format("{0:dddd, d MMMM, yyyy}", dd);
-                                tbTotal.Text = String.Format("{0:n}", reader.GetDecimal(reader.GetOrdinal("PrecioTotal"))) +"€";
+                                tbTotal.Text = String.Format("{0:n}", reader.GetDecimal(reader.GetOrdinal("PrecioTotal"))) + "€";
                                 nombre.Text = reader.GetString(reader.GetOrdinal("Cliente"));
                                 direccion.Text = reader.GetString(reader.GetOrdinal("Direccion"));
                                 poblacion.Text = $"{reader.GetString(reader.GetOrdinal("CodPostal"))} {reader.GetString(reader.GetOrdinal("Poblacion"))}, {reader.GetString(reader.GetOrdinal("Provincia"))}";
@@ -221,17 +221,19 @@ namespace SGE_erp.Administracion
                             decimal cant = cantidad;
                             decimal dividir = iva2 / 100;
                             decimal precioSin = precio - (precio * dividir);
-                            decimal subtotal = precioSin * cant;
+                            //decimal subtotal = precioSin * cant;
                             decimal total = precio * cant;
+
+                            decimal subtotal = total / (1 + dividir);
                             totalSin += subtotal;
                             dniT = reader.GetString(reader.GetOrdinal("NIF"));
-                            nFactura= reader.GetInt32(reader.GetOrdinal("Id_Ventas"));
-                            AddToTable(articulo, String.Format("{0:n}", precioSin), cantidad.ToString(), String.Format("{0:n}", subtotal), iva.ToString(), String.Format("{0:n}", total));
+                            nFactura = reader.GetInt32(reader.GetOrdinal("Id_Ventas"));
+                            AddToTable(articulo, String.Format("{0:n}", precio), cantidad.ToString(), String.Format("{0:n}", subtotal), iva.ToString(), String.Format("{0:n}", total));
                         }
                         tbTotalSin.Text = String.Format("{0:n}€", totalSin);
                         dni.Text = dniT;
                         numFactura.Text = $"Nº factura: {nFactura.ToString()}";
-                        
+
                     }
                 }
             }
@@ -279,7 +281,7 @@ namespace SGE_erp.Administracion
                     }
 
                     rutaPdf = dialog.FileName;
-                    
+
                 }
                 else
                 {
@@ -287,7 +289,7 @@ namespace SGE_erp.Administracion
                     PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, path, 0);
                     rutaPdf = path;
                 }
-                
+
             }
         }
 
