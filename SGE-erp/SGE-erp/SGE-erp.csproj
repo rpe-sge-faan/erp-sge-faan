@@ -114,6 +114,12 @@
     <Compile Include="Administracion\Usuarios.xaml.cs">
       <DependentUpon>Usuarios.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Articulos\AddInventario.xaml.cs">
+      <DependentUpon>AddInventario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Articulos\DetalleInventario.xaml.cs">
+      <DependentUpon>DetalleInventario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Articulos\graficoHistorial.xaml.cs">
       <DependentUpon>graficoHistorial.xaml</DependentUpon>
     </Compile>
@@ -218,6 +224,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Administracion\Factura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Articulos\AddInventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Articulos\DetalleInventario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
