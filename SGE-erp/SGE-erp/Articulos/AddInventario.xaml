@@ -1,0 +1,32 @@
+﻿<Window x:Class="SGE_erp.Articulos.AddInventario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SGE_erp.Articulos"
+        mc:Ignorable="d"
+        Title="Inventario" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Button x:Name="guardarTabla"
+                Grid.Row="1"
+                IsEnabled="False"
+                Click="guardarTabla_Click"
+                Content="Guardar" />
+        <DataGrid x:Name="dataGridInventario"
+                  CanUserAddRows="false"
+                  ColumnWidth="Auto"
+                  EnableRowVirtualization="True"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  SelectionMode="Single"
+                  KeyDown="dataGridInventario_KeyDown"
+                  CellEditEnding="dataGridInventario_CellEditEnding"
+                  SelectionChanged="dataGridInventario_SelectionChanged"
+                  AutoGeneratingColumn="Grid_AutoGeneratingColumn"
+                  Grid.Row="0">
+        </DataGrid>
+    </Grid>
+</Window>
