@@ -118,25 +118,32 @@ namespace SGE_erp.Articulos
             int stock = 0;
             decimal pvp = 0;
             decimal precio = 0;
-
+            int idInvent;
             SqlConnection con = new SqlConnection(MetodosGestion.db);
+            
+            //AÑADIR REGISTRO A INVENTARIO
             using (SqlCommand command = con.CreateCommand())
             {
                 command.CommandText = "INSERT INTO Inventario (Fecha, IdEmpleado) OUTPUT INSERTED.Id VALUES (@fecha, @emple)";
                 command.Parameters.AddWithValue("@fecha", DateTime.Now);
                 command.Parameters.AddWithValue("@emple", MainWindow.idEmpleado);
                 con.Open();
-                int idInvent = command.ExecuteNonQuery();
+
+                idInvent = (int)command.ExecuteScalar();
+                //idInvent = command.ExecuteNonQuery();
 
                 foreach (DataRow row in dtaAnadir.Rows)
                 {
+                    //AÑADIR REGISTRO A INVENTARIO-ARTICULO
                     using (SqlCommand anadir = con.CreateCommand())
                     {
-                        anadir.CommandText = "INSERT INTO InventarioArticulos (IdInventario,IdArticulo,NombreArticulo,UnidadesContadas,UnidadesStock,PrecioVenta)" +
-                            " VALUES (@idi,@ida,@nombre,@contado,@stock,@venta)";
+                        anadir.CommandText = "INSERT INTO InventarioArticulos (IdInventario,IdArticulo,NombreArticulo,UnidadesContadas,UnidadesStock,PrecioVenta,PrecioCompra)" +
+                            " VALUES (@idi,@ida,@nombre,@contado,@stock,@venta,@compra)";
 
                         int idArt = Convert.ToInt32(row["Id_Articulo"]);
-                        int comtado = Convert.ToInt32(row["StockNuevo"]);
+                        int contado = Convert.ToInt32(row["StockNuevo"]);
+                        
+                        // SACAR DATOS DEL ARTICULO
                         using (SqlCommand articulo = con.CreateCommand())
                         {
                             articulo.CommandText = "SELECT Nombre, Descripcion, PVP, Stock FROM Articulos WHERE Articulos.Id_Articulo = @id ";
@@ -148,7 +155,7 @@ namespace SGE_erp.Articulos
                                     nombre = $"{reader[0].ToString()} {reader[1].ToString()}";
                                     stock = Convert.ToInt32(reader[3]);
                                     pvp = Convert.ToDecimal(reader[2]);
-                                    precio = Convert.ToDecimal(reader[4]);
+                                    //precio = Convert.ToDecimal(reader[4]);
                                 }
                             }
                         }
@@ -156,10 +163,17 @@ namespace SGE_erp.Articulos
                         anadir.Parameters.AddWithValue("@idi", idInvent);
                         anadir.Parameters.AddWithValue("@ida", idArt);
                         anadir.Parameters.AddWithValue("@nombre", nombre);
-                        anadir.Parameters.AddWithValue("@contado", idInvent);
+                        anadir.Parameters.AddWithValue("@contado", contado);
                         anadir.Parameters.AddWithValue("@stock", stock);
-                        //anadir.Parameters.AddWithValue("@compra", precio);
                         anadir.Parameters.AddWithValue("@venta", pvp);
+                        if ((pvp - 10) < 0)
+                        {
+                            anadir.Parameters.AddWithValue("@compra", 0);
+                        }
+                        else
+                        {
+                            anadir.Parameters.AddWithValue("@compra", pvp - 10);
+                        }
 
                         anadir.ExecuteNonQuery();
                         Console.WriteLine("GUARDADO");

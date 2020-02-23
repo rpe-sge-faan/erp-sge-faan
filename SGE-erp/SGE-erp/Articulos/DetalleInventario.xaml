@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Articulos"
         mc:Ignorable="d"
-        Title="DetalleInventario" Height="450" Width="800">
+        Title="DetalleInventario"
+        Height="450"
+        Width="950"
+        MaxWidth="950">
     <Grid>
-        <DataGrid x:Name="detalles"/>
+        <DataGrid x:Name="detalles"
+                  CanUserAddRows="False"
+                  IsReadOnly="True" />
     </Grid>
 </Window>

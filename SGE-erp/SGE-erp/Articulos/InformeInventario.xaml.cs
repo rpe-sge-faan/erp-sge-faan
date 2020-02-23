@@ -58,11 +58,6 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void BuscarInv_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void InformeInv_Click(object sender, RoutedEventArgs e)
         {
 
@@ -84,7 +79,6 @@ namespace SGE_erp.Articulos
             {
                 DataRowView dd = (DataRowView)dataGridInventario.SelectedItem;
                 int id = dd.Row.Field<int>("Id");
-
                 DetalleInventario d = new DetalleInventario(id);
                 d.ShowDialog();
             }
