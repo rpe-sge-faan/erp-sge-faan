@@ -80,10 +80,12 @@
                             x:Name="fechaDespues"/>
                 <Label Content="Empleado:" />
                 <ComboBox Margin="5"
-                          Name="empleadoC" />
+                          Name="empleadoC"
+                          Loaded="empleadoC_Loaded"/>
                 <Button Margin="5"
                         x:Name="btFiltrar"
-                        Content="Filtrar" />
+                        Content="Filtrar" 
+                        Click="btFiltrar_Click"/>
             </StackPanel>
 
         </Grid>
