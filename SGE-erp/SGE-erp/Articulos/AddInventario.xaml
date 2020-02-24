@@ -19,14 +19,16 @@
         <DataGrid x:Name="dataGridInventario"
                   CanUserAddRows="false"
                   ColumnWidth="Auto"
-                  EnableRowVirtualization="True"
-                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  Grid.Row="0"
                   SelectionMode="Single"
-                  KeyDown="dataGridInventario_KeyDown"
-                  CellEditEnding="dataGridInventario_CellEditEnding"
-                  SelectionChanged="dataGridInventario_SelectionChanged"
+                  EnableRowVirtualization="True"
+                  
                   AutoGeneratingColumn="Grid_AutoGeneratingColumn"
-                  Grid.Row="0">
+                  SelectionChanged="dataGridInventario_SelectionChanged"
+                  CellEditEnding="dataGridInventario_CellEditEnding"
+                  KeyDown="dataGridInventario_KeyDown"
+                  PreviewKeyDown="dataGridInventario_KeyDown"
+                  >
         </DataGrid>
     </Grid>
 </Window>
