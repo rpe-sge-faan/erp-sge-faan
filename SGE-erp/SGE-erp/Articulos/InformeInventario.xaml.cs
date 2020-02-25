@@ -25,10 +25,16 @@ namespace SGE_erp.Articulos
         public delegate void RefreshList();
         public event RefreshList RefreshListEvent;
         private AddInventario ai = null;
+        public static Delegate FiltrarLista;
+
+        public delegate void FilterList();
+        public event FilterList FilterListEvent;
 
         public InformeInventario()
         {
             InitializeComponent();
+            fechaAntes.SelectedDate = DateTime.Today;
+            fechaDespues.SelectedDate = DateTime.Today;
         }
 
         public void RellenarTabla()
@@ -87,6 +93,47 @@ namespace SGE_erp.Articulos
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             RellenarTabla();
+        }
+
+        private void empleadoC_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.empleadoC.ItemsSource = null;
+
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT IdEmpleado FROM Inventario", con);
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+            con.Open();
+            con.Close();
+
+            empleadoC.DisplayMemberPath = dt.Columns["IdEmpleado"].ToString();
+            this.empleadoC.ItemsSource = dt.DefaultView;
+            empleadoC.InvalidateArrange();
+
+            empleadoC.SelectedIndex = 0;
+        }
+
+        DataView view = null;
+        DataTable dt;
+
+        private void btFiltrar_Click(object sender, RoutedEventArgs e)
+        {
+            if (view == null)
+            {
+                view = new DataView();
+                dt = ((DataView)dataGridInventario.ItemsSource).ToTable();
+                dt.TableName = "Inventario";
+                view.Table = dt;
+            }
+            else
+            {
+                view.RowFilter = $"Fecha >= '{fechaAntes.SelectedDate}' AND Fecha <= '{fechaDespues.SelectedDate}' " +
+                 $"AND IdEmpleado >= {empleadoC.SelectedIndex}";
+            }
+            dt = view.ToTable();
+            dataGridInventario.ItemsSource = null;
+            dataGridInventario.ItemsSource = dt.DefaultView;
         }
     }
 }
