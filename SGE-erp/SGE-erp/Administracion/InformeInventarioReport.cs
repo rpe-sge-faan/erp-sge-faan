@@ -16,14 +16,14 @@ namespace SGE_erp.Administracion {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class InformeInventario : ReportClass {
+    public class InformeInventarioReport : ReportClass {
         
-        public InformeInventario() {
+        public InformeInventarioReport() {
         }
         
         public override string ResourceName {
             get {
-                return "InformeInventario.rpt";
+                return "InformeInventarioReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace SGE_erp.Administracion {
         
         public override string FullResourceName {
             get {
-                return "SGE_erp.Administracion.InformeInventario.rpt";
+                return "SGE_erp.Administracion.InformeInventarioReport.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace SGE_erp.Administracion {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedInformeInventario : Component, ICachedReport {
+    public class CachedInformeInventarioReport : Component, ICachedReport {
         
-        public CachedInformeInventario() {
+        public CachedInformeInventarioReport() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace SGE_erp.Administracion {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            InformeInventario rpt = new InformeInventario();
+            InformeInventarioReport rpt = new InformeInventarioReport();
             rpt.Site = this.Site;
             return rpt;
         }

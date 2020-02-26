@@ -128,10 +128,10 @@
     <Compile Include="Administracion\AdminMain.xaml.cs">
       <DependentUpon>AdminMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administracion\InformeInventario.cs">
+    <Compile Include="Administracion\InformeInventarioReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InformeInventario.rpt</DependentUpon>
+      <DependentUpon>InformeInventarioReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Administracion\Poblacions.xaml.cs">
@@ -158,13 +158,18 @@
     <Compile Include="Articulos\InformeInventario.xaml.cs">
       <DependentUpon>InformeInventario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Articulos\InventarioRepo.cs" />
+    <Compile Include="Articulos\InventarioReporte.cs" />
+    <Compile Include="Articulos\VentanaInforme.xaml.cs">
+      <DependentUpon>VentanaInforme.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Compras\Compras_FiltroCompra.xaml.cs">
       <DependentUpon>Compras_FiltroCompra.xaml</DependentUpon>
     </Compile>
     <Compile Include="Compras\InformeCompras.xaml.cs">
       <DependentUpon>InformeCompras.xaml</DependentUpon>
     </Compile>
-    <Compile Include="dsInventario.Designer.cs">
+    <Compile Include="Database\dsInventario.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInventario.xsd</DependentUpon>
@@ -279,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Articulos\InformeInventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Articulos\VentanaInforme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -434,23 +443,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Administracion\InformeInventario.rpt">
+    <EmbeddedResource Include="Administracion\InformeInventarioReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>InformeInventario.cs</LastGenOutput>
+      <LastGenOutput>InformeInventarioReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="dsInventario.xsc">
+    <None Include="Database\dsInventario.xsc">
       <DependentUpon>dsInventario.xsd</DependentUpon>
     </None>
-    <None Include="dsInventario.xsd">
+    <None Include="Database\dsInventario.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsInventario.Designer.cs</LastGenOutput>
     </None>
-    <None Include="dsInventario.xss">
+    <None Include="Database\dsInventario.xss">
       <DependentUpon>dsInventario.xsd</DependentUpon>
     </None>
     <None Include="manual.pdf">

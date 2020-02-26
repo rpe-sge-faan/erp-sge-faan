@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace SGE_erp {
+namespace SGE_erp.Database {
     
     
     /// <summary>
@@ -28,7 +28,7 @@ namespace SGE_erp {
         
         private InventarioArticulosDataTable tableInventarioArticulos;
         
-        private global::System.Data.DataRelation relationFK_Inventario_InventarioArticulos;
+        private global::System.Data.DataRelation relationFK_InventarioArticulos_ToInventario;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -220,7 +220,7 @@ namespace SGE_erp {
                     this.tableInventarioArticulos.InitVars();
                 }
             }
-            this.relationFK_Inventario_InventarioArticulos = this.Relations["FK_Inventario_InventarioArticulos"];
+            this.relationFK_InventarioArticulos_ToInventario = this.Relations["FK_InventarioArticulos_ToInventario"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -235,18 +235,10 @@ namespace SGE_erp {
             base.Tables.Add(this.tableInventario);
             this.tableInventarioArticulos = new InventarioArticulosDataTable();
             base.Tables.Add(this.tableInventarioArticulos);
-            global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_Inventario_InventarioArticulos", new global::System.Data.DataColumn[] {
-                        this.tableInventario.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableInventarioArticulos.IdInventarioColumn});
-            this.tableInventarioArticulos.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            this.relationFK_Inventario_InventarioArticulos = new global::System.Data.DataRelation("FK_Inventario_InventarioArticulos", new global::System.Data.DataColumn[] {
+            this.relationFK_InventarioArticulos_ToInventario = new global::System.Data.DataRelation("FK_InventarioArticulos_ToInventario", new global::System.Data.DataColumn[] {
                         this.tableInventario.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableInventarioArticulos.IdInventarioColumn}, false);
-            this.Relations.Add(this.relationFK_Inventario_InventarioArticulos);
+            this.Relations.Add(this.relationFK_InventarioArticulos_ToInventario);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -771,10 +763,10 @@ namespace SGE_erp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public InventarioArticulosRow AddInventarioArticulosRow(int Id, InventarioRow parentInventarioRowByFK_Inventario_InventarioArticulos, int IdArticulo, string NombreArticulo, int UnidadesContadas, int UnidadesStock, decimal PrecioCompra, decimal PrecioVenta) {
+            public InventarioArticulosRow AddInventarioArticulosRow(InventarioRow parentInventarioRowByFK_InventarioArticulos_ToInventario, int IdArticulo, string NombreArticulo, int UnidadesContadas, int UnidadesStock, decimal PrecioCompra, decimal PrecioVenta) {
                 InventarioArticulosRow rowInventarioArticulosRow = ((InventarioArticulosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Id,
+                        null,
                         null,
                         IdArticulo,
                         NombreArticulo,
@@ -782,8 +774,8 @@ namespace SGE_erp {
                         UnidadesStock,
                         PrecioCompra,
                         PrecioVenta};
-                if ((parentInventarioRowByFK_Inventario_InventarioArticulos != null)) {
-                    columnValuesArray[1] = parentInventarioRowByFK_Inventario_InventarioArticulos[0];
+                if ((parentInventarioRowByFK_InventarioArticulos_ToInventario != null)) {
+                    columnValuesArray[1] = parentInventarioRowByFK_InventarioArticulos_ToInventario[0];
                 }
                 rowInventarioArticulosRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInventarioArticulosRow);
@@ -845,12 +837,16 @@ namespace SGE_erp {
                 base.Columns.Add(this.columnPrecioVenta);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
                 this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnIdInventario.AllowDBNull = false;
                 this.columnIdArticulo.AllowDBNull = false;
                 this.columnNombreArticulo.AllowDBNull = false;
-                this.columnNombreArticulo.MaxLength = 50;
+                this.columnNombreArticulo.MaxLength = 100;
                 this.columnUnidadesContadas.AllowDBNull = false;
                 this.columnUnidadesStock.AllowDBNull = false;
                 this.columnPrecioCompra.AllowDBNull = false;
@@ -1031,11 +1027,11 @@ namespace SGE_erp {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public InventarioArticulosRow[] GetInventarioArticulosRows() {
-                if ((this.Table.ChildRelations["FK_Inventario_InventarioArticulos"] == null)) {
+                if ((this.Table.ChildRelations["FK_InventarioArticulos_ToInventario"] == null)) {
                     return new InventarioArticulosRow[0];
                 }
                 else {
-                    return ((InventarioArticulosRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Inventario_InventarioArticulos"])));
+                    return ((InventarioArticulosRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InventarioArticulos_ToInventario"])));
                 }
             }
         }
@@ -1146,10 +1142,10 @@ namespace SGE_erp {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public InventarioRow InventarioRow {
                 get {
-                    return ((InventarioRow)(this.GetParentRow(this.Table.ParentRelations["FK_Inventario_InventarioArticulos"])));
+                    return ((InventarioRow)(this.GetParentRow(this.Table.ParentRelations["FK_InventarioArticulos_ToInventario"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Inventario_InventarioArticulos"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_InventarioArticulos_ToInventario"]);
                 }
             }
         }
@@ -1223,7 +1219,7 @@ namespace SGE_erp {
         }
     }
 }
-namespace SGE_erp.dsInventarioTableAdapters {
+namespace SGE_erp.Database.dsInventarioTableAdapters {
     
     
     /// <summary>
@@ -1396,14 +1392,21 @@ namespace SGE_erp.dsInventarioTableAdapters {
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, Fecha, IdEmpleado FROM dbo.Inventario";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("IdInventario", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(dsInventario.InventarioDataTable dataTable) {
+        public virtual int Fill(dsInventario.InventarioDataTable dataTable, string IdInventario) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((IdInventario == null)) {
+                throw new global::System.ArgumentNullException("IdInventario");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(IdInventario));
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -1415,8 +1418,14 @@ namespace SGE_erp.dsInventarioTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dsInventario.InventarioDataTable GetData() {
+        public virtual dsInventario.InventarioDataTable GetData(string IdInventario) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((IdInventario == null)) {
+                throw new global::System.ArgumentNullException("IdInventario");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(IdInventario));
+            }
             dsInventario.InventarioDataTable dataTable = new dsInventario.InventarioDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -1678,10 +1687,9 @@ namespace SGE_erp.dsInventarioTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrecioVenta", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 9, 2, "PrecioVenta", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[InventarioArticulos] ([Id], [IdInventario], [IdArticulo], [NombreArticulo], [UnidadesContadas], [UnidadesStock], [PrecioCompra], [PrecioVenta]) VALUES (@Id, @IdInventario, @IdArticulo, @NombreArticulo, @UnidadesContadas, @UnidadesStock, @PrecioCompra, @PrecioVenta);
-SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesStock, PrecioCompra, PrecioVenta FROM InventarioArticulos WHERE (Id = @Id)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[InventarioArticulos] ([IdInventario], [IdArticulo], [NombreArticulo], [UnidadesContadas], [UnidadesStock], [PrecioCompra], [PrecioVenta]) VALUES (@IdInventario, @IdArticulo, @NombreArticulo, @UnidadesContadas, @UnidadesStock, @PrecioCompra, @PrecioVenta);
+SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesStock, PrecioCompra, PrecioVenta FROM InventarioArticulos WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdInventario", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdInventario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdArticulo", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdArticulo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NombreArticulo", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NombreArticulo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1691,10 +1699,9 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrecioVenta", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 9, 2, "PrecioVenta", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[InventarioArticulos] SET [Id] = @Id, [IdInventario] = @IdInventario, [IdArticulo] = @IdArticulo, [NombreArticulo] = @NombreArticulo, [UnidadesContadas] = @UnidadesContadas, [UnidadesStock] = @UnidadesStock, [PrecioCompra] = @PrecioCompra, [PrecioVenta] = @PrecioVenta WHERE (([Id] = @Original_Id) AND ([IdInventario] = @Original_IdInventario) AND ([IdArticulo] = @Original_IdArticulo) AND ([NombreArticulo] = @Original_NombreArticulo) AND ([UnidadesContadas] = @Original_UnidadesContadas) AND ([UnidadesStock] = @Original_UnidadesStock) AND ([PrecioCompra] = @Original_PrecioCompra) AND ([PrecioVenta] = @Original_PrecioVenta));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[InventarioArticulos] SET [IdInventario] = @IdInventario, [IdArticulo] = @IdArticulo, [NombreArticulo] = @NombreArticulo, [UnidadesContadas] = @UnidadesContadas, [UnidadesStock] = @UnidadesStock, [PrecioCompra] = @PrecioCompra, [PrecioVenta] = @PrecioVenta WHERE (([Id] = @Original_Id) AND ([IdInventario] = @Original_IdInventario) AND ([IdArticulo] = @Original_IdArticulo) AND ([NombreArticulo] = @Original_NombreArticulo) AND ([UnidadesContadas] = @Original_UnidadesContadas) AND ([UnidadesStock] = @Original_UnidadesStock) AND ([PrecioCompra] = @Original_PrecioCompra) AND ([PrecioVenta] = @Original_PrecioVenta));
 SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesStock, PrecioCompra, PrecioVenta FROM InventarioArticulos WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdInventario", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdInventario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdArticulo", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdArticulo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NombreArticulo", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NombreArticulo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1710,6 +1717,7 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UnidadesStock", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UnidadesStock", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrecioCompra", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 9, 2, "PrecioCompra", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrecioVenta", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 9, 2, "PrecioVenta", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1728,14 +1736,21 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
             this._commandCollection[0].CommandText = "SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesSt" +
                 "ock, PrecioCompra, PrecioVenta FROM dbo.InventarioArticulos";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("IdInventario", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdInventario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(dsInventario.InventarioArticulosDataTable dataTable) {
+        public virtual int Fill(dsInventario.InventarioArticulosDataTable dataTable, string IdInventario) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((IdInventario == null)) {
+                throw new global::System.ArgumentNullException("IdInventario");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(IdInventario));
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -1747,8 +1762,14 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dsInventario.InventarioArticulosDataTable GetData() {
+        public virtual dsInventario.InventarioArticulosDataTable GetData(string IdInventario) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((IdInventario == null)) {
+                throw new global::System.ArgumentNullException("IdInventario");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(IdInventario));
+            }
             dsInventario.InventarioArticulosDataTable dataTable = new dsInventario.InventarioArticulosDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -1821,20 +1842,19 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, int IdInventario, int IdArticulo, string NombreArticulo, int UnidadesContadas, int UnidadesStock, decimal PrecioCompra, decimal PrecioVenta) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(IdInventario));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(IdArticulo));
+        public virtual int Insert(int IdInventario, int IdArticulo, string NombreArticulo, int UnidadesContadas, int UnidadesStock, decimal PrecioCompra, decimal PrecioVenta) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(IdInventario));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(IdArticulo));
             if ((NombreArticulo == null)) {
                 throw new global::System.ArgumentNullException("NombreArticulo");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(NombreArticulo));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(NombreArticulo));
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(UnidadesContadas));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(UnidadesStock));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(PrecioCompra));
-            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(PrecioVenta));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(UnidadesContadas));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(UnidadesStock));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(PrecioCompra));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(PrecioVenta));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1856,7 +1876,6 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    int Id, 
                     int IdInventario, 
                     int IdArticulo, 
                     string NombreArticulo, 
@@ -1871,33 +1890,34 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
                     int Original_UnidadesContadas, 
                     int Original_UnidadesStock, 
                     decimal Original_PrecioCompra, 
-                    decimal Original_PrecioVenta) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(IdInventario));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(IdArticulo));
+                    decimal Original_PrecioVenta, 
+                    int Id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(IdInventario));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(IdArticulo));
             if ((NombreArticulo == null)) {
                 throw new global::System.ArgumentNullException("NombreArticulo");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(NombreArticulo));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(NombreArticulo));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(UnidadesContadas));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(UnidadesStock));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(PrecioCompra));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(PrecioVenta));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_IdInventario));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_IdArticulo));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(UnidadesContadas));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(UnidadesStock));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(PrecioCompra));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(PrecioVenta));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_IdInventario));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_IdArticulo));
             if ((Original_NombreArticulo == null)) {
                 throw new global::System.ArgumentNullException("Original_NombreArticulo");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_NombreArticulo));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_NombreArticulo));
             }
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_UnidadesContadas));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_UnidadesStock));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((decimal)(Original_PrecioCompra));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_PrecioVenta));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_UnidadesContadas));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_UnidadesStock));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((decimal)(Original_PrecioCompra));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((decimal)(Original_PrecioVenta));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1919,7 +1939,7 @@ SELECT Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesS
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(int IdInventario, int IdArticulo, string NombreArticulo, int UnidadesContadas, int UnidadesStock, decimal PrecioCompra, decimal PrecioVenta, int Original_Id, int Original_IdInventario, int Original_IdArticulo, string Original_NombreArticulo, int Original_UnidadesContadas, int Original_UnidadesStock, decimal Original_PrecioCompra, decimal Original_PrecioVenta) {
-            return this.Update(Original_Id, IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesStock, PrecioCompra, PrecioVenta, Original_Id, Original_IdInventario, Original_IdArticulo, Original_NombreArticulo, Original_UnidadesContadas, Original_UnidadesStock, Original_PrecioCompra, Original_PrecioVenta);
+            return this.Update(IdInventario, IdArticulo, NombreArticulo, UnidadesContadas, UnidadesStock, PrecioCompra, PrecioVenta, Original_Id, Original_IdInventario, Original_IdArticulo, Original_NombreArticulo, Original_UnidadesContadas, Original_UnidadesStock, Original_PrecioCompra, Original_PrecioVenta, Original_Id);
         }
     }
     
