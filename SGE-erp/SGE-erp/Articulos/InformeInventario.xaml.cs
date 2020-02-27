@@ -106,17 +106,23 @@ namespace SGE_erp.Articulos
         private void empleadoC_Loaded(object sender, RoutedEventArgs e)
         {
             this.empleadoC.ItemsSource = null;
-
+            //comboBox1.Items.Clear();
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT IdEmpleado FROM Inventario", con);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Cliente, Nombre FROM Clientes ORDER BY Nombre ASC", con);
             DataTable dt = new DataTable();
 
             da.Fill(dt);
             con.Open();
             con.Close();
+            DataRow row = dt.NewRow();
+            row["Nombre"] = "TODOS";
+            dt.Rows.InsertAt(row, 0);
 
-            empleadoC.DisplayMemberPath = dt.Columns["IdEmpleado"].ToString();
             this.empleadoC.ItemsSource = dt.DefaultView;
+
+            empleadoC.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            empleadoC.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
+
             empleadoC.InvalidateArrange();
 
             empleadoC.SelectedIndex = 0;
