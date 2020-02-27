@@ -49,6 +49,7 @@ namespace SGE_erp.Articulos
             {
                 if (row["StockNuevo"].GetType().ToString().Equals("System.DBNull"))
                 {
+                    row["StockNuevo"] = 0;
                     //int indexAnadir = dataGridInventario.Items.IndexOf(row);
                     //dtaAnadir.Rows[cont]["Stock"] = Convert.ToInt32(dtaAnadir.Rows[cont]["Stock"]) + stock;
                     //break;
@@ -75,44 +76,6 @@ namespace SGE_erp.Articulos
             }
         }
 
-        private void dataGridInventario_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            if (e.EditAction == DataGridEditAction.Commit)
-            {
-                if (CheckRelleno())
-                {
-                    guardarTabla.IsEnabled = true;
-                }
-                else
-                {
-                    guardarTabla.IsEnabled = false;
-                }
-            }
-        }
-
-        private void dataGridInventario_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (CheckRelleno())
-            {
-                guardarTabla.IsEnabled = true;
-            }
-            else
-            {
-                guardarTabla.IsEnabled = false;
-            }
-        }
-
-        private void dataGridInventario_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (CheckRelleno())
-            {
-                guardarTabla.IsEnabled = true;
-            }
-            else
-            {
-                guardarTabla.IsEnabled = false;
-            }
-        }
 
         private void guardarTabla_Click(object sender, RoutedEventArgs e)
         {
@@ -129,7 +92,7 @@ namespace SGE_erp.Articulos
             {
                 command.CommandText = "INSERT INTO Inventario (Fecha, IdEmpleado) OUTPUT INSERTED.Id VALUES (@fecha, @emple)";
                 command.Parameters.AddWithValue("@fecha", DateTime.Now);
-                command.Parameters.AddWithValue("@emple", MainWindow.idEmpleado);
+                command.Parameters.AddWithValue("@emple",comboEmple.SelectedValue );//MainWindow.idEmpleado
                 con.Open();
 
                 idInvent = (int)command.ExecuteScalar();
@@ -142,9 +105,18 @@ namespace SGE_erp.Articulos
                     {
                         anadir.CommandText = "INSERT INTO InventarioArticulos (IdInventario,IdArticulo,NombreArticulo,UnidadesContadas,UnidadesStock,PrecioVenta,PrecioCompra)" +
                             " VALUES (@idi,@ida,@nombre,@contado,@stock,@venta,@compra)";
+                        int contado;
+
+                        if (row["StockNuevo"].GetType().ToString().Equals("System.DBNull"))
+                        {
+                            contado = 0;
+                        }
+                        else
+                        {
+                            contado = Convert.ToInt32(row["StockNuevo"]);
+                        }
 
                         int idArt = Convert.ToInt32(row["Id_Articulo"]);
-                        int contado = Convert.ToInt32(row["StockNuevo"]);
 
                         // SACAR DATOS DEL ARTICULO
                         using (SqlCommand articulo = con.CreateCommand())
@@ -187,16 +159,26 @@ namespace SGE_erp.Articulos
             this.Close();
         }
 
-        private void dataGridInventario_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        private void comboEmple_Loaded(object sender, RoutedEventArgs e)
         {
-            if (CheckRelleno())
-            {
-                guardarTabla.IsEnabled = true;
-            }
-            else
-            {
-                guardarTabla.IsEnabled = false;
-            }
+            this.comboEmple.ItemsSource = null;
+            //comboBox1.Items.Clear();
+            SqlConnection con = new SqlConnection(MetodosGestion.db);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Empleado, Nombre FROM Empleados ORDER BY Nombre ASC", con);
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+            con.Open();
+            con.Close();
+
+            this.comboEmple.ItemsSource = dt.DefaultView;
+
+            comboEmple.DisplayMemberPath = dt.Columns["Nombre"].ToString();
+            comboEmple.SelectedValuePath = dt.Columns["Id_Empleado"].ToString();
+            comboEmple.InvalidateArrange();
+            comboEmple.SelectedIndex = 0;
+            comboEmple.SelectedValue = MainWindow.idEmpleado;
+
         }
     }
 }

@@ -5,15 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SGE_erp.Articulos"
         mc:Ignorable="d"
-        Title="Inventario" Height="450" Width="800">
+        Title="Inventario"
+        Height="450"
+        Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="13*" />
+            <RowDefinition Height="10*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ComboBox Name="comboEmple"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  Loaded="comboEmple_Loaded"
+                  Margin="5"
+                  Text="Empleados" />
         <Button x:Name="guardarTabla"
                 Grid.Row="1"
-                IsEnabled="False"
+                Grid.Column="1"
                 Click="guardarTabla_Click"
                 Content="Guardar" />
         <DataGrid x:Name="dataGridInventario"
@@ -22,13 +34,8 @@
                   Grid.Row="0"
                   SelectionMode="Single"
                   EnableRowVirtualization="True"
-                  
-                  AutoGeneratingColumn="Grid_AutoGeneratingColumn"
-                  SelectionChanged="dataGridInventario_SelectionChanged"
-                  CellEditEnding="dataGridInventario_CellEditEnding"
-                  KeyDown="dataGridInventario_KeyDown"
-                  PreviewKeyDown="dataGridInventario_KeyDown"
-                  >
+                  Grid.ColumnSpan="2"
+                  AutoGeneratingColumn="Grid_AutoGeneratingColumn">
         </DataGrid>
     </Grid>
 </Window>
