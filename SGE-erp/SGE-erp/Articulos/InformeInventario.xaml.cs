@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SGE_erp.Gestion;
+using SGE_erp.Administracion;
 
 namespace SGE_erp.Articulos
 {
@@ -67,7 +68,14 @@ namespace SGE_erp.Articulos
 
         private void InformeInv_Click(object sender, RoutedEventArgs e)
         {
-
+            if(dataGridInventario.SelectedItem != null)
+            {
+                DataRowView dato = (DataRowView)dataGridInventario.SelectedItem;
+                int idInventario = dato.Row.Field<int>("Id");
+                InformeInventarioReport informe = InventarioReporte.ObtenerReporteInventario(idInventario);
+                VentanaInforme ventanaInforme = new VentanaInforme(informe);
+                ventanaInforme.Show();
+            }            
         }
 
         private void ActualizarStock_Click(object sender, RoutedEventArgs e)
