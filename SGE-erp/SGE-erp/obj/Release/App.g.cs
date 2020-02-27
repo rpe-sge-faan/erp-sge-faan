@@ -12,6 +12,7 @@
 using MaterialDesignThemes.Wpf;
 using MaterialDesignThemes.Wpf.Converters;
 using MaterialDesignThemes.Wpf.Transitions;
+using RootLibrary.WPF.Localization;
 using SGE_erp;
 using System;
 using System.Diagnostics;
