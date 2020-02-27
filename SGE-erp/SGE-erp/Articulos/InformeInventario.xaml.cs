@@ -35,6 +35,7 @@ namespace SGE_erp.Articulos
             InitializeComponent();
             fechaAntes.SelectedDate = DateTime.Today;
             fechaDespues.SelectedDate = DateTime.Today;
+
         }
 
         public void RellenarTabla()
@@ -71,7 +72,25 @@ namespace SGE_erp.Articulos
 
         private void ActualizarStock_Click(object sender, RoutedEventArgs e)
         {
+            if(Mensajes.Mostrar("¿Estás seguro de actualizar inventario?", Mensajes.Tipo.Confirmacion))
+            {
+                int[] ids = new int[dataGridInventario.Items.Count];
+                int[] articulos = new int[dataGridInventario.Items.Count];
+                int cont = 0;
 
+                foreach (DataRowView row in dataGridInventario.Items)
+                {
+                    ids[cont] = int.Parse(row["Id"].ToString());
+                    //articulos[cont] = int.Parse(row["IdArticulos"].ToString());
+                    cont++;
+                }
+                foreach(int i in ids)
+                {
+                    Console.WriteLine(i);
+                }
+                
+                
+            }
         }
 
         private void ActualizarInvent_Click(object sender, RoutedEventArgs e)
@@ -107,10 +126,16 @@ namespace SGE_erp.Articulos
             con.Open();
             con.Close();
 
+
+            DataRow row = dt.NewRow();
+            row["IdEmpleado"] = 0;
+            dt.Rows.InsertAt(row, 0);
+            
+
             empleadoC.DisplayMemberPath = dt.Columns["IdEmpleado"].ToString();
             this.empleadoC.ItemsSource = dt.DefaultView;
             empleadoC.InvalidateArrange();
-
+            
             empleadoC.SelectedIndex = 0;
         }
 
