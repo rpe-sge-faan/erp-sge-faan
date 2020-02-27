@@ -63,27 +63,30 @@ namespace SGE_erp.Articulos
         {
             if (e.Column.Header.ToString() == "Nombre")
             {
-                e.Column.IsReadOnly = true; // Makes the column as read only
+                e.Column.IsReadOnly = true;
             }
             if (e.Column.Header.ToString() == "Id_Articulo")
             {
-                e.Column.IsReadOnly = true; // Makes the column as read only
+                e.Column.IsReadOnly = true;
             }
             if (e.Column.Header.ToString() == "Descripcion")
             {
-                e.Column.IsReadOnly = true; // Makes the column as read only
+                e.Column.IsReadOnly = true;
             }
         }
 
         private void dataGridInventario_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if (CheckRelleno())
+            if (e.EditAction == DataGridEditAction.Commit)
             {
-                guardarTabla.IsEnabled = true;
-            }
-            else
-            {
-                guardarTabla.IsEnabled = false;
+                if (CheckRelleno())
+                {
+                    guardarTabla.IsEnabled = true;
+                }
+                else
+                {
+                    guardarTabla.IsEnabled = false;
+                }
             }
         }
 
@@ -120,7 +123,7 @@ namespace SGE_erp.Articulos
             decimal precio = 0;
             int idInvent;
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            
+
             //AÑADIR REGISTRO A INVENTARIO
             using (SqlCommand command = con.CreateCommand())
             {
@@ -142,7 +145,7 @@ namespace SGE_erp.Articulos
 
                         int idArt = Convert.ToInt32(row["Id_Articulo"]);
                         int contado = Convert.ToInt32(row["StockNuevo"]);
-                        
+
                         // SACAR DATOS DEL ARTICULO
                         using (SqlCommand articulo = con.CreateCommand())
                         {
@@ -182,6 +185,18 @@ namespace SGE_erp.Articulos
                 ActualizarLista.DynamicInvoke();
             }
             this.Close();
+        }
+
+        private void dataGridInventario_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (CheckRelleno())
+            {
+                guardarTabla.IsEnabled = true;
+            }
+            else
+            {
+                guardarTabla.IsEnabled = false;
+            }
         }
     }
 }

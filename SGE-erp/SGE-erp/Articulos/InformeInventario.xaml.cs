@@ -36,6 +36,7 @@ namespace SGE_erp.Articulos
             InitializeComponent();
             fechaAntes.SelectedDate = DateTime.Today;
             fechaDespues.SelectedDate = DateTime.Today;
+
         }
 
         public void RellenarTabla()
@@ -52,7 +53,7 @@ namespace SGE_erp.Articulos
             con.Close();
         }
 
-        
+
         private void AnadirInv_Click(object sender, RoutedEventArgs e)
         {
             if (!MetodosGestion.IsOpen(ai))
@@ -79,7 +80,74 @@ namespace SGE_erp.Articulos
 
         private void ActualizarStock_Click(object sender, RoutedEventArgs e)
         {
+            if (Mensajes.Mostrar("¿Estás seguro de actualizar inventario?", Mensajes.Tipo.Confirmacion))
+            {
+                int[] ids = new int[dataGridInventario.Items.Count];
+                int cont = 0;
+                foreach (DataRowView row in dataGridInventario.Items)
+                {
+                    ids[cont++] = int.Parse(row["Id"].ToString());
+                }
 
+                int idArticulo;
+                int stockContado = 0;
+
+                SqlConnection con = new SqlConnection(MetodosGestion.db);
+                using (SqlCommand articulos = con.CreateCommand())
+                {
+                    articulos.CommandText = "SELECT Id_Articulo FROM Articulos";
+                    con.Open();
+
+                    using (SqlDataReader reader = articulos.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            idArticulo = Convert.ToInt32(reader[0]);
+
+                            stockContado = 0;
+                            for (int i = 0; i < ids.Length; i++)
+                            {
+                                using (SqlCommand inventario = con.CreateCommand())
+                                {
+                                    inventario.CommandText = "SELECT UnidadesContadas FROM InventarioArticulos WHERE IdArticulo = @id AND IdInventario = @idI";
+                                    inventario.Parameters.AddWithValue("@id", idArticulo);
+                                    inventario.Parameters.AddWithValue("@idI", ids[i]);
+
+                                    using (SqlDataReader lector = inventario.ExecuteReader())
+                                    {
+                                        while (lector.Read())
+                                        {
+                                            stockContado += Convert.ToInt32(lector[0]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            // ACTUALIZAR STOCK
+                            using (SqlCommand command = con.CreateCommand())
+                            {
+                                command.CommandText = "UPDATE Articulos SET Stock = @stock WHERE Id_Articulo = @idArt";
+
+                                command.Parameters.AddWithValue("@idArt", idArticulo);
+                                command.Parameters.AddWithValue("@stock", stockContado);
+
+                                int a = command.ExecuteNonQuery();
+
+                                if (a != 0)
+                                {
+                                    //con.Close();
+                                }
+                                else
+                                {
+                                    Mensajes.Mostrar("ERROR al actualizar", Mensajes.Tipo.Error);
+                                }
+                            }
+                        }
+                    }
+
+                }
+                Mensajes.Mostrar("Stock actualizado correctamente", Mensajes.Tipo.Info);
+            }
         }
 
         private void ActualizarInvent_Click(object sender, RoutedEventArgs e)
@@ -108,7 +176,7 @@ namespace SGE_erp.Articulos
             this.empleadoC.ItemsSource = null;
             //comboBox1.Items.Clear();
             SqlConnection con = new SqlConnection(MetodosGestion.db);
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Cliente, Nombre FROM Clientes ORDER BY Nombre ASC", con);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id_Empleado, Nombre FROM Empleados ORDER BY Nombre ASC", con);
             DataTable dt = new DataTable();
 
             da.Fill(dt);
@@ -116,12 +184,13 @@ namespace SGE_erp.Articulos
             con.Close();
             DataRow row = dt.NewRow();
             row["Nombre"] = "TODOS";
+            row["Id_Empleado"] = 0;
             dt.Rows.InsertAt(row, 0);
 
             this.empleadoC.ItemsSource = dt.DefaultView;
 
             empleadoC.DisplayMemberPath = dt.Columns["Nombre"].ToString();
-            empleadoC.SelectedValuePath = dt.Columns["Id_Cliente"].ToString();
+            empleadoC.SelectedValuePath = dt.Columns["Id_Empleado"].ToString();
 
             empleadoC.InvalidateArrange();
 
@@ -142,8 +211,15 @@ namespace SGE_erp.Articulos
             }
             else
             {
-                view.RowFilter = $"Fecha >= '{fechaAntes.SelectedDate}' AND Fecha <= '{fechaDespues.SelectedDate}' " +
-                 $"AND IdEmpleado >= {empleadoC.SelectedIndex}";
+                if (empleadoC.SelectedIndex == 0)
+                {
+                    view.RowFilter = $"Fecha >= '{fechaAntes.SelectedDate}' AND Fecha <= '{fechaDespues.SelectedDate}'";
+                }
+                else
+                {
+                    view.RowFilter = $"Fecha >= '{fechaAntes.SelectedDate}' AND Fecha <= '{fechaDespues.SelectedDate}' AND IdEmpleado = {empleadoC.SelectedValue}";
+                }
+
             }
             dt = view.ToTable();
             dataGridInventario.ItemsSource = null;
