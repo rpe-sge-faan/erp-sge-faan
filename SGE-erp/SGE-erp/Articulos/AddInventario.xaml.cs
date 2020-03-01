@@ -178,7 +178,6 @@ namespace SGE_erp.Articulos
             comboEmple.InvalidateArrange();
             comboEmple.SelectedIndex = 0;
             comboEmple.SelectedValue = MainWindow.idEmpleado;
-
         }
     }
 }

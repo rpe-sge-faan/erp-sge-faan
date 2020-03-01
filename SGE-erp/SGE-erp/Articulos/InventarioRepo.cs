@@ -14,7 +14,7 @@ namespace SGE_erp.Articulos
         internal static dsInventario ObtenerDatos(int idInventario)
         {
             dsInventario dsInventarioObj = new dsInventario();
-            using (SqlConnection cn = Gestion.MetodosGestion.Conectar(""))
+            using (SqlConnection cn = Gestion.MetodosGestion.Conectar())
             {
                 SqlDataAdapter da = new SqlDataAdapter();
                 cn.Open();

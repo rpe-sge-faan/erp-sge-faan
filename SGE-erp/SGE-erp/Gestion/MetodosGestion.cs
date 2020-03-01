@@ -15,12 +15,12 @@ namespace SGE_erp.Gestion
             return Application.Current.Windows.Cast<Window>().Any(x => x == window);
         }
 
-        public static SqlConnection Conectar(string conString)
+        public static SqlConnection Conectar()
         {
             try
             {
                 String con = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Datos.mdf;Integrated Security=True";
-                SqlConnection cn = new SqlConnection(con);
+                SqlConnection cn = new SqlConnection(db);
                 return cn;
 
             }

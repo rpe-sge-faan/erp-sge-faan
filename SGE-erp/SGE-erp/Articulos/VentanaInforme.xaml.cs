@@ -29,7 +29,6 @@ namespace SGE_erp.Articulos
         public VentanaInforme(ReportClass reporte)
         {
             InitializeComponent();
-            
             report = reporte;
             cargar();
         }   

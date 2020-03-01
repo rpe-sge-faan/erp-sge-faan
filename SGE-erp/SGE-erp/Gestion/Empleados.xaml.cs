@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SGE_erp.Gestion;
+using SGE_erp.Gestion.Informes;
 
 namespace SGE_erp.Gestion
 {
@@ -240,6 +241,13 @@ namespace SGE_erp.Gestion
         private void bActualizar_Click(object sender, RoutedEventArgs e)
         {
             Actualizar();
+        }
+
+        private void Informe_Click(object sender, RoutedEventArgs e)
+        {
+            EmpleadosReport informe = Reportes.ObtenerReporteEmpleados();
+            EmpleadosViewer ventanaInforme = new EmpleadosViewer(informe);
+            ventanaInforme.Show();
         }
     }
 }
